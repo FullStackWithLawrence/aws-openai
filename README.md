@@ -7,6 +7,8 @@
 
 A REST API implementing every [OpenAI Example Application](https://platform.openai.com/examples). Implemented as a serverless microservice using AWS cloud resources.
 
+![OpenAI Examples](https://raw.githubusercontent.com/lpm0073/aws-openai/main/doc/openai-examples.png "OpenAI Examples")
+
 ## Usage
 
 1. clone this repo and setup a Python virtual environment.
@@ -45,8 +47,6 @@ Note the output variables for your API Gateway root URL and API key.
 ## Architecture
 
 As of Sep-2023 AWS has introduced a large and still-growing [list of AI/ML services](https://aws.amazon.com/getting-started/decision-guides/machine-learning-on-aws-how-to-choose/) that seamlessly interoperate with other infrastructure and services in the AWS ecosystem. This solution is based fundamentally on AWS Rekognition, one of AWS' two vision services.
-
-![AWS ML Stack](https://raw.githubusercontent.com/lpm0073/aws-rekognition/main/doc/aws-ml-stack.png "AWS ML Stack")
 
 Additionally, this solution leverages the following AWS serverless services:
 

@@ -1,0 +1,37 @@
+default_language_version:
+  # default language version for each language
+  python: python3.11
+repos:
+  - repo: https://github.com/psf/black
+    rev: 23.7.0
+    hooks:
+    - id: black
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      # See https://pre-commit.com/hooks.html for more hooks
+      - id: check-added-large-files
+      - id: check-byte-order-marker
+      - id: check-case-conflict
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-toml
+      - id: check-xml
+      - id: destroyed-symlinks
+      - id: detect-aws-credentials
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: forbid-new-submodules
+      - id: trailing-whitespace
+      - id: check-yaml
+  - repo: https://github.com/gruntwork-io/pre-commit
+    rev: v0.1.22 # Get the latest from: https://github.com/gruntwork-io/pre-commit/releases
+    hooks:
+      - id: terraform-fmt
+      - id: helmlint
+      - id: terraform-validate
+      - id: tflint
+    #  - id: shellcheck
+    #  - id: yapf
+    #  - id: markdown-link-check

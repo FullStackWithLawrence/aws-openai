@@ -1,0 +1,19 @@
+.DS_Store
+#  Local .terraform directories
+.terraform/
+.venv/
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+
+# ignore this file
+!tfmodule-template.tf
+
+# tardigrade-ci
+tardigrade-ci/
+.tardigrade-ci
+
+# go tests
+tests/go.*

@@ -1,0 +1,17 @@
+pull_request_rules:
+  - name: automatic approve dependabot pull requests
+    conditions:
+      - 'author~=dependabot[bot]|dependabot-preview[bot]|dependabot'
+      - 'status-success=Travis CI - Branch'
+      - 'status-success=Travis CI - Pull Request'
+    actions:
+      review:
+        type: APPROVE
+
+  - name: automatic merge dependabot pull requests
+    conditions:
+      - 'author~=dependabot[bot]|dependabot-preview[bot]|dependabot'
+      - '#approved-reviews-by>=1'
+    actions:
+      merge:
+        method: merge

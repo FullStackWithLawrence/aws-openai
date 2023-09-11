@@ -2,7 +2,6 @@
 [![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)](https://aws.amazon.com/)
 [![hack.d Lawrence McDaniel](https://img.shields.io/badge/hack.d-Lawrence%20McDaniel-orange.svg)](https://lawrencemcdaniel.com)
 
-
 # OpenAI REST API Microservice
 
 A REST API implementing every [OpenAI Example Application](https://platform.openai.com/examples). Implemented as a serverless microservice using AWS cloud resources. Leverages OpenAI's suite of AI models, including [GTP-4](https://platform.openai.com/docs/models/gpt-4), [DALL·E](https://platform.openai.com/docs/models/dall-e), [Whisper](https://platform.openai.com/docs/models/whisper), [Embeddings](https://platform.openai.com/docs/models/embeddings), and [Moderation](https://platform.openai.com/docs/models/moderation).
@@ -74,15 +73,15 @@ The service stack consists of the following:
 
 **WARNINGS**:
 
-**1. The EKS service will create many AWS resources in other parts of your AWS account including S3, API Gateway, IAM, openai, DynamoDB, CloudWatch and Lambda. You should not directly modify any of these resources, as this could lead to unintended consequences in the safe operation of your Kubernetes cluster up to and including permanent loss of access to the cluster itself.**
+**1. Terraform will create many AWS resources in other parts of your AWS account including API Gateway, IAM, DynamoDB, CloudWatch and Lambda. You should not directly modify any of these resources, as this could lead to unintended consequences in the safe operation of your microservice.**
 
 **2. Terraform is a memory intensive application. For best results you should run this on a computer with at least 4Gib of free memory.**
 
 ## I. Installation Prerequisites
 
-Quickstart for Linux & macOS operating systems.
+For Linux & macOS operating systems.
 
-**Prerequisite:** Obtain an [AWS IAM User](https://aws.amazon.com/iam/) with administrator priviledges, access key and secret key.
+**Prerequisite:** An [AWS IAM User](https://aws.amazon.com/iam/) with administrator priviledges, access key and secret key.
 
 Ensure that your environment includes the latest stable releases of the following software packages:
 

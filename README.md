@@ -64,12 +64,11 @@ I refined the contents and formatting of each log group to suit my own needs whi
 
 This is a [Terraform](https://www.terraform.io/) based installation methodology that reliably automates the complete build, management and destruction processes of all resources. [Terraform](https://www.terraform.io/) is an [infrastructure-as-code](https://en.wikipedia.org/wiki/Infrastructure_as_code) command line tool that will create and configure all of the approximately two dozen software and cloud infrastructure resources that are needed for running the service on AWS infrastructure. These Terraform scripts will install and configure all cloud infrastructure resources and system software on which the service depends. This process will take around 2 minutes to complete and will generate copious amounts of console output.
 
-The service stack consists of the following:
+Terraform depends on the following resources:
 
-* AWS S3 bucket and DynamoDB table for managing Terraform state
-* [AWS S3 bucket](https://aws.amazon.com/s3/) for storing train and test image sets.
-* [DynamoDB Table](https://aws.amazon.com/dynamodb/) for persisting openai service results
-* [AWS IAM Role](https://aws.amazon.com/iam/) for managing service-level role-based security for this service
+- [AWS S3 bucket](https://aws.amazon.com/s3/) for managing Terraform state
+- [DynamoDB Table](https://aws.amazon.com/dynamodb/) for managing Terraform locks
+- [AWS IAM Role](https://aws.amazon.com/iam/) for managing service-level role-based security for this service
 
 **WARNINGS**:
 

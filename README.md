@@ -1,11 +1,13 @@
-[![Source code](https://img.shields.io/static/v1?logo=github&label=Git&style=flat-square&color=brightgreen&message=Source%20code)](https://github.com/FullStackWithLawrence/aws-rekognition)
-[![Documentation](https://img.shields.io/static/v1?&label=Documentation&style=flat-square&color=000000&message=Documentation)](https://github.com/FullStackWithLawrence/aws-rekognition)
+[![Source code](https://img.shields.io/static/v1?logo=github&label=Git&style=flat-square&color=brightgreen&message=Source%20code)](https://github.com/FullStackWithLawrence/aws-openai)
+[![Documentation](https://img.shields.io/static/v1?&label=Documentation&style=flat-square&color=000000&message=Documentation)](https://github.com/FullStackWithLawrence/aws-openai)
 [![AGPL License](https://img.shields.io/github/license/overhangio/tutor.svg?style=flat-square)](https://www.gnu.org/licenses/agpl-3.0.en.html)
 [![hack.d Lawrence McDaniel](https://img.shields.io/badge/hack.d-Lawrence%20McDaniel-orange.svg)](https://lawrencemcdaniel.com)
 
 # AWS OpenAI REST API Framework
 
 A REST API implementing every [OpenAI Example Application](https://platform.openai.com/examples). Implemented as a serverless microservice using AWS cloud resources.
+
+As of Sep-2023 OpenAI has published a large and growing [list of Example Applications](https://platform.openai.com/examples) that leverage their suite of AI models, including [GTP-4](https://platform.openai.com/docs/models/gpt-4), [DALL·E](https://platform.openai.com/docs/models/dall-e), [Whisper](https://platform.openai.com/docs/models/whisper), [Embeddings](https://platform.openai.com/docs/models/embeddings), and [Moderation](https://platform.openai.com/docs/models/moderation).
 
 ![OpenAI Examples](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/openai-examples.png "OpenAI Examples")
 
@@ -14,8 +16,8 @@ A REST API implementing every [OpenAI Example Application](https://platform.open
 1. clone this repo and setup a Python virtual environment.
 
 ```shell
-git clone https://github.com/FullStackWithLawrence/aws-rekognition.git
-cd aws-rekognition
+git clone https://github.com/FullStackWithLawrence/aws-openai.git
+cd aws-openai
 python3.11 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -46,8 +48,6 @@ Note the output variables for your API Gateway root URL and API key.
 
 ## Architecture
 
-As of Sep-2023 AWS has introduced a large and still-growing [list of AI/ML services](https://aws.amazon.com/getting-started/decision-guides/machine-learning-on-aws-how-to-choose/) that seamlessly interoperate with other infrastructure and services in the AWS ecosystem. This solution is based fundamentally on AWS Rekognition, one of AWS' two vision services.
-
 Additionally, this solution leverages the following AWS serverless services:
 
 - **[OpenAI](https://platform.openai.com//)**: an API developed by an American artificial intelligence (AI) research laboratory consisting of the non-profit OpenAI, Inc.[4] and its for-profit subsidiary corporation OpenAI, LP. OpenAI conducts research on artificial intelligence with the declared intention of developing "safe and beneficial" artificial general intelligence, which it defines as "highly autonomous systems that outperform humans at most economically valuable work".
@@ -66,21 +66,21 @@ The terraform scripts will automatically create a collection of CloudWatch Log G
 
 I refined the contents and formatting of each log group to suit my own needs while building this solution, and in particular while coding the Python Lambda functions.
 
-![CloudWatch Logs](https://raw.githubusercontent.com/lpm0073/aws-rekognition/main/doc/cloudwatch-1.png "CloudWatch Logs")
-![CloudWatch Logs](https://raw.githubusercontent.com/lpm0073/aws-rekognition/main/doc/cloudwatch-2.png "CloudWatch Logs")
+![CloudWatch Logs](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/cloudwatch-1.png "CloudWatch Logs")
+![CloudWatch Logs](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/cloudwatch-2.png "CloudWatch Logs")
 
 ## Working With DynamoDB
 
 Index faces are persisted to a DynamoDB table as per the two screen shots below. The AWS DynamoDB console includes a useful query tool named [PartiQL](https://partiql.org/) which you can use to inspect your Rekognition output. See this [sample DynamoDB Rekognition output file](./doc/dynamodb-sample-records.json).
 
-![DynamoDB console](https://raw.githubusercontent.com/lpm0073/aws-rekognition/main/doc/dynamodb-1.png "DynamoDB console")
-![DynamoDB query](https://raw.githubusercontent.com/lpm0073/aws-rekognition/main/doc/dynamodb-2.png "DynamoDB query")
+![DynamoDB console](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/dynamodb-1.png "DynamoDB console")
+![DynamoDB query](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/dynamodb-2.png "DynamoDB query")
 
 ## Working With S3
 
 Indexed images are persisted to S3, essantially as an archive as well as for future development of additional features such as an endpoint to download indexed images and their corresponding Rekognition faceprint output.
 
-![S3 Console](https://raw.githubusercontent.com/lpm0073/aws-rekognition/main/doc/s3-1.png "S3 Console")
+![S3 Console](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/s3-1.png "S3 Console")
 
 ## Working With Image Data in Postman, AWS Route53 and AWS Rekognition
 
@@ -187,7 +187,7 @@ aws dynamodb create-table --region $AWS_REGION --table-name $AWS_DYNAMODB_TABLE 
 ### Step 1. Checkout the repository
 
 ```console
-git clone https://github.com/lpm0073/aws-rekognition.git
+git clone https://github.com/FullStackWithLawrence/aws-openai.git
 ```
 
 ### Step 2. Configure your Terraform backend
@@ -237,14 +237,14 @@ terraform init
 ```
 
 Screen output should resemble the following:
-![Terraform init](https://raw.githubusercontent.com/lpm0073/aws-rekognition/main/doc/terraform-init.png "Terraform init")
+![Terraform init](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/terraform-init.png "Terraform init")
 
 ```console
 terraform plan
 ```
 
 Screen output should resemble the following:
-![Terraform plan](https://raw.githubusercontent.com/lpm0073/aws-rekognition/main/doc/terraform-plan.png "Terraform plan")
+![Terraform plan](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/terraform-plan.png "Terraform plan")
 
 To deploy the service run the following
 
@@ -252,7 +252,7 @@ To deploy the service run the following
 terraform apply
 ```
 
-![Terraform apply](https://raw.githubusercontent.com/lpm0073/aws-rekognition/main/doc/terraform-apply2.png "Terraform apply")
+![Terraform apply](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/terraform-apply2.png "Terraform apply")
 
 ## III. Uninstall
 
@@ -289,25 +289,25 @@ aws s3 rb s3://$AWS_S3_BUCKET --force
 
 ## If You're New To Postman
 
-For your convenience there's a preconfigured ['postman_collection'](./aws-rekognition.postman_collection.json) file added to the root directly of this repo. Regardless of whether you use this template, you'll need to provide the following three pieces of information from the Terraform output:
+For your convenience there's a preconfigured ['postman_collection'](./aws-openai.postman_collection.json) file added to the root directly of this repo. Regardless of whether you use this template, you'll need to provide the following three pieces of information from the Terraform output:
 
-![Postman Configuration](https://raw.githubusercontent.com/lpm0073/aws-rekognition/main/doc/postman-config.png "Postman Configuration")
+![Postman Configuration](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/postman-config.png "Postman Configuration")
 
 Upload images
 
-![Postman Index](https://raw.githubusercontent.com/lpm0073/aws-rekognition/main/doc/postman-index.png "Postman Index")
+![Postman Index](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/postman-index.png "Postman Index")
 
 Search images
 
-![Postman Search](https://raw.githubusercontent.com/lpm0073/aws-rekognition/main/doc/postman-search.png "Postman Search")
+![Postman Search](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/postman-search.png "Postman Search")
 
 ## Original Sources
 
 Much of the code in this repository was scaffolded from these examples that I found via Google and Youtube searches. Several of these are well-presented, and they provide additional instruction and explanetory theory that I've ommited, so you might want to give these a look.
 
 - [YouTube - Create your own Face Recognition Service with AWS Rekognition, by Tech Raj](https://www.youtube.com/watch?v=oHSesteFK5c)
-- [Personnel Recognition with AWS Rekognition — Part I](https://aws.plainenglish.io/personnel-recognition-with-aws-rekognition-part-i-c4530f9b3c74)
-- [Personnel Recognition with AWS Rekognition — Part II](https://aws.plainenglish.io/personnel-recognition-with-aws-rekognition-part-ii-c6e9100709b5)
+- [Personnel Recognition with AWS Rekognition — Part I](https://aws.plainenglish.io/personnel-recognition-with-aws-openai-part-i-c4530f9b3c74)
+- [Personnel Recognition with AWS Rekognition — Part II](https://aws.plainenglish.io/personnel-recognition-with-aws-openai-part-ii-c6e9100709b5)
 - [Webhook for S3 Bucket By Terraform (REST API in API Gateway to proxy Amazon S3)](https://medium.com/@ekantmate/webhook-for-s3-bucket-by-terraform-rest-api-in-api-gateway-to-proxy-amazon-s3-15e24ff174e7)
 - [how to use AWS API Gateway URL end points with Postman](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-create-usage-plans-with-rest-api.html#api-gateway-usage-plan-test-with-postman)
 - [Testing API Gateway Endpoints](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-create-usage-plans-with-rest-api.html#api-gateway-usage-plan-test-with-postman)

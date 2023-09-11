@@ -4,7 +4,7 @@
 #
 # date: sep-2023
 #
-# usage:  implement a Python Lambda function to search the Rekognition handler
+# usage:  implement a Python Lambda function to search the openai handler
 #         for an image uploaded using the REST API endpoint.
 #------------------------------------------------------------------------------
 locals {

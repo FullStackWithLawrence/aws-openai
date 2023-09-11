@@ -61,41 +61,26 @@ I refined the contents and formatting of each log group to suit my own needs whi
 ![CloudWatch Logs](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/cloudwatch-1.png "CloudWatch Logs")
 ![CloudWatch Logs](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/cloudwatch-2.png "CloudWatch Logs")
 
-## Working With DynamoDB
-
-Index faces are persisted to a DynamoDB table as per the two screen shots below. The AWS DynamoDB console includes a useful query tool named [PartiQL](https://partiql.org/) which you can use to inspect your Rekognition output. See this [sample DynamoDB Rekognition output file](./doc/dynamodb-sample-records.json).
-
-![DynamoDB console](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/dynamodb-1.png "DynamoDB console")
-![DynamoDB query](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/dynamodb-2.png "DynamoDB query")
-
-## Working With S3
-
-Indexed images are persisted to S3, essantially as an archive as well as for future development of additional features such as an endpoint to download indexed images and their corresponding Rekognition faceprint output.
-
-![S3 Console](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/s3-1.png "S3 Console")
-
-## Working With Image Data in Postman, AWS Route53 and AWS Rekognition
+## Working With Image Data
 
 This solution passes large image files around to and from various large opaque backend services. Take note that using Postman to transport these image files from your local computer to AWS requires that we first [base64-encode](https://en.wikipedia.org/wiki/Base64) the file. Base64 encoding schemes are commonly used to encode binary data, like image files, for storage or transfer over media that can only deal with ASCII text.
 
 This repo includes a utility script [base64encode.sh](./base64encode.sh) that you can use to encode your test images prior to uploading these with Postman.
 
-## Getting Started With AWS or Terraform
-
-This document describes how to deploy a [AWS Rekognition Service](https://aws.amazon.com/rekognition/) using a combination of AWS resources.
+## Getting Started With AWS and Terraform
 
 This is a [Terraform](https://www.terraform.io/) based installation methodology that reliably automates the complete build, management and destruction processes of all resources. [Terraform](https://www.terraform.io/) is an [infrastructure-as-code](https://en.wikipedia.org/wiki/Infrastructure_as_code) command line tool that will create and configure all of the approximately two dozen software and cloud infrastructure resources that are needed for running the service on AWS infrastructure. These Terraform scripts will install and configure all cloud infrastructure resources and system software on which the service depends. This process will take around 2 minutes to complete and will generate copious amounts of console output.
 
 The service stack consists of the following:
 
-* a AWS S3 bucket and DynamoDB table for managing Terraform state
+* AWS S3 bucket and DynamoDB table for managing Terraform state
 * [AWS S3 bucket](https://aws.amazon.com/s3/) for storing train and test image sets.
-* [DynamoDB Table](https://aws.amazon.com/dynamodb/) for persisting Rekognition service results
+* [DynamoDB Table](https://aws.amazon.com/dynamodb/) for persisting openai service results
 * [AWS IAM Role](https://aws.amazon.com/iam/) for managing service-level role-based security for this service
 
 **WARNINGS**:
 
-**1. The EKS service will create many AWS resources in other parts of your AWS account including S3, API Gateway, IAM, Rekognition, DynamoDB, CloudWatch and Lambda. You should not directly modify any of these resources, as this could lead to unintended consequences in the safe operation of your Kubernetes cluster up to and including permanent loss of access to the cluster itself.**
+**1. The EKS service will create many AWS resources in other parts of your AWS account including S3, API Gateway, IAM, openai, DynamoDB, CloudWatch and Lambda. You should not directly modify any of these resources, as this could lead to unintended consequences in the safe operation of your Kubernetes cluster up to and including permanent loss of access to the cluster itself.**
 
 **2. Terraform is a memory intensive application. For best results you should run this on a computer with at least 4Gib of free memory.**
 
@@ -147,9 +132,8 @@ Use these three environment variables for creating the uniquely named resources 
 
 ```console
 AWS_ACCOUNT=012345678912      # add your 12-digit AWS account number here
-$
 AWS_REGION=us-east-1          # any valid AWS region code.
-AWS_ENVIRONMENT=rekognition   # any valid string. Keep it short -- 3 characters is ideal.
+AWS_ENVIRONMENT=openai   # any valid string. Keep it short -- 3 characters is ideal.
 ```
 
 First create an AWS S3 Bucket
@@ -192,10 +176,10 @@ vim terraform/terraform.tf
 
 ```terraform
   backend "s3" {
-    bucket         = "012345678912-tfstate-rekognition"
-    key            = "rekognition/terraform.tfstate"
+    bucket         = "012345678912-tfstate-openai"
+    key            = "openai/terraform.tfstate"
     region         = "us-east-1"
-    dynamodb_table = "012345678912-tfstate-lock-rekognition"
+    dynamodb_table = "012345678912-tfstate-lock-openai"
     profile        = "default"
     encrypt        = false
   }
@@ -261,7 +245,7 @@ Delete Terraform state management resources
 ```console
 AWS_ACCOUNT=012345678912      # add your 12-digit AWS account number here
 AWS_REGION=us-east-1
-AWS_ENVIRONMENT=rekognition   # any valid string. Keep it short
+AWS_ENVIRONMENT=openai   # any valid string. Keep it short
 AWS_S3_BUCKET="${AWS_ACCOUNT}-tfstate-${AWS_ENVIRONMENT}"
 AWS_DYNAMODB_TABLE="${AWS_ACCOUNT}-tfstate-lock-${AWS_ENVIRONMENT}"
 ```
@@ -278,31 +262,3 @@ To delete the AWS S3 bucket
 aws s3 rm s3://$AWS_S3_BUCKET --recursive
 aws s3 rb s3://$AWS_S3_BUCKET --force
 ```
-
-## If You're New To Postman
-
-For your convenience there's a preconfigured ['postman_collection'](./aws-openai.postman_collection.json) file added to the root directly of this repo. Regardless of whether you use this template, you'll need to provide the following three pieces of information from the Terraform output:
-
-![Postman Configuration](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/postman-config.png "Postman Configuration")
-
-Upload images
-
-![Postman Index](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/postman-index.png "Postman Index")
-
-Search images
-
-![Postman Search](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/postman-search.png "Postman Search")
-
-## Original Sources
-
-Much of the code in this repository was scaffolded from these examples that I found via Google and Youtube searches. Several of these are well-presented, and they provide additional instruction and explanetory theory that I've ommited, so you might want to give these a look.
-
-- [YouTube - Create your own Face Recognition Service with AWS Rekognition, by Tech Raj](https://www.youtube.com/watch?v=oHSesteFK5c)
-- [Personnel Recognition with AWS Rekognition — Part I](https://aws.plainenglish.io/personnel-recognition-with-aws-openai-part-i-c4530f9b3c74)
-- [Personnel Recognition with AWS Rekognition — Part II](https://aws.plainenglish.io/personnel-recognition-with-aws-openai-part-ii-c6e9100709b5)
-- [Webhook for S3 Bucket By Terraform (REST API in API Gateway to proxy Amazon S3)](https://medium.com/@ekantmate/webhook-for-s3-bucket-by-terraform-rest-api-in-api-gateway-to-proxy-amazon-s3-15e24ff174e7)
-- [how to use AWS API Gateway URL end points with Postman](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-create-usage-plans-with-rest-api.html#api-gateway-usage-plan-test-with-postman)
-- [Testing API Gateway Endpoints](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-create-usage-plans-with-rest-api.html#api-gateway-usage-plan-test-with-postman)
-- [How do I upload an image or PDF file to Amazon S3 through API Gateway?](https://repost.aws/knowledge-center/api-gateway-upload-image-s3)
-- [Upload files to S3 using API Gateway - Step by Step Tutorial](https://www.youtube.com/watch?v=Q_2CIivxVVs)
-- [Tutorial: Create a REST API as an Amazon S3 proxy in API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/integrating-api-with-aws-services-s3.html)

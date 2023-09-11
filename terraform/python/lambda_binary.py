@@ -4,7 +4,7 @@
 #
 # date:       sep-2023
 #
-# Rekognition.search_faces_by_image()
+# openai.search_faces_by_image()
 # ------------------------------------
 # For a given input image, first detects the largest face in the image,
 # and then searches the specified collection for matching faces.
@@ -16,7 +16,7 @@
 # the response also includes a similarity indicating how similar the face
 # is to the input face. In the response, the operation also returns the
 # bounding box (and a confidence level that the bounding box contains a face)
-# of the face that Amazon Rekognition used for the input image.
+# of the face that Amazon openai used for the input image.
 #
 # Notes:
 # - incoming image file is base64 encoded.
@@ -25,8 +25,8 @@
 # - The image must be either a PNG or JPEG formatted file.
 #
 # OFFICIAL DOCUMENTATION:
-# - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/rekognition/client/search_faces_by_image.html
-# - https://docs.aws.amazon.com/rekognition_client/latest/dg/example_rekognition_Usage_FindFacesInCollection_section.html
+# - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/openai/client/search_faces_by_image.html
+# - https://docs.aws.amazon.com/openai_client/latest/dg/example_openai_Usage_FindFacesInCollection_section.html
 #
 # GISTS:
 # - https://gist.github.com/alexcasalboni/0f21a1889f09760f8981b643326730ff
@@ -47,7 +47,7 @@ AWS_REGION = os.environ["REGION"]
 COLLECTION_ID = os.environ["COLLECTION_ID"]
 DEBUG_MODE = os.getenv("DEBUG_MODE", "False").lower() in ("true", "1", "t")
 
-rekognition_client = boto3.client("rekognition", AWS_REGION)
+openai_client = boto3.client("openai", AWS_REGION)
 
 dynamodb_client = boto3.resource("dynamodb")
 dynamodb_table = dynamodb_client.Table(TABLE_ID)
@@ -82,7 +82,7 @@ def handler(event, context):
         Generate a standardized JSON return dictionary for all possible response scenarios.
 
         status_code: an HTTP response code. see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
-        body: a JSON dict of Rekognition results for status 200, an error dict otherwise.
+        body: a JSON dict of openai results for status 200, an error dict otherwise.
 
         see https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html
         """
@@ -129,8 +129,8 @@ def handler(event, context):
         return retval
 
     # all good, lets process the event!
-    faces = {}  # Rekognition return value
-    matched_faces = []  # any indexed faces found in the Rekognition return value
+    faces = {}  # openai return value
+    matched_faces = []  # any indexed faces found in the openai return value
     try:
         # see
         #  - https://stackoverflow.com/questions/9942594/unicodeencodeerror-ascii-codec-cant-encode-character-u-xa0-in-position-20
@@ -152,7 +152,7 @@ def handler(event, context):
         # },
         image = {"Bytes": image_decoded}
 
-        faces = rekognition_client.search_faces_by_image(
+        faces = openai_client.search_faces_by_image(
             Image=image,
             CollectionId=COLLECTION_ID,
             MaxFaces=MAX_FACES,
@@ -177,48 +177,48 @@ def handler(event, context):
                 matched_faces.append(matched)
 
     # handle anything that went wrong
-    # see https://docs.aws.amazon.com/rekognition/latest/dg/error-handling.html
-    except rekognition_client.exceptions.InvalidParameterException as e:
+    # see https://docs.aws.amazon.com/openai/latest/dg/error-handling.html
+    except openai_client.exceptions.InvalidParameterException as e:
         # If no faces are detected in the image, then index_faces()
         # returns an InvalidParameterException error
         pass
 
     except (
-        rekognition_client.exceptions.ThrottlingException,
-        rekognition_client.exceptions.ProvisionedThroughputExceededException,
-        rekognition_client.exceptions.ServiceQuotaExceededException,
+        openai_client.exceptions.ThrottlingException,
+        openai_client.exceptions.ProvisionedThroughputExceededException,
+        openai_client.exceptions.ServiceQuotaExceededException,
     ) as e:
         return http_response_factory(
             status_code=401, body=exception_response_factory(e)
         )
 
-    except rekognition_client.exceptions.AccessDeniedException as e:
+    except openai_client.exceptions.AccessDeniedException as e:
         return http_response_factory(
             status_code=403, body=exception_response_factory(e)
         )
 
-    except rekognition_client.exceptions.ResourceNotFoundException as e:
+    except openai_client.exceptions.ResourceNotFoundException as e:
         return http_response_factory(
             status_code=404, body=exception_response_factory(e)
         )
 
     except (
-        rekognition_client.exceptions.InvalidS3ObjectException,
-        rekognition_client.exceptions.ImageTooLargeException,
-        rekognition_client.exceptions.InvalidImageFormatException,
+        openai_client.exceptions.InvalidS3ObjectException,
+        openai_client.exceptions.ImageTooLargeException,
+        openai_client.exceptions.InvalidImageFormatException,
     ) as e:
         return http_response_factory(
             status_code=406, body=exception_response_factory(e)
         )
 
-    except (rekognition_client.exceptions.InternalServerError, Exception) as e:
+    except (openai_client.exceptions.InternalServerError, Exception) as e:
         return http_response_factory(
             status_code=500, body=exception_response_factory(e)
         )
 
     # success!! return the results
     retval = {
-        "faces": faces,  # all of the faces that Rekognition found in the image
+        "faces": faces,  # all of the faces that openai found in the image
         "matchedFaces": matched_faces,  # any indexed faces found in DynamoDB
     }
     return http_response_factory(status_code=200, body=retval)

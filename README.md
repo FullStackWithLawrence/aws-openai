@@ -7,7 +7,7 @@
 
 A REST API implementing every [OpenAI Example Application](https://platform.openai.com/examples). Implemented as a serverless microservice using AWS cloud resources.
 
-![OpenAI Examples](https://raw.githubusercontent.com/lpm0073/aws-openai/main/doc/openai-examples.png "OpenAI Examples")
+![OpenAI Examples](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/openai-examples.png "OpenAI Examples")
 
 ## Usage
 

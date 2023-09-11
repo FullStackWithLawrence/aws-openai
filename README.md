@@ -16,9 +16,7 @@ A REST API implementing every [OpenAI Example Application](https://platform.open
 ```shell
 git clone https://github.com/FullStackWithLawrence/aws-openai.git
 cd aws-openai
-python3.11 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+make init
 ```
 
 The Python virtual environment serves two purposes. When developing, it will allow you the convenience of auto-complete for code objects from the Boto3 and OpenAI Python libraries. But more importantly, the Terraform resource `aws_lambda_function` requires a complete code package in zip format, including any third party libraries. Hence, the references to these two libraries in [terraform/lambda_text.tf](./terraform/lambda_text.tf) and [terraform/lambda_binary.tf](./terraform/lambda_binary.tf).
@@ -46,17 +44,13 @@ Note the output variables for your API Gateway root URL and API key.
 
 ## Architecture
 
-Additionally, this solution leverages the following AWS serverless services:
-
-- **[OpenAI](https://platform.openai.com//)**: an API developed by an American artificial intelligence (AI) research laboratory consisting of the non-profit OpenAI, Inc.[4] and its for-profit subsidiary corporation OpenAI, LP. OpenAI conducts research on artificial intelligence with the declared intention of developing "safe and beneficial" artificial general intelligence, which it defines as "highly autonomous systems that outperform humans at most economically valuable work".
-- **[IAM](https://aws.amazon.com/iam/)**: a web service that helps you securely control access to AWS resources. With IAM, you can centrally manage permissions that control which AWS resources users can access. You use IAM to control who is authenticated (signed in) and authorized (has permissions) to use resources.
-- **[S3](https://aws.amazon.com/s3/)**: Amazon Simple Storage Service is a service offered by Amazon Web Services that provides object storage through a web service interface. Amazon S3 uses the same scalable storage infrastructure that Amazon.com uses to run its e-commerce network.
-- **[DynamoDB](https://aws.amazon.com/dynamodb/)**: a fully managed proprietary NoSQL database offered by Amazon.com as part of the Amazon Web Services portfolio. DynamoDB offers a fast persistent Key-Value Datastore with built-in support for replication, autoscaling, encryption at rest, and on-demand backup among other features.
-- **[Lambda](https://aws.amazon.com/lambda/)**: an event-driven, serverless computing platform provided by Amazon as a part of Amazon Web Services. It is a computing service that runs code in response to events and automatically manages the computing resources required by that code. It was introduced on November 13, 2014.
+- **[OpenAI](https://pypi.org/project/openai/)**: a PyPi package thata provides convenient access to the OpenAI API from applications written in the Python language. It includes a pre-defined set of classes for API resources that initialize themselves dynamically from API responses which makes it compatible with a wide range of versions of the OpenAI API.
 - **[API Gateway](https://aws.amazon.com/api-gateway/)**: an AWS service for creating, publishing, maintaining, monitoring, and securing REST, HTTP, and WebSocket APIs at any scale.
+- **[IAM](https://aws.amazon.com/iam/)**: a web service that helps you securely control access to AWS resources. With IAM, you can centrally manage permissions that control which AWS resources users can access. You use IAM to control who is authenticated (signed in) and authorized (has permissions) to use resources.
+- **[Lambda](https://aws.amazon.com/lambda/)**: an event-driven, serverless computing platform provided by Amazon as a part of Amazon Web Services. It is a computing service that runs code in response to events and automatically manages the computing resources required by that code. It was introduced on November 13, 2014.
+- **[CloudWatch](https://aws.amazon.com/cloudwatch/)**: CloudWatch enables you to monitor your complete stack (applications, infrastructure, network, and services) and use alarms, logs, and events data to take automated actions and reduce mean time to resolution (MTTR).
 - **[Certificate Manager](https://aws.amazon.com/certificate-manager/)**: handles the complexity of creating, storing, and renewing public and private SSL/TLS X.509 certificates and keys that protect your AWS websites and applications.
 - **[Route53](https://aws.amazon.com/route53/)**: a scalable and highly available Domain Name System service. Released on December 5, 2010.
-- **[CloudWatch](https://aws.amazon.com/cloudwatch/)**: CloudWatch enables you to monitor your complete stack (applications, infrastructure, network, and services) and use alarms, logs, and events data to take automated actions and reduce mean time to resolution (MTTR).
 
 ## Trouble Shooting and Logging
 

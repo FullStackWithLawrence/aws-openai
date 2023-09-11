@@ -61,12 +61,6 @@ I refined the contents and formatting of each log group to suit my own needs whi
 ![CloudWatch Logs](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/cloudwatch-1.png "CloudWatch Logs")
 ![CloudWatch Logs](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/cloudwatch-2.png "CloudWatch Logs")
 
-## Working With Image Data
-
-This solution passes large image files around to and from various large opaque backend services. Take note that using Postman to transport these image files from your local computer to AWS requires that we first [base64-encode](https://en.wikipedia.org/wiki/Base64) the file. Base64 encoding schemes are commonly used to encode binary data, like image files, for storage or transfer over media that can only deal with ASCII text.
-
-This repo includes a utility script [base64encode.sh](./base64encode.sh) that you can use to encode your test images prior to uploading these with Postman.
-
 ## Getting Started With AWS and Terraform
 
 This is a [Terraform](https://www.terraform.io/) based installation methodology that reliably automates the complete build, management and destruction processes of all resources. [Terraform](https://www.terraform.io/) is an [infrastructure-as-code](https://en.wikipedia.org/wiki/Infrastructure_as_code) command line tool that will create and configure all of the approximately two dozen software and cloud infrastructure resources that are needed for running the service on AWS infrastructure. These Terraform scripts will install and configure all cloud infrastructure resources and system software on which the service depends. This process will take around 2 minutes to complete and will generate copious amounts of console output.

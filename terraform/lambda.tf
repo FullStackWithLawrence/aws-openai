@@ -11,10 +11,7 @@ resource "aws_iam_role" "lambda" {
 
 data "template_file" "iam_policy_lambda" {
   template = file("${path.module}/json/iam_policy_lambda.json.tpl")
-  vars = {
-    s3_bucket_arn      = module.s3_bucket.s3_bucket_arn
-    dynamodb_table_arn = module.dynamodb_table.dynamodb_table_arn
-  }
+  vars     = {}
 }
 resource "aws_iam_policy" "lambda" {
   name        = local.lambda_policy_name

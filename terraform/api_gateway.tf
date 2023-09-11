@@ -40,7 +40,14 @@ resource "aws_api_gateway_rest_api" "openai" {
   # we want ALL requests to be treated as 'binary'. An example
   # alternative to this might be, say, 'image/jpeg', 'image/png', etc.
   binary_media_types = [
-    "*/*"
+    "image/jpeg",
+    "image/png",
+    "image/png",
+    "audio/mpeg",
+    "audio/x-mpeg-3",
+    "video/mpeg",
+    "video/x-mpeg",
+    "multipart/form-data"
   ]
   api_key_source = "HEADER"
   endpoint_configuration {
@@ -57,14 +64,12 @@ resource "aws_api_gateway_api_key" "openai" {
 resource "aws_api_gateway_deployment" "openai" {
   rest_api_id = aws_api_gateway_rest_api.openai.id
   depends_on = [
-    aws_api_gateway_integration.index_put,
-    aws_api_gateway_integration.search
+    aws_api_gateway_integration.grammar
   ]
   triggers = {
     redeployment = sha1(jsonencode([
       aws_api_gateway_rest_api.openai.body,
-      aws_api_gateway_integration.index_put.id,
-      aws_api_gateway_integration.search.id
+      aws_api_gateway_integration.grammar.id
     ]))
   }
   lifecycle {
@@ -130,17 +135,4 @@ resource "aws_iam_role" "apigateway" {
 resource "aws_iam_role_policy_attachment" "cloudwatch_apigateway" {
   role       = aws_iam_role.apigateway.id
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
-}
-data "template_file" "iam_policy_apigateway" {
-  template = file("${path.module}/json/iam_policy_apigateway.json.tpl")
-  vars = {
-    aws_account_id = var.aws_account_id
-    bucket_name    = module.s3_bucket.s3_bucket_id
-  }
-}
-
-resource "aws_iam_role_policy" "iam_policy_apigateway" {
-  name   = local.iam_role_policy_name
-  role   = aws_iam_role.apigateway.id
-  policy = data.template_file.iam_policy_apigateway.rendered
 }

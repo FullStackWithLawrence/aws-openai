@@ -16,8 +16,8 @@ tags = {
   "project"   = "chatGPT microservice"
   "contact"   = "Lawrence McDaniel - https://lawrencemcdaniel.com/"
 }
-aws_region     = "us-east-1"
-aws_profile    = "lawrence"
+aws_region  = "us-east-1"
+aws_profile = "lawrence"
 
 ###############################################################################
 # Lambda parameters

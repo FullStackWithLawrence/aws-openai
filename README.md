@@ -25,7 +25,7 @@ A REST API implementing every [OpenAI Example Application](https://platform.open
     OPENAI_API_KEY=PLEASE-ADD-ME
     ```
 
-*Windows/Powershell users: you'll need to modify [./terraform/lambda_openai.tf](./terraform/lambda_openai.tf) data "external" "env" as per instructions in this code block.*
+    *Windows/Powershell users: you'll need to modify [./terraform/lambda_openai.tf](./terraform/lambda_openai.tf) data "external" "env" as per instructions in this code block.*
 
 3. configure Terraform for your AWS account. Set these three values in [terraform.tfvars](./terraform/terraform.tfvars):
 
@@ -35,7 +35,7 @@ A REST API implementing every [OpenAI Example Application](https://platform.open
     aws_profile          = "default"        # Optional: for aws cli credentials
     ```
 
-*see the README section **"Getting Started With AWS and Terraform"** for details on setting up Terraform for first-time use*
+    *see the README section **"Getting Started With AWS and Terraform"** for details on setting up Terraform for first-time use*
 
 4. Build and deploy the microservice..
 
@@ -44,7 +44,7 @@ A REST API implementing every [OpenAI Example Application](https://platform.open
     terraform apply
     ```
 
-*Note the output variables for your API Gateway root URL and API key.*
+    *Note the output variables for your API Gateway root URL and API key.*
 
 5. Use your REST API endpoints
 

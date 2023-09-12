@@ -45,4 +45,4 @@ curl --location --request PUT 'https://ntivxlkmv7.execute-api.us-east-1.amazonaw
 
 [https://platform.openai.com/examples/default-grammar](https://platform.openai.com/examples/default-grammar)
 
-![OpenAI Settings](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/openai-settings.png "OpenAI Settings")
+![OpenAI Settings](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/examples/example-01-grammar.png "OpenAI Settings")

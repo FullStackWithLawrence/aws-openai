@@ -22,7 +22,8 @@ locals {
 # for root_domain located in your AWS account.
 # see: https://aws.amazon.com/route53/
 data "aws_route53_zone" "root_domain" {
-  name = var.root_domain
+  count = var.create_custom_domain ? 1 : 0
+  name  = var.root_domain
 }
 
 data "aws_caller_identity" "current" {}

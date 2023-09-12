@@ -44,6 +44,7 @@ log_retention_days = 3
 ###############################################################################
 # APIGateway parameters
 ###############################################################################
+create_custom_domain       = false
 root_domain                = "mydomain.com"
 shared_resource_identifier = "openai"
 stage                      = "v1"

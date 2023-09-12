@@ -176,7 +176,7 @@ def handler(event, context):
 
         except ValueError as e:
             return http_response_factory(
-                status_code=500, body=exception_response_factory(e)
+                status_code=400, body=exception_response_factory(e)
             )
 
         if DEBUG_MODE:
@@ -248,7 +248,7 @@ def handler(event, context):
 
         # handle anything that went wrong
         # see https://docs.aws.amazon.com/openai/latest/dg/error-handling.html
-        except (openai.APIError, ValueError) as e:
+        except (openai.APIError, ValueError, TypeError) as e:
             # 400 Bad Request
             return http_response_factory(
                 status_code=400, body=exception_response_factory(e)

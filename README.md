@@ -35,7 +35,7 @@ A REST API implementing every [OpenAI Example Application](https://platform.open
     aws_profile          = "default"        # Optional: for aws cli credentials
     ```
 
-    *see the README section **"Getting Started With AWS and Terraform"** below for instructions on setting up Terraform for first-time use.*
+    *see the README section **"Installation Prerequisites"** below for instructions on setting up Terraform for first-time use.*
 
 4. Build and deploy the microservice..
 
@@ -158,7 +158,7 @@ Use these three environment variables for creating the uniquely named resources 
 ```console
 AWS_ACCOUNT=012345678912      # add your 12-digit AWS account number here
 AWS_REGION=us-east-1          # any valid AWS region code.
-AWS_ENVIRONMENT=openai   # any valid string. Keep it short -- 3 characters is ideal.
+AWS_ENVIRONMENT=openai        # any valid string. Keep it short -- 3 characters is ideal.
 ```
 
 First create an AWS S3 Bucket

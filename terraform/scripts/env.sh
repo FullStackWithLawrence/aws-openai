@@ -10,8 +10,9 @@
 
 # https://support.hashicorp.com/hc/en-us/articles/4547786359571-Reading-and-using-environment-variables-in-Terraform-runs
 
+
 set -o allexport
-source ../../.env set
+source ../.env set    # this is relative to the calling Terraform resource
 +o allexport
 
 # Change the contents of this output to get the environment variables

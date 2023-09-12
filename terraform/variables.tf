@@ -46,9 +46,15 @@ variable "openai_endpoint_image_size" {
 }
 
 
+variable "create_custom_domain" {
+  description = "a valid Internet domain name which you directly control using AWS Route53 in this account"
+  type        = bool
+  default     = false
+}
 variable "root_domain" {
   description = "a valid Internet domain name which you directly control using AWS Route53 in this account"
   type        = string
+  default     = ""
 }
 
 variable "shared_resource_identifier" {

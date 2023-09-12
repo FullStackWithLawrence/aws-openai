@@ -12,11 +12,11 @@ locals {
   index_function_name = "${var.shared_resource_identifier}-${local.slug}"
 }
 data "external" "env" {
-  program = ["${path.module}/env.sh"]
+  program = ["${path.module}/scripts/env.sh"]
 
   # For Windows (or Powershell core on MacOS and Linux),
   # run a Powershell script instead
-  #program = ["${path.module}/env.ps1"]
+  #program = ["${path.module}/scripts/env.ps1"]
 }
 
 resource "aws_lambda_function" "openai" {

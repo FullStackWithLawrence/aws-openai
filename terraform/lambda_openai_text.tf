@@ -81,7 +81,7 @@ resource "null_resource" "package_openai_text" {
 data "archive_file" "openai_text" {
   # see https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file
   source_dir  = "${local.text_source_directory}/${local.text_package_folder}/"
-  output_path = "${local.text_source_directory}/openai_text.zip"
+  output_path = "${local.text_source_directory}/${local.text_package_folder}.zip"
   type        = "zip"
   depends_on  = [null_resource.package_openai_text]
 }

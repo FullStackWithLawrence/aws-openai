@@ -1,9 +1,11 @@
 .DS_Store
 #  Local .terraform directories
 .terraform/
-.venv/
+venv
+.venv
 .env
 lambda_dist_pkg
+*.zip
 
 # .tfstate files
 *.tfstate

@@ -48,6 +48,7 @@ A REST API implementing every [OpenAI Example Application](https://platform.open
 
 ## REST API endpoints
 
+|                                        |                                 |
 | -------------------------------------- | ------------------------------- |
 | {base-url}/v1/default-grammar          | {base-url}/v1/default-summarize |
 | {base-url}/v1/default-parse-data       | {base-url}/v1/default-emoji-translation |

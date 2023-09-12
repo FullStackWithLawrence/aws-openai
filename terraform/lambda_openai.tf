@@ -23,7 +23,7 @@ resource "aws_lambda_function" "openai" {
   # see https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function.html
   # see https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
   function_name    = local.index_function_name
-  description      = "OpenAI calls using text-based inputs"
+  description      = "OpenAI API integrator for text-based inputs"
   role             = aws_iam_role.lambda.arn
   publish          = true
   runtime          = var.lambda_python_runtime

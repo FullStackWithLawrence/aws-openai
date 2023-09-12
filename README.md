@@ -59,7 +59,7 @@ A REST API implementing every [OpenAI Example Application](https://platform.open
     | {base-url}/v1/default-mood-color       | {base-url}/v1/default-vr-fitness |
     | {base-url}/v1/default-marv-sarcastic-chat | {base-url}/v1/default-turn-by-turn-directions |
     | {base-url}/v1/default-interview-questions | {base-url}/v1/default-function-from-spec |
-    | {base-url}/v1/default-code-improvement |  | {base-url}/v1/default-single-page-website
+    | {base-url}/v1/default-code-improvement | {base-url}/v1/default-single-page-website |
     | {base-url}/v1/default-rap-battle       | {base-url}/v1/default-memo-writer |
     | {base-url}/v1/default-emoji-chatbot    | {base-url}/v1/default-translation |
     | {base-url}/v1/default-socratic-tutor   | {base-url}/v1/default-sql-translate |

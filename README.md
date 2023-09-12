@@ -53,7 +53,7 @@ A REST API implementing every [OpenAI Example Application](https://platform.open
 
 |                                        |                                 |
 | -------------------------------------- | ------------------------------- |
-| {base-url}/v1/default-grammar          | {base-url}/v1/default-summarize |
+| [{base-url}/v1/default-grammar](./doc/examples/example-01-grammar.md)          | {base-url}/v1/default-summarize |
 | {base-url}/v1/default-parse-data       | {base-url}/v1/default-emoji-translation |
 | {base-url}/v1/default-time-complexity  | {base-url}/v1/default-explain-code |
 | {base-url}/v1/default-keywords         | {base-url}/v1/default-product-name-gen |

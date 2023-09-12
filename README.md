@@ -18,14 +18,17 @@ A REST API implementing every [OpenAI Example Application](https://platform.open
     make init
     ```
 
-2. add your OpenAI API credentials to [.env](./.env) file
+2. add your OpenAI API credentials to [.env](./.env) file. Your organization ID and API Key should be similar in format to these examples below.
 
     ```console
-    OPENAI_API_ORGANIZATION=PLEASE-ADD-ME
-    OPENAI_API_KEY=PLEASE-ADD-ME
+    OPENAI_API_ORGANIZATION=org-YJzABCDEFGHIJESMShcyulf0
+    OPENAI_API_KEY=sk-7doQ4gAITSez7ABCDEFGHIJlbkFJKLOuEbRhAFadzjtnzAV2
     ```
 
     *Windows/Powershell users: you'll need to modify [./terraform/lambda_openai.tf](./terraform/lambda_openai.tf) data "external" "env" as per instructions in this code block.*
+
+    ![OpenAI Settings](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/openai-settings.png "OpenAI Settings")
+
 
 3. configure Terraform for your AWS account. Set these three values in [terraform.tfvars](./terraform/terraform.tfvars):
 

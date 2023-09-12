@@ -184,19 +184,20 @@ def event_log(log_entry):
 
 
 def dump_environment(event):
-    cloudwatch_dump = {
-        "environment": {
-            "os": os.name,
-            "system": platform.system(),
-            "release": platform.release(),
-            "openai": openai.__version__,
-            "openai_app_info": openai.app_info,
-            "openai_end_points": OpenAIEndPoint.all_endpoints,
-            "DEBUG_MODE": DEBUG_MODE,
+    if DEBUG_MODE:
+        cloudwatch_dump = {
+            "environment": {
+                "os": os.name,
+                "system": platform.system(),
+                "release": platform.release(),
+                "openai": openai.__version__,
+                "openai_app_info": openai.app_info,
+                "openai_end_points": OpenAIEndPoint.all_endpoints,
+                "DEBUG_MODE": DEBUG_MODE,
+            }
         }
-    }
-    print(json.dumps(cloudwatch_dump))
-    print(json.dumps({"event": event}))
+        print(json.dumps(cloudwatch_dump))
+        print(json.dumps({"event": event}))
 
 
 def get_request_body(event) -> json:
@@ -235,7 +236,7 @@ def handler(event, context):
     """
     OpenAI API integrator
     """
-    event_log(dump_environment(event))
+    dump_environment(event)
     try:
         openai_results = {}
         request_body = get_request_body(event=event)

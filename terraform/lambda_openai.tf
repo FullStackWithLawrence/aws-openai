@@ -36,9 +36,11 @@ resource "aws_lambda_function" "openai" {
 
   environment {
     variables = {
-      DEBUG_MODE              = var.debug_mode
-      OPENAI_API_ORGANIZATION = data.external.env.result["OPENAI_API_ORGANIZATION"]
-      OPENAI_API_KEY          = data.external.env.result["OPENAI_API_KEY"]
+      DEBUG_MODE                 = var.debug_mode
+      OPENAI_API_ORGANIZATION    = data.external.env.result["OPENAI_API_ORGANIZATION"]
+      OPENAI_API_KEY             = data.external.env.result["OPENAI_API_KEY"]
+      OPENAI_ENDPOINT_IMAGE_N    = var.openai_endpoint_image_n
+      OPENAI_ENDPOINT_IMAGE_SIZE = var.openai_endpoint_image_size
     }
   }
 }

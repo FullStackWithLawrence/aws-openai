@@ -31,6 +31,20 @@ variable "tags" {
   default     = {}
 }
 
+###############################################################################
+# OpenAI API parameters
+###############################################################################
+variable "openai_endpoint_image_n" {
+  description = "FIX NOTE: what is this?"
+  type        = number
+  default     = 4
+}
+variable "openai_endpoint_image_size" {
+  description = "Image output dimensions in pixels"
+  type        = string
+  default     = "1024x768"
+}
+
 
 variable "root_domain" {
   description = "a valid Internet domain name which you directly control using AWS Route53 in this account"

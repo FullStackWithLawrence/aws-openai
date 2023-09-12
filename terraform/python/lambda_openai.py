@@ -38,6 +38,8 @@ import openai
 #   lambda_openai.tf resource "aws_lambda_function" "openai"
 #   https://us-east-1.console.aws.amazon.com/lambda/home?region=us-east-1#/functions/openai-index?tab=code
 DEBUG_MODE = os.getenv("DEBUG_MODE", "False").lower() in ("true", "1", "t")
+OPENAI_ENDPOINT_IMAGE_N = int(os.getenv("OPENAI_ENDPOINT_IMAGE_N", 4))
+OPENAI_ENDPOINT_IMAGE_SIZE = os.getenv("OPENAI_ENDPOINT_IMAGE_SIZE", "1024x768")
 openai.organization = os.environ["OPENAI_API_ORGANIZATION"]
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
@@ -131,8 +133,8 @@ def handler(event, context):
     def validate_item(item, valid_items, item_type):
         if item not in valid_items:
             raise ValueError(
-                "valid {item_type}: {valid_items}".format(
-                    item_type=item_type, valid_items=valid_items
+                "Item {item} not found in {item_type}: {valid_items}".format(
+                    item=item, item_type=item_type, valid_items=valid_items
                 )
             )
         return
@@ -207,8 +209,8 @@ def handler(event, context):
 
             if end_point == OpenAIEndPoint.Image:
                 # https://platform.openai.com/docs/guides/images
-                n = request_body.get("n", 4)
-                size = request_body.get("size", "1024x768")
+                n = request_body.get("n", OPENAI_ENDPOINT_IMAGE_N)
+                size = request_body.get("size", OPENAI_ENDPOINT_IMAGE_SIZE)
                 return openai.Image.create(prompt=input_text, n=n, size=size)
 
             if end_point == OpenAIEndPoint.Moderation:

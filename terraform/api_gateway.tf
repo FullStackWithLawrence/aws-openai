@@ -137,3 +137,13 @@ resource "aws_iam_role_policy_attachment" "cloudwatch_apigateway" {
   role       = aws_iam_role.apigateway.id
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
 }
+data "template_file" "iam_policy_apigateway" {
+  template = file("${path.module}/json/iam_policy_apigateway.json.tpl")
+  vars     = {}
+}
+
+resource "aws_iam_role_policy" "iam_policy_apigateway" {
+  name   = local.iam_role_policy_name
+  role   = aws_iam_role.apigateway.id
+  policy = data.template_file.iam_policy_apigateway.rendered
+}

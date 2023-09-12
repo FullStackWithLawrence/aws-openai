@@ -28,5 +28,5 @@ output "api_apigateway_url" {
 }
 
 output "lambda_openai" {
-  value = aws_lambda_function.openai.arn
+  value = aws_lambda_function.openai_text.arn
 }

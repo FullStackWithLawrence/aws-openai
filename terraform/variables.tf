@@ -6,6 +6,12 @@
 #
 # usage:      all Terraform variable declarations
 #------------------------------------------------------------------------------
+variable "shared_resource_identifier" {
+  description = "A common identifier/prefix for resources created for this demo"
+  type        = string
+  default     = "openai"
+}
+
 variable "aws_account_id" {
   description = "12-digit AWS account number"
   type        = string
@@ -46,6 +52,9 @@ variable "openai_endpoint_image_size" {
 }
 
 
+###############################################################################
+# API Gateway
+###############################################################################
 variable "create_custom_domain" {
   description = "a valid Internet domain name which you directly control using AWS Route53 in this account"
   type        = bool
@@ -55,12 +64,6 @@ variable "root_domain" {
   description = "a valid Internet domain name which you directly control using AWS Route53 in this account"
   type        = string
   default     = ""
-}
-
-variable "shared_resource_identifier" {
-  description = "A common identifier/prefix for resources created for this demo"
-  type        = string
-  default     = "openai"
 }
 
 variable "stage" {
@@ -73,6 +76,20 @@ variable "logging_level" {
   type    = string
   default = "INFO"
 }
+
+variable "throttle_settings_burst_limit" {
+  type    = number
+  default = 5
+}
+variable "throttle_settings_rate_limit" {
+  type    = number
+  default = 10
+}
+
+
+###############################################################################
+# Lambda
+###############################################################################
 variable "log_retention_days" {
   type    = number
   default = 3
@@ -91,15 +108,6 @@ variable "quota_settings_offset" {
 variable "quota_settings_period" {
   type    = string
   default = "WEEK"
-}
-
-variable "throttle_settings_burst_limit" {
-  type    = number
-  default = 5
-}
-variable "throttle_settings_rate_limit" {
-  type    = number
-  default = 10
 }
 
 variable "lambda_python_runtime" {

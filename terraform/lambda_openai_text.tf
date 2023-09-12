@@ -8,10 +8,13 @@
 #         for an image uploaded using the REST API endpoint.
 #------------------------------------------------------------------------------
 locals {
-  slug                = "text"
-  index_function_name = "${var.shared_resource_identifier}-${local.slug}"
+  text_slug             = "text"
+  text_function_name    = "${var.shared_resource_identifier}_${local.text_slug}"
+  text_source_directory = "${path.module}/python/${local.text_function_name}"
+  text_package_folder   = "lambda_dist_pkg"
 }
 data "external" "env" {
+  # kluge to map .env data to Terraform format
   program = ["${path.module}/scripts/env.sh"]
 
   # For Windows (or Powershell core on MacOS and Linux),
@@ -19,19 +22,19 @@ data "external" "env" {
   #program = ["${path.module}/scripts/env.ps1"]
 }
 
-resource "aws_lambda_function" "openai" {
+resource "aws_lambda_function" "openai_text" {
   # see https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function.html
   # see https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
-  function_name    = local.index_function_name
+  function_name    = local.text_function_name
   description      = "OpenAI API integrator for text-based inputs"
   role             = aws_iam_role.lambda.arn
   publish          = true
   runtime          = var.lambda_python_runtime
   memory_size      = var.lambda_memory_size
   timeout          = var.lambda_timeout
-  handler          = "lambda_handler.handler"
-  filename         = data.archive_file.lambda_handler.output_path
-  source_code_hash = data.archive_file.lambda_handler.output_sha256
+  handler          = "lambda_openai_${local.text_slug}.handler"
+  filename         = data.archive_file.openai_text.output_path
+  source_code_hash = data.archive_file.openai_text.output_base64sha256
   tags             = var.tags
 
   environment {
@@ -43,32 +46,42 @@ resource "aws_lambda_function" "openai" {
       OPENAI_ENDPOINT_IMAGE_SIZE = var.openai_endpoint_image_size
     }
   }
-
-
-}
-
-# see https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file
-data "archive_file" "lambda_handler" {
-  type = "zip"
-
-  source {
-    content  = "${path.module}/python/lambda_openai_${local.slug}.py"
-    filename = "lambda_${local.slug}.py"
-  }
-
-  source {
-    content  = "${path.module}/.venv/lib/python3.11/site-packages/openai"
-    filename = "openai"
-  }
-
-  output_path = "${path.module}/python/lambda_openai_${local.slug}_payload.zip"
 }
 
 ###############################################################################
 # Cloudwatch logging
 ###############################################################################
 resource "aws_cloudwatch_log_group" "openai" {
-  name              = "/aws/lambda/${local.index_function_name}"
+  name              = "/aws/lambda/${local.text_function_name}"
   retention_in_days = var.log_retention_days
   tags              = var.tags
+}
+
+###############################################################################
+# Python package
+# https://alek-cora-glez.medium.com/deploying-aws-lambda-function-with-terraform-custom-dependencies-7874407cd4fc
+###############################################################################
+resource "null_resource" "package_openai_text" {
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+
+  provisioner "local-exec" {
+    interpreter = ["/bin/bash"]
+    command     = "${path.module}/scripts/create_pkg.sh"
+
+    environment = {
+      source_code_path = local.text_source_directory
+      package_folder   = local.text_package_folder
+      runtime          = var.lambda_python_runtime
+    }
+  }
+}
+
+data "archive_file" "openai_text" {
+  # see https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file
+  source_dir  = "${local.text_source_directory}/${local.text_package_folder}/"
+  output_path = "${local.text_source_directory}/openai_text.zip"
+  type        = "zip"
+  depends_on  = [null_resource.package_openai_text]
 }

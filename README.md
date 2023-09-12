@@ -27,8 +27,6 @@ A REST API implementing every [OpenAI Example Application](https://platform.open
 
     *Windows/Powershell users: you'll need to modify [./terraform/lambda_openai.tf](./terraform/lambda_openai.tf) data "external" "env" as per instructions in this code block.*
 
-    ![OpenAI Settings](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/openai-settings.png "OpenAI Settings")
-
 
 3. configure Terraform for your AWS account. Set these three values in [terraform.tfvars](./terraform/terraform.tfvars):
 
@@ -95,6 +93,8 @@ Navigate to [OpenAI's official platform website](https://platform.openai.com/). 
 Once you've created an account or have logged into an existing account, you'll see your name and your profile icon at the top-right corner of OpenAI's platform homepage.
 
 To get an API Key, click on your name in the top-right corner to bring up a dropdown menu. Then, click the "[View API keys](https://platform.openai.com/account/api-keys)" option.
+
+![OpenAI Settings](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/openai-settings.png "OpenAI Settings")
 
 ## Getting Started With AWS and Terraform
 

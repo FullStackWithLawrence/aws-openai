@@ -23,7 +23,7 @@
 #            /v1/fine-tunes	            davinci, curie, babbage, ada
 #            /v1/moderations	        text-moderation-stable, text-moderation-latest
 #
-# openai.Model.list()
+#            openai.Model.list()
 # ------------------------------------------------------------------------------
 
 import sys, traceback  # libraries for error management
@@ -36,8 +36,8 @@ import openai
 DEBUG_MODE = os.getenv("DEBUG_MODE", "False").lower() in ("true", "1", "t")
 OPENAI_ENDPOINT_IMAGE_N = int(os.getenv("OPENAI_ENDPOINT_IMAGE_N", 4))
 OPENAI_ENDPOINT_IMAGE_SIZE = os.getenv("OPENAI_ENDPOINT_IMAGE_SIZE", "1024x768")
-openai.organization = os.environ["OPENAI_API_ORGANIZATION", "Personal"]
-openai.api_key = os.environ["OPENAI_API_KEY"]
+openai.organization = str(os.environ["OPENAI_API_ORGANIZATION", "Personal"])
+openai.api_key = str(os.environ["OPENAI_API_KEY"])
 
 
 class OpenAIEndPoint:

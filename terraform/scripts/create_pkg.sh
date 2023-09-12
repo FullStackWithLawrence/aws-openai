@@ -32,5 +32,5 @@ source venv/bin/activate
 pip install -r requirements.txt
 deactivate
 
-cp -r "venv/lib/$runtime/site-packages/openai" $package_folder/
+cp -r "venv/lib/$runtime/site-packages/" $package_folder/
 cp *.py $package_folder/

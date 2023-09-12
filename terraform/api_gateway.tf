@@ -35,7 +35,7 @@ data "aws_caller_identity" "current" {}
 # see https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_rest_api
 resource "aws_api_gateway_rest_api" "openai" {
   name        = local.api_name
-  description = "Facial recognition micro service"
+  description = "OpenAI example apps micro service"
 
   # Note: our api is used exclusively to upload images file, hence
   # we want ALL requests to be treated as 'binary'. An example
@@ -52,7 +52,7 @@ resource "aws_api_gateway_rest_api" "openai" {
   ]
   api_key_source = "HEADER"
   endpoint_configuration {
-    types = ["EDGE"]
+    types = ["REGIONAL"]
   }
   tags = var.tags
 }
@@ -133,17 +133,12 @@ resource "aws_iam_role" "apigateway" {
   assume_role_policy = file("${path.module}/json/iam_role_apigateway.json")
   tags               = var.tags
 }
-resource "aws_iam_role_policy_attachment" "cloudwatch_apigateway" {
-  role       = aws_iam_role.apigateway.id
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
-}
-data "template_file" "iam_policy_apigateway" {
-  template = file("${path.module}/json/iam_policy_apigateway.json.tpl")
-  vars     = {}
-}
-
 resource "aws_iam_role_policy" "iam_policy_apigateway" {
   name   = local.iam_role_policy_name
   role   = aws_iam_role.apigateway.id
-  policy = data.template_file.iam_policy_apigateway.rendered
+  policy = file("${path.module}/json/iam_policy_apigateway.json")
+}
+resource "aws_iam_role_policy_attachment" "apigateway_CloudWatchFullAccess" {
+  role       = aws_iam_role.apigateway.id
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchFullAccess"
 }

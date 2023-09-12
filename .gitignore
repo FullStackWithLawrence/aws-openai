@@ -2,6 +2,7 @@
 #  Local .terraform directories
 .terraform/
 .venv/
+.env
 
 # .tfstate files
 *.tfstate

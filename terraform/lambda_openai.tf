@@ -11,12 +11,19 @@ locals {
   slug                = "openai"
   index_function_name = "${var.shared_resource_identifier}-${local.slug}"
 }
+data "external" "env" {
+  program = ["${path.module}/env.sh"]
+
+  # For Windows (or Powershell core on MacOS and Linux),
+  # run a Powershell script instead
+  #program = ["${path.module}/env.ps1"]
+}
 
 resource "aws_lambda_function" "openai" {
   # see https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function.html
   # see https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
   function_name    = local.index_function_name
-  description      = "Facial recognition analysis and indexing of images. Invoked by S3."
+  description      = "OpenAI calls using text-based inputs"
   role             = aws_iam_role.lambda.arn
   publish          = true
   runtime          = var.lambda_python_runtime
@@ -30,8 +37,8 @@ resource "aws_lambda_function" "openai" {
   environment {
     variables = {
       DEBUG_MODE              = var.debug_mode
-      OPENAI_API_ORGANIZATION = ""
-      OPENAI_API_KEY          = ""
+      OPENAI_API_ORGANIZATION = data.external.env.result["OPENAI_API_ORGANIZATION"]
+      OPENAI_API_KEY          = data.external.env.result["OPENAI_API_KEY"]
     }
   }
 }

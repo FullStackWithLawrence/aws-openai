@@ -18,10 +18,17 @@ cd aws-openai
 make init
 ```
 
+2. add your OpenAI API credentials to .env file
+
+```shell
+OPENAI_API_ORGANIZATION=PLEASE-ADD-ME
+OPENAI_API_KEY=PLEASE-ADD-ME
+```
+
 The Python virtual environment serves two purposes. When developing, it will allow you the convenience of auto-complete for code objects from the Boto3 and OpenAI Python libraries. But more importantly, the Terraform resource `aws_lambda_function` requires a complete code package in zip format, including any third party libraries. Hence, the references to these two libraries in [terraform/lambda_text.tf](./terraform/lambda_text.tf) and [terraform/lambda_binary.tf](./terraform/lambda_binary.tf).
 
 
-2. configure Terraform for your AWS account. Set these three values in [terraform.tfvars](./terraform/terraform.tfvars):
+3. configure Terraform for your AWS account. Set these three values in [terraform.tfvars](./terraform/terraform.tfvars):
 
 ```terraform
 account_id           = "012345678912"   # Required: your 12-digit AWS account number
@@ -29,7 +36,7 @@ aws_region           = "us-east-1"      # Optional: an AWS data center
 aws_profile          = "default"        # Optional: for aws cli credentials
 ```
 
-3. Build and deploy the microservice
+4. Build and deploy the microservice
 
 ```terraform
 terraform init
@@ -38,7 +45,7 @@ terraform apply
 
 Note the output variables for your API Gateway root URL and API key.
 
-4. Use your REST API endpoints
+5. Use your REST API endpoints
 
 
 ## Architecture

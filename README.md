@@ -35,7 +35,7 @@ aws_region           = "us-east-1"      # Optional: an AWS data center
 aws_profile          = "default"        # Optional: for aws cli credentials
 ```
 
-* see the README section **"Getting Started With AWS and Terraform"** for details on setting up Terraform for first-time use*
+*see the README section **"Getting Started With AWS and Terraform"** for details on setting up Terraform for first-time use*
 
 4. Build and deploy the microservice
 

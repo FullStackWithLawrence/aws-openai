@@ -25,6 +25,7 @@ resource "aws_api_gateway_integration" "test" {
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.openai_null.invoke_arn
+  credentials             = aws_iam_role.apigateway.arn
   # https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html#input-variable-reference
   # https://goessner.net/articles/JsonPath/
   request_templates = {

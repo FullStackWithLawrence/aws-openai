@@ -68,8 +68,8 @@ def handler(event, context):
             "os": os.name,
             "system": platform.system(),
             "release": platform.release(),
-            "openai": openai.__version__,
-            "openai_app_info": openai.app_info,
+            #            "openai": openai.__version__,
+            #            "openai_app_info": openai.app_info,
             "DEBUG_MODE": DEBUG_MODE,
         }
     }

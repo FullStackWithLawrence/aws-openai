@@ -32,7 +32,7 @@ resource "aws_lambda_function" "openai_null" {
   runtime          = var.lambda_python_runtime
   memory_size      = var.lambda_memory_size
   timeout          = var.lambda_timeout
-  handler          = "lambda_openai_${local.null_slug}.handler"
+  handler          = "openai_${local.null_slug}.handler"
   filename         = data.archive_file.openai_null.output_path
   source_code_hash = data.archive_file.openai_null.output_base64sha256
   tags             = var.tags

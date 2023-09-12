@@ -36,8 +36,8 @@ import openai
 DEBUG_MODE = os.getenv("DEBUG_MODE", "False").lower() in ("true", "1", "t")
 OPENAI_ENDPOINT_IMAGE_N = int(os.getenv("OPENAI_ENDPOINT_IMAGE_N", 4))
 OPENAI_ENDPOINT_IMAGE_SIZE = os.getenv("OPENAI_ENDPOINT_IMAGE_SIZE", "1024x768")
-openai.organization = str(os.environ["OPENAI_API_ORGANIZATION", "Personal"])
-openai.api_key = str(os.environ["OPENAI_API_KEY"])
+openai.organization = os.getenv("OPENAI_API_ORGANIZATION", "Personal")
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
 class OpenAIEndPoint:
@@ -191,6 +191,7 @@ def dump_environment(event):
             "release": platform.release(),
             "openai": openai.__version__,
             "openai_app_info": openai.app_info,
+            "openai_end_points": OpenAIEndPoint.all_endpoints,
             "DEBUG_MODE": DEBUG_MODE,
         }
     }
@@ -234,70 +235,65 @@ def handler(event, context):
     """
     OpenAI API integrator
     """
-    event_log(dump_environment())
-    records = event["Records"]
-    for record in records:
-        event_log(json.dumps({"event_record": record}))
-        try:
-            openai_results = {}
-            request_body = get_request_body(event=event)
-            end_point, model, messages, input_text = parse_request(request_body)
+    event_log(dump_environment(event))
+    try:
+        openai_results = {}
+        request_body = get_request_body(event=event)
+        end_point, model, messages, input_text = parse_request(request_body)
 
-            match end_point:
-                case OpenAIEndPoint.ChatCompletion:
-                    # https://platform.openai.com/docs/guides/gpt/chat-completions-api
-                    validate_item(
-                        item=model,
-                        valid_items=VALID_CHAT_COMPLETION_MODELS,
-                        item_type="ChatCompletion models",
-                    )
-                    validate_completion_request(request_body)
-                    openai_results = openai.ChatCompletion.create(
-                        model=model, messages=messages
-                    )
+        match end_point:
+            case OpenAIEndPoint.ChatCompletion:
+                # https://platform.openai.com/docs/guides/gpt/chat-completions-api
+                validate_item(
+                    item=model,
+                    valid_items=VALID_CHAT_COMPLETION_MODELS,
+                    item_type="ChatCompletion models",
+                )
+                validate_completion_request(request_body)
+                openai_results = openai.ChatCompletion.create(
+                    model=model, messages=messages
+                )
 
-                case OpenAIEndPoint.Embedding:
-                    # https://platform.openai.com/docs/guides/embeddings/embeddings
-                    validate_item(
-                        item=model,
-                        valid_items=VALID_EMBEDDING_MODELS,
-                        item_type="Embedding models",
-                    )
-                    validate_embedding_request(request_body)
-                    openai_results = openai.Embedding.create(
-                        input=input_text, model=model
-                    )
+            case OpenAIEndPoint.Embedding:
+                # https://platform.openai.com/docs/guides/embeddings/embeddings
+                validate_item(
+                    item=model,
+                    valid_items=VALID_EMBEDDING_MODELS,
+                    item_type="Embedding models",
+                )
+                validate_embedding_request(request_body)
+                openai_results = openai.Embedding.create(input=input_text, model=model)
 
-                case OpenAIEndPoint.Image:
-                    # https://platform.openai.com/docs/guides/images
-                    n = request_body.get("n", OPENAI_ENDPOINT_IMAGE_N)
-                    size = request_body.get("size", OPENAI_ENDPOINT_IMAGE_SIZE)
-                    return openai.Image.create(prompt=input_text, n=n, size=size)
+            case OpenAIEndPoint.Image:
+                # https://platform.openai.com/docs/guides/images
+                n = request_body.get("n", OPENAI_ENDPOINT_IMAGE_N)
+                size = request_body.get("size", OPENAI_ENDPOINT_IMAGE_SIZE)
+                return openai.Image.create(prompt=input_text, n=n, size=size)
 
-                case OpenAIEndPoint.Moderation:
-                    # https://platform.openai.com/docs/guides/moderation
-                    openai_results = openai.Moderation.create(input=input_text)
+            case OpenAIEndPoint.Moderation:
+                # https://platform.openai.com/docs/guides/moderation
+                openai_results = openai.Moderation.create(input=input_text)
 
-                case OpenAIEndPoint.Models:
-                    openai_results = (
-                        openai.Model.retrieve(model) if model else openai.Model.list()
-                    )
+            case OpenAIEndPoint.Models:
+                openai_results = (
+                    openai.Model.retrieve(model) if model else openai.Model.list()
+                )
 
-                case OpenAIEndPoint.Audio:
-                    raise NotImplementedError("Audio support is coming soon")
+            case OpenAIEndPoint.Audio:
+                raise NotImplementedError("Audio support is coming soon")
 
-        # handle anything that went wrong
-        # see https://docs.aws.amazon.com/openai/latest/dg/error-handling.html
-        except (openai.APIError, ValueError, TypeError, NotImplementedError) as e:
-            # 400 Bad Request
-            return http_response_factory(
-                status_code=400, body=exception_response_factory(e)
-            )
-        except (openai.OpenAIError, Exception) as e:
-            # 500 Internal Server Error
-            return http_response_factory(
-                status_code=500, body=exception_response_factory(e)
-            )
+    # handle anything that went wrong
+    # see https://docs.aws.amazon.com/openai/latest/dg/error-handling.html
+    except (openai.APIError, ValueError, TypeError, NotImplementedError) as e:
+        # 400 Bad Request
+        return http_response_factory(
+            status_code=400, body=exception_response_factory(e)
+        )
+    except (openai.OpenAIError, Exception) as e:
+        # 500 Internal Server Error
+        return http_response_factory(
+            status_code=500, body=exception_response_factory(e)
+        )
 
-        # success!! return the results
-        return http_response_factory(status_code=200, body=openai_results)
+    # success!! return the results
+    return http_response_factory(status_code=200, body=openai_results)

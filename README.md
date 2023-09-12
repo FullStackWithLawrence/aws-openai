@@ -10,7 +10,7 @@ A REST API implementing every [OpenAI Example Application](https://platform.open
 
 ## Usage
 
-1. clone this repo and setup a Python virtual environment
+1. clone this repo and setup a Python virtual environment..
 
   ```shell
   git clone https://github.com/FullStackWithLawrence/aws-openai.git

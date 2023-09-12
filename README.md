@@ -66,6 +66,14 @@ I refined the contents and formatting of each log group to suit my own needs whi
 ![CloudWatch Logs](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/cloudwatch-1.png "CloudWatch Logs")
 ![CloudWatch Logs](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/cloudwatch-2.png "CloudWatch Logs")
 
+## How to Get an OpenAI API Key
+
+Navigate to [OpenAI's official platform website](https://platform.openai.com/). If you haven't already, create an account following the simple steps on the website. After that, you can enter the email address and password linked to your OpenAI account to sign in or log in with an existing Google or Microsoft account.
+
+Once you've created an account or have logged into an existing account, you'll see your name and your profile icon at the top-right corner of OpenAI's platform homepage.
+
+To get an API Key, click on your name in the top-right corner to bring up a dropdown menu. Then, click the "[View API keys](https://platform.openai.com/account/api-keys)" option.
+
 ## Getting Started With AWS and Terraform
 
 This is a [Terraform](https://www.terraform.io/) based installation methodology that reliably automates the complete build, management and destruction processes of all resources. [Terraform](https://www.terraform.io/) is an [infrastructure-as-code](https://en.wikipedia.org/wiki/Infrastructure_as_code) command line tool that will create and configure all of the approximately two dozen software and cloud infrastructure resources that are needed for running the service on AWS infrastructure. These Terraform scripts will install and configure all cloud infrastructure resources and system software on which the service depends. This process will take around 2 minutes to complete and will generate copious amounts of console output.

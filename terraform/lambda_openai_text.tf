@@ -8,7 +8,7 @@
 #         for an image uploaded using the REST API endpoint.
 #------------------------------------------------------------------------------
 locals {
-  slug                = "openai"
+  slug                = "text"
   index_function_name = "${var.shared_resource_identifier}-${local.slug}"
 }
 data "external" "env" {
@@ -31,7 +31,7 @@ resource "aws_lambda_function" "openai" {
   timeout          = var.lambda_timeout
   handler          = "lambda_handler.handler"
   filename         = data.archive_file.lambda_handler.output_path
-  source_code_hash = data.archive_file.lambda_handler.output_base64sha256
+  source_code_hash = data.archive_file.lambda_handler.output_sha256
   tags             = var.tags
 
   environment {
@@ -43,6 +43,8 @@ resource "aws_lambda_function" "openai" {
       OPENAI_ENDPOINT_IMAGE_SIZE = var.openai_endpoint_image_size
     }
   }
+
+
 }
 
 # see https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file
@@ -50,7 +52,7 @@ data "archive_file" "lambda_handler" {
   type = "zip"
 
   source {
-    content  = "${path.module}/python/lambda_${local.slug}.py"
+    content  = "${path.module}/python/lambda_openai_${local.slug}.py"
     filename = "lambda_${local.slug}.py"
   }
 
@@ -59,7 +61,7 @@ data "archive_file" "lambda_handler" {
     filename = "openai"
   }
 
-  output_path = "${path.module}/python/lambda_${local.slug}_payload.zip"
+  output_path = "${path.module}/python/lambda_openai_${local.slug}_payload.zip"
 }
 
 ###############################################################################

@@ -49,6 +49,6 @@ curl --location --request PUT 'https://api.openai.lawrencemcdaniel.com/examples/
 
 ## Official Documentation
 
-[https://platform.openai.com/examples/default-grammar](https://platform.openai.com/examples/default-grammar)
+[https://platform.openai.com/examples/default-summarize](https://platform.openai.com/examples/default-grasummarizemmar)
 
-![OpenAI Settings](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/examples/example-02-grammar.png "OpenAI Settings")
+![OpenAI Settings](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/examples/example-02-summarize.png "OpenAI Settings")

@@ -1,0 +1,43 @@
+{
+	"info": {
+		"_postman_id": "09bb3fde-e486-4e10-a3cc-f7f7184fcc41",
+		"name": "OpenAI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2085624"
+	},
+	"item": [
+		{
+			"name": "default-grammar",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"model\": \"gpt-3.5-turbo\",\n    \"input_text\": \"imma bust yo face\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/{{stage}}/default-grammar",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"{{stage}}",
+						"default-grammar"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

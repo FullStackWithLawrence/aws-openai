@@ -10,8 +10,8 @@
 |                                        |                                 |
 | -------------------------------------- | ------------------------------- |
 | [/examples/default-grammar](./example-01-grammar.md)          | [/examples/default-summarize](./example-02-summarize.md) |
-| [/examples/default-parse-data](./example-03-parse-data.md)       | /examples/default-emoji-translation |
-| /examples/default-time-complexity  | /examples/default-explain-code |
+| [/examples/default-parse-data](./example-03-parse-data.md)       | [/examples/default-emoji-translation](./example-04-emoji-translation.md) |
+| [/examples/default-time-complexity](./example-05-time-complexity.md)  | [/examples/default-explain-code](./example-06-explain-code.md) |
 | /examples/default-keywords         | /examples/default-product-name-gen |
 | /examples/default-fix-python-bugs  | /examples/default-spreadsheet-gen |
 | /examples/default-tweet-classifier | /examples/default-airport-codes |

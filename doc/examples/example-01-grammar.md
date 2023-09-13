@@ -1,7 +1,9 @@
 # Grammar correction
 
 Convert ungrammatical statements into standard English.
-See [https://platform.openai.com/examples/default-grammar](https://platform.openai.com/examples/default-grammar)
+
+- See [https://platform.openai.com/examples/default-grammar](https://platform.openai.com/examples/default-grammar)
+- [Open in OpenAI Playground](https://platform.openai.com/playground/p/default-grammar)
 
 ## Example Usage
 

@@ -53,7 +53,7 @@ variable "mapping_end_point" {
 variable "mapping_role_system_content" {
   description = "value"
   type        = string
-  default     = "You will be provided with statements, and your task is to convert them to standard English."
+  default     = ""
 }
 
 variable "mapping_temperature" {

@@ -65,7 +65,13 @@ resource "aws_api_gateway_deployment" "openai" {
       aws_api_gateway_rest_api.openai.body,
       module.default_grammar.sha1_deployment_trigger,
       module.default_summarize.sha1_deployment_trigger,
-      module.default_parse_data.sha1_deployment_trigger
+      module.default_parse_data.sha1_deployment_trigger,
+      module.default_emoji_translation.sha1_deployment_trigger,
+      module.default_time_complexity.sha1_deployment_trigger,
+      module.default_explain_code.sha1_deployment_trigger,
+      module.default_keywords.sha1_deployment_trigger,
+      module.default_product_name_gen.sha1_deployment_trigger,
+      module.default_fix_python_bugs.sha1_deployment_trigger
     ]))
   }
   lifecycle {

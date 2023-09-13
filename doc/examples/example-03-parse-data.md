@@ -1,7 +1,9 @@
 # Parse unstructured data
 
 Create tables from unstructured text.
-See [https://platform.openai.com/examples/default-parse-data](https://platform.openai.com/examples/default-parse-data)
+
+- See [https://platform.openai.com/examples/default-parse-data](https://platform.openai.com/examples/default-parse-data)
+- [Open in OpenAI Playground](https://platform.openai.com/playground/p/default-parse-data)
 
 ## Example Usage
 

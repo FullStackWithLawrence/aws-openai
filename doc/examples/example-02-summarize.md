@@ -1,7 +1,10 @@
 # Summarize for a 2nd grader
 
 Simplify text to a level appropriate for a second-grade student.
-See [https://platform.openai.com/examples/default-summarize](https://platform.openai.com/examples/default-summarize)
+
+- See [https://platform.openai.com/examples/default-summarize](https://platform.openai.com/examples/default-summarize)
+- [Open in OpenAI Playground](https://platform.openai.com/playground/p/default-summarize)
+
 
 ## Example Usage
 

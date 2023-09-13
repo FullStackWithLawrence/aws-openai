@@ -93,7 +93,9 @@ resource "aws_api_gateway_deployment" "openai" {
       module.default_memo_writer.sha1_deployment_trigger,
       module.default_emoji_chatbot.sha1_deployment_trigger,
       module.default_translation.sha1_deployment_trigger,
-      module.default_socratic_tutor.sha1_deployment_trigger
+      module.default_socratic_tutor.sha1_deployment_trigger,
+      module.default_sql_translate.sha1_deployment_trigger,
+      module.default_meeting_notes_summarizer.sha1_deployment_trigger
     ]))
   }
   lifecycle {

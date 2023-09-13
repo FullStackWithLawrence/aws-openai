@@ -586,3 +586,91 @@ EOH
   aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
+
+###############################################################################
+# 26. see https://platform.openai.com/examples/default-sql-translate
+###############################################################################
+module "default_sql_translate" {
+  source    = "./endpoint"
+  path_part = "default-sql-translate"
+
+  # OpenAI application definition
+  mapping_end_point           = "ChatCompletion"
+  mapping_model               = "gpt-4"
+  mapping_role_system_content = <<EOH
+Given the following SQL tables, your job is to write queries given a user’s request.
+
+CREATE TABLE Orders (
+  OrderID int,
+  CustomerID int,
+  OrderDate datetime,
+  OrderTime varchar(8),
+  PRIMARY KEY (OrderID)
+);
+
+CREATE TABLE OrderDetails (
+  OrderDetailID int,
+  OrderID int,
+  ProductID int,
+  Quantity int,
+  PRIMARY KEY (OrderDetailID)
+);
+
+CREATE TABLE Products (
+  ProductID int,
+  ProductName varchar(50),
+  Category varchar(50),
+  UnitPrice decimal(10, 2),
+  Stock int,
+  PRIMARY KEY (ProductID)
+);
+
+CREATE TABLE Customers (
+  CustomerID int,
+  FirstName varchar(50),
+  LastName varchar(50),
+  Email varchar(100),
+  Phone varchar(20),
+  PRIMARY KEY (CustomerID)
+);
+EOH
+  mapping_temperature         = 0
+  mapping_max_tokens          = 1024
+
+  # integrate this endpoint to the AWS Gateway API.
+  aws_region                                 = var.aws_region
+  aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
+  aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_iam_role_arn                           = aws_iam_role.apigateway.arn
+}
+
+###############################################################################
+# 27. see https://platform.openai.com/examples/default-meeting-notes-summarizer
+###############################################################################
+module "default_meeting_notes_summarizer" {
+  source    = "./endpoint"
+  path_part = "default-meeting-notes-summarizer"
+
+  # OpenAI application definition
+  mapping_end_point           = "ChatCompletion"
+  mapping_model               = "gpt-4"
+  mapping_role_system_content = <<EOH
+You will be provided with meeting notes, and your task is to summarize the meeting as follows:
+
+-Overall summary of discussion
+-Action items (what needs to be done and who is doing it)
+-If applicable, a list of topics that need to be discussed more fully in the next meeting.
+EOH
+  mapping_temperature         = 0
+  mapping_max_tokens          = 1024
+
+  # integrate this endpoint to the AWS Gateway API.
+  aws_region                                 = var.aws_region
+  aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
+  aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_iam_role_arn                           = aws_iam_role.apigateway.arn
+}

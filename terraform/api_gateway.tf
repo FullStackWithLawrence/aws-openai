@@ -70,7 +70,9 @@ resource "aws_api_gateway_deployment" "openai" {
   triggers = {
     redeployment = sha1(jsonencode([
       aws_api_gateway_rest_api.openai.body,
-      aws_api_gateway_integration.grammar.id
+      aws_api_gateway_method.grammar.id,
+      aws_api_gateway_integration.grammar.id,
+      aws_api_gateway_method_response.grammar_response_200.id
     ]))
   }
   lifecycle {

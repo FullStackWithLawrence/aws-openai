@@ -1,0 +1,85 @@
+{
+  "event": {
+      "resource": "/default-grammar",
+      "path": "/default-grammar",
+      "httpMethod": "PUT",
+      "headers": {
+          "accept": "*/*",
+          "content-type": "application/json",
+          "Host": "ntivxlkmv7.execute-api.us-east-1.amazonaws.com",
+          "User-Agent": "curl/7.87.0",
+          "X-Amzn-Trace-Id": "Root=1-6500dd43-0c30df604c51a91e1e174dea",
+          "x-api-key": "dOQAFTyJ8c7OnTJxlde3G8NFo4iRnRrA6j1IZyF3",
+          "X-Forwarded-For": "187.190.193.166",
+          "X-Forwarded-Port": "443",
+          "X-Forwarded-Proto": "https"
+      },
+      "multiValueHeaders": {
+          "accept": [
+              "*/*"
+          ],
+          "content-type": [
+              "application/json"
+          ],
+          "Host": [
+              "ntivxlkmv7.execute-api.us-east-1.amazonaws.com"
+          ],
+          "User-Agent": [
+              "curl/7.87.0"
+          ],
+          "X-Amzn-Trace-Id": [
+              "Root=1-6500dd43-0c30df604c51a91e1e174dea"
+          ],
+          "x-api-key": [
+              "dOQAFTyJ8c7OnTJxlde3G8NFo4iRnRrA6j1IZyF3"
+          ],
+          "X-Forwarded-For": [
+              "187.190.193.166"
+          ],
+          "X-Forwarded-Port": [
+              "443"
+          ],
+          "X-Forwarded-Proto": [
+              "https"
+          ]
+      },
+      "queryStringParameters": null,
+      "multiValueQueryStringParameters": null,
+      "pathParameters": null,
+      "stageVariables": null,
+      "requestContext": {
+          "resourceId": "xm24b5",
+          "resourcePath": "/default-grammar",
+          "httpMethod": "PUT",
+          "extendedRequestId": "LKeCmE_PIAMElDA=",
+          "requestTime": "12/Sep/2023:21:50:59 +0000",
+          "path": "/v1/default-grammar",
+          "accountId": "090511222473",
+          "protocol": "HTTP/1.1",
+          "stage": "v1",
+          "domainPrefix": "ntivxlkmv7",
+          "requestTimeEpoch": 1694555459521,
+          "requestId": "1076f26f-69e3-4e7b-b51c-cee56e814897",
+          "identity": {
+              "cognitoIdentityPoolId": null,
+              "cognitoIdentityId": null,
+              "apiKey": "dOQAFTyJ8c7OnTJxlde3G8NFo4iRnRrA6j1IZyF3",
+              "principalOrgId": null,
+              "cognitoAuthenticationType": null,
+              "userArn": null,
+              "apiKeyId": "tf5t787ath",
+              "userAgent": "curl/7.87.0",
+              "accountId": null,
+              "caller": null,
+              "sourceIp": "187.190.193.166",
+              "accessKey": null,
+              "cognitoAuthenticationProvider": null,
+              "user": null
+          },
+          "domainName": "ntivxlkmv7.execute-api.us-east-1.amazonaws.com",
+          "apiId": "ntivxlkmv7"
+      },
+      "body": "{\n    \"model\": \"gpt-3.5-turbo\",\n    \"end_point\": \"ChatCompletion\",\n    \"messages\": [\n        {\"role\": \"user\", \"content\": \"She no went to the market.\"}\n        ]\n}",
+      "isBase64Encoded": false
+  }
+}

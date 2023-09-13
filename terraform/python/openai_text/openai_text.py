@@ -24,6 +24,22 @@
 #            /v1/moderations	        text-moderation-stable, text-moderation-latest
 #
 #            openai.Model.list()
+#
+# Endpoint request body after transformations: {
+#     "model": "gpt-3.5-turbo",
+#     "end_point": "ChatCompletion",
+#     "messages": [
+#         {
+#             "role": "system",
+#             "content": "You will be provided with statements, and your task is to convert them to standard English."
+#         },
+#         {
+#             "role": "user",
+#             "content": "fuck me six ways from sunday."
+#         }
+#     ]
+# }
+
 # ------------------------------------------------------------------------------
 
 import sys, traceback  # libraries for error management
@@ -91,15 +107,6 @@ def http_response_factory(status_code: int, body: json) -> json:
         "body": body,
     }
     event_log(json.dumps({"retval": retval}))
-
-    # see https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
-    retval = {
-        "isBase64Encoded": False,
-        "statusCode": status_code,
-        "headers": {"Content-Type": "application/json"},
-        "body": json.dumps(body),
-    }
-
     return retval
 
 
@@ -207,7 +214,7 @@ def get_request_body(event) -> json:
         request_body = str(event["body"]).encode("ascii")
         request_body = base64.b64decode(request_body)
     else:
-        request_body = json.loads("{}".format(event["body"]))
+        request_body = event
     return request_body
 
 

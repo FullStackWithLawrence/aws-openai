@@ -1,6 +1,11 @@
 # Grammar correction
 
-## Usage
+## Example Usage
+
+- replace the API URL
+- replace the 'x-api-key' API key
+- example with the 'model' value
+- provide your own content
 
 ```console
 curl --location --request PUT 'https://ntivxlkmv7.execute-api.us-east-1.amazonaws.com/v1/default-grammar' \
@@ -8,14 +13,11 @@ curl --location --request PUT 'https://ntivxlkmv7.execute-api.us-east-1.amazonaw
 --header 'Content-Type: application/json' \
 --data '{
     "model": "gpt-3.5-turbo",
-    "end_point": "ChatCompletion",
-    "messages": [
-        {"role": "user", "content": "She no went to the market."}
-        ]
+    "input_text": "She no went to the market."
 }'
 ```
 
-## Sample results
+## Example results
 
 ```json
 {

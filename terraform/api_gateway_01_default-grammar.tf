@@ -13,24 +13,29 @@ resource "aws_api_gateway_resource" "grammar" {
 resource "aws_api_gateway_method" "grammar" {
   rest_api_id      = aws_api_gateway_rest_api.openai.id
   resource_id      = aws_api_gateway_resource.grammar.id
-  http_method      = "ANY"
+  http_method      = "PUT"
   authorization    = "NONE"
   api_key_required = "true"
 }
 
+data "template_file" "grammar_request_template" {
+  template = file("${path.module}/template/grammar_request_template.tpl")
+}
 resource "aws_api_gateway_integration" "grammar" {
   rest_api_id             = aws_api_gateway_rest_api.openai.id
   resource_id             = aws_api_gateway_resource.grammar.id
   http_method             = aws_api_gateway_method.grammar.http_method
   integration_http_method = "POST"
-  type                    = "AWS_PROXY"
+  type                    = "AWS"
   uri                     = aws_lambda_function.openai_text.invoke_arn
   credentials             = aws_iam_role.apigateway.arn
   # https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html#input-variable-reference
   # https://goessner.net/articles/JsonPath/
   request_templates = {
-    "application/json" = "${path.module}/template/grammar_request_template.tpl"
+    "application/json" = data.template_file.grammar_request_template.rendered
   }
+  passthrough_behavior = "WHEN_NO_TEMPLATES"
+  depends_on           = [aws_api_gateway_method.grammar]
 }
 
 resource "aws_api_gateway_method_response" "grammar_response_200" {
@@ -41,9 +46,11 @@ resource "aws_api_gateway_method_response" "grammar_response_200" {
   response_models = {
     "application/json" = "Empty"
   }
-  response_parameters = {}
 }
 
+###############################################################################
+# IAM
+###############################################################################
 resource "aws_lambda_permission" "grammar" {
   # More: http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-control-access-using-iam-policies-to-invoke-api.html
   statement_id  = "AllowExecutionFromAPIGateway"

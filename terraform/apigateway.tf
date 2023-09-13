@@ -63,6 +63,8 @@ resource "aws_api_gateway_deployment" "openai" {
   triggers = {
     redeployment = sha1(jsonencode([
       aws_api_gateway_rest_api.openai.body,
+
+      # 1 thru 10
       module.default_grammar.sha1_deployment_trigger,
       module.default_summarize.sha1_deployment_trigger,
       module.default_parse_data.sha1_deployment_trigger,
@@ -71,7 +73,13 @@ resource "aws_api_gateway_deployment" "openai" {
       module.default_explain_code.sha1_deployment_trigger,
       module.default_keywords.sha1_deployment_trigger,
       module.default_product_name_gen.sha1_deployment_trigger,
-      module.default_fix_python_bugs.sha1_deployment_trigger
+      module.default_fix_python_bugs.sha1_deployment_trigger,
+      module.default_spreadsheet_gen.sha1_deployment_trigger,
+
+      ## 11 thru 20
+      module.default_tweet_classifier.sha1_deployment_trigger,
+      module.default_airport_codes.sha1_deployment_trigger,
+      module.default_mood_color.sha1_deployment_trigger
     ]))
   }
   lifecycle {

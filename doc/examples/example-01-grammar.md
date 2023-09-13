@@ -1,6 +1,7 @@
 # Grammar correction
 
 Convert ungrammatical statements into standard English.
+See [https://platform.openai.com/examples/default-grammar](https://platform.openai.com/examples/default-grammar)
 
 ## Example Usage
 
@@ -41,7 +42,5 @@ curl --location --request PUT 'https://YOUR-API-GATEWAY-URL.amazonaws.com/v1/exa
 ```
 
 ## Official Documentation
-
-[https://platform.openai.com/examples/default-grammar](https://platform.openai.com/examples/default-grammar)
 
 ![OpenAI Settings](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/examples/example-01-grammar.png "OpenAI Settings")

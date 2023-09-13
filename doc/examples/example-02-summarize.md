@@ -1,6 +1,7 @@
 # Grammar correction
 
 Simplify text to a level appropriate for a second-grade student.
+See [https://platform.openai.com/examples/default-summarize](https://platform.openai.com/examples/default-summarize)
 
 ## Example Usage
 
@@ -48,7 +49,5 @@ curl --location --request PUT 'https://api.openai.lawrencemcdaniel.com/examples/
 ```
 
 ## Official Documentation
-
-[https://platform.openai.com/examples/default-summarize](https://platform.openai.com/examples/default-summarize)
 
 ![OpenAI Settings](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/examples/example-02-summarize.png "OpenAI Settings")

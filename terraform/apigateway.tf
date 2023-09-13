@@ -81,7 +81,12 @@ resource "aws_api_gateway_deployment" "openai" {
       module.default_airport_codes.sha1_deployment_trigger,
       module.default_mood_color.sha1_deployment_trigger,
       module.default_vr_fitness.sha1_deployment_trigger,
-      module.default_marv_sarcastic_chat.sha1_deployment_trigger
+      module.default_marv_sarcastic_chat.sha1_deployment_trigger,
+      module.default_turn_by_turn_directions.sha1_deployment_trigger,
+      module.default_interview_questions.sha1_deployment_trigger,
+      module.default_function_from_spec.sha1_deployment_trigger,
+      module.default_code_improvement.sha1_deployment_trigger,
+      module.default_single_page_website.sha1_deployment_trigger
     ]))
   }
   lifecycle {

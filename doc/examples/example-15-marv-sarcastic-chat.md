@@ -1,6 +1,6 @@
-# VR fitness idea generator
+# Marv the sarcastic chat bot
 
-Generate ideas for fitness promoting virtual reality games.
+Marv is a factual chatbot that is also sarcastic.
 
 - See [https://platform.openai.com/examples/default-marv-sarcastic-chat](https://platform.openai.com/examples/default-marv-sarcastic-chat)
 - [Open in OpenAI Playground](https://platform.openai.com/playground/p/default-marv-sarcastic-chat)

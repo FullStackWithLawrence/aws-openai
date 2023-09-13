@@ -353,3 +353,115 @@ module "default_marv_sarcastic_chat" {
   aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
+
+###############################################################################
+# 16. see https://platform.openai.com/examples/default-turn-by-turn-directions
+###############################################################################
+module "default_turn_by_turn_directions" {
+  source    = "./endpoint"
+  path_part = "default-turn-by-turn-directions"
+
+  # OpenAI application definition
+  mapping_end_point           = "ChatCompletion"
+  mapping_model               = "gpt-3.5-turbo"
+  mapping_role_system_content = "You will be provided with a text, and your task is to create a numbered list of turn-by-turn directions from it."
+  mapping_temperature         = 0.3
+  mapping_max_tokens          = 256
+
+  # integrate this endpoint to the AWS Gateway API.
+  aws_region                                 = var.aws_region
+  aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
+  aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_iam_role_arn                           = aws_iam_role.apigateway.arn
+}
+
+###############################################################################
+# 17. see https://platform.openai.com/examples/default-interview-questions
+###############################################################################
+module "default_interview_questions" {
+  source    = "./endpoint"
+  path_part = "default-interview-questions"
+
+  # OpenAI application definition
+  mapping_end_point   = "ChatCompletion"
+  mapping_model       = "gpt-3.5-turbo"
+  mapping_temperature = 0.5
+  mapping_max_tokens  = 1024
+
+  # integrate this endpoint to the AWS Gateway API.
+  aws_region                                 = var.aws_region
+  aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
+  aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_iam_role_arn                           = aws_iam_role.apigateway.arn
+}
+
+###############################################################################
+# 18. see https://platform.openai.com/examples/default-function-from-spec
+###############################################################################
+module "default_function_from_spec" {
+  source    = "./endpoint"
+  path_part = "default-function-from-spec"
+
+  # OpenAI application definition
+  mapping_end_point   = "ChatCompletion"
+  mapping_model       = "gpt-4"
+  mapping_temperature = 0
+  mapping_max_tokens  = 1024
+
+  # integrate this endpoint to the AWS Gateway API.
+  aws_region                                 = var.aws_region
+  aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
+  aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_iam_role_arn                           = aws_iam_role.apigateway.arn
+}
+
+###############################################################################
+# 19. see https://platform.openai.com/examples/default-code-improvement
+###############################################################################
+module "default_code_improvement" {
+  source    = "./endpoint"
+  path_part = "default-code-improvement"
+
+  # OpenAI application definition
+  mapping_end_point           = "ChatCompletion"
+  mapping_model               = "gpt-4"
+  mapping_role_system_content = "You will be provided with a piece of Python code, and your task is to provide ideas for efficiency improvements."
+  mapping_temperature         = 0
+  mapping_max_tokens          = 1024
+
+  # integrate this endpoint to the AWS Gateway API.
+  aws_region                                 = var.aws_region
+  aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
+  aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_iam_role_arn                           = aws_iam_role.apigateway.arn
+}
+
+###############################################################################
+# 20. see https://platform.openai.com/examples/default-single-page-website
+###############################################################################
+module "default_single_page_website" {
+  source    = "./endpoint"
+  path_part = "default-single-page-website"
+
+  # OpenAI application definition
+  mapping_end_point   = "ChatCompletion"
+  mapping_model       = "gpt-4"
+  mapping_temperature = 0
+  mapping_max_tokens  = 2048
+
+  # integrate this endpoint to the AWS Gateway API.
+  aws_region                                 = var.aws_region
+  aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
+  aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_iam_role_arn                           = aws_iam_role.apigateway.arn
+}

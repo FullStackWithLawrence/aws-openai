@@ -308,3 +308,48 @@ module "default_mood_color" {
   aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
+
+###############################################################################
+# 14. see https://platform.openai.com/examples/default-vr-fitness
+###############################################################################
+module "default_vr_fitness" {
+  source    = "./endpoint"
+  path_part = "default-vr-fitness"
+
+  # OpenAI application definition
+  mapping_end_point   = "ChatCompletion"
+  mapping_model       = "gpt-3.5-turbo"
+  mapping_temperature = 0.6
+  mapping_max_tokens  = 256
+
+  # integrate this endpoint to the AWS Gateway API.
+  aws_region                                 = var.aws_region
+  aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
+  aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_iam_role_arn                           = aws_iam_role.apigateway.arn
+}
+
+###############################################################################
+# 15. see https://platform.openai.com/examples/default-marv-sarcastic-chat
+###############################################################################
+module "default_marv_sarcastic_chat" {
+  source    = "./endpoint"
+  path_part = "default-marv-sarcastic-chat"
+
+  # OpenAI application definition
+  mapping_end_point           = "ChatCompletion"
+  mapping_model               = "gpt-3.5-turbo"
+  mapping_role_system_content = "You are Marv, a chatbot that reluctantly answers questions with sarcastic responses."
+  mapping_temperature         = 0.5
+  mapping_max_tokens          = 256
+
+  # integrate this endpoint to the AWS Gateway API.
+  aws_region                                 = var.aws_region
+  aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
+  aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_iam_role_arn                           = aws_iam_role.apigateway.arn
+}

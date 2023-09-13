@@ -79,7 +79,9 @@ resource "aws_api_gateway_deployment" "openai" {
       ## 11 thru 20
       module.default_tweet_classifier.sha1_deployment_trigger,
       module.default_airport_codes.sha1_deployment_trigger,
-      module.default_mood_color.sha1_deployment_trigger
+      module.default_mood_color.sha1_deployment_trigger,
+      module.default_vr_fitness.sha1_deployment_trigger,
+      module.default_marv_sarcastic_chat.sha1_deployment_trigger
     ]))
   }
   lifecycle {

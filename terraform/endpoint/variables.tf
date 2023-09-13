@@ -10,7 +10,7 @@ variable "path_part" {
   default     = "default-grammar"
 }
 
-variable "aws_api_gateway_rest_api_root_resource_id" {
+variable "aws_api_gateway_rest_api_parent_id" {
   description = "root resource id of API gateway api"
   type        = string
 }
@@ -48,4 +48,16 @@ variable "mapping_role_system_content" {
   description = "value"
   type        = string
   default     = "You will be provided with statements, and your task is to convert them to standard English."
+}
+
+variable "mapping_temperature" {
+  description = "a number between 0 and 2, with a default value of 1 or 0.7 depending on the model you choose. The temperature is used to control the randomness of the output."
+  type        = number
+  default     = 1
+}
+
+variable "mapping_max_tokens" {
+  description = "the max tokens for a single prompt"
+  type        = number
+  default     = 4096
 }

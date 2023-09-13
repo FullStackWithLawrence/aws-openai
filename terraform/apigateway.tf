@@ -45,6 +45,13 @@ resource "aws_api_gateway_rest_api" "openai" {
   }
   tags = var.tags
 }
+
+resource "aws_api_gateway_resource" "examples" {
+  path_part   = "examples"
+  parent_id   = aws_api_gateway_rest_api.openai.root_resource_id
+  rest_api_id = aws_api_gateway_rest_api.openai.id
+}
+
 resource "aws_api_gateway_api_key" "openai" {
   name = var.shared_resource_identifier
   tags = var.tags

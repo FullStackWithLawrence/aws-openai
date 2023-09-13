@@ -9,9 +9,10 @@ data "aws_caller_identity" "current" {}
 
 resource "aws_api_gateway_resource" "endpoint" {
   path_part   = var.path_part
-  parent_id   = var.aws_api_gateway_rest_api_root_resource_id
+  parent_id   = var.aws_api_gateway_rest_api_parent_id
   rest_api_id = var.aws_api_gateway_rest_api_id
 }
+
 resource "aws_api_gateway_method" "endpoint" {
   rest_api_id      = var.aws_api_gateway_rest_api_id
   resource_id      = aws_api_gateway_resource.endpoint.id
@@ -25,6 +26,8 @@ data "template_file" "openai_integration" {
   vars = {
     mapping_role_system_content = var.mapping_role_system_content
     mapping_end_point           = var.mapping_end_point
+    mapping_temperature         = var.mapping_temperature
+    mapping_max_tokens          = var.mapping_max_tokens
   }
 }
 
@@ -58,11 +61,11 @@ resource "aws_api_gateway_method_response" "grammar_response_200" {
 ###############################################################################
 # IAM
 ###############################################################################
-resource "aws_lambda_permission" "endpoint" {
-  # More: http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-control-access-using-iam-policies-to-invoke-api.html
-  statement_id  = "AllowExecutionFromAPIGateway"
-  action        = "lambda:InvokeFunction"
-  function_name = var.aws_lambda_function_openai_text
-  principal     = "apigateway.amazonaws.com"
-  source_arn    = "arn:aws:execute-api:${var.aws_region}:${data.aws_caller_identity.current.account_id}:${var.aws_api_gateway_rest_api_id}/*/${aws_api_gateway_method.endpoint.http_method}${aws_api_gateway_resource.endpoint.path}"
-}
+# More: http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-control-access-using-iam-policies-to-invoke-api.html
+# resource "aws_lambda_permission" "endpoint" {
+#   statement_id  = "AllowExecutionFromAPIGateway"
+#   action        = "lambda:InvokeFunction"
+#   function_name = var.aws_lambda_function_openai_text
+#   principal     = "apigateway.amazonaws.com"
+#   source_arn    = "arn:aws:execute-api:${var.aws_region}:${data.aws_caller_identity.current.account_id}:${var.aws_api_gateway_rest_api_id}/*/${aws_api_gateway_method.endpoint.http_method}${aws_api_gateway_resource.endpoint.path}"
+# }

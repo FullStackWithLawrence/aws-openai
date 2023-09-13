@@ -5,7 +5,7 @@ Convert ungrammatical statements into standard English.
 ## Example Usage
 
 ```console
-curl --location --request PUT 'https://YOUR-API-GATEWAY-URL.amazonaws.com/v1/default-grammar' \
+curl --location --request PUT 'https://YOUR-API-GATEWAY-URL.amazonaws.com/v1/examples/default-grammar' \
 --header 'x-api-key: YOUR-API-GATEWAY-KEY' \
 --header 'Content-Type: application/json' \
 --data '{

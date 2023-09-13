@@ -9,7 +9,7 @@ A REST API implementing every [OpenAI Example Application](https://platform.open
 ## Example usage
 
 ```console
-curl --location --request PUT 'https://api.openai.yourdomain.com/default-grammar' \
+curl --location --request PUT 'https://api.openai.yourdomain.com/examples/default-grammar' \
 --header 'x-api-key: your-apigateway-api-key' \
 --header 'Content-Type: application/json' \
 --data '{

@@ -10,7 +10,7 @@ repos:
     rev: v4.4.0
     hooks:
       # See https://pre-commit.com/hooks.html for more hooks
-      - id: check-added-large-files
+      #- id: check-added-large-files
       - id: check-byte-order-marker
       - id: check-case-conflict
       - id: check-json

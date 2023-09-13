@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "default-grammar",
+			"name": "01-grammar",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -19,7 +19,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"model\": \"gpt-3.5-turbo\",\n    \"input_text\": \"imma bust yo face\"\n}",
+					"raw": "{\n    \"input_text\": \"she broked the lamp post\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -27,13 +27,1212 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/{{stage}}/default-grammar",
+					"raw": "{{base_url}}/examples/default-grammar",
 					"host": [
 						"{{base_url}}"
 					],
 					"path": [
-						"{{stage}}",
+						"examples",
 						"default-grammar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "02-summarize",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"Jupiter is a really big planet in our Solar System. It is the fifth planet from the Sun and it is the largest planet. It is called a gas giant because it is made mostly of gas. Jupiter is much smaller than the Sun, but it is bigger than all the other planets combined. It is very bright and can be seen in the night sky without a telescope. People have known about Jupiter for a very long time, even before they started writing things down. It is named after a god from ancient Rome. Sometimes, Jupiter is so bright that it can make shadows on Earth. It is usually the third-brightest thing we can see in the night sky, after the Moon and Venus.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-summarize",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-summarize"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "03-parse-data",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"There are many fruits that were found on the recently discovered planet Goocrux. There are neoskizzles that grow there, which are purple and taste like candy. There are also loheckles, which are a grayish blue fruit and are very tart, a little bit like a lemon. Pounits are a bright green color and are more savory than sweet. There are also plenty of loopnovas which are a neon pink flavor and taste like cotton candy. Finally, there are fruits called glowls, which have a very sour and bitter taste which is acidic and caustic, and a pale orange tinge to them.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-parse-data",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-parse-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "04-emoji-translation",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"Artificial intelligence is a technology with great promise.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-emoji-translation",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-emoji-translation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "05-time-complexity",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"def foo(n, k):\\n    accum = 0\\n    for i in range(n):\\n        for l in range(k):\\n           accum += i\\n    return accum\\n\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-time-complexity",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-time-complexity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "06-explain-code",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"class Log:\\n    def __init__(self, path):\\n        dirname = os.path.dirname(path)\\n        os.makedirs(dirname, exist_ok=True)\\n        f = open(path, \\\"a+\\\")\\n\\n        # Check that the file is newline-terminated\\n        size = os.path.getsize(path)\\n        if size > 0:\\n            f.seek(size - 1)\\n            end = f.read(1)\\n            if end != \\\"\\n\\\":\\n                f.write(\\\"\\n\\\")\\n        self.f = f\\n        self.path = path\\n\\n    def log(self, event):\\n        event[\\\"_event_id\\\"] = str(uuid.uuid4())\\n        json.dump(event, self.f)\\n        self.f.write(\\\"\\n\\\")\\n\\n    def state(self):\\n        state = {\\\"complete\\\": set(), \\\"last\\\": None}\\n        for line in open(self.path):\\n            event = json.loads(line)\\n            if event[\\\"type\\\"] == \\\"submit\\\" and event[\\\"success\\\"]:\\n                state[\\\"complete\\\"].add(event[\\\"id\\\"])\\n                state[\\\"last\\\"] = event\\n        return state\\n\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-explain-code",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-explain-code"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "07-keywords",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"Black-on-black ware is a 20th- and 21st-century pottery tradition developed by the Puebloan Native American ceramic artists in Northern New Mexico. Traditional reduction-fired blackware has been made for centuries by pueblo artists. Black-on-black ware of the past century is produced with a smooth surface, with the designs applied through selective burnishing or the application of refractory slip. Another style involves carving or incising designs and selectively polishing the raised areas. For generations several families from Kha'po Owingeh and P'ohwhóge Owingeh pueblos have been making black-on-black ware with the techniques passed down from matriarch potters. Artists from other pueblos have also produced black-on-black ware. Several contemporary artists have created works honoring the pottery of their ancestors.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-keywords",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-keywords"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "08-product-name-gen",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"Product description: A home milkshake maker. Seed words: fast, healthy, compact.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-product-name-gen",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-product-name-gen"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "09-fix-python-bugs",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"import Random\\na = random.randint(1,12)\\nb = random.randint(1,12)\\nfor i in range(10):\\n    question = \\\"What is \\\"+a+\\\" x \\\"+b+\\\"? \\\"\\n    answer = input(question)\\n    if answer = a*b\\n        print (Well done!)\\n    else:\\n        print(\\\"No.\\\")\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-fix-python-bugs",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-fix-python-bugs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10-spreadsheet-gen",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"Create a two-column CSV of top science fiction movies along with the year of release.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-spreadsheet-gen",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-spreadsheet-gen"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "11-tweet-classifier",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"I loved the new Batman movie!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-tweet-classifier",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-tweet-classifier"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "12-airport-codes",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"I want to fly from Orlando to Boston\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-airport-codes",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-airport-codes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "13-mood-color",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"Blue sky at dusk.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-mood-color",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-mood-color"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "14-vr-fitness",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"Brainstorm some ideas combining VR and fitness.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-vr-fitness",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-vr-fitness"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "15-marv-sarcastic-chat",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"How many pounds are in a kilogram?\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-marv-sarcastic-chat",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-marv-sarcastic-chat"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "16-turn-by-turn-directions",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"Go south on 95 until you hit Sunrise boulevard then take it east to us 1 and head south. Tom Jenkins bbq will be on the left after several miles.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-turn-by-turn-directions",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-turn-by-turn-directions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "17-interview-questions",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"Create a list of 8 questions for an interview with a science fiction author.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-interview-questions",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-interview-questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "18-function-from-spec",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"Write a Python function that takes as input a file path to an image, loads the image into memory as a numpy array, then crops the rows and columns around the perimeter if they are darker than a threshold value. Use the mean value of rows and columns to decide if they should be marked for deletion.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-function-from-spec",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-function-from-spec"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "19-code-improvement",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"from typing import List\\n\\ndef has_sum_k(nums: List[int], k: int) -> bool:\\n    \\n\\n\\n\\n    Returns True if there are two distinct elements in nums such that their sum\\n    is equal to k, and otherwise returns False.\\n    \\n\\n\\n\\n    n = len(nums)\\n    for i in range(n):\\n        for j in range(i+1, n):\\n            if nums[i] + nums[j] == k:\\n                return True\\n    return False\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-code-improvement",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-code-improvement"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "20-single-page-website",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"Make a single page website that shows off different neat javascript features for drop-downs and things to display information. The website should be an HTML file with embedded javascript and CSS.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-single-page-website",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-single-page-website"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "21-rap-battle",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"Write a rap battle between Alan Turing and Claude Shannon.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-rap-battle",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-rap-battle"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "22-memo-writer",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"Draft a company memo to be distributed to all employees. The memo should cover the following specific points without deviating from the topics mentioned and not writing any fact which is not present here:\\n\\nIntroduction: Remind employees about the upcoming quarterly review scheduled for the last week of April.\\n\\nPerformance Metrics: Clearly state the three key performance indicators (KPIs) that will be assessed during the review: sales targets, customer satisfaction (measured by net promoter score), and process efficiency (measured by average project completion time).\\n\\nProject Updates: Provide a brief update on the status of the three ongoing company projects:\\n\\na. Project Alpha: 75% complete, expected completion by May 30th.\\nb. Project Beta: 50% complete, expected completion by June 15th.\\nc. Project Gamma: 30% complete, expected completion by July 31st.\\n\\nTeam Recognition: Announce that the Sales Team was the top-performing team of the past quarter and congratulate them for achieving 120% of their target.\\n\\nTraining Opportunities: Inform employees about the upcoming training workshops that will be held in May, including \\\"Advanced Customer Service\\\" on May 10th and \\\"Project Management Essentials\\\" on May 25th.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-memo-writer",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-memo-writer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "24-translation",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"My name is Jane. What is yours?\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-translation",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-translation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "25-socratic-tutor",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"Help me to understand the future of artificial intelligence.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-socratic-tutor",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-socratic-tutor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "26-sql-translate",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"Write a SQL query which computes the average total order value for all orders on 2023-04-01.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-sql-translate",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-sql-translate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "27-notes-summarizer",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"Meeting Date: March 5th, 2050\\nMeeting Time: 2:00 PM\\nLocation: Conference Room 3B, Intergalactic Headquarters\\n\\nAttendees:\\n- Captain Stardust\\n- Dr. Quasar\\n- Lady Nebula\\n- Sir Supernova\\n- Ms. Comet\\n\\nMeeting called to order by Captain Stardust at 2:05 PM\\n\\n1. Introductions and welcome to our newest team member, Ms. Comet\\n\\n2. Discussion of our recent mission to Planet Zog\\n- Captain Stardust: \\\"Overall, a success, but communication with the Zogians was difficult. We need to improve our language skills.\\\"\\n- Dr. Quasar: \\\"Agreed. I'll start working on a Zogian-English dictionary right away.\\\"\\n- Lady Nebula: \\\"The Zogian food was out of this world, literally! We should consider having a Zogian food night on the ship.\\\"\\n\\n3. Addressing the space pirate issue in Sector 7\\n- Sir Supernova: \\\"We need a better strategy for dealing with these pirates. They've already plundered three cargo ships this month.\\\"\\n- Captain Stardust: \\\"I'll speak with Admiral Starbeam about increasing patrols in that area.\\n- Dr. Quasar: \\\"I've been working on a new cloaking technology that could help our ships avoid detection by the pirates. I'll need a few more weeks to finalize the prototype.\\\"\\n\\n4. Review of the annual Intergalactic Bake-Off\\n- Lady Nebula: \\\"I'm happy to report that our team placed second in the competition! Our Martian Mud Pie was a big hit!\\\"\\n- Ms. Comet: \\\"Let's aim for first place next year. I have a secret recipe for Jupiter Jello that I think could be a winner.\\\"\\n\\n5. Planning for the upcoming charity fundraiser\\n- Captain Stardust: \\\"We need some creative ideas for our booth at the Intergalactic Charity Bazaar.\\\"\\n- Sir Supernova: \\\"How about a 'Dunk the Alien' game? We can have people throw water balloons at a volunteer dressed as an alien.\\\"\\n- Dr. Quasar: \\\"I can set up a 'Name That Star' trivia game with prizes for the winners.\\\"\\n- Lady Nebula: \\\"Great ideas, everyone. Let's start gathering the supplies and preparing the games.\\\"\\n\\n6. Upcoming team-building retreat\\n- Ms. Comet: \\\"I would like to propose a team-building retreat to the Moon Resort and Spa. It's a great opportunity to bond and relax after our recent missions.\\\"\\n- Captain Stardust: \\\"Sounds like a fantastic idea. I'll check the budget and see if we can make it happen.\\\"\\n\\n7. Next meeting agenda items\\n- Update on the Zogian-English dictionary (Dr. Quasar)\\n- Progress report on the cloaking technology (Dr. Quasar)\\n- Results of increased patrols in Sector 7 (Captain Stardust)\\n- Final preparations for the Intergalactic Charity Bazaar (All)\\n\\nMeeting adjourned at 3:15 PM. Next meeting scheduled for March 19th, 2050 at 2:00 PM in Conference Room 3B, Intergalactic Headquarters.\\n\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-notes-summarizer",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-notes-summarizer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "28-review-classifier",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"I recently purchased the Inflatotron 2000 airbed for a camping trip and wanted to share my experience with others. Overall, I found the airbed to be a mixed bag with some positives and negatives.\\\\Starting with the positives, the Inflatotron 2000 is incredibly easy to set up and inflate. It comes with a built-in electric pump that quickly inflates the bed within a few minutes, which is a huge plus for anyone who wants to avoid the hassle of manually pumping up their airbed. The bed is also quite comfortable to sleep on and offers decent support for your back, which is a major plus if you have any issues with back pain.\\\\On the other hand, I did experience some negatives with the Inflatotron 2000. Firstly, I found that the airbed is not very durable and punctures easily. During my camping trip, the bed got punctured by a stray twig that had fallen on it, which was quite frustrating. Secondly, I noticed that the airbed tends to lose air overnight, which meant that I had to constantly re-inflate it every morning. This was a bit annoying as it disrupted my sleep and made me feel less rested in the morning.\\\\Another negative point is that the Inflatotron 2000 is quite heavy and bulky, which makes it difficult to transport and store. If you're planning on using this airbed for camping or other outdoor activities, you'll need to have a large enough vehicle to transport it and a decent amount of storage space to store it when not in use.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-review-classifier",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-review-classifier"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "29-pro-con-discusser",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"Analyze the pros and cons of remote work vs. office work\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-pro-con-discusser",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-pro-con-discusser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "30-lesson-plan-writer",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"Write a lesson plan for an introductory algebra class. The lesson plan should cover the distributive law, in particular how it works in simple cases involving mixes of positive and negative numbers. Come up with some examples that show common student errors.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-lesson-plan-writer",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-lesson-plan-writer"
 					]
 				}
 			},

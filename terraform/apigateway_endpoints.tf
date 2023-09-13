@@ -465,3 +465,124 @@ module "default_single_page_website" {
   aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
+
+###############################################################################
+# 21. see https://platform.openai.com/examples/default-rap-battle
+###############################################################################
+module "default_rap_battle" {
+  source    = "./endpoint"
+  path_part = "default-rap-battle"
+
+  # OpenAI application definition
+  mapping_end_point   = "ChatCompletion"
+  mapping_model       = "gpt-4"
+  mapping_temperature = 0.8
+  mapping_max_tokens  = 1024
+
+  # integrate this endpoint to the AWS Gateway API.
+  aws_region                                 = var.aws_region
+  aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
+  aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_iam_role_arn                           = aws_iam_role.apigateway.arn
+}
+
+###############################################################################
+# 22. see https://platform.openai.com/examples/default-memo-writer
+###############################################################################
+module "default_memo_writer" {
+  source    = "./endpoint"
+  path_part = "default-memo-writer"
+
+  # OpenAI application definition
+  mapping_end_point   = "ChatCompletion"
+  mapping_model       = "gpt-4"
+  mapping_temperature = 0
+  mapping_max_tokens  = 1024
+
+  # integrate this endpoint to the AWS Gateway API.
+  aws_region                                 = var.aws_region
+  aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
+  aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_iam_role_arn                           = aws_iam_role.apigateway.arn
+}
+
+###############################################################################
+# 23. see https://platform.openai.com/examples/default-emoji-chatbot
+###############################################################################
+module "default_emoji_chatbot" {
+  source    = "./endpoint"
+  path_part = "default-emoji-chatbot"
+
+  # OpenAI application definition
+  mapping_end_point           = "ChatCompletion"
+  mapping_model               = "gpt-4"
+  mapping_role_system_content = "You will be provided with a message, and your task is to respond using emojis only."
+  mapping_temperature         = 0.8
+  mapping_max_tokens          = 256
+
+  # integrate this endpoint to the AWS Gateway API.
+  aws_region                                 = var.aws_region
+  aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
+  aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_iam_role_arn                           = aws_iam_role.apigateway.arn
+}
+
+###############################################################################
+# 24. see https://platform.openai.com/examples/default-translation
+###############################################################################
+module "default_translation" {
+  source    = "./endpoint"
+  path_part = "default-translation"
+
+  # OpenAI application definition
+  mapping_end_point           = "ChatCompletion"
+  mapping_model               = "gpt-4"
+  mapping_role_system_content = "You will be provided with a sentence in English, and your task is to translate it into French."
+  mapping_temperature         = 0
+  mapping_max_tokens          = 256
+
+  # integrate this endpoint to the AWS Gateway API.
+  aws_region                                 = var.aws_region
+  aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
+  aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_iam_role_arn                           = aws_iam_role.apigateway.arn
+}
+
+###############################################################################
+# 25. see https://platform.openai.com/examples/default-socratic-tutor
+###############################################################################
+module "default_socratic_tutor" {
+  source    = "./endpoint"
+  path_part = "default-socratic-tutor"
+
+  # OpenAI application definition
+  mapping_end_point           = "ChatCompletion"
+  mapping_model               = "gpt-4"
+  mapping_role_system_content = <<EOH
+  You are a Socratic tutor. Use the following principles in responding to students:
+- Ask thought-provoking, open-ended questions that challenge students' preconceptions and encourage them to engage in deeper reflection and critical thinking.
+- Facilitate open and respectful dialogue among students, creating an environment where diverse viewpoints are valued and students feel comfortable sharing their ideas.
+- Actively listen to students' responses, paying careful attention to their underlying thought processes and making a genuine effort to understand their perspectives.
+- Guide students in their exploration of topics by encouraging them to discover answers independently, rather than providing direct answers, to enhance their reasoning and analytical skills.
+- Promote critical thinking by encouraging students to question assumptions, evaluate evidence, and consider alternative viewpoints in order to arrive at well-reasoned conclusions.
+- Demonstrate humility by acknowledging your own limitations and uncertainties, modeling a growth mindset and exemplifying the value of lifelong learning.
+EOH
+  mapping_temperature         = 0.8
+  mapping_max_tokens          = 1024
+
+  # integrate this endpoint to the AWS Gateway API.
+  aws_region                                 = var.aws_region
+  aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
+  aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_iam_role_arn                           = aws_iam_role.apigateway.arn
+}

@@ -76,7 +76,7 @@ resource "aws_api_gateway_deployment" "openai" {
       module.default_fix_python_bugs.sha1_deployment_trigger,
       module.default_spreadsheet_gen.sha1_deployment_trigger,
 
-      ## 11 thru 20
+      # 11 thru 20
       module.default_tweet_classifier.sha1_deployment_trigger,
       module.default_airport_codes.sha1_deployment_trigger,
       module.default_mood_color.sha1_deployment_trigger,
@@ -86,7 +86,14 @@ resource "aws_api_gateway_deployment" "openai" {
       module.default_interview_questions.sha1_deployment_trigger,
       module.default_function_from_spec.sha1_deployment_trigger,
       module.default_code_improvement.sha1_deployment_trigger,
-      module.default_single_page_website.sha1_deployment_trigger
+      module.default_single_page_website.sha1_deployment_trigger,
+
+      # 21 thru 30
+      module.default_rap_battle.sha1_deployment_trigger,
+      module.default_memo_writer.sha1_deployment_trigger,
+      module.default_emoji_chatbot.sha1_deployment_trigger,
+      module.default_translation.sha1_deployment_trigger,
+      module.default_socratic_tutor.sha1_deployment_trigger
     ]))
   }
   lifecycle {

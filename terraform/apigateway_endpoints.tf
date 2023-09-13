@@ -674,3 +674,85 @@ EOH
   aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
+
+###############################################################################
+# 28. see https://platform.openai.com/examples/default-review-classifier
+###############################################################################
+module "default_review_classifier" {
+  source    = "./endpoint"
+  path_part = "default-review-classifier"
+
+  # OpenAI application definition
+  mapping_end_point           = "ChatCompletion"
+  mapping_model               = "gpt-4"
+  mapping_role_system_content = <<EOH
+You will be presented with user reviews and your job is to provide a set of tags from the following list. Provide your answer in bullet point form. Choose ONLY from the list of tags provided here (choose either the positive or the negative tag but NOT both):
+
+- Provides good value for the price OR Costs too much
+- Works better than expected OR Didn't work as well as expected
+- Includes essential features OR Lacks essential features
+- Easy to use OR Difficult to use
+- High quality and durability OR Poor quality and durability
+- Easy and affordable to maintain or repair OR Difficult or costly to maintain or repair
+- Easy to transport OR Difficult to transport
+- Easy to store OR Difficult to store
+- Compatible with other devices or systems OR Not compatible with other devices or systems
+- Safe and user-friendly OR Unsafe or hazardous to use
+- Excellent customer support OR Poor customer support
+- Generous and comprehensive warranty OR Limited or insufficient warranty
+EOH
+  mapping_temperature         = 0
+  mapping_max_tokens          = 1024
+
+  # integrate this endpoint to the AWS Gateway API.
+  aws_region                                 = var.aws_region
+  aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
+  aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_iam_role_arn                           = aws_iam_role.apigateway.arn
+}
+
+###############################################################################
+# 29. see https://platform.openai.com/examples/default-pro-con-discusser
+###############################################################################
+module "default_pro_con_discusser" {
+  source    = "./endpoint"
+  path_part = "default-pro-con-discusser"
+
+  # OpenAI application definition
+  mapping_end_point   = "ChatCompletion"
+  mapping_model       = "gpt-4"
+  mapping_temperature = 0.8
+  mapping_max_tokens  = 1024
+
+  # integrate this endpoint to the AWS Gateway API.
+  aws_region                                 = var.aws_region
+  aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
+  aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_iam_role_arn                           = aws_iam_role.apigateway.arn
+}
+
+###############################################################################
+# 30. see https://platform.openai.com/examples/default-lesson-plan-writer
+###############################################################################
+module "default_lesson_plan_writer" {
+  source    = "./endpoint"
+  path_part = "default-lesson-plan-writer"
+
+  # OpenAI application definition
+  mapping_end_point   = "ChatCompletion"
+  mapping_model       = "gpt-4"
+  mapping_temperature = 0.8
+  mapping_max_tokens  = 2048
+
+  # integrate this endpoint to the AWS Gateway API.
+  aws_region                                 = var.aws_region
+  aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
+  aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_iam_role_arn                           = aws_iam_role.apigateway.arn
+}

@@ -1,4 +1,4 @@
-# Grammar correction
+# Summarize for a 2nd grader
 
 Simplify text to a level appropriate for a second-grade student.
 See [https://platform.openai.com/examples/default-summarize](https://platform.openai.com/examples/default-summarize)
@@ -50,4 +50,4 @@ curl --location --request PUT 'https://api.openai.lawrencemcdaniel.com/examples/
 
 ## Official Documentation
 
-![OpenAI Settings](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/examples/example-02-summarize.png "OpenAI Settings")
+![OpenAI Playground](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/examples/example-02-summarize.png "OpenAI Playground")

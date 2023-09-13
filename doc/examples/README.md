@@ -10,7 +10,7 @@
 |                                        |                                 |
 | -------------------------------------- | ------------------------------- |
 | [/examples/default-grammar](./example-01-grammar.md)          | [/examples/default-summarize](./example-02-summarize.md) |
-| /examples/default-parse-data       | /examples/default-emoji-translation |
+| [/examples/default-parse-data](./example-03-parse-data.md)       | /examples/default-emoji-translation |
 | /examples/default-time-complexity  | /examples/default-explain-code |
 | /examples/default-keywords         | /examples/default-product-name-gen |
 | /examples/default-fix-python-bugs  | /examples/default-spreadsheet-gen |

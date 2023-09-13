@@ -12,7 +12,7 @@
 
 |                                        |                                 |
 | -------------------------------------- | ------------------------------- |
-| [{base-url}/v1/default-grammar](./example-01-grammar.md)          | {base-url}/v1/default-summarize |
+| [{base-url}/v1/default-grammar](./example-01-grammar.md)          | [{base-url}/v1/default-summarize](./example-02-summarize.md) |
 | {base-url}/v1/default-parse-data       | {base-url}/v1/default-emoji-translation |
 | {base-url}/v1/default-time-complexity  | {base-url}/v1/default-explain-code |
 | {base-url}/v1/default-keywords         | {base-url}/v1/default-product-name-gen |

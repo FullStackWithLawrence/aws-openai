@@ -2,6 +2,7 @@
 [![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)](https://aws.amazon.com/)
 [![hack.d Lawrence McDaniel](https://img.shields.io/badge/hack.d-Lawrence%20McDaniel-orange.svg)](https://lawrencemcdaniel.com)
 
+See index of [all api endpoints](./doc/examples/README.md)
 # OpenAI REST API Microservice
 
 A REST API implementing every [OpenAI Example Application](https://platform.openai.com/examples) from the official documentation. Implemented as a serverless microservice using AWS API Gateway and Lambda. Leverages OpenAI's suite of AI models, including [GTP-4](https://platform.openai.com/docs/models/gpt-4), [DALL·E](https://platform.openai.com/docs/models/dall-e), [Whisper](https://platform.openai.com/docs/models/whisper), [Embeddings](https://platform.openai.com/docs/models/embeddings), and [Moderation](https://platform.openai.com/docs/models/moderation).

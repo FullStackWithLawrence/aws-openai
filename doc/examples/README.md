@@ -12,18 +12,18 @@
 | [/examples/default-grammar](./example-01-grammar.md)          | [/examples/default-summarize](./example-02-summarize.md) |
 | [/examples/default-parse-data](./example-03-parse-data.md)       | [/examples/default-emoji-translation](./example-04-emoji-translation.md) |
 | [/examples/default-time-complexity](./example-05-time-complexity.md)  | [/examples/default-explain-code](./example-06-explain-code.md) |
-| /examples/default-keywords         | /examples/default-product-name-gen |
-| /examples/default-fix-python-bugs  | /examples/default-spreadsheet-gen |
-| /examples/default-tweet-classifier | /examples/default-airport-codes |
-| /examples/default-mood-color       | /examples/default-vr-fitness |
-| /examples/default-marv-sarcastic-chat | /examples/default-turn-by-turn-directions |
-| /examples/default-interview-questions | /examples/default-function-from-spec |
-| /examples/default-code-improvement | /examples/default-single-page-website |
-| /examples/default-rap-battle       | /examples/default-memo-writer |
-| /examples/default-emoji-chatbot    | /examples/default-translation |
-| /examples/default-socratic-tutor   | /examples/default-sql-translate |
-| /examples/default-meeting-notes-summarizer | /examples/default-review-classifier |
-| /examples/default-pro-con-discusser | /examples/default-lesson-plan-writer |
+| [/examples/default-keywords](./example-07-keywords.md)         | [/examples/default-product-name-gen](./example-08-product-name-gen.md) |
+| [/examples/default-fix-python-bugs](./example-09-fix-python-bugs.md)  | [/examples/default-spreadsheet-gen](./example-10-spreadsheet-gen.md) |
+| [/examples/default-tweet-classifier](./example-11-tweet-classifier.md) | [/examples/default-airport-codes](./example-12-airport-codes.md) |
+| [/examples/default-mood-color](./example-13-mood-color.md)       | [/examples/default-vr-fitness](./example-14-vr-fitness.md) |
+| [/examples/default-marv-sarcastic-chat](./example-15-marv-sarcastic-chat.md) | [/examples/default-turn-by-turn-directions](./example-16-turn-by-turn-directions.md) |
+| [/examples/default-interview-questions](./example-17-interview-questions.md) | [/examples/default-function-from-spec](./example-18-function-from-spec.md) |
+| [/examples/default-code-improvement](./example-19-code-improvement.md) | [/examples/default-single-page-website](./example-20-single-page-website.md) |
+| [/examples/default-rap-battle](./example-21-rap-battle.md)       | [/examples/default-memo-writer](./example-22-memo-writer.md) |
+| [/examples/default-emoji-chatbot](./example-23-emoji-chatbot.md)    | [/examples/default-translation](./example-24-translation.png) |
+| [/examples/default-socratic-tutor](./example-25-socratic-tutor.md)   | [/examples/default-sql-translate](./example-26-sql-translate.md) |
+| [/examples/default-meeting-notes-summarizer](./example-27-notes-summarizer.md) | [/examples/default-review-classifier](./example-28-review-classifier.md) |
+| [/examples/default-pro-con-discusser](./example-29-pro-con-discusser.md) | [/examples/default-lesson-plan-writer](./example-30-lesson-plan-writer.md) |
 
 ## more
 

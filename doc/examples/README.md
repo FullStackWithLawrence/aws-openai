@@ -20,7 +20,7 @@
 | [/examples/default-interview-questions](./example-17-interview-questions.md) | [/examples/default-function-from-spec](./example-18-function-from-spec.md) |
 | [/examples/default-code-improvement](./example-19-code-improvement.md) | [/examples/default-single-page-website](./example-20-single-page-website.md) |
 | [/examples/default-rap-battle](./example-21-rap-battle.md)       | [/examples/default-memo-writer](./example-22-memo-writer.md) |
-| [/examples/default-emoji-chatbot](./example-23-emoji-chatbot.md)    | [/examples/default-translation](./example-24-translation.png) |
+| [/examples/default-emoji-chatbot](./example-23-emoji-chatbot.md)    | [/examples/default-translation](./example-24-translation.md) |
 | [/examples/default-socratic-tutor](./example-25-socratic-tutor.md)   | [/examples/default-sql-translate](./example-26-sql-translate.md) |
 | [/examples/default-meeting-notes-summarizer](./example-27-notes-summarizer.md) | [/examples/default-review-classifier](./example-28-review-classifier.md) |
 | [/examples/default-pro-con-discusser](./example-29-pro-con-discusser.md) | [/examples/default-lesson-plan-writer](./example-30-lesson-plan-writer.md) |

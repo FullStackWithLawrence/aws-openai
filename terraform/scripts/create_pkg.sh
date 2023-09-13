@@ -5,9 +5,11 @@
 #
 # date: sep-2023
 #
-# usage:  copy python module(s) plus any requirements
-#         to a dedicated folder so that it can be archived
-#         for upload to AWS Lambda by Terraform.
+# usage:  Lambda Python packaging tool.
+#         Called by Terraform "null_resource". Copies python
+#         module(s) plus any requirements to a dedicated folder so that
+#         it can be archived to a zip file for upload to
+#         AWS Lambda by Terraform.
 #
 # see https://github.com/ruzin/terraform_aws_lambda_python/
 #------------------------------------------------------------------------------

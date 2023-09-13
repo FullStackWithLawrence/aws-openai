@@ -5,50 +5,68 @@
 # date: sep-2023
 #
 # usage:  implement a custom domain for API Gateway endpoint.
-#
-#         OPTIONAL. UNCOMMENT THIS MODULE IF YOU HAVE A ROOT DOMAIN
-#         MANAGED BY AWS ROUTE53.
 #------------------------------------------------------------------------------
+locals {
+  api_gateway_subdomain = "api.${var.shared_resource_identifier}.${var.root_domain}"
+}
+
+# WARNING: You need a pre-existing Route53 Hosted Zone
+# for root_domain located in your AWS account.
+# see: https://aws.amazon.com/route53/
+data "aws_route53_zone" "root_domain" {
+  count = var.create_custom_domain ? 1 : 0
+  name  = var.root_domain
+}
 
 # see https://registry.terraform.io/providers/-/aws/4.51.0/docs/resources/api_gateway_domain_name
-# resource "aws_api_gateway_domain_name" "openai" {
-#   domain_name     = local.api_gateway_subdomain
-#   certificate_arn = module.acm.acm_certificate_arn
-#   tags            = var.tags
-# }
+resource "aws_api_gateway_domain_name" "openai" {
+  count                    = var.create_custom_domain ? 1 : 0
+  domain_name              = local.api_gateway_subdomain
+  regional_certificate_arn = module.acm[count.index].acm_certificate_arn
+  tags                     = var.tags
+  endpoint_configuration {
+    types = ["REGIONAL"]
+  }
 
-# resource "aws_route53_record" "api" {
-#   zone_id = data.aws_route53_zone.root_domain.id
-#   name    = local.api_gateway_subdomain
-#   type    = "A"
+}
 
-#   alias {
-#     name                   = aws_api_gateway_domain_name.openai.cloudfront_domain_name
-#     zone_id                = aws_api_gateway_domain_name.openai.cloudfront_zone_id
-#     evaluate_target_health = false
-#   }
-# }
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_base_path_mapping
+resource "aws_api_gateway_base_path_mapping" "openai" {
+  count       = var.create_custom_domain ? 1 : 0
+  api_id      = aws_api_gateway_rest_api.openai.id
+  stage_name  = aws_api_gateway_stage.openai.stage_name
+  domain_name = aws_api_gateway_domain_name.openai[count.index].domain_name
+}
+resource "aws_route53_record" "api" {
+  count   = var.create_custom_domain ? 1 : 0
+  zone_id = data.aws_route53_zone.root_domain[count.index].id
+  name    = local.api_gateway_subdomain
+  type    = "A"
 
-# module "acm" {
-#   source  = "terraform-aws-modules/acm/aws"
-#   version = "~> 4.3"
+  alias {
+    name                   = aws_api_gateway_domain_name.openai[count.index].regional_domain_name
+    zone_id                = aws_api_gateway_domain_name.openai[count.index].regional_zone_id
+    evaluate_target_health = false
+  }
+}
 
-#   # un-comment this if you choose a region other than us-east-1
-#   # providers = {
-#   #   aws = var.aws_region
-#   # }
+module "acm" {
+  count   = var.create_custom_domain ? 1 : 0
+  source  = "terraform-aws-modules/acm/aws"
+  version = "~> 4.3"
 
-#   domain_name = local.api_gateway_subdomain
-#   zone_id     = data.aws_route53_zone.root_domain.id
+  # un-comment this if you choose a region other than us-east-1
+  # providers = {
+  #   aws = var.aws_region
+  # }
 
-#   subject_alternative_names = [
-#     "*.${local.api_gateway_subdomain}",
-#   ]
-#   tags = var.tags
+  domain_name = local.api_gateway_subdomain
+  zone_id     = data.aws_route53_zone.root_domain[count.index].id
 
-#   wait_for_validation = true
-# }
+  subject_alternative_names = [
+    "*.${local.api_gateway_subdomain}",
+  ]
+  tags = var.tags
 
-# output "api_custom_apigateway_url" {
-#   value = "https://${aws_route53_record.api.fqdn}"
-# }
+  wait_for_validation = true
+}

@@ -6,9 +6,55 @@
 
 A REST API implementing every [OpenAI Example Application](https://platform.openai.com/examples) from the official documentation. Implemented as a serverless microservice using AWS cloud resources. Leverages OpenAI's suite of AI models, including [GTP-4](https://platform.openai.com/docs/models/gpt-4), [DALL·E](https://platform.openai.com/docs/models/dall-e), [Whisper](https://platform.openai.com/docs/models/whisper), [Embeddings](https://platform.openai.com/docs/models/embeddings), and [Moderation](https://platform.openai.com/docs/models/moderation).
 
+## Example usage
+
+api request
+
+```console
+curl --location --request PUT 'https://api.openai.yourdomain.com/default-grammar' \
+--header 'x-api-key: your-apigateway-api-key' \
+--header 'Content-Type: application/json' \
+--data '{
+    "model": "gpt-3.5-turbo",
+    "input_text": "imma bust you upside the head"
+}'
+```
+
+return value
+
+```console
+{
+    "isBase64Encoded": false,
+    "statusCode": 200,
+    "headers": {
+        "Content-Type": "application/json"
+    },
+    "body": {
+        "id": "chatcmpl-7yLxpF7ZsJzF3FTUICyUKDe1Ob9nd",
+        "object": "chat.completion",
+        "created": 1694618465,
+        "model": "gpt-3.5-turbo-0613",
+        "choices": [
+            {
+                "index": 0,
+                "message": {
+                    "role": "assistant",
+                    "content": "I'm going to hit you on the head."
+                },
+                "finish_reason": "stop"
+            }
+        ],
+        "usage": {
+            "prompt_tokens": 36,
+            "completion_tokens": 10,
+            "total_tokens": 46
+        }
+    }
+}```
+
 ![OpenAI Examples](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/openai-examples.png "OpenAI Examples")
 
-## Usage
+## Setup
 
 1. clone this repo and setup a Python virtual environment
 

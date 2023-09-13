@@ -5,7 +5,8 @@
 #
 # date:       sep-2023
 #
-# usage:      reformat environment variables for consumption by Terraform
+# usage:      reformat environment variables for consumption by Terraform.
+#             Called by Terraform data "external"
 #------------------------------------------------------------------------------
 
 # https://support.hashicorp.com/hc/en-us/articles/4547786359571-Reading-and-using-environment-variables-in-Terraform-runs

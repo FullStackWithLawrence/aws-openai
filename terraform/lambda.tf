@@ -1,3 +1,12 @@
+#------------------------------------------------------------------------------
+# written by: Lawrence McDaniel
+#             https://lawrencemcdaniel.com/
+#
+# date:   sep-2023
+#
+# usage:  configure common Lambda IAM role and policy to enable
+#         logging to Cloudwatch.
+#------------------------------------------------------------------------------
 locals {
   lambda_role_name   = "${var.shared_resource_identifier}-lambda"
   lambda_policy_name = "${var.shared_resource_identifier}-lambda"

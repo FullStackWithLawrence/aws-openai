@@ -2,10 +2,10 @@
 # written by: Lawrence McDaniel
 #             https://lawrencemcdaniel.com/
 #
-# date: sep-2023
+# date:   sep-2023
 #
-# usage:  implement a Python Lambda function to search the openai handler
-#         for an image uploaded using the REST API endpoint.
+# usage:  implement a Python Lambda function to to format and pass
+#         text-based http requests to OpenAI API
 #------------------------------------------------------------------------------
 locals {
   text_slug             = "text"

@@ -2,28 +2,17 @@
 # written by: Lawrence McDaniel
 #             https://lawrencemcdaniel.com/
 #
-# date: sep-2023
+# date:   sep-2023
 #
-# usage:  - implement a REST API with a single end point for posting an image.
-#         - add a DNS record for the REST API
-#         - add TLS/SSL termination for https
+# usage:  create an AWS APIGateway REST API.
 #
 # see:    https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_model.html
 #         https://developer.hashicorp.com/terraform/tutorials/aws/lambda-api-gateway
 #------------------------------------------------------------------------------
 locals {
-  api_gateway_subdomain    = "api.${var.shared_resource_identifier}.${var.root_domain}"
   api_name                 = "${var.shared_resource_identifier}-api"
   apigateway_iam_role_name = "${var.shared_resource_identifier}-apigateway"
   iam_role_policy_name     = "${var.shared_resource_identifier}-apigateway"
-}
-
-# WARNING: You need a pre-existing Route53 Hosted Zone
-# for root_domain located in your AWS account.
-# see: https://aws.amazon.com/route53/
-data "aws_route53_zone" "root_domain" {
-  count = var.create_custom_domain ? 1 : 0
-  name  = var.root_domain
 }
 
 data "aws_caller_identity" "current" {}
@@ -64,15 +53,10 @@ resource "aws_api_gateway_api_key" "openai" {
 
 resource "aws_api_gateway_deployment" "openai" {
   rest_api_id = aws_api_gateway_rest_api.openai.id
-  depends_on = [
-    aws_api_gateway_integration.grammar
-  ]
   triggers = {
     redeployment = sha1(jsonencode([
       aws_api_gateway_rest_api.openai.body,
-      aws_api_gateway_method.grammar.id,
-      aws_api_gateway_integration.grammar.id,
-      aws_api_gateway_method_response.grammar_response_200.id
+      module.default_grammar.sha1_deployment_trigger
     ]))
   }
   lifecycle {

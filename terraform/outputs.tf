@@ -4,7 +4,7 @@
 #
 # date:       sep-2023
 #
-# usage:      all computed out values
+# usage:      all computed output values
 #------------------------------------------------------------------------------
 output "aws_account_id" {
   value = data.aws_caller_identity.current.account_id
@@ -27,6 +27,7 @@ output "api_apigateway_url" {
   value = aws_api_gateway_stage.openai.invoke_url
 }
 
-output "lambda_openai" {
-  value = aws_lambda_function.openai_text.arn
+output "api_apigateway_url_custom" {
+  # see https://discuss.hashicorp.com/t/terraform-outputs-with-count-index/32555
+  value = "https://${one(aws_route53_record.api[*].fqdn)}"
 }

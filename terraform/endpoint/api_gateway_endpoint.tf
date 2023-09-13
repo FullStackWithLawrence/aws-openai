@@ -4,9 +4,6 @@
 #
 #
 ###############################################################################
-data "aws_caller_identity" "current" {}
-
-
 resource "aws_api_gateway_resource" "endpoint" {
   path_part   = var.path_part
   parent_id   = var.aws_api_gateway_rest_api_parent_id
@@ -24,6 +21,7 @@ resource "aws_api_gateway_method" "endpoint" {
 data "template_file" "openai_integration" {
   template = file("${path.module}/mapping-templates/openai-integration.tpl")
   vars = {
+    mapping_model               = var.mapping_model
     mapping_role_system_content = var.mapping_role_system_content
     mapping_end_point           = var.mapping_end_point
     mapping_temperature         = var.mapping_temperature
@@ -61,6 +59,7 @@ resource "aws_api_gateway_method_response" "grammar_response_200" {
 ###############################################################################
 # IAM
 ###############################################################################
+# data "aws_caller_identity" "current" {}
 # More: http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-control-access-using-iam-policies-to-invoke-api.html
 # resource "aws_lambda_permission" "endpoint" {
 #   statement_id  = "AllowExecutionFromAPIGateway"

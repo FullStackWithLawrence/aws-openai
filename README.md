@@ -14,10 +14,7 @@ See index of [all api endpoints](./doc/examples/README.md)
 curl --location --request PUT 'https://api.openai.yourdomain.com/examples/default-grammar' \
 --header 'x-api-key: your-apigateway-api-key' \
 --header 'Content-Type: application/json' \
---data '{
-    "model": "gpt-3.5-turbo",
-    "input_text": "She no went to the market."
-}'
+--data '{"input_text": "She no went to the market."}'
 ```
 
 return value

@@ -10,7 +10,6 @@ curl --location --request PUT 'https://api.openai.lawrencemcdaniel.com/examples/
 --header 'x-api-key: YOUR-API-GATEWAY-KEY' \
 --header 'Content-Type: application/json' \
 --data '{
-    "model": "gpt-3.5-turbo",
     "input_text": "Jupiter is a really big planet in our Solar System. It is the fifth planet from the Sun and it is the largest planet. It is called a gas giant because it is made mostly of gas. Jupiter is much smaller than the Sun, but it is bigger than all the other planets combined. It is very bright and can be seen in the night sky without a telescope. People have known about Jupiter for a very long time, even before they started writing things down. It is named after a god from ancient Rome. Sometimes, Jupiter is so bright that it can make shadows on Earth. It is usually the third-brightest thing we can see in the night sky, after the Moon and Venus."
 }'
 ```

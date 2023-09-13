@@ -9,10 +9,7 @@ See [https://platform.openai.com/examples/default-grammar](https://platform.open
 curl --location --request PUT 'https://YOUR-API-GATEWAY-URL.amazonaws.com/v1/examples/default-grammar' \
 --header 'x-api-key: YOUR-API-GATEWAY-KEY' \
 --header 'Content-Type: application/json' \
---data '{
-    "model": "gpt-3.5-turbo",
-    "input_text": "She no went to the market."
-}'
+--data '{"input_text": "She no went to the market."}'
 ```
 
 ## Example results

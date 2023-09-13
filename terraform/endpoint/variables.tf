@@ -38,6 +38,12 @@ variable "aws_iam_role_arn" {
 ###############################################################################
 # OpenAI mapping template
 ###############################################################################
+variable "mapping_model" {
+  # see https://platform.openai.com/docs/models/overview
+  description = "which OpenAI model to use"
+  type        = string
+  default     = "gpt-3.5-turbo"
+}
 variable "mapping_end_point" {
   description = "OpenAI Python API class to invoke."
   type        = string

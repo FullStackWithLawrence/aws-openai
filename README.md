@@ -4,11 +4,9 @@
 
 # OpenAI REST API Microservice
 
-A REST API implementing every [OpenAI Example Application](https://platform.openai.com/examples) from the official documentation. Implemented as a serverless microservice using AWS cloud resources. Leverages OpenAI's suite of AI models, including [GTP-4](https://platform.openai.com/docs/models/gpt-4), [DALL·E](https://platform.openai.com/docs/models/dall-e), [Whisper](https://platform.openai.com/docs/models/whisper), [Embeddings](https://platform.openai.com/docs/models/embeddings), and [Moderation](https://platform.openai.com/docs/models/moderation).
+A REST API implementing every [OpenAI Example Application](https://platform.openai.com/examples) from the official documentation. Implemented as a serverless microservice using AWS API Gateway and Lambda. Leverages OpenAI's suite of AI models, including [GTP-4](https://platform.openai.com/docs/models/gpt-4), [DALL·E](https://platform.openai.com/docs/models/dall-e), [Whisper](https://platform.openai.com/docs/models/whisper), [Embeddings](https://platform.openai.com/docs/models/embeddings), and [Moderation](https://platform.openai.com/docs/models/moderation).
 
 ## Example usage
-
-api request
 
 ```console
 curl --location --request PUT 'https://api.openai.yourdomain.com/default-grammar' \
@@ -16,13 +14,13 @@ curl --location --request PUT 'https://api.openai.yourdomain.com/default-grammar
 --header 'Content-Type: application/json' \
 --data '{
     "model": "gpt-3.5-turbo",
-    "input_text": "imma bust you upside the head"
+    "input_text": "She no went to the market."
 }'
 ```
 
 return value
 
-```console
+```json
 {
     "isBase64Encoded": false,
     "statusCode": 200,
@@ -38,8 +36,8 @@ return value
             {
                 "index": 0,
                 "message": {
-                    "role": "assistant",
-                    "content": "I'm going to hit you on the head."
+                  "role": "assistant",
+                  "content": "The correct way to phrase this sentence would be: \"She did not go to the market.\""
                 },
                 "finish_reason": "stop"
             }

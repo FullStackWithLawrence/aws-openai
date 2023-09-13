@@ -1,6 +1,11 @@
 # OpenAI Examples
 
 
+[OpenAI Official Example Applications](https://platform.openai.com/examples)
+[OpenAI API Documentation](https://platform.openai.com/docs/api-reference/making-requests?lang=python)
+[OpenAI Python Source](https://github.com/openai/openai-python)
+[OpenAI Official Cookbook](https://github.com/openai/openai-cookbook/)
+
 ![OpenAI Examples](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/openai-examples.png "OpenAI Examples")
 
 ## REST API endpoints

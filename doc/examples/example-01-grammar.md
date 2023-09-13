@@ -1,15 +1,12 @@
 # Grammar correction
 
+Convert ungrammatical statements into standard English.
+
 ## Example Usage
 
-- replace the API URL
-- replace the 'x-api-key' API key
-- example with the 'model' value
-- provide your own content
-
 ```console
-curl --location --request PUT 'https://ntivxlkmv7.execute-api.us-east-1.amazonaws.com/v1/default-grammar' \
---header 'x-api-key: dOQAFTyJ8c7OnTJxlde3G8NFo4iRnRrA6j1IZyF3' \
+curl --location --request PUT 'https://YOUR-API-GATEWAY-URL.amazonaws.com/v1/default-grammar' \
+--header 'x-api-key: YOUR-API-GATEWAY-KEY' \
 --header 'Content-Type: application/json' \
 --data '{
     "model": "gpt-3.5-turbo",

@@ -8,7 +8,18 @@ A REST API implementing every [OpenAI Example Application](https://platform.open
 
 **Follow [this link](./doc/examples/README.md) for detailed documentation on each URL endpoint.**
 
+## Requirements
+
+First-time setup instructions are included below in this README.
+
+- [AWS account](https://aws.amazon.com/)
+- [AWS Command Line Interface](https://aws.amazon.com/cli/)
+- [Terraform](https://www.terraform.io/)
+- [OpenAI platform API key](https://platform.openai.com/)
+
 ## Example usage
+
+This endpoint inspects and corrects gramatical errors.
 
 ```console
 curl --location --request PUT 'https://api.openai.yourdomain.com/examples/default-grammar' \
@@ -70,7 +81,7 @@ return value
     *Windows/Powershell users: you'll need to modify [./terraform/lambda_openai.tf](./terraform/lambda_openai.tf) data "external" "env" as per instructions in this code block.*
 
 
-3. configure Terraform for your AWS account. Set these three values in [terraform.tfvars](./terraform/terraform.tfvars):
+3. Add your AWS account number and region to Terraform. Set these three values in [terraform.tfvars](./terraform/terraform.tfvars):
 
     ```terraform
     account_id           = "012345678912"   # Required: your 12-digit AWS account number

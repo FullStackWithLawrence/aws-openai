@@ -10,7 +10,7 @@ A REST API implementing every [OpenAI Example Application](https://platform.open
 
 ## Requirements
 
-First-time setup instructions are included below in this README.
+Please review this *entire* README if you are new to any of these technologies.
 
 - [AWS account](https://aws.amazon.com/)
 - [AWS Command Line Interface](https://aws.amazon.com/cli/)

@@ -99,11 +99,11 @@ return value
     ```
 
     *Note the output variables for your API Gateway root URL and API key.*
+    ![Postman](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/terraform-apply.png "Postman")
 
 5. (Optional) use the preconfigured import files to setup a Postman collection with all 30 URL endpoints.
 
     ![Postman](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/postman-1.png "Postman")
-
 
 ## How It Works
 

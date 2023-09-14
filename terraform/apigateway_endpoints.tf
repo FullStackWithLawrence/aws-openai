@@ -14,6 +14,7 @@
 
 ###############################################################################
 # 1. see https://platform.openai.com/examples/default-grammar
+#    Convert ungrammatical statements into standard English.
 ###############################################################################
 module "default_grammar" {
   source    = "./endpoint"
@@ -35,6 +36,7 @@ module "default_grammar" {
 
 ###############################################################################
 # 2. see https://platform.openai.com/examples/default-summarize
+#    Simplify text to a level appropriate for a second-grade student.
 ###############################################################################
 module "default_summarize" {
   source    = "./endpoint"
@@ -58,6 +60,7 @@ module "default_summarize" {
 
 ###############################################################################
 # 3. see https://platform.openai.com/examples/default-parse-data
+#    Create tables from unstructured text.
 ###############################################################################
 module "default_parse_data" {
   source    = "./endpoint"
@@ -82,6 +85,7 @@ module "default_parse_data" {
 
 ###############################################################################
 # 4. see https://platform.openai.com/examples/default-emoji-translation
+#    Translate regular text into emoji text.
 ###############################################################################
 module "default_emoji_translation" {
   source    = "./endpoint"
@@ -105,6 +109,7 @@ module "default_emoji_translation" {
 
 ###############################################################################
 # 5. see https://platform.openai.com/examples/default-time-complexity
+#    Find the time complexity of a function written in Python
 ###############################################################################
 module "default_time_complexity" {
   source    = "./endpoint"
@@ -128,6 +133,7 @@ module "default_time_complexity" {
 
 ###############################################################################
 # 6. see https://platform.openai.com/examples/default-explain-code
+#    Explain a complicated piece of code written in Python.
 ###############################################################################
 module "default_explain_code" {
   source    = "./endpoint"
@@ -151,6 +157,7 @@ module "default_explain_code" {
 
 ###############################################################################
 # 7. see https://platform.openai.com/examples/default-keywords
+#    extract keywords from a block of text.
 ###############################################################################
 module "default_keywords" {
   source    = "./endpoint"
@@ -174,6 +181,7 @@ module "default_keywords" {
 
 ###############################################################################
 # 8. see https://platform.openai.com/examples/default-product-name-gen
+#    Generate product names from a description and seed words.
 ###############################################################################
 module "default_product_name_gen" {
   source    = "./endpoint"
@@ -197,6 +205,7 @@ module "default_product_name_gen" {
 
 ###############################################################################
 # 9. see https://platform.openai.com/examples/default-fix-python-bugs
+#    Find and fix bugs in Python source code.
 ###############################################################################
 module "default_fix_python_bugs" {
   source    = "./endpoint"
@@ -220,6 +229,7 @@ module "default_fix_python_bugs" {
 
 ###############################################################################
 # 10. see https://platform.openai.com/examples/default-spreadsheet-gen
+#     Create spreadsheets of various kinds of data.
 ###############################################################################
 module "default_spreadsheet_gen" {
   source    = "./endpoint"
@@ -242,6 +252,7 @@ module "default_spreadsheet_gen" {
 
 ###############################################################################
 # 11. see https://platform.openai.com/examples/default-tweet-classifier
+#     Detect sentiment in a tweet.
 ###############################################################################
 module "default_tweet_classifier" {
   source    = "./endpoint"
@@ -265,6 +276,7 @@ module "default_tweet_classifier" {
 
 ###############################################################################
 # 12. see https://platform.openai.com/examples/default-airport-codes
+#     Extract airport codes from text.
 ###############################################################################
 module "default_airport_codes" {
   source    = "./endpoint"
@@ -288,6 +300,7 @@ module "default_airport_codes" {
 
 ###############################################################################
 # 13. see https://platform.openai.com/examples/default-mood-color
+#     Turn a text description into a color.
 ###############################################################################
 module "default_mood_color" {
   source    = "./endpoint"
@@ -311,6 +324,7 @@ module "default_mood_color" {
 
 ###############################################################################
 # 14. see https://platform.openai.com/examples/default-vr-fitness
+#     Generate ideas for fitness promoting virtual reality games.
 ###############################################################################
 module "default_vr_fitness" {
   source    = "./endpoint"
@@ -333,6 +347,7 @@ module "default_vr_fitness" {
 
 ###############################################################################
 # 15. see https://platform.openai.com/examples/default-marv-sarcastic-chat
+#     Marv is a factual chatbot that is also sarcastic.
 ###############################################################################
 module "default_marv_sarcastic_chat" {
   source    = "./endpoint"
@@ -356,6 +371,7 @@ module "default_marv_sarcastic_chat" {
 
 ###############################################################################
 # 16. see https://platform.openai.com/examples/default-turn-by-turn-directions
+#     Convert natural language to turn-by-turn directions.
 ###############################################################################
 module "default_turn_by_turn_directions" {
   source    = "./endpoint"
@@ -379,6 +395,7 @@ module "default_turn_by_turn_directions" {
 
 ###############################################################################
 # 17. see https://platform.openai.com/examples/default-interview-questions
+#     Create job interview questions.
 ###############################################################################
 module "default_interview_questions" {
   source    = "./endpoint"
@@ -401,6 +418,7 @@ module "default_interview_questions" {
 
 ###############################################################################
 # 18. see https://platform.openai.com/examples/default-function-from-spec
+#     Create a Python function from a specification.
 ###############################################################################
 module "default_function_from_spec" {
   source    = "./endpoint"
@@ -423,6 +441,7 @@ module "default_function_from_spec" {
 
 ###############################################################################
 # 19. see https://platform.openai.com/examples/default-code-improvement
+#     Provide ideas for efficiency improvements to Python code.
 ###############################################################################
 module "default_code_improvement" {
   source    = "./endpoint"
@@ -446,6 +465,7 @@ module "default_code_improvement" {
 
 ###############################################################################
 # 20. see https://platform.openai.com/examples/default-single-page-website
+#     Create a single page website based on a spec.
 ###############################################################################
 module "default_single_page_website" {
   source    = "./endpoint"
@@ -468,6 +488,7 @@ module "default_single_page_website" {
 
 ###############################################################################
 # 21. see https://platform.openai.com/examples/default-rap-battle
+#     Generate a rap battle between two characters.
 ###############################################################################
 module "default_rap_battle" {
   source    = "./endpoint"
@@ -490,6 +511,7 @@ module "default_rap_battle" {
 
 ###############################################################################
 # 22. see https://platform.openai.com/examples/default-memo-writer
+#     Generate a company memo based on provided points.
 ###############################################################################
 module "default_memo_writer" {
   source    = "./endpoint"
@@ -512,6 +534,7 @@ module "default_memo_writer" {
 
 ###############################################################################
 # 23. see https://platform.openai.com/examples/default-emoji-chatbot
+#     Generate conversational replies using emojis only.
 ###############################################################################
 module "default_emoji_chatbot" {
   source    = "./endpoint"
@@ -535,6 +558,7 @@ module "default_emoji_chatbot" {
 
 ###############################################################################
 # 24. see https://platform.openai.com/examples/default-translation
+#     Translate natural language text.
 ###############################################################################
 module "default_translation" {
   source    = "./endpoint"
@@ -558,6 +582,7 @@ module "default_translation" {
 
 ###############################################################################
 # 25. see https://platform.openai.com/examples/default-socratic-tutor
+#     Generate responses as a Socratic tutor.
 ###############################################################################
 module "default_socratic_tutor" {
   source    = "./endpoint"
@@ -581,6 +606,7 @@ module "default_socratic_tutor" {
 
 ###############################################################################
 # 26. see https://platform.openai.com/examples/default-sql-translate
+#     Convert natural language into SQL queries.
 ###############################################################################
 module "default_sql_translate" {
   source    = "./endpoint"
@@ -604,6 +630,7 @@ module "default_sql_translate" {
 
 ###############################################################################
 # 27. see https://platform.openai.com/examples/default-meeting-notes-summarizer
+#     Summarize meeting notes including overall discussion, action items, and future topics.
 ###############################################################################
 module "default_meeting_notes_summarizer" {
   source    = "./endpoint"
@@ -627,6 +654,7 @@ module "default_meeting_notes_summarizer" {
 
 ###############################################################################
 # 28. see https://platform.openai.com/examples/default-review-classifier
+#     Classify user reviews based on a set of tags.
 ###############################################################################
 module "default_review_classifier" {
   source    = "./endpoint"
@@ -650,6 +678,7 @@ module "default_review_classifier" {
 
 ###############################################################################
 # 29. see https://platform.openai.com/examples/default-pro-con-discusser
+#     Analyze the pros and cons of a given topic.
 ###############################################################################
 module "default_pro_con_discusser" {
   source    = "./endpoint"
@@ -672,6 +701,7 @@ module "default_pro_con_discusser" {
 
 ###############################################################################
 # 30. see https://platform.openai.com/examples/default-lesson-plan-writer
+#     Generate a lesson plan for a specific topic.
 ###############################################################################
 module "default_lesson_plan_writer" {
   source    = "./endpoint"

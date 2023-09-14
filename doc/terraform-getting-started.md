@@ -149,7 +149,7 @@ terraform plan
 ```
 
 Screen output should resemble the following:
-![Terraform plan](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/terraform-plan.png "Terraform plan")
+![Terraform Plan](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/terraform-apply1.png "Terraform Plan")
 
 To deploy the service run the following
 
@@ -157,7 +157,7 @@ To deploy the service run the following
 terraform apply
 ```
 
-![Terraform apply](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/terraform-apply2.png "Terraform apply")
+![Terraform Apply](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/terraform-apply2.png "Terraform Apply")
 
 ## III. Uninstall
 

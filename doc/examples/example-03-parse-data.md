@@ -19,7 +19,34 @@ curl --location --request PUT 'https://api.openai.lawrencemcdaniel.com/examples/
 ## Example results
 
 ```json
-
+{
+    "isBase64Encoded": false,
+    "statusCode": 200,
+    "headers": {
+        "Content-Type": "application/json"
+    },
+    "body": {
+        "id": "chatcmpl-7yTtGjKLP0wq1Vz4I5dRpLYbFvB7I",
+        "object": "chat.completion",
+        "created": 1694648934,
+        "model": "gpt-3.5-turbo-0613",
+        "choices": [
+            {
+                "index": 0,
+                "message": {
+                    "role": "assistant",
+                    "content": "Fruit,Color,Flavor\nNeoskizzles,Purple,Candy\nLoheckles,Grayish blue,Tart\nPounits,Bright green,Savory\nLoopnovas,Neon pink,Cotton candy\nGlowls,Pale orange,Sour and bitter"
+                },
+                "finish_reason": "stop"
+            }
+        ],
+        "usage": {
+            "prompt_tokens": 161,
+            "completion_tokens": 59,
+            "total_tokens": 220
+        }
+    }
+}
 ```
 
 ## Official Documentation

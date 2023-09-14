@@ -162,7 +162,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"def foo(n, k):\\n    accum = 0\\n    for i in range(n):\\n        for l in range(k):\\n           accum += i\\n    return accum\\n\"\n}",
+					"raw": "{\n    \"input_text\": \"def foo(n, k):\\\\r\\\\n    accum = 0\\\\r\\\\n    for i in range(n):\\\\r\\\\n        for l in range(k):\\\\r\\\\n            accum += i\\\\r\\\\n    return accum\\\\r\\\\n\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -206,7 +206,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"class Log:\\n    def __init__(self, path):\\n        dirname = os.path.dirname(path)\\n        os.makedirs(dirname, exist_ok=True)\\n        f = open(path, \\\"a+\\\")\\n\\n        # Check that the file is newline-terminated\\n        size = os.path.getsize(path)\\n        if size > 0:\\n            f.seek(size - 1)\\n            end = f.read(1)\\n            if end != \\\"\\n\\\":\\n                f.write(\\\"\\n\\\")\\n        self.f = f\\n        self.path = path\\n\\n    def log(self, event):\\n        event[\\\"_event_id\\\"] = str(uuid.uuid4())\\n        json.dump(event, self.f)\\n        self.f.write(\\\"\\n\\\")\\n\\n    def state(self):\\n        state = {\\\"complete\\\": set(), \\\"last\\\": None}\\n        for line in open(self.path):\\n            event = json.loads(line)\\n            if event[\\\"type\\\"] == \\\"submit\\\" and event[\\\"success\\\"]:\\n                state[\\\"complete\\\"].add(event[\\\"id\\\"])\\n                state[\\\"last\\\"] = event\\n        return state\\n\"\n}",
+					"raw": "{\n    \"input_text\": \"class Log:\\\\r\\\\n    def __init__(self, path):\\\\r\\\\n        dirname = os.path.dirname(path)\\\\r\\\\n        os.makedirs(dirname, exist_ok=True)\\\\r\\\\n        f = open(path, 'a+')\\\\r\\\\n\\\\r\\\\n        # Check that the file is newline-terminated\\\\r\\\\n        size = os.path.getsize(path)\\\\r\\\\n        if size > 0:\\\\r\\\\n            f.seek(size - 1)\\\\r\\\\n            end = f.read(1)\\\\r\\\\n            if end != '\\n':\\\\r\\\\n                f.write('\\n')\\\\r\\\\n        self.f = f\\\\r\\\\n        self.path = path\\\\r\\\\n\\\\r\\\\n    def log(self, event):\\\\r\\\\n        event['_event_id'] = str(uuid.uuid4())\\\\r\\\\n        json.dump(event, self.f)\\\\r\\\\n        self.f.write('\\n')\\\\r\\\\n\\\\r\\\\n    def state(self):\\\\r\\\\n        state = {'complete': set(), 'last': None}\\\\r\\\\n        for line in open(self.path):\\\\r\\\\n            event = json.loads(line)\\\\r\\\\n            if event['type'] == 'submit' and event['success']:\\\\r\\\\n                state['complete'].add(event['id'])\\\\r\\\\n                state['last'] = event\\\\r\\\\n        return state\\\\r\\\\n\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -338,7 +338,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"import Random\\na = random.randint(1,12)\\nb = random.randint(1,12)\\nfor i in range(10):\\n    question = \\\"What is \\\"+a+\\\" x \\\"+b+\\\"? \\\"\\n    answer = input(question)\\n    if answer = a*b\\n        print (Well done!)\\n    else:\\n        print(\\\"No.\\\")\"\n}",
+					"raw": "{\n    \"input_text\": \"import Random\\\\r\\\\na = random.randint(1,12)\\\\r\\\\nb = random.randint(1,12)\\\\r\\\\nfor i in range(10):\\\\r\\\\n    question = 'What is '+a+' x '+b+'? '\\\\r\\\\n    answer = input(question)\\\\r\\\\n    if answer = a*b\\\\r\\\\n        print (Well done!)\\\\r\\\\n    else:\\\\r\\\\n        print('No.')\\\\r\\\\n\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -778,7 +778,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"from typing import List\\n\\ndef has_sum_k(nums: List[int], k: int) -> bool:\\n    \\n\\n\\n\\n    Returns True if there are two distinct elements in nums such that their sum\\n    is equal to k, and otherwise returns False.\\n    \\n\\n\\n\\n    n = len(nums)\\n    for i in range(n):\\n        for j in range(i+1, n):\\n            if nums[i] + nums[j] == k:\\n                return True\\n    return False\"\n}",
+					"raw": "{\n    \"input_text\": \"from typing import List\\\\r\\\\n\\\\r\\\\ndef has_sum_k(nums: List[int], k: int) -> bool:\\\\r\\\\n    n = len(nums)\\\\r\\\\n    for i in range(n):\\\\r\\\\n        for j in range(i+1, n):\\\\r\\\\n            if nums[i] + nums[j] == k:\\\\r\\\\n                return True\\\\r\\\\n    return False\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"

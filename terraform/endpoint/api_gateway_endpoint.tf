@@ -46,6 +46,18 @@ resource "aws_api_gateway_integration" "endpoint" {
   depends_on           = [aws_api_gateway_method.endpoint]
 }
 
+resource "aws_api_gateway_integration_response" "index_put" {
+  rest_api_id        = var.aws_api_gateway_rest_api_id
+  resource_id        = aws_api_gateway_resource.endpoint.id
+  http_method        = aws_api_gateway_method.endpoint.http_method
+  status_code        = aws_api_gateway_method_response.grammar_response_200.status_code
+  response_templates = {}
+
+  depends_on = [
+    aws_api_gateway_integration.endpoint
+  ]
+}
+
 resource "aws_api_gateway_method_response" "grammar_response_200" {
   rest_api_id = var.aws_api_gateway_rest_api_id
   resource_id = aws_api_gateway_resource.endpoint.id

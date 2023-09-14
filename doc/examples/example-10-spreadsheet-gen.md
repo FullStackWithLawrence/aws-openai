@@ -17,7 +17,34 @@ curl --location --request PUT 'https://api.openai.lawrencemcdaniel.com/examples/
 ## Example results
 
 ```json
-
+{
+    "isBase64Encoded": false,
+    "statusCode": 200,
+    "headers": {
+        "Content-Type": "application/json"
+    },
+    "body": {
+        "id": "chatcmpl-7yTx5LQgAulaMFHvI7bffH69wsRPe",
+        "object": "chat.completion",
+        "created": 1694649171,
+        "model": "gpt-3.5-turbo-0613",
+        "choices": [
+            {
+                "index": 0,
+                "message": {
+                    "role": "assistant",
+                    "content": "Movie,Year of Release\n2001: A Space Odyssey,1968\nBlade Runner,1982\nThe Matrix,1999\nStar Wars: Episode IV - A New Hope,1977\nE.T. the Extra-Terrestrial,1982\nThe Terminator,1984\nInception,2010\nBack to the Future,1985\nThe Fifth Element,1997\nWar of the Worlds,2005\nInterstellar,2014\nThe Martian,2015\nAvatar,2009\nAlien,1979\nJurassic Park,1993"
+                },
+                "finish_reason": "stop"
+            }
+        ],
+        "usage": {
+            "prompt_tokens": 28,
+            "completion_tokens": 118,
+            "total_tokens": 146
+        }
+    }
+}
 ```
 
 ## Official Documentation

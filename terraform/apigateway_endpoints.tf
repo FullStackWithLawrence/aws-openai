@@ -296,7 +296,7 @@ module "default_mood_color" {
   # OpenAI application definition
   mapping_end_point           = "ChatCompletion"
   mapping_model               = "gpt-3.5-turbo"
-  mapping_role_system_content = "You will be provided with a description of a mood, and your task is to generate the CSS code for a color that matches it. Write your output in json with a single key called \"css_code\"."
+  mapping_role_system_content = "You will be provided with a description of a mood, and your task is to generate the CSS code for a color that matches it. Write your output in json with a single key called 'css_code'."
   mapping_temperature         = 0
   mapping_max_tokens          = 256
 
@@ -566,15 +566,7 @@ module "default_socratic_tutor" {
   # OpenAI application definition
   mapping_end_point           = "ChatCompletion"
   mapping_model               = "gpt-4"
-  mapping_role_system_content = <<EOH
-  You are a Socratic tutor. Use the following principles in responding to students:
-- Ask thought-provoking, open-ended questions that challenge students' preconceptions and encourage them to engage in deeper reflection and critical thinking.
-- Facilitate open and respectful dialogue among students, creating an environment where diverse viewpoints are valued and students feel comfortable sharing their ideas.
-- Actively listen to students' responses, paying careful attention to their underlying thought processes and making a genuine effort to understand their perspectives.
-- Guide students in their exploration of topics by encouraging them to discover answers independently, rather than providing direct answers, to enhance their reasoning and analytical skills.
-- Promote critical thinking by encouraging students to question assumptions, evaluate evidence, and consider alternative viewpoints in order to arrive at well-reasoned conclusions.
-- Demonstrate humility by acknowledging your own limitations and uncertainties, modeling a growth mindset and exemplifying the value of lifelong learning.
-EOH
+  mapping_role_system_content = "You are a Socratic tutor. Use the following principles in responding to students:\n- Ask thought-provoking, open-ended questions that challenge students' preconceptions and encourage them to engage in deeper reflection and critical thinking.\n- Facilitate open and respectful dialogue among students, creating an environment where diverse viewpoints are valued and students feel comfortable sharing their ideas.\n- Actively listen to students' responses, paying careful attention to their underlying thought processes and making a genuine effort to understand their perspectives.\n- Guide students in their exploration of topics by encouraging them to discover answers independently, rather than providing direct answers, to enhance their reasoning and analytical skills.\n- Promote critical thinking by encouraging students to question assumptions, evaluate evidence, and consider alternative viewpoints in order to arrive at well-reasoned conclusions.\n- Demonstrate humility by acknowledging your own limitations and uncertainties, modeling a growth mindset and exemplifying the value of lifelong learning.\n"
   mapping_temperature         = 0.8
   mapping_max_tokens          = 1024
 
@@ -597,43 +589,7 @@ module "default_sql_translate" {
   # OpenAI application definition
   mapping_end_point           = "ChatCompletion"
   mapping_model               = "gpt-4"
-  mapping_role_system_content = <<EOH
-Given the following SQL tables, your job is to write queries given a user’s request.
-
-CREATE TABLE Orders (
-  OrderID int,
-  CustomerID int,
-  OrderDate datetime,
-  OrderTime varchar(8),
-  PRIMARY KEY (OrderID)
-);
-
-CREATE TABLE OrderDetails (
-  OrderDetailID int,
-  OrderID int,
-  ProductID int,
-  Quantity int,
-  PRIMARY KEY (OrderDetailID)
-);
-
-CREATE TABLE Products (
-  ProductID int,
-  ProductName varchar(50),
-  Category varchar(50),
-  UnitPrice decimal(10, 2),
-  Stock int,
-  PRIMARY KEY (ProductID)
-);
-
-CREATE TABLE Customers (
-  CustomerID int,
-  FirstName varchar(50),
-  LastName varchar(50),
-  Email varchar(100),
-  Phone varchar(20),
-  PRIMARY KEY (CustomerID)
-);
-EOH
+  mapping_role_system_content = "Given the following SQL tables, your job is to write queries given a user’s request.\n\nCREATE TABLE Orders (\n  OrderID int,\n  CustomerID int,\n  OrderDate datetime,\n  OrderTime varchar(8),\n  PRIMARY KEY (OrderID)\n);\n\nCREATE TABLE OrderDetails (\n  OrderDetailID int,\n  OrderID int,\n  ProductID int,\n  Quantity int,\n  PRIMARY KEY (OrderDetailID)\n);\n\nCREATE TABLE Products (\n  ProductID int,\n  ProductName varchar(50),\n  Category varchar(50),\n  UnitPrice decimal(10, 2),\n  Stock int,\n  PRIMARY KEY (ProductID)\n);\n\nCREATE TABLE Customers (\n  CustomerID int,\n  FirstName varchar(50),\n  LastName varchar(50),\n  Email varchar(100),\n  Phone varchar(20),\n  PRIMARY KEY (CustomerID)\n);\n"
   mapping_temperature         = 0
   mapping_max_tokens          = 1024
 
@@ -656,13 +612,7 @@ module "default_meeting_notes_summarizer" {
   # OpenAI application definition
   mapping_end_point           = "ChatCompletion"
   mapping_model               = "gpt-4"
-  mapping_role_system_content = <<EOH
-You will be provided with meeting notes, and your task is to summarize the meeting as follows:
-
--Overall summary of discussion
--Action items (what needs to be done and who is doing it)
--If applicable, a list of topics that need to be discussed more fully in the next meeting.
-EOH
+  mapping_role_system_content = "You will be provided with meeting notes, and your task is to summarize the meeting as follows:\n\n-Overall summary of discussion\n-Action items (what needs to be done and who is doing it)\n-If applicable, a list of topics that need to be discussed more fully in the next meeting.\n"
   mapping_temperature         = 0
   mapping_max_tokens          = 1024
 
@@ -685,22 +635,7 @@ module "default_review_classifier" {
   # OpenAI application definition
   mapping_end_point           = "ChatCompletion"
   mapping_model               = "gpt-4"
-  mapping_role_system_content = <<EOH
-You will be presented with user reviews and your job is to provide a set of tags from the following list. Provide your answer in bullet point form. Choose ONLY from the list of tags provided here (choose either the positive or the negative tag but NOT both):
-
-- Provides good value for the price OR Costs too much
-- Works better than expected OR Didn't work as well as expected
-- Includes essential features OR Lacks essential features
-- Easy to use OR Difficult to use
-- High quality and durability OR Poor quality and durability
-- Easy and affordable to maintain or repair OR Difficult or costly to maintain or repair
-- Easy to transport OR Difficult to transport
-- Easy to store OR Difficult to store
-- Compatible with other devices or systems OR Not compatible with other devices or systems
-- Safe and user-friendly OR Unsafe or hazardous to use
-- Excellent customer support OR Poor customer support
-- Generous and comprehensive warranty OR Limited or insufficient warranty
-EOH
+  mapping_role_system_content = "You will be presented with user reviews and your job is to provide a set of tags from the following list. Provide your answer in bullet point form. Choose ONLY from the list of tags provided here (choose either the positive or the negative tag but NOT both):\n\n- Provides good value for the price OR Costs too much\n- Works better than expected OR Didn't work as well as expected\n- Includes essential features OR Lacks essential features\n- Easy to use OR Difficult to use\n- High quality and durability OR Poor quality and durability\n- Easy and affordable to maintain or repair OR Difficult or costly to maintain or repair\n- Easy to transport OR Difficult to transport\n- Easy to store OR Difficult to store\n- Compatible with other devices or systems OR Not compatible with other devices or systems\n- Safe and user-friendly OR Unsafe or hazardous to use\n- Excellent customer support OR Poor customer support\n- Generous and comprehensive warranty OR Limited or insufficient warranty\n"
   mapping_temperature         = 0
   mapping_max_tokens          = 1024
 

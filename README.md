@@ -96,7 +96,7 @@ return value
 
 1. a JSON object and custom headers are added to an HTTP request and sent to the API as a 'PUT' method.
 2. API Gateway uses a [Request Mapping Template](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html) in a non-proxy Lambda integration request to combine user request text with your OpenAPI application definition, and then forward the combined data as a custom JSON object to a Lambda function.
-3. Lambda parses and validates the custom JSON object and then invokes the OpenAI API.
+3. Lambda parses and validates the custom JSON object and then invokes the OpenAI API, passing your api key which is stored as a Lambda environment variable.
 4. OpenAI API results are returned as JSON objects.
 5. Lambda creates a custom JSON response containing the http response body as well as system information for API Gateway.
 6. API Gateway passes through the http response to the client.

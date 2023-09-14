@@ -71,7 +71,7 @@ return value
     make init
     ```
 
-2. add your OpenAI API credentials to [.env](./.env) file. Your organization ID and API Key should be similar in format to these examples below.
+2. add your OpenAI API credentials to the [.env](./.env) file in the root folder of this repo. Your organization ID and API Key should appear similar in format to these examples below.
 
     ```console
     OPENAI_API_ORGANIZATION=org-YJzABCDEFGHIJESMShcyulf0
@@ -99,6 +99,10 @@ return value
     ```
 
     *Note the output variables for your API Gateway root URL and API key.*
+
+5. (Optional) use the preconfigured import files to setup a Postman collection with all 30 URL endpoints.
+
+    ![Postman](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/postman-1.png "Postman")
 
 
 ## How It Works

@@ -90,7 +90,18 @@ return value
     *Note the output variables for your API Gateway root URL and API key.*
 
 
-## Architecture
+## How It Works
+
+![API Workflow](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/api-workflow.png "API Workflow")
+
+1. a JSON object and custom headers are added to an HTTP request and sent to the API as a 'PUT' method.
+2. API Gateway uses a [Request Mapping Template](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html) in a non-proxy Lambda integration request to combine user request text with your OpenAPI application definition, and then forward the combined data as a custom JSON object to a Lambda function.
+3. Lambda parses and validates the custom JSON object and then invokes the OpenAI API.
+4. OpenAI API results are returned as JSON objects.
+5. Lambda creates a custom JSON response containing the http response body as well as system information for API Gateway.
+6. API Gateway passes through the http response to the client.
+
+### Services and Technologies Used
 
 * **[OpenAI](https://pypi.org/project/openai/)**: a PyPi package thata provides convenient access to the OpenAI API from applications written in the Python language. It includes a pre-defined set of classes for API resources that initialize themselves dynamically from API responses which makes it compatible with a wide range of versions of the OpenAI API.
 * **[API Gateway](https://aws.amazon.com/api-gateway/)**: an AWS service for creating, publishing, maintaining, monitoring, and securing REST, HTTP, and WebSocket APIs at any scale.

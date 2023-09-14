@@ -135,6 +135,8 @@ Other reference materials on how to use this libary:
 - [OpenAI Python Source](https://github.com/openai/openai-python)
 - [OpenAI Official Cookbook](https://github.com/openai/openai-cookbook/)
 
+Be aware that the OpenAI platform API is not free. Moreover, the costing models vary signficantly across the family of OpenAI models. GPT-4 for example cost significantly more to use than GPT-3.5. Having said that, for development purposes, the cost likely will be negligible. I spent a total of around $0.025 USD while developing and testing the initial release of this project, whereupon I invoked the openai api around 200 times (rough guess).
+
 ## Trouble Shooting and Logging
 
 The terraform scripts will automatically create a collection of CloudWatch Log Groups. Additionally, note the Terraform global variable 'debug_mode' (defaults to 'true') which will increase the verbosity of log entries in the [Lambda functions](./terraform/python/), which are implemented with Python.

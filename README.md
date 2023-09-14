@@ -6,7 +6,7 @@
 
 A REST API implementing every [OpenAI Example Application](https://platform.openai.com/examples) from the official documentation. Implemented as a serverless microservice using AWS API Gateway and Lambda. Leverages OpenAI's suite of AI models, including [GTP-4](https://platform.openai.com/docs/models/gpt-4), [DALL·E](https://platform.openai.com/docs/models/dall-e), [Whisper](https://platform.openai.com/docs/models/whisper), [Embeddings](https://platform.openai.com/docs/models/embeddings), and [Moderation](https://platform.openai.com/docs/models/moderation).
 
-See index of [all api endpoints](./doc/examples/README.md)
+**Follow [this link](./doc/examples/README.md) for detailed documentation on each URL endpoint.**
 
 ## Example usage
 

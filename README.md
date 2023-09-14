@@ -105,6 +105,15 @@ return value
 
     ![Postman](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/postman-1.png "Postman")
 
+### Custom Domain (Optional)
+
+If you manage a domain name using AWS Route53 then you can optionally deploy this API using your own custom domain name. Modify the following variables in [terraform/terraform.tfvars](./terraform/terraform.tfvars) and Terraform wil take care of the rest.
+
+```terraform
+create_custom_domain       = true
+root_domain                = "lawrencemcdaniel.com"
+```
+
 ## How It Works
 
 ![API Workflow](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/api-workflow.png "API Workflow")
@@ -149,3 +158,17 @@ I refined the contents and formatting of each log group to suit my own needs whi
 
 ![CloudWatch Logs](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/cloudwatch-1.png "CloudWatch Logs")
 ![CloudWatch Logs](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/cloudwatch-2.png "CloudWatch Logs")
+
+## Documentation
+
+Detailed documentation for each endpoint is available here: [Documentation](./doc/examples/)
+
+## Support
+
+To get community support, go to the official [Issues Page](https://github.com/FullStackWithLawrence/aws-openai/issues) for this project.
+
+## Contributing
+
+We welcome contributions! There are a variety of ways for you to get involved, regardless of your background. In additional to Pull requests, this project would benefit from contributors focused on documentation, testing and community engagement.
+
+You can also contact [Lawrence McDaniel](https://lawrencemcdaniel.com/contact) directly.

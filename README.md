@@ -168,6 +168,6 @@ To get community support, go to the official [Issues Page](https://github.com/Fu
 
 ## Contributing
 
-We welcome contributions! There are a variety of ways for you to get involved, regardless of your background. In additional to Pull requests, this project would benefit from contributors focused on documentation, testing, community engagement, and stewards to help us to ensure that we comply with evolving standards for the ethical use of AI.
+We welcome contributions! There are a variety of ways for you to get involved, regardless of your background. In additional to Pull requests, this project would benefit from contributors focused on documentation and how-to video content creation, testing, community engagement, and stewards to help us to ensure that we comply with evolving standards for the ethical use of AI.
 
 You can also contact [Lawrence McDaniel](https://lawrencemcdaniel.com/contact) directly.

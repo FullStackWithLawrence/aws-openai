@@ -4,22 +4,13 @@
 
 # OpenAI Example Applications on AWS
 
-A REST API implementing every [OpenAI Example Application](https://platform.openai.com/examples) from the official documentation. Implemented as a serverless microservice using AWS [API Gateway](https://aws.amazon.com/api-gateway/), [Lambda](https://aws.amazon.com/lambda/) and the [OpenAI Python Library](https://pypi.org/project/openai/). Leverages OpenAI's suite of AI models, including [GPT-3.5](https://platform.openai.com/docs/models/gpt-3-5), [GPT-4](https://platform.openai.com/docs/models/gpt-4), [DALL·E](https://platform.openai.com/docs/models/dall-e), [Whisper](https://platform.openai.com/docs/models/whisper), [Embeddings](https://platform.openai.com/docs/models/embeddings), and [Moderation](https://platform.openai.com/docs/models/moderation).
+A REST API implementing every [Example Application](https://platform.openai.com/examples) from the official [OpenAI API Documentation](https://platform.openai.com/docs/api-reference/making-requests?lang=python). Implemented as a serverless microservice using AWS [API Gateway](https://aws.amazon.com/api-gateway/), [Lambda](https://aws.amazon.com/lambda/) and the [OpenAI Python Library](https://pypi.org/project/openai/). Leverages OpenAI's suite of AI models, including [GPT-3.5](https://platform.openai.com/docs/models/gpt-3-5), [GPT-4](https://platform.openai.com/docs/models/gpt-4), [DALL·E](https://platform.openai.com/docs/models/dall-e), [Whisper](https://platform.openai.com/docs/models/whisper), [Embeddings](https://platform.openai.com/docs/models/embeddings), and [Moderation](https://platform.openai.com/docs/models/moderation).
 
 **Follow [this link](./doc/examples/README.md) for detailed documentation on each URL endpoint.**
 
-## Requirements
+## Usage
 
-Please review this *entire* README if you are new to any of these technologies.
-
-- [AWS account](https://aws.amazon.com/)
-- [AWS Command Line Interface](https://aws.amazon.com/cli/)
-- [Terraform](https://www.terraform.io/). If you're new to Terraform then see [Getting Started With AWS and Terraform](./doc/terraform-getting-started.md)
-- [OpenAI platform API key](https://platform.openai.com/). If you're new to OpenAI API then see [How to Get an OpenAI API Key](./doc/openai-api-key.md)
-
-## Example usage
-
-This endpoint inspects and corrects gramatical errors.
+An example request and response. This endpoint inspects and corrects gramatical errors.
 
 ```console
 curl --location --request PUT 'https://api.openai.yourdomain.com/examples/default-grammar' \
@@ -60,6 +51,15 @@ return value
     }
 }
 ```
+
+## Requirements
+
+Please review this *entire* README if you are new to any of these technologies.
+
+- [AWS account](https://aws.amazon.com/)
+- [AWS Command Line Interface](https://aws.amazon.com/cli/)
+- [Terraform](https://www.terraform.io/). If you're new to Terraform then see [Getting Started With AWS and Terraform](./doc/terraform-getting-started.md)
+- [OpenAI platform API key](https://platform.openai.com/). If you're new to OpenAI API then see [How to Get an OpenAI API Key](./doc/openai-api-key.md)
 
 ## Setup
 
@@ -169,6 +169,6 @@ To get community support, go to the official [Issues Page](https://github.com/Fu
 
 ## Contributing
 
-We welcome contributions! There are a variety of ways for you to get involved, regardless of your background. In additional to Pull requests, this project would benefit from contributors focused on documentation, testing and community engagement.
+We welcome contributions! There are a variety of ways for you to get involved, regardless of your background. In additional to Pull requests, this project would benefit from contributors focused on documentation, testing, community engagement, and stewards to help us to ensure that we comply with evolving standards for the ethical use of AI.
 
 You can also contact [Lawrence McDaniel](https://lawrencemcdaniel.com/contact) directly.

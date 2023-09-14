@@ -7,7 +7,7 @@
 
 ## REST API endpoints
 
-|  Endpoing                              | Summary Explanation             |
+|  Endpoint                              | Summary Explanation             |
 | -------------------------------------- | ------------------------------- |
 | [/examples/default-grammar](./example-01-grammar.md) | Convert ungrammatical statements into standard English. |
 [/examples/default-summarize](./example-02-summarize.md) | Simplify text to a level appropriate for a second-grade student. |

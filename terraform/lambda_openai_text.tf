@@ -5,7 +5,12 @@
 # date:   sep-2023
 #
 # usage:  implement a Python Lambda function to to format and pass
-#         text-based http requests to OpenAI API
+#         text-based http requests to OpenAI API.
+#         - create a Lambda zip archive which includes openai PyPi package
+#         - pass openai api key credentials to Lambda in a safe manner
+#         - create a Cloudwatch log for the Lambda
+#         * note that IAM permissions are implemented on the resource(s)
+#           that call this Lambda, rather than here.
 #------------------------------------------------------------------------------
 locals {
   text_slug             = "text"
@@ -14,7 +19,7 @@ locals {
   text_package_folder   = "lambda_dist_pkg"
 }
 data "external" "env_text" {
-  # kluge to map .env data to Terraform format
+  # kluge to read and map the openai api key and org data contained in .env
   program = ["${path.module}/scripts/env.sh"]
 
   # For Windows (or Powershell core on MacOS and Linux),

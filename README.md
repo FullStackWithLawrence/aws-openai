@@ -122,6 +122,18 @@ return value
 * **[Route53](https://aws.amazon.com/route53/)**: (OPTIONAL). a scalable and highly available Domain Name System service. Released on December 5, 2010.
 * **[Certificate Manager](https://aws.amazon.com/certificate-manager/)**: (OPTIONAL). handles the complexity of creating, storing, and renewing public and private SSL/TLS X.509 certificates and keys that protect your AWS websites and applications.
 
+## OpenAI API
+
+This project leverages the official [OpenAI PyPi](https://pypi.org/project/openai/) Python library. The openai library is added to the AWS Lambda installation package. You can review [terraform/lambda_openai_text.tf](./terraform/lambda_openai_text.tf) to see how this actually happens from a technical perspective.
+
+Other reference materials on how to use this libary:
+
+- [OpenAI Official Example Applications](https://platform.openai.com/examples)
+- [OpenAI API Documentation](https://platform.openai.com/docs/api-reference/making-requests?lang=python)
+- [OpenAI PyPi](https://pypi.org/project/openai/)
+- [OpenAI Python Source](https://github.com/openai/openai-python)
+- [OpenAI Official Cookbook](https://github.com/openai/openai-cookbook/)
+
 ## Trouble Shooting and Logging
 
 The terraform scripts will automatically create a collection of CloudWatch Log Groups. Additionally, note the Terraform global variable 'debug_mode' (defaults to 'true') which will increase the verbosity of log entries in the [Lambda functions](./terraform/python/), which are implemented with Python.

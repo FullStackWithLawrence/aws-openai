@@ -53,12 +53,12 @@ return value
 
 ## Requirements
 
-Please review this *entire* README if you are new to any of these technologies.
-
 - [AWS account](https://aws.amazon.com/)
 - [AWS Command Line Interface](https://aws.amazon.com/cli/)
-- [Terraform](https://www.terraform.io/). If you're new to Terraform then see [Getting Started With AWS and Terraform](./doc/terraform-getting-started.md)
-- [OpenAI platform API key](https://platform.openai.com/). If you're new to OpenAI API then see [How to Get an OpenAI API Key](./doc/openai-api-key.md)
+- [Terraform](https://www.terraform.io/).
+    *If you're new to Terraform then see [Getting Started With AWS and Terraform](./doc/terraform-getting-started.md)*
+- [OpenAI platform API key](https://platform.openai.com/).
+    *If you're new to OpenAI API then see [How to Get an OpenAI API Key](./doc/openai-api-key.md)*
 
 ## Setup
 

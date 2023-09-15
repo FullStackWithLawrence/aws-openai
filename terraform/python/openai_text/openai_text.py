@@ -291,7 +291,6 @@ def handler(event, context):
                 raise NotImplementedError("Audio support is coming soon")
 
     # handle anything that went wrong
-    # see https://docs.aws.amazon.com/openai/latest/dg/error-handling.html
     except (openai.APIError, ValueError, TypeError, NotImplementedError) as e:
         # 400 Bad Request
         return http_response_factory(

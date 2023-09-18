@@ -125,6 +125,8 @@ root_domain                = "lawrencemcdaniel.com"
 5. Lambda creates a custom JSON response containing the http response body as well as system information for API Gateway.
 6. API Gateway passes through the http response to the client.
 
+You'll find a detailed narrative explanation of the design strategy in this article, [OpenAI API With AWS Lambda](https://blog.lawrencemcdaniel.com/openai-api-with-aws-lambda/)
+
 ### Services and Technologies Used
 
 * **[OpenAI](https://pypi.org/project/openai/)**: a PyPi package thata provides convenient access to the OpenAI API from applications written in the Python language. It includes a pre-defined set of classes for API resources that initialize themselves dynamically from API responses which makes it compatible with a wide range of versions of the OpenAI API.

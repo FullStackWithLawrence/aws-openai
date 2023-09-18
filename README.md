@@ -111,7 +111,7 @@ If you manage a domain name using AWS Route53 then you can optionally deploy thi
 
 ```terraform
 create_custom_domain       = true
-root_domain                = "lawrencemcdaniel.com"
+root_domain                = "yourdomain.com"
 ```
 
 ## How It Works

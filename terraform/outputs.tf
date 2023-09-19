@@ -29,5 +29,5 @@ output "api_apigateway_url" {
 
 output "api_apigateway_url_custom" {
   # see https://discuss.hashicorp.com/t/terraform-outputs-with-count-index/32555
-  value = "https://${one(aws_route53_record.api[*].fqdn)}"
+  value = var.create_custom_domain ? "https://${one(aws_route53_record.api[*].fqdn)}" : "not implemented"
 }

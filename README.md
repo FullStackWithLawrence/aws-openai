@@ -8,6 +8,8 @@ A REST API implementing each of the [30 example applications](https://platform.o
 - Creating new OpenAI applications and endpoints for this API only takes a few lines of code and is as easy as it is fun! Follow [this link](./terraform/apigateway_endpoints.tf) to see how each of these are coded.
 - **Follow [this link](./doc/examples/README.md) for detailed documentation on each URL endpoint.**
 
+[![OpenAI Python API With AWS API Gateway + Lambda](https://img.youtube.com/vi/FqARAi8nS2M/0.jpg)](https://www.youtube.com/watch?v=FqARAi8nS2M)
+
 ## Usage
 
 An example request and response. This endpoint inspects and corrects gramatical errors.

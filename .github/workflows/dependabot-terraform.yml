@@ -12,4 +12,4 @@ jobs:
       - name: update terraform dependencies
         uses: plus3it/dependabot-terraform-action@p3-implementation
         with:
-          github_dependency_token: ${{ secrets.GH_READONLY_TOKEN }}
+          github_dependency_token: ${{ secrets.PAT }}

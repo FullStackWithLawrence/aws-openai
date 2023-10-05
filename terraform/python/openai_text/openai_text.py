@@ -21,7 +21,7 @@ usage:
                                 text-search-*-*-001, code-search-*-*-001
     /v1/fine_tuning/jobs	    gpt-3.5-turbo, babbage-002, davinci-002
     /v1/fine-tunes	            davinci, curie, babbage, ada
-    /v1/moderations	        text-moderation-stable, text-moderation-latest
+    /v1/moderations	            text-moderation-stable, text-moderation-latest
 
     openai.Model.list()
 
@@ -41,19 +41,23 @@ Endpoint request body after transformations: {
 }
 """
 
-import sys  # libraries for error management
-import traceback  # libraries for error management
+import base64
+import json  # library for interacting with JSON data https://www.json.org/json-en.html
+import openai
 import os  # library for interacting with the operating system
 import platform  # library to view informatoin about the server host this Lambda runs on
-import json  # library for interacting with JSON data https://www.json.org/json-en.html
-import base64
-import openai
+import sys  # libraries for error management
+import traceback  # libraries for error management
 
 DEBUG_MODE = os.getenv("DEBUG_MODE", "False").lower() in ("true", "1", "t")
 OPENAI_ENDPOINT_IMAGE_N = int(os.getenv("OPENAI_ENDPOINT_IMAGE_N", 4))
 OPENAI_ENDPOINT_IMAGE_SIZE = os.getenv("OPENAI_ENDPOINT_IMAGE_SIZE", "1024x768")
 openai.organization = os.getenv("OPENAI_API_ORGANIZATION", "Personal")
 openai.api_key = os.getenv("OPENAI_API_KEY")
+
+HTTP_RESPONSE_OK = 200
+HTTP_RESPONSE_BAD_REQUEST = 400
+HTTP_RESPONSE_INTERNAL_SERVER_ERROR = 500
 
 
 class OpenAIEndPoint:
@@ -290,13 +294,14 @@ def handler(event, context):
     except (openai.APIError, ValueError, TypeError, NotImplementedError) as e:
         # 400 Bad Request
         return http_response_factory(
-            status_code=400, body=exception_response_factory(e)
+            status_code=HTTP_RESPONSE_BAD_REQUEST, body=exception_response_factory(e)
         )
     except (openai.OpenAIError, Exception) as e:
         # 500 Internal Server Error
         return http_response_factory(
-            status_code=500, body=exception_response_factory(e)
+            status_code=HTTP_RESPONSE_INTERNAL_SERVER_ERROR,
+            body=exception_response_factory(e),
         )
 
     # success!! return the results
-    return http_response_factory(status_code=200, body=openai_results)
+    return http_response_factory(status_code=HTTP_RESPONSE_OK, body=openai_results)

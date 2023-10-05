@@ -50,14 +50,15 @@ import sys  # libraries for error management
 import traceback  # libraries for error management
 
 DEBUG_MODE = os.getenv("DEBUG_MODE", "False").lower() in ("true", "1", "t")
+HTTP_RESPONSE_OK = 200
+HTTP_RESPONSE_BAD_REQUEST = 400
+HTTP_RESPONSE_INTERNAL_SERVER_ERROR = 500
+
+# https://platform.openai.com/api_keys
 OPENAI_ENDPOINT_IMAGE_N = int(os.getenv("OPENAI_ENDPOINT_IMAGE_N", 4))
 OPENAI_ENDPOINT_IMAGE_SIZE = os.getenv("OPENAI_ENDPOINT_IMAGE_SIZE", "1024x768")
 openai.organization = os.getenv("OPENAI_API_ORGANIZATION", "Personal")
 openai.api_key = os.getenv("OPENAI_API_KEY")
-
-HTTP_RESPONSE_OK = 200
-HTTP_RESPONSE_BAD_REQUEST = 400
-HTTP_RESPONSE_INTERNAL_SERVER_ERROR = 500
 
 
 class OpenAIEndPoint:

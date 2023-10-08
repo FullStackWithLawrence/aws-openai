@@ -1,55 +1,60 @@
-# ------------------------------------------------------------------------------
-# written by: Lawrence McDaniel
-#             https://lawrencemcdaniel.com/
-#
-# date:       sep-2023
-#
-# usage:
-#             API Documentation: https://platform.openai.com/docs/api-reference/making-requests?lang=python
-#             Source: https://github.com/openai/openai-python
-#             Code Samples: https://github.com/openai/openai-cookbook/
-#
-#            ENDPOINT	                MODEL NAME
-#            ------------------------   --------------------------------------------------------------------------------------------------------------------
-#            /v1/audio/transcriptions	whisper-1
-#            /v1/audio/translations	    whisper-1
-#            /v1/chat/completions	    gpt-4, gpt-4-0613, gpt-4-32k, gpt-4-32k-0613, gpt-3.5-turbo,
-#                                       gpt-3.5-turbo-0613, gpt-3.5-turbo-16k, gpt-3.5-turbo-16k-0613
-#            /v1/completions (Legacy)	text-davinci-003, text-davinci-002, text-davinci-001, text-curie-001,
-#                                       text-babbage-001, text-ada-001, davinci, curie, babbage, ada
-#            /v1/embeddings	            text-embedding-ada-002, text-similarity-*-001,
-#                                       text-search-*-*-001, code-search-*-*-001
-#            /v1/fine_tuning/jobs	    gpt-3.5-turbo, babbage-002, davinci-002
-#            /v1/fine-tunes	            davinci, curie, babbage, ada
-#            /v1/moderations	        text-moderation-stable, text-moderation-latest
-#
-#            openai.Model.list()
-#
-# Endpoint request body after transformations: {
-#     "model": "gpt-3.5-turbo",
-#     "end_point": "ChatCompletion",
-#     "messages": [
-#         {
-#             "role": "system",
-#             "content": "You will be provided with statements, and your task is to convert them to standard English."
-#         },
-#         {
-#             "role": "user",
-#             "content": "She no went to the market."
-#         }
-#     ]
-# }
+"""
+written by: Lawrence McDaniel
+            https://lawrencemcdaniel.com/
 
-# ------------------------------------------------------------------------------
+date:       sep-2023
 
-import sys, traceback  # libraries for error management
+usage:
+    API Documentation: https://platform.openai.com/docs/api-reference/making-requests?lang=python
+    Source: https://github.com/openai/openai-python
+    Code Samples: https://github.com/openai/openai-cookbook/
+
+    ENDPOINT	                MODEL NAME
+    ------------------------   ------------------------------------------------------------------
+    /v1/audio/transcriptions	whisper-1
+    /v1/audio/translations	    whisper-1
+    /v1/chat/completions	    gpt-4, gpt-4-0613, gpt-4-32k, gpt-4-32k-0613, gpt-3.5-turbo,
+                                gpt-3.5-turbo-0613, gpt-3.5-turbo-16k, gpt-3.5-turbo-16k-0613
+    /v1/completions (Legacy)	text-davinci-003, text-davinci-002, text-davinci-001, text-curie-001,
+                                text-babbage-001, text-ada-001, davinci, curie, babbage, ada
+    /v1/embeddings	            text-embedding-ada-002, text-similarity-*-001,
+                                text-search-*-*-001, code-search-*-*-001
+    /v1/fine_tuning/jobs	    gpt-3.5-turbo, babbage-002, davinci-002
+    /v1/fine-tunes	            davinci, curie, babbage, ada
+    /v1/moderations	            text-moderation-stable, text-moderation-latest
+
+    openai.Model.list()
+
+Endpoint request body after transformations: {
+    "model": "gpt-3.5-turbo",
+    "end_point": "ChatCompletion",
+    "messages": [
+        {
+            "role": "system",
+            "content": "You will be provided with statements, and your task is to convert them to standard English."
+        },
+        {
+            "role": "user",
+            "content": "She no went to the market."
+        }
+    ]
+}
+"""
+
+import base64
+import json  # library for interacting with JSON data https://www.json.org/json-en.html
+import openai
 import os  # library for interacting with the operating system
 import platform  # library to view informatoin about the server host this Lambda runs on
-import json  # library for interacting with JSON data https://www.json.org/json-en.html
-import base64
-import openai
+import sys  # libraries for error management
+import traceback  # libraries for error management
 
 DEBUG_MODE = os.getenv("DEBUG_MODE", "False").lower() in ("true", "1", "t")
+HTTP_RESPONSE_OK = 200
+HTTP_RESPONSE_BAD_REQUEST = 400
+HTTP_RESPONSE_INTERNAL_SERVER_ERROR = 500
+
+# https://platform.openai.com/api_keys
 OPENAI_ENDPOINT_IMAGE_N = int(os.getenv("OPENAI_ENDPOINT_IMAGE_N", 4))
 OPENAI_ENDPOINT_IMAGE_SIZE = os.getenv("OPENAI_ENDPOINT_IMAGE_SIZE", "1024x768")
 openai.organization = os.getenv("OPENAI_API_ORGANIZATION", "Personal")
@@ -57,6 +62,14 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
 class OpenAIEndPoint:
+    """
+    A class representing an endpoint for the OpenAI API.
+
+    Attributes:
+        api_key (str): The API key to use for authentication.
+        endpoint (str): The URL of the OpenAI API endpoint.
+    """
+
     Embedding = openai.Embedding.__name__
     ChatCompletion = openai.ChatCompletion.__name__
     Moderation = openai.Moderation.__name__
@@ -84,7 +97,7 @@ VALID_EMBEDDING_MODELS = [
 ]
 
 
-def http_response_factory(status_code: int, body: json) -> json:
+def http_response_factory(status_code: int, body) -> dict:
     """
     Generate a standardized JSON return dictionary for all possible response scenarios.
 
@@ -110,7 +123,7 @@ def http_response_factory(status_code: int, body: json) -> json:
     return retval
 
 
-def exception_response_factory(exception: Exception) -> json:
+def exception_response_factory(exception: Exception) -> dict:
     """
     Generate a standardized error response dictionary that includes
     the Python exception type and stack trace.
@@ -127,9 +140,7 @@ def exception_response_factory(exception: Exception) -> json:
 
 
 def validate_item(item, valid_items: list, item_type: str) -> None:
-    """
-    ensure that item exists in valid_items
-    """
+    """ensure that item exists in valid_items"""
     if item not in valid_items:
         raise ValueError(
             "Item {item} not found in {item_type}: {valid_items}".format(
@@ -140,57 +151,60 @@ def validate_item(item, valid_items: list, item_type: str) -> None:
 
 
 def validate_request_body(request_body) -> None:
-    if not type(request_body) == dict:
+    """see openai.chat.completion.request.json"""
+    if type(request_body) is not dict:
         raise TypeError("request body should be a dict")
 
 
 def validate_messages(request_body):
-    if not "messages" in request_body:
+    """see openai.chat.completion.request.json"""
+    if "messages" not in request_body:
         raise ValueError("dict key 'messages' not found in request body object")
     messages = request_body["messages"]
-    if type(messages) != list:
+    if type(messages) is not list:
         raise ValueError("dict key 'messages' should be a JSON list")
     for message in messages:
-        if type(message) != dict:
+        if type(message) is not dict:
             raise ValueError(
                 "invalid ojbect type {t} found in messages list".format(t=type(message))
             )
-        if not "role" in message:
+        if "role" not in message:
             raise ValueError(
                 "dict key 'role' not found in message {m}".format(
-                    json.dumps(message, indent=4)
+                    m=json.dumps(message, indent=4)
                 )
             )
-        if not "content" in message:
+        if "content" not in message:
             raise ValueError(
                 "dict key 'content' not found in message {m}".format(
-                    json.dumps(message, indent=4)
+                    m=json.dumps(message, indent=4)
                 )
             )
 
 
 def validate_completion_request(request_body) -> None:
-    """
-    see openai.chat.completion.request.json
-    """
+    """see openai.chat.completion.request.json"""
     validate_request_body(request_body=request_body)
-    if not "model" in request_body:
+    if "model" not in request_body:
         raise ValueError("dict key 'model' not found in request body object")
     validate_messages(request_body=request_body)
 
 
 def validate_embedding_request(request_body) -> None:
+    """see openai.embedding.request.json"""
     validate_request_body(request_body=request_body)
-    if not "input_text" in request_body:
+    if "input_text" not in request_body:
         raise ValueError("dict key 'input_text' not found in request body object")
 
 
 def event_log(log_entry):
+    """print to CloudWatch Logs"""
     if DEBUG_MODE:
         print(log_entry)
 
 
 def dump_environment(event):
+    """print to CloudWatch Logs"""
     if DEBUG_MODE:
         cloudwatch_dump = {
             "environment": {
@@ -207,7 +221,16 @@ def dump_environment(event):
         print(json.dumps({"event": event}))
 
 
-def get_request_body(event) -> json:
+def get_request_body(event) -> dict:
+    """
+    Returns the request body as a dictionary.
+
+    Args:
+        event: The event object containing the request body.
+
+    Returns:
+        A dictionary representing the request body.
+    """
     if hasattr(event, "isBase64Encoded") and bool(event["isBase64Encoded"]):
         #  https://stackoverflow.com/questions/9942594/unicodeencodeerror-ascii-codec-cant-encode-character-u-xa0-in-position-20
         #  https://stackoverflow.com/questions/53340627/typeerror-expected-bytes-like-object-not-str
@@ -218,7 +241,8 @@ def get_request_body(event) -> json:
     return request_body
 
 
-def parse_request(request_body: json):
+def parse_request(request_body: dict):
+    """parse the request body and return the endpoint, model, messages, and input_text"""
     end_point = request_body.get("end_point")
     model = request_body.get("model")
     messages = request_body.get("messages")
@@ -241,7 +265,10 @@ def parse_request(request_body: json):
 
 def handler(event, context):
     """
-    OpenAI API integrator
+    Main Lambda handler function.
+
+    Responsible for processing incoming requests and invoking the appropriate
+    OpenAI API endpoint based on the contents of the request.
     """
     dump_environment(event)
     try:
@@ -294,13 +321,14 @@ def handler(event, context):
     except (openai.APIError, ValueError, TypeError, NotImplementedError) as e:
         # 400 Bad Request
         return http_response_factory(
-            status_code=400, body=exception_response_factory(e)
+            status_code=HTTP_RESPONSE_BAD_REQUEST, body=exception_response_factory(e)
         )
     except (openai.OpenAIError, Exception) as e:
         # 500 Internal Server Error
         return http_response_factory(
-            status_code=500, body=exception_response_factory(e)
+            status_code=HTTP_RESPONSE_INTERNAL_SERVER_ERROR,
+            body=exception_response_factory(e),
         )
 
     # success!! return the results
-    return http_response_factory(status_code=200, body=openai_results)
+    return http_response_factory(status_code=HTTP_RESPONSE_OK, body=openai_results)

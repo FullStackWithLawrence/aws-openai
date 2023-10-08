@@ -62,6 +62,14 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
 class OpenAIEndPoint:
+    """
+    A class representing an endpoint for the OpenAI API.
+
+    Attributes:
+        api_key (str): The API key to use for authentication.
+        endpoint (str): The URL of the OpenAI API endpoint.
+    """
+
     Embedding = openai.Embedding.__name__
     ChatCompletion = openai.ChatCompletion.__name__
     Moderation = openai.Moderation.__name__
@@ -190,11 +198,13 @@ def validate_embedding_request(request_body) -> None:
 
 
 def event_log(log_entry):
+    """print to CloudWatch Logs"""
     if DEBUG_MODE:
         print(log_entry)
 
 
 def dump_environment(event):
+    """print to CloudWatch Logs"""
     if DEBUG_MODE:
         cloudwatch_dump = {
             "environment": {
@@ -212,6 +222,15 @@ def dump_environment(event):
 
 
 def get_request_body(event) -> dict:
+    """
+    Returns the request body as a dictionary.
+
+    Args:
+        event: The event object containing the request body.
+
+    Returns:
+        A dictionary representing the request body.
+    """
     if hasattr(event, "isBase64Encoded") and bool(event["isBase64Encoded"]):
         #  https://stackoverflow.com/questions/9942594/unicodeencodeerror-ascii-codec-cant-encode-character-u-xa0-in-position-20
         #  https://stackoverflow.com/questions/53340627/typeerror-expected-bytes-like-object-not-str
@@ -223,6 +242,7 @@ def get_request_body(event) -> dict:
 
 
 def parse_request(request_body: dict):
+    """parse the request body and return the endpoint, model, messages, and input_text"""
     end_point = request_body.get("end_point")
     model = request_body.get("model")
     messages = request_body.get("messages")
@@ -244,6 +264,12 @@ def parse_request(request_body: dict):
 
 
 def handler(event, context):
+    """
+    Main Lambda handler function.
+
+    Responsible for processing incoming requests and invoking the appropriate
+    OpenAI API endpoint based on the contents of the request.
+    """
     dump_environment(event)
     try:
         openai_results = {}

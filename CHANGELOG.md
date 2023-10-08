@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - CoPilot code improvement suggestions
 - enhance Makefile
 - add Python documentation
+- add PR and code review Github Action automation
+- add issue template
+- add pull request template
+- add dependabot Github Action automation
+- add sponsorship links
 
 ## [0.1.1] (2023-9-20)
 

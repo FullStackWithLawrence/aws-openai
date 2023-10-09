@@ -1,7 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: init activate lint clean test
-
+.PHONY: react-init react-start react-build react-deploy
 
 react-init:
 	npm install

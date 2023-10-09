@@ -1,0 +1,23 @@
+{
+  "name": "chatgpt_client",
+  "version": "0.0.1",
+  "description": "ReactJS chatGPT clone",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lawrence McDaniel",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FullStackWithLawrence/aws-openai.git"
+  },
+  "bugs": {
+    "url": "https://github.com/FullStackWithLawrence/aws-openai/issues"
+  },
+  "homepage": "https://github.com/FullStackWithLawrence/aws-openai#readme",
+  "dependencies": {
+    "http": "^0.0.1-security",
+    "websocket": "^1.0.34"
+  }
+}

@@ -1,6 +1,7 @@
 [![OpenAI](https://a11ybadges.com/badge?logo=openai)](https://platform.openai.com/)
 [![Amazon AWS](https://a11ybadges.com/badge?logo=amazonaws)](https://aws.amazon.com/)
 [![ReactJS](https://a11ybadges.com/badge?logo=react)](https://react.dev/)
+[![FullStackWithLawrence](https://a11ybadges.com/badge?text=FullStackWithLawrence&badgeColor=orange)](https://www.youtube.com/@FullStackWithLawrence)
 
 # chatGPT Client Application
 
@@ -8,6 +9,7 @@
 
 ## References
 
+- [npm react-use-websocket](https://www.npmjs.com/package/react-use-websocket)
 - [WebSockets tutorial: How to go real-time with Node and React](https://www.youtube.com/watch?v=LenNpb5zqGE)
 
 ## Official YouTube Video For This Repo
@@ -16,7 +18,9 @@
 
 ## Requirements
 
-- Add requirements
+- React 16.8+
+- node 20.8+
+- npm 10.1+
 
 ## Setup
 

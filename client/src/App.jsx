@@ -14,12 +14,18 @@ import {
   TypingIndicator,
 } from '@chatscope/chat-ui-kit-react';
 
-const API_KEY = 'Ddwuzmkd8z9tyAwenGrky5R47I0BsNvk5MY88qRn'
+// API_KEY access is scaffolded, but in point of fact it's not really
+// necessary for this application since Terraform also creates an
+// AWS API Gateway 'Usage Plan' that limits access to the API.
+//
+// The API_KEY is only used to demonstrate how you'd set this up in
+// the event that you needed it.
+const AWS_API_GATEWAY_KEY = 'Ddwuzmkd8z9tyAwenGrky5R47I0BsNvk5MY88qRn';
 
 const App = () => {
   const [messages, setMessages] = useState([
     {
-      message: "Hello, I'm a ChatGPT custom application! Ask me anything!",
+      message: "Hello, I'm an air travel chatbot powered by ChatGPT. Ask me anything about airport codes anywhere in the world!",
       sentTime: 'just now',
       sender: 'ChatGPT',
     },
@@ -61,7 +67,7 @@ const App = () => {
       'input_text': chatMessage
     };
     let headers = {
-      'x-api-key': API_KEY,
+      'x-api-key': AWS_API_GATEWAY_KEY,
       'Accept': '*/*',
       'Content-Type': 'application/json'
     };

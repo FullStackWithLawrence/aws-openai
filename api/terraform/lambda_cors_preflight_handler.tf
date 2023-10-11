@@ -49,10 +49,9 @@ data "archive_file" "cors_preflight_handler" {
 
 ###############################################################################
 # Cloudwatch logging
-# un-comment this to enable Cloudwatch logging for this Lambda.
 ###############################################################################
-# resource "aws_cloudwatch_log_group" "cors_preflight_handler" {
-#   name              = "/aws/lambda/${local.preflight_function_name}"
-#   retention_in_days = var.log_retention_days
-#   tags              = var.tags
-# }
+resource "aws_cloudwatch_log_group" "cors_preflight_handler" {
+  name              = "/aws/lambda/${local.preflight_function_name}"
+  retention_in_days = var.log_retention_days
+  tags              = var.tags
+}

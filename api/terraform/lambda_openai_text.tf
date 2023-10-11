@@ -37,7 +37,7 @@ resource "aws_lambda_function" "openai_text" {
   runtime          = var.lambda_python_runtime
   memory_size      = var.lambda_memory_size
   timeout          = var.lambda_timeout
-  handler          = "openai_${local.text_slug}.handler"
+  handler          = "${var.shared_resource_identifier}_${local.text_slug}.handler"
   filename         = data.archive_file.openai_text.output_path
   source_code_hash = data.archive_file.openai_text.output_base64sha256
   tags             = var.tags

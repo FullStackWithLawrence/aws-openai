@@ -118,7 +118,7 @@ def http_response_factory(status_code: int, body) -> dict:
         "statusCode": status_code,
         "headers": {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "'*'",
+            "Access-Control-Allow-Origin": "*",
         },
         "body": body,
     }

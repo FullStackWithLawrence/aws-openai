@@ -14,7 +14,7 @@ import {
   TypingIndicator,
 } from '@chatscope/chat-ui-kit-react';
 
-const API_KEY = 'KKssyaNxjX7RX8IpCaZvo43kZFQ0I7dq6YDoDhHi'
+const API_KEY = 'F1a3udAG6Z4dS4kgWhV2S6ulqA3hX9Tq64IV5mwg'
 
 const App = () => {
   const [messages, setMessages] = useState([
@@ -62,10 +62,11 @@ const App = () => {
     };
     let headers = {
       'x-api-key': API_KEY,
-      'Content-Type': 'text/plain'
+      'Accept': '*/*',
+      'Content-Type': 'application/json'
     };
     const init = {
-      credentials: 'include',
+      // credentials: 'include',
       method: 'POST',
       // mode: 'no-cors',
       headers: headers,

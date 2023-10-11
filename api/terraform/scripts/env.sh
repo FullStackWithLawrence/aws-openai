@@ -13,7 +13,7 @@
 
 
 set -o allexport
-source ../.env set    # this is relative to the calling Terraform resource
+source ../../.env set    # this is relative to the calling Terraform resource
 +o allexport
 
 # Change the contents of this output to get the environment variables

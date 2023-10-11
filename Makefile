@@ -14,7 +14,7 @@ activate:
 lint:
 	terraform fmt -recursive
 	pre-commit run --all-files
-	black ./terraform/python/
+	black ./api/terraform/python/
 
 clean:
 	rm -rf .venv

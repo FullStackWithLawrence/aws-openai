@@ -1,4 +1,8 @@
-import { useState, useEffect }  from 'react';
+//
+// see: https://stackoverflow.com/questions/45576200/fetch-api-post-call-returning-403-forbidden-error-in-react-js-but-the-same-url-w
+//      https://stackoverflow.com/questions/76182956/cors-preflight-response-error-with-aws-api-gateway-and-lambda-function
+//
+import { useState, useEffect } from 'react';
 import './App.css';
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import {
@@ -10,7 +14,7 @@ import {
   TypingIndicator,
 } from '@chatscope/chat-ui-kit-react';
 
-const API_KEY ='uPFeMkVW6WaoVMba4wRSd6MIOG8kSF9n7axQpHdT'
+const API_KEY = 'KKssyaNxjX7RX8IpCaZvo43kZFQ0I7dq6YDoDhHi'
 
 const App = () => {
   const [messages, setMessages] = useState([
@@ -34,13 +38,15 @@ const App = () => {
 
     try {
       const response = await processMessageToChatGPTApplication(message);
-      const content = response.choices[0]?.message?.content;
-      if (content) {
-        const chatGPTResponse = {
-          message: content,
-          sender: 'ChatGPT',
-        };
-        setMessages((prevMessages) => [...prevMessages, chatGPTResponse]);
+      if ("choices" in response) {
+        const content = response.choices[0]?.message?.content;
+        if (content) {
+          const chatGPTResponse = {
+            message: content,
+            sender: 'ChatGPT',
+          };
+          setMessages((prevMessages) => [...prevMessages, chatGPTResponse]);
+        }
       }
     } catch (error) {
       console.error('Error processing message:', error);
@@ -50,34 +56,38 @@ const App = () => {
   };
 
   async function processMessageToChatGPTApplication(chatMessage) {
-    const url = 'https://api.openai.lawrencemcdaniel.com/examples/default-emoji-chatbot';
-    const apiRequestBody = {
+    const url = 'https://api.openai.lawrencemcdaniel.com/examples/default-airport-codes';
+    const body = {
       'input_text': chatMessage
     };
     let headers = {
-      'Content-Type': 'application/json',
       'x-api-key': API_KEY,
-      'Accept': '*/*',
-      'Accept-Encoding': 'gzip, deflate, br',
-      'Connection': 'keep-alive',
-      'User-Agent': 'ReactJS'
+      'Content-Type': 'text/plain'
     };
-
     const init = {
+      credentials: 'include',
       method: 'POST',
-      mode: 'no-cors',
+      // mode: 'no-cors',
       headers: headers,
-      body: JSON.stringify(apiRequestBody),
+      body: JSON.stringify(body),
     };
-    console.log('args', init);
-    const response = await fetch(url, init);
-    const data = await response.json();
-    return data;
+    console.log(url, init);
+    const response = await fetch(url, init)
+      .then((response) => {
+        console.log(response.status);
+        console.log("success====", response);
+        return response;
+      })
+      .catch((error) => {
+        console.log("error=====", error);
+        return {};
+      });
+    return response;
   }
 
   return (
     <div className='App'>
-      <div style={{ position:'relative', height: '500px'  }}>
+      <div style={{ position: 'relative', height: '500px' }}>
         <MainContainer>
           <ChatContainer>
             <MessageList

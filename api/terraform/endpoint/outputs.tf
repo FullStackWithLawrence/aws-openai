@@ -16,8 +16,8 @@ output "sha1_deployment_trigger" {
     aws_api_gateway_integration.post,
     aws_api_gateway_method.post,
     aws_api_gateway_method_response.post.id,
-    aws_api_gateway_integration.cors,
-    aws_api_gateway_method.cors,
-    aws_api_gateway_method_response.cors.id
+    #  aws_api_gateway_integration.cors,
+    #  aws_api_gateway_method.cors,
+    #  aws_api_gateway_method_response.cors.id
   ]))
 }

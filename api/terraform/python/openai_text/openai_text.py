@@ -116,10 +116,6 @@ def http_response_factory(status_code: int, body) -> dict:
     retval = {
         "isBase64Encoded": False,
         "statusCode": status_code,
-        "headers": {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-        },
         "body": body,
     }
     event_log(json.dumps({"retval": retval}))

@@ -14,7 +14,7 @@ import {
   TypingIndicator,
 } from '@chatscope/chat-ui-kit-react';
 
-const API_KEY = 'zz2qij7Vnh82wYUDhnQtX5DPO7Z054kt75KvMsp1'
+const API_KEY = 'Ddwuzmkd8z9tyAwenGrky5R47I0BsNvk5MY88qRn'
 
 const App = () => {
   const [messages, setMessages] = useState([
@@ -73,17 +73,18 @@ const App = () => {
       body: JSON.stringify(body),
     };
     console.log(url, init);
-    const response = await fetch(url, init)
-      .then((response) => {
-        console.log(response.status);
-        console.log("success====", response);
-        return response;
-      })
-      .catch((error) => {
-        console.log("error=====", error);
-        return {};
-      });
-    return response;
+    const response = await fetch(url, init);
+    if (response.ok) {
+      const response_json = await response.json(); // Convert the ReadableStream to a JSON object
+      console.log("success. response====", response_json);
+
+      const body = response_json.body;
+      console.log("success. body====", body);
+      return body;
+    } else {
+      console.log("error: ", response.status);
+      return {};
+    }
   }
 
   return (

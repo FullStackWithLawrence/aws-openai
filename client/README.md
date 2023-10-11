@@ -3,12 +3,49 @@
 [![ReactJS](https://a11ybadges.com/badge?logo=react)](https://react.dev/)
 [![FullStackWithLawrence](https://a11ybadges.com/badge?text=FullStackWithLawrence&badgeColor=orange&logo=youtube&logoColor=282828)](https://www.youtube.com/@FullStackWithLawrence)
 
-# chatGPT Client Application
+# chatGPT Client Application: React + Vite
 
-- add text here.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## References
+Currently, two official plugins are available:
 
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## Setup
+
+```console
+cd client
+npm install
+npm install --save-dev @chatscope/chat-ui-kit-react
+npm run dev
+```
+
+## Architecture
+
+- [Vite](https://vitejs.dev/)
+- [React](https://react.dev/)
+- [Chat UI Kit React](https://www.npmjs.com/package/@chatscope/chat-ui-kit-react)
+
+more:
+
+- [chatscope.io](https://chatscope.io/)
+- [How to Integrate ChatGPT with React](https://rollbar.com/blog/how-to-integrate-chatgpt-with-react/)
+- [mars.chatscope.io](https://mars.chatscope.io/)
+
+
+Alternate architecture:
+
+- react-use-websocket
+- react-chat-elements
+- react-chat-ui
+
+## Obsoleted References
+
+- [React Chat Elements: Getting Started](https://detaysoft.github.io/docs-react-chat-elements/docs/intro)
+- [Build ChatGPT In React JS Using OpenAI API | Create ChatGPT Clone Using React JS](https://www.youtube.com/watch?v=EzkWAviyYgg)
+- [React Chat Tutorial](https://getstream.io/chat/react-chat/tutorial/)
+- [Using React for a part of your existing page](https://react.dev/learn/add-react-to-an-existing-project)
 - [npm react-use-websocket](https://www.npmjs.com/package/react-use-websocket)
 - [Build a robust React app with Husky pre-commit hooks and GitHub Actions](https://blog.logrocket.com/build-robust-react-app-husky-pre-commit-hooks-github-actions/)
 - [WebSockets tutorial: How to go real-time with Node and React](https://www.youtube.com/watch?v=LenNpb5zqGE)
@@ -22,17 +59,6 @@
 - React 16.8+
 - node 20.8+
 - npm 10.1+
-
-## Setup
-
-```console
-npm init
-npm install --save websocket http
-npx create-react-app chatgpt_client
-
-cd chatgpt_client
-npm start
-```
 
 ### Build
 

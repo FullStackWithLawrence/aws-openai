@@ -3,3 +3,30 @@
   margin: 0 auto;
   padding: 2rem;
 }
+
+.App {
+  border:  1px solid #1d5268
+}
+
+.app-title {
+  text-align: center;
+  background-color: #1d5268;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  color: whitesmoke;
+}
+
+h5 {
+  color: whitesmoke;
+  margin-left: 10px;
+  margin-bottom: 0;
+}
+.sample-applications {
+  margin-top: 90px;
+}
+.app-logo {
+  width: 75px;
+  margin: 0 auto;
+  display: block;
+}

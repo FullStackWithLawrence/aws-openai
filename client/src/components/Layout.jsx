@@ -2,7 +2,6 @@
 import styled from 'styled-components';
 
 export const ContainerLayout = styled.div`
-  width: 90vw;
   height: 90vh;
   display: flex;
   flex-direction: row;

@@ -1,7 +1,8 @@
 // see: https://www.npmjs.com/package/react-pro-sidebar
 import './App.css';
 import ChatApp from './components/chatApp/Component';
-import appAeroAssist from './components/appAeroAssist';
+import AeroAssist from './applications/AeroAssist';
+import GrammarGenius from './applications/GrammarGenius';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { ContainerLayout, SidebarLayout, ContentLayout, MenuLayout, Logo } from './components/Layout/';
 import { FaBeer, FaCalculator, FaCalendar, FaDochub, FaBookOpen } from "react-icons/fa";
@@ -39,7 +40,7 @@ const App = () => {
           </div>
         </SidebarLayout>
         <ContentLayout>
-          <ChatApp {...appAeroAssist} />
+          <ChatApp {...GrammarGenius} />
         </ContentLayout>
       </ContainerLayout>
 

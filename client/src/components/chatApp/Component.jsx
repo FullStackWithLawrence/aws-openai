@@ -136,7 +136,6 @@ const ChatApp = (props) => {
                 onSend={handleSendRequest}
                 attachButton={false}
                 fancyScroll={false}
-                backgroundColor='lightgray'
                 />
             </ChatContainer>
           </MainContainer>

@@ -6,7 +6,7 @@
 import { useState, useEffect } from 'react';
 import './Component.css';
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
-import styled from 'styled-components';
+
 
 import {
   MainContainer,
@@ -98,11 +98,7 @@ const ChatApp = (props) => {
     }
   };
 
-
-  const bubbleStyle = {
-    backgroundColor: 'rgba(0,0,0,0.10)',
-  };
-  const separatorStyle = {
+  const transparentBackgroundStyle = {
     backgroundColor: 'rgba(0,0,0,0.10)',
     color: 'lightgray',
   };
@@ -115,7 +111,7 @@ const ChatApp = (props) => {
   return(
     <div style={{ position: 'relative', height: '100%' }}>
         <MainContainer style={MainContainerStyle} >
-            <ChatContainer style={bubbleStyle} >
+            <ChatContainer style={transparentBackgroundStyle} >
               <ConversationHeader>
                 <Avatar src={props.avatar_url} name={props.app_name} />
                 <ConversationHeader.Content userName={props.app_name} info="Active 10 mins ago" />
@@ -126,16 +122,22 @@ const ChatApp = (props) => {
               </ConversationHeader.Actions>
               </ConversationHeader>
               <MessageList
-                style={bubbleStyle}
+                style={transparentBackgroundStyle}
                 scrollBehavior='smooth'
-                typingIndicator={isTyping ? <TypingIndicator content={props.assistant_name + ' is typing'} /> : null}
+                typingIndicator={isTyping ? <TypingIndicator content={props.assistant_name + ' is typing'} style={transparentBackgroundStyle} /> : null}
               >
-                <MessageSeparator content="Monday, 23 December 2019" as="h2" style={separatorStyle} />
+                <MessageSeparator content="Monday, 23 December 2019" as="h2" style={transparentBackgroundStyle} />
                 {messages.map((message, i) => {
                   return <Message key={i} model={message} />
                 })}
               </MessageList>
-              <MessageInput placeholder={props.placeholder_text} onSend={handleSendRequest} attachButton={false} fancyScroll={false} />
+              <MessageInput
+                placeholder={props.placeholder_text}
+                onSend={handleSendRequest}
+                attachButton={false}
+                fancyScroll={false}
+                backgroundColor='lightgray'
+                />
             </ChatContainer>
           </MainContainer>
     </div>

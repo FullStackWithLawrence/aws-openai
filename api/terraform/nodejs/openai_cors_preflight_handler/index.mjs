@@ -20,6 +20,5 @@ export const handler = async (event) => {
     })
   };
 
-  console.log('response', response);
   return response;
 };

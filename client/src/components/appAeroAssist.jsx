@@ -4,6 +4,7 @@ const appAeroAssist = {
   api_url: BACKEND_API_URL,
   api_key: AWS_API_GATEWAY_KEY,
   app_name: "AeroAssist",
+  avatar_url: 'https://chatscope.io/storybook/react/static/media/emily.d34aecd9.svg',
   welcome_message: "Hello, I'm an air travel chatbot powered by ChatGPT. Ask me anything about airport codes anywhere in the world!",
   example_prompts: [
     '"What is the airport code for London Heathrow?"',

@@ -11,9 +11,14 @@
   },
   "dependencies": {
     "dotenv": "^16.3.1",
+    "i": "^0.3.7",
+    "npm": "^10.2.0",
     "openai": "^4.11.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.11.0",
+    "react-pro-sidebar": "^1.1.0-alpha.1",
+    "styled-components": "^6.0.9"
   },
   "devDependencies": {
     "@chatscope/chat-ui-kit-react": "^1.10.1",

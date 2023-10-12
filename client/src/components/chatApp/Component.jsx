@@ -1,5 +1,6 @@
 //
-// see: https://stackoverflow.com/questions/45576200/fetch-api-post-call-returning-403-forbidden-error-in-react-js-but-the-same-url-w
+// see: https://chatscope.io/storybook/react/?path=/story/documentation-introduction--page
+//      https://stackoverflow.com/questions/45576200/fetch-api-post-call-returning-403-forbidden-error-in-react-js-but-the-same-url-w
 //      https://stackoverflow.com/questions/76182956/cors-preflight-response-error-with-aws-api-gateway-and-lambda-function
 //
 import { useState, useEffect } from 'react';
@@ -12,6 +13,13 @@ import {
   Message,
   MessageInput,
   TypingIndicator,
+  MessageSeparator,
+
+  Avatar,
+  ConversationHeader,
+  InfoButton,
+  VoiceCallButton,
+  VideoCallButton,
 } from '@chatscope/chat-ui-kit-react';
 
 const TIMESTAMP_NOW = 'just now';
@@ -88,19 +96,37 @@ const ChatApp = (props) => {
     }
   };
 
+  const bubbleStyle = {
+    backgroundColor: 'rgba(0,0,0,0.10)',
+  };
+  const separatorStyle = {
+    backgroundColor: 'rgba(0,0,0,0.10)',
+    color: 'lightgray',
+  };
   return (
-    <div style={{ position: 'relative', height: '500px' }}>
-      <MainContainer>
-        <ChatContainer>
+    <div style={{ position: 'relative', height: '100%' }}>
+      <MainContainer style={bubbleStyle} >
+        <ChatContainer style={bubbleStyle} >
+          <ConversationHeader>
+            <Avatar src={props.avatar_url} name={props.app_name} />
+            <ConversationHeader.Content userName={props.app_name} info="Active 10 mins ago" />
+            <ConversationHeader.Actions>
+              <VoiceCallButton disabled />
+              <VideoCallButton disabled />
+              <InfoButton />
+          </ConversationHeader.Actions>
+          </ConversationHeader>
           <MessageList
+            style={bubbleStyle}
             scrollBehavior='smooth'
             typingIndicator={isTyping ? <TypingIndicator content={props.app_name + ' is typing'} /> : null}
           >
+            <MessageSeparator content="Monday, 23 December 2019" as="h2" style={separatorStyle} />
             {messages.map((message, i) => {
               return <Message key={i} model={message} />
             })}
           </MessageList>
-          <MessageInput placeholder={props.placeholder_text} onSend={handleSendRequest} />
+          <MessageInput placeholder={props.placeholder_text} onSend={handleSendRequest} attachButton={false} fancyScroll={false} />
         </ChatContainer>
       </MainContainer>
     </div>

@@ -6,7 +6,7 @@ const AeroAssist = {
   app_name: "AeroAssist",
   assistant_name: "Emily",
   avatar_url: 'https://chatscope.io/storybook/react/static/media/emily.d34aecd9.svg',
-  background_image_url: '../public/AeroAssist-bg.jpg',
+  background_image_url: '../public/applications/AeroAssist/AeroAssist-bg.svg',
   welcome_message: `Hello, I'm Emily, an air travel chatbot powered by ChatGPT. Ask me anything about airport codes anywhere in the world!`,
   example_prompts: [
     '"What is the airport code for London Heathrow?"',

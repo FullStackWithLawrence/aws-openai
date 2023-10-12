@@ -7,8 +7,8 @@ const GrammarGenius = {
   api_key: AWS_API_GATEWAY_KEY,
   app_name: "GrammarGenius",
   assistant_name: "Gertrude",
-  avatar_url: 'https://chatscope.io/storybook/react/static/media/emily.d34aecd9.svg',
-  background_image_url: '../public/GrammarGenius-bg.jpg',
+  avatar_url: '../public/applications/GrammarGenius/gertrude.svg',
+  background_image_url: '../public/applications/GrammarGenius/GrammarGenius-bg.jpg',
   welcome_message: `Hello, I'm Gertrude, an English grammar chatbot powered by ChatGPT. You can practice your English grammar with me!`,
   example_prompts: [
     '"I broked my leg."',

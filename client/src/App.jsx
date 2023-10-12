@@ -1,11 +1,11 @@
 // see: https://www.npmjs.com/package/react-pro-sidebar
 import './App.css';
 import ChatApp from './components/chatApp/Component';
-import AeroAssist from './applications/AeroAssist';
-import GrammarGenius from './applications/GrammarGenius';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { ContainerLayout, SidebarLayout, ContentLayout, MenuLayout, Logo } from './components/Layout/';
 import { FaBeer, FaCalculator, FaCalendar, FaDochub, FaBookOpen } from "react-icons/fa";
+import AeroAssist from './applications/AeroAssist';
+import GrammarGenius from './applications/GrammarGenius';
 
 const App = () => {
   return (

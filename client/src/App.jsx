@@ -21,7 +21,7 @@ const App = () => {
                           // only apply styles on first level elements of the tree
                           if (level === 0)
                             return {
-                              color: disabled ? '#b6d3eb' : '#6ea9d7',
+                              color: disabled ? '#ffb13e' : '#ffb13e',
                               backgroundColor: active ? '#eecef9' : undefined,
                             };
                         },

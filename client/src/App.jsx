@@ -22,6 +22,8 @@ import SarcasticChat from './applications/SarcasticChat';
 import TurnByTurnDirections from './applications/TurnByTurnDirections';
 import InterviewQuestions from './applications/InterviewQuestions';
 import FunctionCreator from './applications/FunctionCreator';
+import CodeImprovement from './applications/CodeImprovement';
+import SinglePageWebapp from './applications/SinglePageWebapp';
 
 const currentYear = new Date().getFullYear();
 
@@ -87,7 +89,7 @@ const App = () => {
           </div>
         </SidebarLayout>
         <ContentLayout>
-          <ChatApp {...FunctionCreator} />
+          <ChatApp {...SinglePageWebapp} />
         </ContentLayout>
       </ContainerLayout>
       <div className='footer'>

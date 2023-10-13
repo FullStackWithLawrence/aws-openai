@@ -130,7 +130,6 @@ const ChatApp = (props) => {
                 scrollBehavior='smooth'
                 typingIndicator={isTyping ? <TypingIndicator content={props.assistant_name + ' is typing'} style={transparentBackgroundStyle} /> : null}
               >
-                <MessageSeparator content="Monday, 23 December 2019" as="h2" style={transparentBackgroundStyle} />
                 {messages.map((message, i) => {
                   return <Message key={i} model={message} />
                 })}

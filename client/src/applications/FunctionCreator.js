@@ -7,7 +7,7 @@ const FunctionCreator = {
   api_key: AWS_API_GATEWAY_KEY,
   app_name: "Python Function Creator",
   assistant_name: "Francine",
-  avatar_url: '../public/applications/FunctionCreator/Francine.png',
+  avatar_url: '../public/applications/FunctionCreator/Francine.svg',
   background_image_url: '../public/applications/FunctionCreator/FunctionCreator-bg.svg',
   welcome_message: `Hello, I'm Francine, a Python programmer, and I can help you create a Python function.`,
   example_prompts: [],

@@ -2,8 +2,8 @@
 import './App.css';
 import ChatApp from './components/chatApp/Component';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
-import { ContainerLayout, SidebarLayout, ContentLayout, MenuLayout, Logo } from './components/Layout/';
-import { FaCalendar, FaInfo, FaBookOpen, FaLaptopCode, FaDatabase, FaYoutube, FaGithub, FaLinkedin, FaBrush } from "react-icons/fa";
+import { ContainerLayout, SidebarLayout, ContentLayout, Logo } from './components/Layout/';
+import { FaInfo, FaBookOpen, FaLaptopCode, FaDatabase, FaYoutube, FaGithub, FaLinkedin, FaBrush } from "react-icons/fa";
 import AeroAssist from './applications/AeroAssist';
 import GrammarGenius from './applications/GrammarGenius';
 import KidsDigest from './applications/KidsDigest';
@@ -16,6 +16,9 @@ import ProductNameGenerator from './applications/ProductNameGenerator';
 import PythonDebugger from './applications/PythonDebugger';
 import SpreadsheetGenerator from './applications/SpreadsheetGenerator';
 import TweetClassifier from './applications/TweetClassifier';
+import Mood2CSSColor from './applications/Mood2CSSColor';
+import VRFitness from './applications/VRFitness';
+import SarcasticChat from './applications/SarcasticChat';
 
 const App = () => {
   return (
@@ -52,6 +55,7 @@ const App = () => {
                   <MenuItem>Emoji Bot</MenuItem>
                   <MenuItem>Tweet Classifier</MenuItem>
                   <MenuItem>Keyword Generator</MenuItem>
+                  <MenuItem>Sarcastic Chatbot</MenuItem>
                 </SubMenu>
                 <SubMenu label='Data' icon={<FaDatabase />}>
                   <MenuItem>CSVify</MenuItem>
@@ -75,7 +79,7 @@ const App = () => {
           </div>
         </SidebarLayout>
         <ContentLayout>
-          <ChatApp {...TweetClassifier} />
+          <ChatApp {...SarcasticChat} />
         </ContentLayout>
       </ContainerLayout>
     </div>

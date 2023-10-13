@@ -38,6 +38,8 @@ h5 {
 
 .footer a {
   text-align: center;
+  color: #333;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .footer a:hover {

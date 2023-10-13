@@ -6,15 +6,15 @@ const ProductNameGenerator = {
   api_url: BACKEND_API_URL + 'default-product-name-gen',
   api_key: AWS_API_GATEWAY_KEY,
   app_name: "Product Name Generator",
-  assistant_name: "Peter",
-  avatar_url: '../public/applications/ProductNameGenerator/Peter.svg',
+  assistant_name: "Pierson",
+  avatar_url: '../public/applications/ProductNameGenerator/Pierson.svg',
   background_image_url: '../public/applications/ProductNameGenerator/ProductNameGenerator-bg.avif',
-  welcome_message: `Hello, I'm Peter, and I create a list of potential product names based on your input.`,
+  welcome_message: `Hello, I'm Pierson, and I create a list of potential product names based on your input.`,
   example_prompts: [
     'We make everlasting gobstoppers',
     'a time travel machine',
   ],
-  placeholder_text: `tell Peter about your product`,
+  placeholder_text: `tell Pierson about your product`,
 };
 
 export default ProductNameGenerator;

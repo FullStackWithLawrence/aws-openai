@@ -9,7 +9,7 @@ const ProConDiscusser = {
   assistant_name: "Persephone",
   avatar_url: '../public/applications/ProConDiscusser/Persephone.svg',
   background_image_url: '../public/applications/ProConDiscusser/ProConDiscusser-bg.svg',
-  welcome_message: `Hello, I'm Persephone, the most learned hipster in the galaxy. I can discuss the pros and cons of anything.`,
+  welcome_message: `Hello, I'm Persephone, the most learned in the galaxy. I can discuss the pros and cons of anything.`,
   example_prompts: [
     'a time travel machine',
     'eating the last everlasting gobstopper',

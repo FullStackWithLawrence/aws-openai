@@ -11,9 +11,9 @@ const RapBattle = {
   background_image_url: '../public/applications/RapBattle/RapBattle-bg.jpg',
   welcome_message: `Hello, I'm Rhea, and I can generate rap battles between your two favorite people`,
   example_prompts: [
-    'Rap battle between Elon Musk and Jeff Bezos',
-    'Rap battle between Donald Trump and Joe Biden',
-    'Rap battle between Kanye West and Taylor Swift',
+    'Rap battle between Linus Torvalds and Bill Gates',
+    'Rap battle between Dave Chappelle and Kevin Hart',
+    'Rap battle between Ghandi and Martin Luther King Jr.',
   ],
   placeholder_text: `tell Rhea who will battle...`,
 };

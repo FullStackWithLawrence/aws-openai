@@ -30,6 +30,10 @@ import Emojibot4 from './applications/Emojibot4';
 import English2French from './applications/English2French';
 import SocraticTutor from './applications/SocraticTutor';
 import SqlTranslator from './applications/SqlTranslator';
+import MeetingNotesSummarizer from './applications/MeetingNotesSummarizer';
+import ReviewClassifier from './applications/ReviewClassifier';
+import ProConDiscusser from './applications/ProConDiscusser';
+import LessonPlanWriter from './applications/LessonPlanWriter';
 
 const currentYear = new Date().getFullYear();
 
@@ -67,6 +71,7 @@ const App = () => {
                   <MenuItem>Interview Assistant</MenuItem>
                   <MenuItem>Memo Writer</MenuItem>
                   <MenuItem>French Translator</MenuItem>
+                  <MenuItem>Lesson Plan Writer</MenuItem>
                 </SubMenu>
                 <SubMenu label='Fun' icon={<FaBrush />}>
                   <MenuItem>Rap Battle</MenuItem>
@@ -75,6 +80,7 @@ const App = () => {
                   <MenuItem>Keyword Generator</MenuItem>
                   <MenuItem>Sarcastic Chatbot</MenuItem>
                   <MenuItem>Socratic Tutor</MenuItem>
+                  <MenuItem>Pro-Con Discusser</MenuItem>
                 </SubMenu>
                 <SubMenu label='Data' icon={<FaDatabase />}>
                   <MenuItem>CSVify</MenuItem>
@@ -100,7 +106,7 @@ const App = () => {
           </div>
         </SidebarLayout>
         <ContentLayout>
-          <ChatApp {...SqlTranslator} />
+          <ChatApp {...LessonPlanWriter} />
         </ContentLayout>
       </ContainerLayout>
       <div className='footer'>

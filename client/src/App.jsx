@@ -3,7 +3,7 @@ import './App.css';
 import ChatApp from './components/chatApp/Component';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { ContainerLayout, SidebarLayout, ContentLayout, Logo } from './components/Layout/';
-import { FaInfo, FaBookOpen, FaLaptopCode, FaDatabase, FaYoutube, FaGithub, FaLinkedin, FaBrush } from "react-icons/fa";
+import { FaInfo, FaBookOpen, FaDatabase, FaYoutube, FaGithub, FaLinkedin, FaBrush, FaCode } from "react-icons/fa";
 import AeroAssist from './applications/AeroAssist';
 import GrammarGenius from './applications/GrammarGenius';
 import KidsDigest from './applications/KidsDigest';
@@ -19,6 +19,9 @@ import TweetClassifier from './applications/TweetClassifier';
 import Mood2CSSColor from './applications/Mood2CSSColor';
 import VRFitness from './applications/VRFitness';
 import SarcasticChat from './applications/SarcasticChat';
+import TurnByTurnDirections from './applications/TurnByTurnDirections';
+import InterviewQuestions from './applications/InterviewQuestions';
+import FunctionCreator from './applications/FunctionCreator';
 
 const currentYear = new Date().getFullYear();
 
@@ -52,6 +55,8 @@ const App = () => {
                   <MenuItem>Grammar Genius</MenuItem>
                   <MenuItem>Aero Assist</MenuItem>
                   <MenuItem>Kids Digest</MenuItem>
+                  <MenuItem>Personal Navigator</MenuItem>
+                  <MenuItem>Interview Assistant</MenuItem>
                 </SubMenu>
                 <SubMenu label='Fun' icon={<FaBrush />}>
                   <MenuItem>Emoji Bot</MenuItem>
@@ -63,7 +68,8 @@ const App = () => {
                   <MenuItem>CSVify</MenuItem>
                   <MenuItem>Spreadsheet Generator</MenuItem>
                 </SubMenu>
-                <SubMenu label='Python Coding' icon={<FaLaptopCode />}>
+                <SubMenu label='Python Coding' icon={<FaCode />}>
+                  <MenuItem>Function Creator</MenuItem>
                   <MenuItem>Time Complexity</MenuItem>
                   <MenuItem>Code Explainer</MenuItem>
                   <MenuItem>Python Debugger</MenuItem>
@@ -74,19 +80,18 @@ const App = () => {
                 <MenuItem icon={<FaYoutube />}>YouTube video</MenuItem>
                 <MenuItem icon={<FaGithub />}>GitHub</MenuItem>
               </Menu>
-              <a href='https://www.youtube.com/@FullStackWithLawrence' target="_blank">
+              {/* <a href='https://www.youtube.com/@FullStackWithLawrence' target="_blank">
                 <Logo alt="Logo" />
-              </a>
+              </a> */}
             </Sidebar>
           </div>
         </SidebarLayout>
         <ContentLayout>
-          <ChatApp {...SarcasticChat} />
+          <ChatApp {...FunctionCreator} />
         </ContentLayout>
       </ContainerLayout>
       <div className='footer'>
-          <p>© {currentYear} Lawrence McDaniel</p>
-          <p><img src='../public/react-logo.svg' /> React | <img src='../public/aws-logo.svg' /> | <img src='openai-logo.svg' /> OpenAI Python API | <img src='../public/github-logo.svg' /> <a href='https://github.com/FullStackWithLawrence/aws-openai' target='_blank'>Source code</a></p>
+          <p>© {currentYear} Lawrence McDaniel | <img src='openai-logo.svg' /> OpenAI Python API | <img src='../public/react-logo.svg' /> React | <img src='../public/aws-logo.svg' /> Amazon Web Services | <img src='terraform-logo.svg' /> Terraform | <img src='../public/github-logo.svg' /> <a href='https://github.com/FullStackWithLawrence/aws-openai' target='_blank'>Source code</a></p>
         </div>
     </div>
   )

@@ -7,8 +7,8 @@ const Emojibot = {
   api_key: AWS_API_GATEWAY_KEY,
   app_name: "Emojibot",
   assistant_name: "Erik",
-  avatar_url: '../public/applications/Emojibot/Erik.svg',
-  background_image_url: '../public/applications/Emojibot/Emojibot-bg.jpg',
+  avatar_url: '/applications/Emojibot/Erik.svg',
+  background_image_url: '/applications/Emojibot/Emojibot-bg.jpg',
   welcome_message: `Hello, I'm Erik, and I only respond with emojis. Let's chat!`,
   example_prompts: [
     "What's shake'n bacon",

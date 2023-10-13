@@ -7,8 +7,8 @@ const ReviewClassifier = {
   api_key: AWS_API_GATEWAY_KEY,
   app_name: "Product Review Classifier",
   assistant_name: "Ridley",
-  avatar_url: '../public/applications/ReviewClassifier/Ridley.svg',
-  background_image_url: '../public/applications/ReviewClassifier/ReviewClassifier-bg.jpg',
+  avatar_url: '/applications/ReviewClassifier/Ridley.svg',
+  background_image_url: '/applications/ReviewClassifier/ReviewClassifier-bg.jpg',
   welcome_message: `Hello, I'm Ridley, and I can classify product reviews based on their tone and gesticulation.`,
   example_prompts: [
     'this is the best everlasting gobstopper ever!',

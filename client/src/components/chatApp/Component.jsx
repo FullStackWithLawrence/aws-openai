@@ -113,7 +113,7 @@ const ChatApp = (props) => {
     height: '100%',
   };
   return(
-    <div style={{ position: 'relative', height: '100%' }}>
+    <div className='chat-app'>
         <MainContainer style={MainContainerStyle} >
             <ChatContainer style={transparentBackgroundStyle} >
               <ConversationHeader>

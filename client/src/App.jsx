@@ -4,9 +4,10 @@ import './App.css';
 import ChatApp from './components/chatApp/Component';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { ContainerLayout, SidebarLayout, ContentLayout, Logo } from './components/Layout/';
-import { FaInfo, FaBookOpen, FaDatabase, FaYoutube, FaGithub, FaLinkedin, FaBrush, FaCode } from "react-icons/fa";
-import { APPLICATIONS } from './config';
+import { FaInfo, FaDatabase, FaCode, FaChartLine, FaClipboardList, FaGamepad } from "react-icons/fa";
+import AboutPage from './components/about/Component';
 
+import { APPLICATIONS } from './config';
 import AeroAssist from './applications/AeroAssist';
 import CodeExplainer from './applications/CodeExplainer';
 import CodeImprovement from './applications/CodeImprovement';
@@ -42,8 +43,8 @@ const currentYear = new Date().getFullYear();
 
 const Footer = () => {
   return (
-    <div className='footer'>
-      <p>© {currentYear} <a href='https://lawrencemcdaniel.com'>Lawrence McDaniel</a> | <a href='https://openai.com/'><img src='openai-logo.svg' /> OpenAI Python API</a> | <a href='https://react.dev/'><img src='../public/react-logo.svg' /> React</a> | <a href='https://aws.amazon.com/'><img src='../public/aws-logo.svg' /> Amazon Web Services</a> | <a href='https://www.terraform.io/'><img src='terraform-logo.svg' /> Terraform</a> | <a href='https://github.com/FullStackWithLawrence/aws-openai' target='_blank'><img src='../public/github-logo.svg' /> Source code</a></p>
+    <div className='footer hide-small'>
+      <p>© {currentYear} <a href='https://lawrencemcdaniel.com'>Lawrence McDaniel</a> | <a href='https://openai.com/'><img src='openai-logo.svg' /> OpenAI Python API</a> | <a href='https://react.dev/'><img src='/react-logo.svg' /> React</a> | <a href='https://aws.amazon.com/'><img src='/aws-logo.svg' /></a> | <a href='https://www.terraform.io/'><img src='terraform-logo.svg' /> Terraform</a> | <a href='https://github.com/FullStackWithLawrence/aws-openai' target='_blank'><img src='/github-logo.svg' /> Source code</a></p>
     </div>
   );
 };
@@ -57,8 +58,8 @@ const App = () => {
   return (
     <div className='App'>
       <h1 className='app-title'>OpenAI Code Samples</h1>
-      <ContainerLayout>
-        <SidebarLayout>
+      <ContainerLayout className='hide-small'>
+        <SidebarLayout className='hide-small'>
           <div style={{ display: 'flex',
                         height: '100%',
                         minHeight: '400px'
@@ -76,10 +77,10 @@ const App = () => {
                       }}
               >
                 <a href='https://openai.com/' target='_blank'>
-                  <img src='../public/OpenAI_Logo.png' alt='OpenAI Logo' className='app-logo' style={{ position: 'absolute', top: 0, left: 0 }} />
+                  <img src='/OpenAI_Logo.png' alt='OpenAI Logo' className='app-logo' style={{ position: 'absolute', top: 0, left: 0 }} />
                 </a>
                 <h5 className='sample-applications'>Sample Applications</h5>
-                <SubMenu label='Fun Apps' defaultOpen icon={<FaBrush />}>
+                <SubMenu label='Fun Apps' defaultOpen icon={<FaGamepad />}>
                   <MenuItem onClick={() => handleItemClick(APPLICATIONS.RapBattle)}>Rap Battle</MenuItem>
                   <MenuItem onClick={() => handleItemClick(APPLICATIONS.SocraticTutor)}>Socratic Tutor</MenuItem>
                   <MenuItem onClick={() => handleItemClick(APPLICATIONS.ProConDiscusser)}>Pros and Cons</MenuItem>
@@ -87,14 +88,14 @@ const App = () => {
                   <MenuItem onClick={() => handleItemClick(APPLICATIONS.Emojibot4)}>Emoji ChatBot</MenuItem>
                   <MenuItem onClick={() => handleItemClick(APPLICATIONS.TweetClassifier)}>Tweet Classifier</MenuItem>
                 </SubMenu>
-                <SubMenu label='Personal Assistant' icon={<FaBrush />}>
+                <SubMenu label='Personal Assistant' icon={<FaClipboardList />}>
                   <MenuItem onClick={() => handleItemClick(APPLICATIONS.VRFitness)}>VR Fitness Designer</MenuItem>
                   <MenuItem onClick={() => handleItemClick(APPLICATIONS.GrammarGenius)}>Grammar Genius</MenuItem>
                   <MenuItem onClick={() => handleItemClick(APPLICATIONS.English2French)}>French Translator</MenuItem>
                   <MenuItem onClick={() => handleItemClick(APPLICATIONS.TurnByTurnDirections)}>Personal Navigator</MenuItem>
                   <MenuItem onClick={() => handleItemClick(APPLICATIONS.KidsDigest)}>Kids Digest</MenuItem>
                 </SubMenu>
-                <SubMenu label="Office Productivity" icon={<FaBookOpen />}>
+                <SubMenu label="Office Productivity" icon={<FaChartLine />}>
                   <MenuItem onClick={() => handleItemClick(APPLICATIONS.AeroAssist)}>Aero Assist</MenuItem>
                   <MenuItem onClick={() => handleItemClick(APPLICATIONS.KeyWords)}>Keyword Generator</MenuItem>
                   <MenuItem onClick={() => handleItemClick(APPLICATIONS.InterviewQuestions)}>Interview Assistant</MenuItem>
@@ -119,18 +120,14 @@ const App = () => {
                   <MenuItem onClick={() => handleItemClick(APPLICATIONS.SinglePageWebapp)}>SPA Scaffolder</MenuItem>
                 </SubMenu>
                 <h5>More</h5>
-                <MenuItem icon={<FaInfo />}>About Me</MenuItem>
-                <MenuItem icon={<FaLinkedin />}>LinkedIn</MenuItem>
-                <MenuItem icon={<FaYoutube />}>YouTube video</MenuItem>
-                <MenuItem icon={<FaGithub />}>GitHub</MenuItem>
+                <MenuItem icon={<FaInfo />} onClick={() => handleItemClick('AboutPage')}>About</MenuItem>
               </Menu>
-              {/* <a href='https://www.youtube.com/@FullStackWithLawrence' target="_blank">
-                <Logo alt="Logo" />
-              </a> */}
             </Sidebar>
           </div>
         </SidebarLayout>
         <ContentLayout>
+          {selectedItem === 'AboutPage' && <AboutPage />}
+
           {selectedItem === APPLICATIONS.AeroAssist && <ChatApp {...AeroAssist} />}
           {selectedItem === APPLICATIONS.CodeExplainer && <ChatApp {...CodeExplainer} />}
           {selectedItem === APPLICATIONS.CodeImprovement && <ChatApp {...CodeImprovement} />}

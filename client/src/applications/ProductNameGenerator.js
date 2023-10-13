@@ -7,8 +7,8 @@ const ProductNameGenerator = {
   api_key: AWS_API_GATEWAY_KEY,
   app_name: "Product Name Generator",
   assistant_name: "Pierson",
-  avatar_url: '../public/applications/ProductNameGenerator/Pierson.svg',
-  background_image_url: '../public/applications/ProductNameGenerator/ProductNameGenerator-bg.avif',
+  avatar_url: '/applications/ProductNameGenerator/Pierson.svg',
+  background_image_url: '/applications/ProductNameGenerator/ProductNameGenerator-bg.avif',
   welcome_message: `Hello, I'm Pierson, and I create a list of potential product names based on your input.`,
   example_prompts: [
     'We make everlasting gobstoppers',

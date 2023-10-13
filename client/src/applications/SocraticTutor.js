@@ -5,8 +5,8 @@ const SocraticTutor = {
   api_key: AWS_API_GATEWAY_KEY,
   app_name: "Socratic Tutor",
   assistant_name: "Seraphina",
-  avatar_url: '../public/applications/SocraticTutor/Seraphina.svg',
-  background_image_url: '../public/applications/SocraticTutor/SocraticTutor-bg.jpg',
+  avatar_url: '/applications/SocraticTutor/Seraphina.svg',
+  background_image_url: '/applications/SocraticTutor/SocraticTutor-bg.jpg',
   welcome_message: `Hello, I'm Seraphina, a disciple of the great philosopher, Socrates. I can help you learn about philosophy.`,
   example_prompts: [
     '"I think, therefore I am"',

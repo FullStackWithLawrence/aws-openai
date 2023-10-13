@@ -1,0 +1,37 @@
+
+.about-page {
+  height: 100vh;
+}
+
+.about-title {
+  text-align: center;
+  width: 100%;
+  margin: 25px auto 0 auto;
+  padding: 0;
+  color: #333;
+}
+
+.about-title a {
+  text-align: center;
+  color: #333;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.about-title h1 {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.about-title h2 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.fswl img {
+  max-width: 250px;
+}
+.app-stack {
+  text-align: center;
+}
+.app-stack img {
+  width: 100%;
+}

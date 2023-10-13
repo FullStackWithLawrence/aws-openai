@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 
 export const ContainerLayout = styled.div`
-  height: 90vh;
+  height: 89vh;
   display: flex;
   flex-direction: row;
 `;
@@ -40,6 +40,6 @@ export const Logo = styled.div`
   margin: 0 auto;
   width: 90%;
   height: 125px;
-  background-image: url('../public/youtube-banner-image.png');
+  background-image: url('/youtube-banner-image.png');
   background-size: cover;
 `;

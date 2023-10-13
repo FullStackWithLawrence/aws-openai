@@ -7,8 +7,8 @@ const Mood2CSSColor = {
   api_key: AWS_API_GATEWAY_KEY,
   app_name: "Mood2CSSColor",
   assistant_name: "Marlene",
-  avatar_url: '../public/applications/Mood2CSSColor/Marlene.svg',
-  background_image_url: '../public/applications/Mood2CSSColor/Mood2CSSColor-bg.jpg',
+  avatar_url: '/applications/Mood2CSSColor/Marlene.svg',
+  background_image_url: '/applications/Mood2CSSColor/Mood2CSSColor-bg.jpg',
   welcome_message: `Hello, I'm Marlene, and I convert your mood into a CSS hex color code.`,
   example_prompts: [
     '"I am happy as a clam"',

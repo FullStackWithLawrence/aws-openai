@@ -7,13 +7,14 @@ const RapBattle = {
   api_key: AWS_API_GATEWAY_KEY,
   app_name: "Rap Battle Generator",
   assistant_name: "Rhea",
-  avatar_url: '../public/applications/RapBattle/Rhea.svg',
-  background_image_url: '../public/applications/RapBattle/RapBattle-bg.jpg',
+  avatar_url: '/applications/RapBattle/Rhea.svg',
+  background_image_url: '/applications/RapBattle/RapBattle-bg.jpg',
   welcome_message: `Hello, I'm Rhea, and I can generate rap battles between your two favorite people`,
   example_prompts: [
     'Rap battle between Linus Torvalds and Bill Gates',
-    'Rap battle between Dave Chappelle and Kevin Hart',
+    'Rap battle between Dave Grohl and Barak Obama',
     'Rap battle between Ghandi and Martin Luther King Jr.',
+    'Rap battle between Wayne Gretzky and Ronaldo',
   ],
   placeholder_text: `tell Rhea who will battle...`,
 };

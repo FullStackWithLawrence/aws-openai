@@ -24,6 +24,9 @@ import InterviewQuestions from './applications/InterviewQuestions';
 import FunctionCreator from './applications/FunctionCreator';
 import CodeImprovement from './applications/CodeImprovement';
 import SinglePageWebapp from './applications/SinglePageWebapp';
+import RapBattle from './applications/RapBattle';
+import MemoWriter from './applications/MemoWriter';
+import Emojibot4 from './applications/Emojibot4';
 
 const currentYear = new Date().getFullYear();
 
@@ -59,8 +62,10 @@ const App = () => {
                   <MenuItem>Kids Digest</MenuItem>
                   <MenuItem>Personal Navigator</MenuItem>
                   <MenuItem>Interview Assistant</MenuItem>
+                  <MenuItem>Memo Writer</MenuItem>
                 </SubMenu>
                 <SubMenu label='Fun' icon={<FaBrush />}>
+                  <MenuItem>Rap Battle</MenuItem>
                   <MenuItem>Emoji Bot</MenuItem>
                   <MenuItem>Tweet Classifier</MenuItem>
                   <MenuItem>Keyword Generator</MenuItem>
@@ -89,7 +94,7 @@ const App = () => {
           </div>
         </SidebarLayout>
         <ContentLayout>
-          <ChatApp {...SinglePageWebapp} />
+          <ChatApp {...Emojibot4} />
         </ContentLayout>
       </ContainerLayout>
       <div className='footer'>

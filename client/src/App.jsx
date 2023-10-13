@@ -3,12 +3,14 @@ import './App.css';
 import ChatApp from './components/chatApp/Component';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { ContainerLayout, SidebarLayout, ContentLayout, MenuLayout, Logo } from './components/Layout/';
-import { FaCalendar, FaInfo, FaBookOpen, FaLaptopCode, FaDatabase } from "react-icons/fa";
+import { FaCalendar, FaInfo, FaBookOpen, FaLaptopCode, FaDatabase, FaYoutube, FaGithub, FaLinkedin } from "react-icons/fa";
 import AeroAssist from './applications/AeroAssist';
 import GrammarGenius from './applications/GrammarGenius';
 import KidsDigest from './applications/KidsDigest';
 import CSVify from './applications/CSVify';
 import Emojibot from './applications/Emojibot';
+import TimeComplexity from './applications/TimeComplexity';
+import CodeExplainer from './applications/CodeExplainer';
 
 const App = () => {
   return (
@@ -40,14 +42,21 @@ const App = () => {
                   <MenuItem>Grammar Genius</MenuItem>
                   <MenuItem>Aero Assist</MenuItem>
                   <MenuItem>Kids Digest</MenuItem>
+                  <MenuItem>Emoji Bot</MenuItem>
                 </SubMenu>
                 <SubMenu label='Data' icon={<FaDatabase />}>
                   <MenuItem>CSVify</MenuItem>
                 </SubMenu>
-                <SubMenu label='Python Coding' icon={<FaLaptopCode />}></SubMenu>
+                <SubMenu label='Python Coding' icon={<FaLaptopCode />}>
+                  <MenuItem>Time Complexity</MenuItem>
+                  <MenuItem>Code Explainer</MenuItem>
+                </SubMenu>
                 <SubMenu label='Explainer' icon={<FaCalendar />}></SubMenu>
                 <h5>More</h5>
-                <MenuItem icon={<FaInfo />}>About</MenuItem>
+                <MenuItem icon={<FaInfo />}>About Me</MenuItem>
+                <MenuItem icon={<FaLinkedin />}>LinkedIn</MenuItem>
+                <MenuItem icon={<FaYoutube />}>YouTube video</MenuItem>
+                <MenuItem icon={<FaGithub />}>GitHub</MenuItem>
               </Menu>
               <a href='https://www.youtube.com/@FullStackWithLawrence' target="_blank">
                 <Logo alt="Logo" />
@@ -56,10 +65,9 @@ const App = () => {
           </div>
         </SidebarLayout>
         <ContentLayout>
-          <ChatApp {...Emojibot} />
+          <ChatApp {...CodeExplainer} />
         </ContentLayout>
       </ContainerLayout>
-
     </div>
   )
 }

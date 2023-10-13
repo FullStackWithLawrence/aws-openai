@@ -51,22 +51,26 @@ async function processMessageToChatGPTApplication(chatMessage, apiURL, apiKey) {
 }
 
 const examplePrompts = (exampleProps) => {
-  return 'Some example prompts to get you started:\r\n\r\n' + exampleProps.map((prompt) => {return prompt + '\r\n'}).join('');
+  if (exampleProps.length == 0) {
+    return '';
+  } else return 'Some example prompts to get you started:\r\n\r\n' + exampleProps.map((prompt) => {return prompt + '\r\n'}).join('');
 }
 
 const ChatApp = (props) => {
-  const [messages, setMessages] = useState([
-    {
-      message: props.welcome_message,
+  const examples = examplePrompts(props.example_prompts);
+  let message_items = [{
+    message: props.welcome_message,
+    sentTime: TIMESTAMP_NOW,
+    sender: props.app_name,
+  }];
+  if (examples) {
+    message_items.push({
+      message: examples,
       sentTime: TIMESTAMP_NOW,
       sender: props.app_name,
-    },
-    {
-      message: examplePrompts(props.example_prompts),
-      sentTime: TIMESTAMP_NOW,
-      sender: props.app_name,
-    },
-  ]);
+    });
+  }
+  const [messages, setMessages] = useState(message_items);
   const [isTyping, setIsTyping] = useState(false);
 
   const handleSendRequest = async (message) => {

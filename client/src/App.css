@@ -30,3 +30,28 @@ h5 {
   margin: 0 auto;
   display: block;
 }
+
+.footer {
+  color: darkgrey;
+  text-align: center;
+}
+
+.footer a {
+  text-align: center;
+}
+
+.footer a:hover {
+  color: darkcyan;
+  text-align: center;
+}
+
+.footer p {
+  color: #555;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  font-size: smaller;
+}
+
+.footer img {
+  height: 12px;
+}

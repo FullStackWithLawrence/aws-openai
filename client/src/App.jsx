@@ -20,6 +20,8 @@ import Mood2CSSColor from './applications/Mood2CSSColor';
 import VRFitness from './applications/VRFitness';
 import SarcasticChat from './applications/SarcasticChat';
 
+const currentYear = new Date().getFullYear();
+
 const App = () => {
   return (
     <div className='App'>
@@ -71,10 +73,10 @@ const App = () => {
                 <MenuItem icon={<FaLinkedin />}>LinkedIn</MenuItem>
                 <MenuItem icon={<FaYoutube />}>YouTube video</MenuItem>
                 <MenuItem icon={<FaGithub />}>GitHub</MenuItem>
-                <a href='https://www.youtube.com/@FullStackWithLawrence' target="_blank">
-                  <Logo alt="Logo" />
-                </a>
               </Menu>
+              <a href='https://www.youtube.com/@FullStackWithLawrence' target="_blank">
+                <Logo alt="Logo" />
+              </a>
             </Sidebar>
           </div>
         </SidebarLayout>
@@ -82,6 +84,10 @@ const App = () => {
           <ChatApp {...SarcasticChat} />
         </ContentLayout>
       </ContainerLayout>
+      <div className='footer'>
+          <p>© {currentYear} Lawrence McDaniel</p>
+          <p><img src='../public/react-logo.svg' /> React | <img src='../public/aws-logo.svg' /> | <img src='openai-logo.svg' /> OpenAI Python API | <img src='../public/github-logo.svg' /> <a href='https://github.com/FullStackWithLawrence/aws-openai' target='_blank'>Source code</a></p>
+        </div>
     </div>
   )
 }

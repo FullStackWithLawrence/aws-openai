@@ -27,6 +27,9 @@ import SinglePageWebapp from './applications/SinglePageWebapp';
 import RapBattle from './applications/RapBattle';
 import MemoWriter from './applications/MemoWriter';
 import Emojibot4 from './applications/Emojibot4';
+import English2French from './applications/English2French';
+import SocraticTutor from './applications/SocraticTutor';
+import SqlTranslator from './applications/SqlTranslator';
 
 const currentYear = new Date().getFullYear();
 
@@ -63,6 +66,7 @@ const App = () => {
                   <MenuItem>Personal Navigator</MenuItem>
                   <MenuItem>Interview Assistant</MenuItem>
                   <MenuItem>Memo Writer</MenuItem>
+                  <MenuItem>French Translator</MenuItem>
                 </SubMenu>
                 <SubMenu label='Fun' icon={<FaBrush />}>
                   <MenuItem>Rap Battle</MenuItem>
@@ -70,16 +74,18 @@ const App = () => {
                   <MenuItem>Tweet Classifier</MenuItem>
                   <MenuItem>Keyword Generator</MenuItem>
                   <MenuItem>Sarcastic Chatbot</MenuItem>
+                  <MenuItem>Socratic Tutor</MenuItem>
                 </SubMenu>
                 <SubMenu label='Data' icon={<FaDatabase />}>
                   <MenuItem>CSVify</MenuItem>
                   <MenuItem>Spreadsheet Generator</MenuItem>
                 </SubMenu>
-                <SubMenu label='Python Coding' icon={<FaCode />}>
+                <SubMenu label='Coding' icon={<FaCode />}>
                   <MenuItem>Function Creator</MenuItem>
                   <MenuItem>Time Complexity</MenuItem>
                   <MenuItem>Code Explainer</MenuItem>
                   <MenuItem>Python Debugger</MenuItem>
+                  <MenuItem>SQL Translator</MenuItem>
                 </SubMenu>
                 <h5>More</h5>
                 <MenuItem icon={<FaInfo />}>About Me</MenuItem>
@@ -94,7 +100,7 @@ const App = () => {
           </div>
         </SidebarLayout>
         <ContentLayout>
-          <ChatApp {...Emojibot4} />
+          <ChatApp {...SqlTranslator} />
         </ContentLayout>
       </ContainerLayout>
       <div className='footer'>

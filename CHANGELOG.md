@@ -5,10 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.1.3] (2023-10-11)
+## [0.2.0] (2023-10-11)
 
 - add full CORS support to API
-- add a ReactJS GUI
+- add a Vite ReactJS front end
 
 ## [0.1.2] (2023-10-08)
 

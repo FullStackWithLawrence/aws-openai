@@ -94,13 +94,18 @@ function ChatApp(props) {
       <div></div>
     )
   };
-  const handleSendRequest = async (message) => {
-    // remove any HTML tags from the message text
-    let message_text;
-    message_text = message.replace(/<[^>]+>/g, '');
+  const handleSendRequest = async (input_text) => {
+
+    // remove any HTML tags from the input_text
+    const sanitized_input_text = input_text.replace(/<[^>]+>/g, '');
+
+    // check if the sanitized input text is empty or only contains whitespace
+    if (!sanitized_input_text.trim()) {
+      return;
+    }
 
     const newMessage = {
-      message_text,
+      message: sanitized_input_text,
       direction: 'outgoing',
       sender: 'user',
     };
@@ -108,7 +113,7 @@ function ChatApp(props) {
     setIsTyping(true);
 
     try {
-      const response = await processApiRequest(message_text, api_url, api_key);
+      const response = await processApiRequest(sanitized_input_text, api_url, api_key);
 
       if ("choices" in response) { // simple way to ensure that we received a valid response
         const content = response.choices[0]?.message?.content;

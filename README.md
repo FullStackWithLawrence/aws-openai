@@ -7,7 +7,7 @@
 
 ## ReactJS chat application
 
-add text here.
+![React front end](https://github.com/FullStackWithLawrence/aws-openai/blob/main/doc/front-end.png)
 
 ## Custom OpenAI REST API Backend
 

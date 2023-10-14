@@ -1,5 +1,6 @@
 //
 //
+import React from 'react';
 import './Component.css';
 const AboutPage = (props) => {
 

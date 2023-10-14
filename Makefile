@@ -21,6 +21,12 @@ api-clean:
 	# Add any other generated files to remove here
 
 
+client-init:
+	cd ./client && npm install
+
+client-lint:
+	cd ./client && npm run lint
+
 client-update:
 	npm install -g npm
 	npm install -g npm-check-updates

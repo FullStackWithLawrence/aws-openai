@@ -1,5 +1,6 @@
 // see: https://www.npmjs.com/package/react-pro-sidebar
-import { useState, useEffect } from 'react';
+import React from 'react';
+import { useState } from 'react';
 import './App.css';
 import ChatApp from './components/chatApp/Component';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
@@ -44,7 +45,7 @@ const currentYear = new Date().getFullYear();
 const Footer = () => {
   return (
     <div className='footer hide-small'>
-      <p>© {currentYear} <a href='https://lawrencemcdaniel.com'>Lawrence McDaniel</a> | <a href='https://openai.com/'><img src='openai-logo.svg' /> OpenAI Python API</a> | <a href='https://react.dev/'><img src='/react-logo.svg' /> React</a> | <a href='https://aws.amazon.com/'><img src='/aws-logo.svg' /></a> | <a href='https://www.terraform.io/'><img src='terraform-logo.svg' /> Terraform</a> | <a href='https://github.com/FullStackWithLawrence/aws-openai' target='_blank'><img src='/github-logo.svg' /> Source code</a></p>
+      <p>© {currentYear} <a href='https://lawrencemcdaniel.com'>lawrencemcdaniel.com</a> | <a href='https://openai.com/'><img src='openai-logo.svg' /> OpenAI Python API</a> | <a href='https://react.dev/'><img src='/react-logo.svg' /> React</a> | <a href='https://aws.amazon.com/'><img src='/aws-logo.svg' /></a> | <a href='https://www.terraform.io/'><img src='terraform-logo.svg' /> Terraform</a> | <a href='https://github.com/FullStackWithLawrence/aws-openai' target='_blank'><img src='/github-logo.svg' /> Source code</a></p>
     </div>
   );
 };

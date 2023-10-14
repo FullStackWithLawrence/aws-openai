@@ -137,7 +137,7 @@ function ChatApp(props) {
     color: 'lightgray',
   };
   const MainContainerStyle = {
-    backgroundImage: "url('" + background_image_url + "')",
+    backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, .75)), url('" + background_image_url + "')",
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     height: '100%',

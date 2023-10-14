@@ -1,0 +1,13 @@
+
+.chat-app {
+  position: relative;
+  height: 100%;
+}
+
+.cs-message-separator::before, .cs-message-separator::after {
+  background-color: lightgray !important;
+}
+
+.cs-conversation-header {
+  text-align: center;
+}

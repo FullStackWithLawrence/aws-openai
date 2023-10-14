@@ -1,0 +1,111 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0;;
+}
+
+.App {
+  border:  1px solid #1d5268
+}
+
+.app-title {
+  text-align: center;
+  background-color: #1d5268;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  color: whitesmoke;
+}
+
+h5 {
+  color: whitesmoke;
+  margin-left: 10px;
+  margin-bottom: 0;
+}
+.sample-applications {
+  margin-top: 90px;
+}
+.app-logo {
+  width: 75px;
+  margin: 0 auto;
+  display: block;
+}
+
+.footer {
+  color: darkgrey;
+  text-align: center;
+  background-color: whitesmoke;
+  font-size: smaller;
+}
+
+.footer a {
+  text-align: center;
+  color: #333;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.footer a:hover {
+  color: darkcyan;
+  text-align: center;
+}
+
+.footer p {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.footer img {
+  height: 12px;
+}
+
+/*-------------- Responsive Styling -----------------------
+
+xs = Extra small <576px. Max container width None (auto)
+sm = Small ≥576px. Max container width 540px.
+md = Medium ≥768px. Max container width 720px.
+lg = Large ≥992px. Max container width 960px.
+xl = Extra large ≥1200px. Max container width 1140px.
+
+*/
+
+/********** Extra large devices only **********/
+@media (min-width: 1200px) {
+}
+
+/********** Large devices only **********/
+@media (min-width: 992px) and (max-width: 1199px) {
+}
+
+/********** Medium devices only **********/
+@media (min-width: 768px) and (max-width: 991px) {
+}
+
+/********** Small devices only **********/
+@media (min-width: 576) and (max-width: 767px) {
+}
+
+/********** Extra small devices only **********/
+@media (min-width: 480px) and (max-width: 575px) {
+}
+/********** Super extra small devices Only :-) (e.g., iPhone 4) **********/
+@media (max-width: 479px) {
+}
+
+/*  ------------ MCDANIEL ------------------ */
+@media (max-width: 991px) {
+  .hide-medium {
+    display: none;
+    width: 0 !important;
+    height: 0 !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .hide-small {
+    display: none;
+    width: 0 !important;
+    height: 0 !important;
+  }
+}

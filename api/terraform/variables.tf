@@ -114,6 +114,10 @@ variable "lambda_python_runtime" {
   type    = string
   default = "python3.11"
 }
+variable "lambda_nodejs_runtime" {
+  type    = string
+  default = "nodejs18.x"
+}
 variable "lambda_memory_size" {
   description = "Lambda function memory allocations in Mb"
   type        = number

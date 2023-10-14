@@ -21,3 +21,7 @@ tardigrade-ci/
 
 # go tests
 tests/go.*
+
+# ReactJS
+client/node_modules/
+node_modules

@@ -170,3 +170,12 @@ resource "aws_iam_role_policy_attachment" "apigateway_CloudWatchFullAccess" {
   role       = aws_iam_role.apigateway.id
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchFullAccess"
 }
+
+###############################################################################
+# Cloudwatch logging
+###############################################################################
+resource "aws_cloudwatch_log_group" "apigateway" {
+  name              = "API-Gateway-Execution-Logs_${aws_api_gateway_stage.openai.deployment_id}/v1"
+  retention_in_days = var.log_retention_days
+  tags              = var.tags
+}

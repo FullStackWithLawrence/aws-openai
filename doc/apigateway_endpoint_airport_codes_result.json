@@ -1,0 +1,25 @@
+{
+  "isBase64Encoded": false,
+  "statusCode": 200,
+  "body": {
+      "id": "chatcmpl-88XFbBoZW1Spk1YrMvlYorBfHrR8B",
+      "object": "chat.completion",
+      "created": 1697045131,
+      "model": "gpt-3.5-turbo-0613",
+      "choices": [
+          {
+              "index": 0,
+              "message": {
+                  "role": "assistant",
+                  "content": "The airport code for Mexico City International Airport is MEX, and the airport code for Cancun International Airport is CUN."
+              },
+              "finish_reason": "stop"
+          }
+      ],
+      "usage": {
+          "prompt_tokens": 42,
+          "completion_tokens": 25,
+          "total_tokens": 67
+      }
+  }
+}

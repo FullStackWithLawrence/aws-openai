@@ -6,7 +6,7 @@ const SLUG = 'default-emoji-chatbot';
 const Emojibot4 = {
   api_url: BACKEND_API_URL + SLUG,
   api_key: AWS_API_GATEWAY_KEY,
-  app_name: "Emojibot gpt-4",
+  app_name: "Emojibot",
   assistant_name: "Matilda",
   avatar_url: '/applications/Emojibot4/Matilda.svg',
   background_image_url: '/applications/Emojibot4/Emojibot4-bg.jpg',

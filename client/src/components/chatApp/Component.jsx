@@ -28,7 +28,7 @@ import {
 
 const TIMESTAMP_NOW = 'just now';
 
-async function processMessageToChatGPTApplication(chatMessage, apiURL, apiKey) {
+async function processApiRequest(chatMessage, apiURL, apiKey) {
   const init = {
     method: 'POST',
     headers: {
@@ -52,10 +52,10 @@ async function processMessageToChatGPTApplication(chatMessage, apiURL, apiKey) {
   }
 }
 
-const examplePrompts = (exampleProps) => {
-  if (exampleProps.length == 0) {
+const examplePrompts = (prompts) => {
+  if (prompts.length == 0) {
     return '';
-  } else return 'Some example prompts to get you started:\r\n\r\n' + exampleProps.map((prompt) => {return prompt + '\r\n'}).join('');
+  } else return 'Some example prompts to get you started:\r\n\r\n' + prompts.map((prompt) => {return prompt + '\r\n'}).join('');
 }
 
 function ChatApp(props) {
@@ -104,7 +104,7 @@ function ChatApp(props) {
   setIsTyping(true);
 
   try {
-    const response = await processMessageToChatGPTApplication(message, api_url, api_key);
+    const response = await processApiRequest(message, api_url, api_key);
 
     if ("choices" in response) { // simple way to ensure that we received a valid response
       const content = response.choices[0]?.message?.content;
@@ -139,7 +139,7 @@ return(
           <ChatContainer style={transparentBackgroundStyle} >
             <ConversationHeader>
               <Avatar src={avatar_url} name={app_name} />
-              <ConversationHeader.Content userName={app_name} info="Active 10 mins ago" />
+              <ConversationHeader.Content userName={app_name} info="online" />
               <ConversationHeader.Actions>
                 <VoiceCallButton disabled />
                 <VideoCallButton disabled />

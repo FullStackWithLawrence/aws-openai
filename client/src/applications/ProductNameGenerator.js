@@ -1,9 +1,10 @@
 // see https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L19
+import { BACKEND_API_URL, AWS_API_GATEWAY_KEY, OPENAI_EXAMPLES_URL } from "../config";
 
-import { BACKEND_API_URL, AWS_API_GATEWAY_KEY } from "../config";
+const SLUG = 'default-product-name-gen';
 
 const ProductNameGenerator = {
-  api_url: BACKEND_API_URL + 'default-product-name-gen',
+  api_url: BACKEND_API_URL + SLUG,
   api_key: AWS_API_GATEWAY_KEY,
   app_name: "Product Name Generator",
   assistant_name: "Pierson",
@@ -15,6 +16,7 @@ const ProductNameGenerator = {
     'a time travel machine',
   ],
   placeholder_text: `tell Pierson about your product`,
+  info_url: OPENAI_EXAMPLES_URL + SLUG
 };
 
 export default ProductNameGenerator;

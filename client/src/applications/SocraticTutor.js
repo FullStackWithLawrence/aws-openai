@@ -1,7 +1,9 @@
-import { BACKEND_API_URL, AWS_API_GATEWAY_KEY } from "../config";
+import { BACKEND_API_URL, AWS_API_GATEWAY_KEY, OPENAI_EXAMPLES_URL } from "../config";
+
+const SLUG = 'default-socratic-tutor';
 
 const SocraticTutor = {
-  api_url: BACKEND_API_URL + 'default-socratic-tutor',
+  api_url: BACKEND_API_URL + SLUG,
   api_key: AWS_API_GATEWAY_KEY,
   app_name: "Socratic Tutor",
   assistant_name: "Seraphina",
@@ -14,6 +16,7 @@ const SocraticTutor = {
     '"Reality is merely an illusion, albeit a very persistent one"',
   ],
   placeholder_text: 'tell Seraphina something deep...',
+  info_url: OPENAI_EXAMPLES_URL + SLUG
 };
 
 export default SocraticTutor;

@@ -1,9 +1,11 @@
-import { BACKEND_API_URL, AWS_API_GATEWAY_KEY } from "../config";
+import { BACKEND_API_URL, AWS_API_GATEWAY_KEY, OPENAI_EXAMPLES_URL } from "../config";
+
+const SLUG = 'default-airport-codes';
 
 const AeroAssist = {
-  api_url: BACKEND_API_URL + 'default-airport-codes',
+  api_url: BACKEND_API_URL + SLUG,
   api_key: AWS_API_GATEWAY_KEY,
-  app_name: "AeroAssist",
+  app_name: "Airport Assistant",
   assistant_name: "Emily",
   avatar_url: 'https://chatscope.io/storybook/react/static/media/emily.d34aecd9.svg',
   background_image_url: '/applications/AeroAssist/AeroAssist-bg.svg',
@@ -16,6 +18,7 @@ const AeroAssist = {
     '"I want to fly from Frankfurt to London."',
   ],
   placeholder_text: 'Ask me anything about airports',
+  info_url: OPENAI_EXAMPLES_URL + SLUG
 };
 
 export default AeroAssist;

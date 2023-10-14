@@ -15,7 +15,6 @@ import {
   Message,
   MessageInput,
   TypingIndicator,
-  MessageSeparator,
 
   Avatar,
   ConversationHeader,
@@ -73,77 +72,84 @@ const ChatApp = (props) => {
   const [messages, setMessages] = useState(message_items);
   const [isTyping, setIsTyping] = useState(false);
 
+  const handleInfoButtonClick = () => {
+    // FIX NOTE: implement me
+    console.log("InfoButton", props.info_url);
+    return (
+      <div></div>
+    )
+  };
   const handleSendRequest = async (message) => {
-    const newMessage = {
-      message,
-      direction: 'outgoing',
-      sender: 'user',
-    };
-    setMessages((prevMessages) => [...prevMessages, newMessage]);
-    setIsTyping(true);
+  const newMessage = {
+    message,
+    direction: 'outgoing',
+    sender: 'user',
+  };
+  setMessages((prevMessages) => [...prevMessages, newMessage]);
+  setIsTyping(true);
 
-    try {
-      const response = await processMessageToChatGPTApplication(message, props.api_url, props.api_key);
+  try {
+    const response = await processMessageToChatGPTApplication(message, props.api_url, props.api_key);
 
-      if ("choices" in response) { // simple way to ensure that we received a valid response
-        const content = response.choices[0]?.message?.content;
-        if (content) {
-          const chatGPTResponse = {
-            message: content,
-            sender: props.app_name,
-          };
-          setMessages((prevMessages) => [...prevMessages, chatGPTResponse]);
-        }
+    if ("choices" in response) { // simple way to ensure that we received a valid response
+      const content = response.choices[0]?.message?.content;
+      if (content) {
+        const chatGPTResponse = {
+          message: content,
+          sender: props.app_name,
+        };
+        setMessages((prevMessages) => [...prevMessages, chatGPTResponse]);
       }
-    } catch (error) {
-      console.error('Error processing message:', error);
-    } finally {
-      setIsTyping(false);
     }
-  };
+  } catch (error) {
+    console.error('Error processing message:', error);
+  } finally {
+    setIsTyping(false);
+  }
+};
 
-  const transparentBackgroundStyle = {
-    backgroundColor: 'rgba(0,0,0,0.10)',
-    color: 'lightgray',
-  };
-  const MainContainerStyle = {
-    backgroundImage: "url('" + props.background_image_url + "')",
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    height: '100%',
-  };
-  return(
-    <div className='chat-app'>
-        <MainContainer style={MainContainerStyle} >
-            <ChatContainer style={transparentBackgroundStyle} >
-              <ConversationHeader>
-                <Avatar src={props.avatar_url} name={props.app_name} />
-                <ConversationHeader.Content userName={props.app_name} info="Active 10 mins ago" />
-                <ConversationHeader.Actions>
-                  <VoiceCallButton disabled />
-                  <VideoCallButton disabled />
-                  <InfoButton />
-              </ConversationHeader.Actions>
-              </ConversationHeader>
-              <MessageList
-                style={transparentBackgroundStyle}
-                scrollBehavior='smooth'
-                typingIndicator={isTyping ? <TypingIndicator content={props.assistant_name + ' is typing'} style={transparentBackgroundStyle} /> : null}
-              >
-                {messages.map((message, i) => {
-                  return <Message key={i} model={message} />
-                })}
-              </MessageList>
-              <MessageInput
-                placeholder={props.placeholder_text}
-                onSend={handleSendRequest}
-                attachButton={false}
-                fancyScroll={false}
-                />
-            </ChatContainer>
-          </MainContainer>
-    </div>
-  )
+const transparentBackgroundStyle = {
+  backgroundColor: 'rgba(0,0,0,0.10)',
+  color: 'lightgray',
+};
+const MainContainerStyle = {
+  backgroundImage: "url('" + props.background_image_url + "')",
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  height: '100%',
+};
+return(
+  <div className='chat-app'>
+      <MainContainer style={MainContainerStyle} >
+          <ChatContainer style={transparentBackgroundStyle} >
+            <ConversationHeader>
+              <Avatar src={props.avatar_url} name={props.app_name} />
+              <ConversationHeader.Content userName={props.app_name} info="Active 10 mins ago" />
+              <ConversationHeader.Actions>
+                <VoiceCallButton disabled />
+                <VideoCallButton disabled />
+                <InfoButton onClick={handleInfoButtonClick} />
+            </ConversationHeader.Actions>
+            </ConversationHeader>
+            <MessageList
+              style={transparentBackgroundStyle}
+              scrollBehavior='smooth'
+              typingIndicator={isTyping ? <TypingIndicator content={props.assistant_name + ' is typing'} style={transparentBackgroundStyle} /> : null}
+            >
+              {messages.map((message, i) => {
+                return <Message key={i} model={message} />
+              })}
+            </MessageList>
+            <MessageInput
+              placeholder={props.placeholder_text}
+              onSend={handleSendRequest}
+              attachButton={false}
+              fancyScroll={false}
+              />
+          </ChatContainer>
+        </MainContainer>
+  </div>
+)
 }
 
 export default ChatApp;

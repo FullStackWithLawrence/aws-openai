@@ -1,7 +1,9 @@
-import { BACKEND_API_URL, AWS_API_GATEWAY_KEY } from "../config";
+import { BACKEND_API_URL, AWS_API_GATEWAY_KEY, OPENAI_EXAMPLES_URL } from "../config";
+
+const SLUG = 'default-single-page-websit';
 
 const SinglePageWebapp = {
-  api_url: BACKEND_API_URL + 'default-single-page-websit',
+  api_url: BACKEND_API_URL + SLUG,
   api_key: AWS_API_GATEWAY_KEY,
   app_name: "Single Page Webapp Creator",
   assistant_name: "Sybil",
@@ -14,6 +16,7 @@ const SinglePageWebapp = {
     '"make a recipe app"',
   ],
   placeholder_text: 'tell Sybil what you want to create...',
+  info_url: OPENAI_EXAMPLES_URL + SLUG
 };
 
 export default SinglePageWebapp;

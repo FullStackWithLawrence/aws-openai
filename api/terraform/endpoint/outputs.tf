@@ -8,16 +8,13 @@ output "aws_api_gateway_method" {
 }
 
 output "aws_api_gateway_method_response_endpoint_response_200" {
-  value = aws_api_gateway_method_response.post.id
+  value = aws_api_gateway_method_response.post_200
 }
 
 output "sha1_deployment_trigger" {
   value = sha1(jsonencode([
     aws_api_gateway_integration.post,
     aws_api_gateway_method.post,
-    aws_api_gateway_method_response.post.id,
-    #  aws_api_gateway_integration.cors,
-    #  aws_api_gateway_method.cors,
-    #  aws_api_gateway_method_response.cors.id
+    aws_api_gateway_method_response.post_200.id,
   ]))
 }

@@ -46,7 +46,10 @@ resource "aws_api_gateway_integration" "post" {
   depends_on           = [aws_api_gateway_method.post]
 }
 
-resource "aws_api_gateway_method_response" "post" {
+# -----------------------------------------------------------------------------
+# Response 200
+# -----------------------------------------------------------------------------
+resource "aws_api_gateway_method_response" "post_200" {
   rest_api_id = var.aws_api_gateway_rest_api_id
   resource_id = aws_api_gateway_resource.endpoint.id
   http_method = aws_api_gateway_method.post.http_method
@@ -59,11 +62,75 @@ resource "aws_api_gateway_method_response" "post" {
     "application/json" = "Empty"
   }
 }
-resource "aws_api_gateway_integration_response" "post" {
+resource "aws_api_gateway_integration_response" "post_200" {
+  rest_api_id       = var.aws_api_gateway_rest_api_id
+  resource_id       = aws_api_gateway_resource.endpoint.id
+  http_method       = aws_api_gateway_method.post.http_method
+  status_code       = aws_api_gateway_method_response.post_200.status_code
+  selection_pattern = "2\\d{2}"
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+  }
+  depends_on = [
+    aws_api_gateway_integration.post
+  ]
+}
+
+# -----------------------------------------------------------------------------
+# Response 400
+# -----------------------------------------------------------------------------
+resource "aws_api_gateway_method_response" "default_4xx" {
   rest_api_id = var.aws_api_gateway_rest_api_id
   resource_id = aws_api_gateway_resource.endpoint.id
   http_method = aws_api_gateway_method.post.http_method
-  status_code = aws_api_gateway_method_response.post.status_code
+  status_code = "400"
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = true
+  }
+
+  response_models = {
+    "application/json" = "Empty"
+  }
+}
+resource "aws_api_gateway_integration_response" "default_4xx" {
+  rest_api_id       = var.aws_api_gateway_rest_api_id
+  resource_id       = aws_api_gateway_resource.endpoint.id
+  http_method       = aws_api_gateway_method.post.http_method
+  status_code       = aws_api_gateway_method_response.default_4xx.status_code
+  selection_pattern = "4\\d{2}"
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+  }
+  depends_on = [
+    aws_api_gateway_integration.post
+  ]
+}
+
+# -----------------------------------------------------------------------------
+# Response 500
+# -----------------------------------------------------------------------------
+resource "aws_api_gateway_method_response" "default_5xx" {
+  rest_api_id = var.aws_api_gateway_rest_api_id
+  resource_id = aws_api_gateway_resource.endpoint.id
+  http_method = aws_api_gateway_method.post.http_method
+  status_code = "500"
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = true
+  }
+
+  response_models = {
+    "application/json" = "Empty"
+  }
+}
+
+resource "aws_api_gateway_integration_response" "default_5xx" {
+  rest_api_id       = var.aws_api_gateway_rest_api_id
+  resource_id       = aws_api_gateway_resource.endpoint.id
+  http_method       = aws_api_gateway_method.post.http_method
+  status_code       = aws_api_gateway_method_response.default_5xx.status_code
+  selection_pattern = "5\\d{2}"
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin" = "'*'"
   }

@@ -3,9 +3,10 @@
 //      https://stackoverflow.com/questions/45576200/fetch-api-post-call-returning-403-forbidden-error-in-react-js-but-the-same-url-w
 //      https://stackoverflow.com/questions/76182956/cors-preflight-response-error-with-aws-api-gateway-and-lambda-function
 //
-import React from 'react';
+import React, { useRef } from 'react';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import ReactModal from 'react-modal';
 
 import './Component.css';
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
@@ -28,36 +29,6 @@ import {
 
 const TIMESTAMP_NOW = 'just now';
 
-async function processApiRequest(chatMessage, apiURL, apiKey) {
-  const init = {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'x-api-key': apiKey,
-      'Accept': '*/*',
-      'Content-Type': 'application/json',
-      'Origin': window.location.origin
-    },
-    body: JSON.stringify({
-      'input_text': chatMessage
-    }),
-  };
-  const response = await fetch(apiURL, init);
-  if (response && response.ok) {
-    const response_json = await response.json(); // Convert the ReadableStream to a JSON object
-    const response_body = response_json.body;
-    return response_body;
-  } else {
-    console.log("error", response);
-    return {};
-  }
-}
-
-const examplePrompts = (prompts) => {
-  if (prompts.length == 0) {
-    return '';
-  } else return 'Some example prompts to get you started:\r\n\r\n' + prompts.map((prompt) => {return prompt + '\r\n'}).join('');
-}
 
 function ChatApp(props) {
   const welcome_message = props.welcome_message;
@@ -71,6 +42,36 @@ function ChatApp(props) {
   const info_url = props.info_url;
   const example_prompts = props.example_prompts;
 
+  async function processApiRequest(chatMessage, apiURL, apiKey) {
+    const init = {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'x-api-key': apiKey,
+        'Accept': '*/*',
+        'Content-Type': 'application/json',
+        'Origin': window.location.origin
+      },
+      body: JSON.stringify({
+        'input_text': chatMessage
+      }),
+    };
+    const response = await fetch(apiURL, init);
+    if (response && response.ok) {
+      const response_json = await response.json(); // Convert the ReadableStream to a JSON object
+      const response_body = response_json.body;
+      return response_body;
+    } else {
+      openModal(response);
+      return {};
+    }
+  }
+
+  const examplePrompts = (prompts) => {
+    if (prompts.length == 0) {
+      return '';
+    } else return 'Some example prompts to get you started:\r\n\r\n' + prompts.map((prompt) => {return prompt + '\r\n'}).join('');
+  }
 
   const examples = examplePrompts(example_prompts);
   let message_items = [{
@@ -85,6 +86,17 @@ function ChatApp(props) {
       sender: app_name,
     });
   }
+  function openModal(err) {
+    setIsModalOpen(true);
+    setErrMessage(err);
+  }
+  function closeModal() {
+    setIsModalOpen(false);
+  }
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [errMessage, setErrMessage] = useState('');
+
   const [messages, setMessages] = useState(message_items);
   const [isTyping, setIsTyping] = useState(false);
 
@@ -142,36 +154,66 @@ function ChatApp(props) {
     backgroundPosition: 'center',
     height: '100%',
   };
+  const ModalStyle = {
+    overlay: {
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      zIndex: 9999 // set a high z-index value
+    },
+    content: {
+      margin: 'auto',
+      width: '50%',
+      height: '25%',
+      backgroundColor: 'white',
+      zIndex: 10000 // set an even higher z-index value
+    }
+  };
   return(
     <div className='chat-app'>
-        <MainContainer style={MainContainerStyle} >
-            <ChatContainer style={transparentBackgroundStyle} >
-              <ConversationHeader>
-                <Avatar src={avatar_url} name={app_name} />
-                <ConversationHeader.Content userName={app_name} info="online" />
-                <ConversationHeader.Actions>
-                  <VoiceCallButton disabled />
-                  <VideoCallButton disabled />
-                  <InfoButton onClick={handleInfoButtonClick} />
-              </ConversationHeader.Actions>
-              </ConversationHeader>
-              <MessageList
-                style={transparentBackgroundStyle}
-                scrollBehavior='smooth'
-                typingIndicator={isTyping ? <TypingIndicator content={assistant_name + ' is typing'} style={transparentBackgroundStyle} /> : null}
-              >
-                {messages.map((message, i) => {
-                  return <Message key={i} model={message} />
-                })}
-              </MessageList>
-              <MessageInput
-                placeholder={placeholder_text}
-                onSend={handleSendRequest}
-                attachButton={false}
-                fancyScroll={false}
-                />
-            </ChatContainer>
-          </MainContainer>
+      <MainContainer style={MainContainerStyle} >
+        <ReactModal
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          appElement={document.getElementById('root')}
+          style={ModalStyle}
+          >
+            <div className='modal'>
+              <h2>Error</h2>
+              <p>There was an error processing your request.</p>
+              <p>{setErrMessage}</p>
+              <button onClick={closeModal}>Close</button>
+            </div>
+        </ReactModal>
+
+        <ChatContainer style={transparentBackgroundStyle} >
+          <ConversationHeader>
+            <Avatar src={avatar_url} name={app_name} />
+            <ConversationHeader.Content userName={app_name} info="online" />
+            <ConversationHeader.Actions>
+              <VoiceCallButton disabled />
+              <VideoCallButton disabled />
+              <InfoButton onClick={handleInfoButtonClick} />
+          </ConversationHeader.Actions>
+          </ConversationHeader>
+          <MessageList
+            style={transparentBackgroundStyle}
+            scrollBehavior='smooth'
+            typingIndicator={isTyping ? <TypingIndicator content={assistant_name + ' is typing'} style={transparentBackgroundStyle} /> : null}
+          >
+            {messages.map((message, i) => {
+              return <Message key={i} model={message} />
+            })}
+          </MessageList>
+          <MessageInput
+            placeholder={placeholder_text}
+            onSend={handleSendRequest}
+            attachButton={false}
+            fancyScroll={false}
+            />
+        </ChatContainer>
+      </MainContainer>
     </div>
   )
 }

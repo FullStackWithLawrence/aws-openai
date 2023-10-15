@@ -8,7 +8,7 @@ const AboutPage = (props) => {
     <div className='about-page hide-small'>
       <div className='app-stack' >
         <h2>Application Stack</h2>
-        <p>React app running on AWS serverless infrastructure integrated to OpenAI Python API.</p>
+        <p><a href='https://react.dev/' target='_blank'>React</a>  app made with <a href='https://www.npmjs.com/package/@chatscope/chat-ui-kit-react' target='_blank'>@chatscope/chat-ui-kit-react</a> and <a href='https://www.npmjs.com/package/react-pro-sidebar' target='_blank'>react-pro-sidebar</a> running on <a href='https://aws.amazon.com/' target='_blank'>AWS</a> serverless infrastructure integrated to <a href='https://platform.openai.com/docs/api-reference?lang=python' target='_blank'>OpenAI Python API</a>.</p>
         <a href='https://github.com/FullStackWithLawrence/aws-openai' target="_blank">
           <img src='/app-stack.123.jpeg' />
         </a>

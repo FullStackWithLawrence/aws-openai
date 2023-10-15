@@ -3,22 +3,15 @@
 [![ReactJS](https://a11ybadges.com/badge?logo=react)](https://react.dev/)
 [![FullStackWithLawrence](https://a11ybadges.com/badge?text=FullStackWithLawrence&badgeColor=orange&logo=youtube&logoColor=282828)](https://www.youtube.com/@FullStackWithLawrence)
 
-# chatGPT Client Application: React + Vite
+# Reacdt Client Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This application implements each of the [30 Code Samples](https://platform.openai.com/examples) as found in the OpenAI API official documentation. Created with [React](https://react.dev/) leveraging [@chatscope/chat-ui-kit-react](https://www.npmjs.com/package/@chatscope/chat-ui-kit-react) and [react-pro-sidebar](https://www.npmjs.com/package/react-pro-sidebar) running on [AWS](https://aws.amazon.com/) serverless infrastructure integrated to [OpenAI Python API](https://platform.openai.com/docs/api-reference?lang=python).
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Setup
+## Getting Started
 
 ```console
-cd client
-npm install
-npm install --save-dev @chatscope/chat-ui-kit-react
-npm run dev
+make client-init
+make client-run
 ```
 
 ## Architecture
@@ -26,33 +19,8 @@ npm run dev
 - [Vite](https://vitejs.dev/)
 - [React](https://react.dev/)
 - [Chat UI Kit React](https://www.npmjs.com/package/@chatscope/chat-ui-kit-react)
-
-more:
-
-- [chatscope.io](https://chatscope.io/)
-- [How to Integrate ChatGPT with React](https://rollbar.com/blog/how-to-integrate-chatgpt-with-react/)
-- [mars.chatscope.io](https://mars.chatscope.io/)
-
-
-Alternate architecture:
-
-- react-use-websocket
-- react-chat-elements
-- react-chat-ui
-
-## Obsoleted References
-
-- [React Chat Elements: Getting Started](https://detaysoft.github.io/docs-react-chat-elements/docs/intro)
-- [Build ChatGPT In React JS Using OpenAI API | Create ChatGPT Clone Using React JS](https://www.youtube.com/watch?v=EzkWAviyYgg)
-- [React Chat Tutorial](https://getstream.io/chat/react-chat/tutorial/)
-- [Using React for a part of your existing page](https://react.dev/learn/add-react-to-an-existing-project)
-- [npm react-use-websocket](https://www.npmjs.com/package/react-use-websocket)
-- [Build a robust React app with Husky pre-commit hooks and GitHub Actions](https://blog.logrocket.com/build-robust-react-app-husky-pre-commit-hooks-github-actions/)
-- [WebSockets tutorial: How to go real-time with Node and React](https://www.youtube.com/watch?v=LenNpb5zqGE)
-
-## Official YouTube Video For This Repo
-
-[![OpenAI Python API With AWS API Gateway + Lambda](https://img.youtube.com/vi/FqARAi8nS2M/hqdefault.jpg)](https://www.youtube.com/watch?v=FqARAi8nS2M)
+- [React Pro Sidebar](https://www.npmjs.com/package/react-pro-sidebar)
+- [AWS Serverless REST API](../api/)
 
 ## Requirements
 
@@ -60,30 +28,7 @@ Alternate architecture:
 - node 20.8+
 - npm 10.1+
 
-### Build
-
-
-## Deploy
-
-
-## Trouble Shooting and Logging
-
-
-## Documentation
-
-Detailed documentation for each endpoint is available here: [Documentation](./doc/examples/)
-
-## Support
-
-To get community support, go to the official [Issues Page](https://github.com/FullStackWithLawrence/aws-openai/issues) for this project.
-
-## Contributing
-
-We welcome contributions! There are a variety of ways for you to get involved, regardless of your background. In additional to Pull requests, this project would benefit from contributors focused on documentation and how-to video content creation, testing, community engagement, and stewards to help us to ensure that we comply with evolving standards for the ethical use of AI.
-
-You can also contact [Lawrence McDaniel](https://lawrencemcdaniel.com/contact) directly.
-
-## Available Scripts
+## Vite Scripts for React
 
 In the project directory, you can run:
 
@@ -149,3 +94,13 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Support
+
+To get community support, go to the official [Issues Page](https://github.com/FullStackWithLawrence/aws-openai/issues) for this project.
+
+## Contributing
+
+We welcome contributions! There are a variety of ways for you to get involved, regardless of your background. In additional to Pull requests, this project would benefit from contributors focused on documentation and how-to video content creation, testing, community engagement, and stewards to help us to ensure that we comply with evolving standards for the ethical use of AI.
+
+You can also contact [Lawrence McDaniel](https://lawrencemcdaniel.com/contact) directly.

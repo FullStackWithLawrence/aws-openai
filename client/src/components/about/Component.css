@@ -6,6 +6,10 @@
 .app-stack {
   text-align: center;
 }
+.app-stack a {
+  text-decoration: underline;
+  color: inherit;
+}
 .app-stack h2 {
   margin: 25px, 0;
   padding: 0;

@@ -29,6 +29,7 @@ import { processApiRequest } from './ApiRequest.js';
 
 const TIMESTAMP_NOW = 'just now';
 function ChatApp(props) {
+  const fileInputRef = useRef(null);
 
   // props
   const welcome_message = props.welcome_message;
@@ -85,8 +86,20 @@ function ChatApp(props) {
     window.open(info_url, '_blank');
   };
   const handleAttachClick = async () => {
-    return null;
+    fileInputRef.current.click();
   };
+  function handleFileChange(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      const fileContent = event.target.result;
+      console.log('File content:', fileContent);
+      // Do something with the file content
+    };
+
+    console.log(reader.readAsText(file));
+  }
   const handleSendRequest = async (input_text) => {
 
     // remove any HTML tags from the input_text
@@ -171,6 +184,7 @@ function ChatApp(props) {
             fancyScroll={false}
             />
         </ChatContainer>
+        <input type="file" accept=".py" title="Select a Python file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} />
       </MainContainer>
     </div>
   )

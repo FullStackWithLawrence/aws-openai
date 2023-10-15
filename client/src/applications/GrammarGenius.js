@@ -19,7 +19,8 @@ const GrammarGenius = {
     '"He eats lunch, then he will go to the store."',
   ],
   placeholder_text: `say something to Gertrude`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: false,
 };
 
 export default GrammarGenius;

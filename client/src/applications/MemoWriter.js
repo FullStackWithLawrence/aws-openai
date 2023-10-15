@@ -13,7 +13,8 @@ const MemoWriter = {
   welcome_message: `Hello, I'm Guillermo, an executive assistant who can help you write a memo.`,
   example_prompts: [],
   placeholder_text: `tell Guillermo what this memo is about`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: false,
 };
 
 export default MemoWriter;

@@ -13,7 +13,8 @@ const CodeImprovement = {
   welcome_message: `Hello, I'm Camilla, a Python programmer, and I can help you improve your Python code.`,
   example_prompts: [],
   placeholder_text: `give Camilla a Python code snippet to evaluate`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: true,
 };
 
 export default CodeImprovement;

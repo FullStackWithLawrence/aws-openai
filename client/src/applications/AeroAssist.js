@@ -18,7 +18,8 @@ const AeroAssist = {
     '"I want to fly from Frankfurt to London."',
   ],
   placeholder_text: 'Ask me anything about airports',
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: false,
 };
 
 export default AeroAssist;

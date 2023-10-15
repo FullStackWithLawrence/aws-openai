@@ -17,7 +17,8 @@ const ProConDiscusser = {
     'attending a chocolate factory tour',
   ],
   placeholder_text: `tell Persephone what to evaluate...`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: false,
 };
 
 export default ProConDiscusser;

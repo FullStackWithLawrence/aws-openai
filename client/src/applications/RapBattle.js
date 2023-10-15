@@ -18,7 +18,8 @@ const RapBattle = {
     'Rap battle between Wayne Gretzky and Ronaldo',
   ],
   placeholder_text: `tell Rhea who will battle...`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: false,
 };
 
 export default RapBattle;

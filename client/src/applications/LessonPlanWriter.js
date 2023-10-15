@@ -13,7 +13,8 @@ const LessonPlanWriter = {
   welcome_message: `Hello, I'm Langston, an education professional. I can help you write a lesson plan.`,
   example_prompts: [],
   placeholder_text: `tell Langston what the lesson is about...`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: false,
 };
 
 export default LessonPlanWriter;

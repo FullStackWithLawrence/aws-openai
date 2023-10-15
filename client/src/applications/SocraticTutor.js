@@ -16,7 +16,8 @@ const SocraticTutor = {
     '"Reality is merely an illusion, albeit a very persistent one"',
   ],
   placeholder_text: 'tell Seraphina something deep...',
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: false,
 };
 
 export default SocraticTutor;

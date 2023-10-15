@@ -13,7 +13,8 @@ const CSVify = {
   welcome_message: `Hello, I'm Chad, and I convert unstructured text data to CSV. Paste some text into the chat box to get started.`,
   example_prompts: [],
   placeholder_text: `send some data to Chad`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: false,
 };
 
 export default CSVify;

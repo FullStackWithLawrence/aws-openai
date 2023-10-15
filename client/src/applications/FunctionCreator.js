@@ -13,7 +13,8 @@ const FunctionCreator = {
   welcome_message: `Hello, I'm Francine, a Python programmer, and I can help you create a Python function.`,
   example_prompts: [],
   placeholder_text: `give Francine a specification for a Python function`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: false,
 };
 
 export default FunctionCreator;

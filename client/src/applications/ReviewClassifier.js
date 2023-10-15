@@ -17,7 +17,8 @@ const ReviewClassifier = {
     'tastes like chicken',
   ],
   placeholder_text: `paste a product review for Ridley...`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: false,
 };
 
 export default ReviewClassifier;

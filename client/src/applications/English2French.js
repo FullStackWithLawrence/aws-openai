@@ -13,7 +13,8 @@ const English2French = {
   welcome_message: `Hello, I'm Fleur, and I'm fluent in French. I can help you translate English to French.`,
   example_prompts: [],
   placeholder_text: `give Fleur something to translate...`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: false,
 };
 
 export default English2French;

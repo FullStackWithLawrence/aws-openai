@@ -13,7 +13,8 @@ const SarcasticChat = {
   welcome_message: `Hello, I'm Marv, a sarcastic chatbot.`,
   example_prompts: [],
   placeholder_text: `say something to Marv`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: false,
 };
 
 export default SarcasticChat;

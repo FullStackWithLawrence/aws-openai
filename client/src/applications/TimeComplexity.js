@@ -13,7 +13,8 @@ const TimeComplexity = {
   welcome_message: `Hello, I'm Christine, and I calculate the time complexity of Python code.`,
   example_prompts: [],
   placeholder_text: `upload a Python file`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: true,
 };
 
 export default TimeComplexity;

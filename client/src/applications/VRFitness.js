@@ -13,7 +13,8 @@ const VRFitness = {
   welcome_message: `Hello, I'm Francesca, and I can help you create a VR fitness routine.`,
   example_prompts: [],
   placeholder_text: `tell Francesca about your exercise idea`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: false,
 };
 
 export default VRFitness;

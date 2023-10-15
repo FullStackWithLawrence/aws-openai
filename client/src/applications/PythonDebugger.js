@@ -13,7 +13,8 @@ const PythonDebugger = {
   welcome_message: `Hello, I'm Deborah, and I can debug Python code.`,
   example_prompts: [],
   placeholder_text: `upload a Python file for Deborah to debug`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: true,
 };
 
 export default PythonDebugger;

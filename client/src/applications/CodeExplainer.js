@@ -13,7 +13,8 @@ const CodeExplainer = {
   welcome_message: `Hello, I'm Patricia and I'm an expert Python programmer. Upload a Python file and I'll concisely explain what it does.`,
   example_prompts: [],
   placeholder_text: `upload a Python file`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: true,
 };
 
 export default CodeExplainer;

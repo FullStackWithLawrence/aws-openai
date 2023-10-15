@@ -13,7 +13,8 @@ const SpreadsheetGenerator = {
   welcome_message: `Hello, I'm Sarah, and I create spreadsheets from the data you give me.`,
   example_prompts: [],
   placeholder_text: `send some data to Sarah`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: true,
 };
 
 export default SpreadsheetGenerator;

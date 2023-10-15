@@ -13,7 +13,8 @@ const SqlTranslator = {
   welcome_message: `Hello, I'm Svea, a senior SQL database engineer. I can help you create SQL queries.`,
   example_prompts: [],
   placeholder_text: `send some data to Svea`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: false,
 };
 
 export default SqlTranslator;

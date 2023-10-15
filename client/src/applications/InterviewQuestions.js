@@ -13,7 +13,8 @@ const InterviewQuestions = {
   welcome_message: `Hello, I'm Irene, and I can help you create interview questions for your job candidates.`,
   example_prompts: [],
   placeholder_text: `tell Irene about your job posting`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: false,
 };
 
 export default InterviewQuestions;

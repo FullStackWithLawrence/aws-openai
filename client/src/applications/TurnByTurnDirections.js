@@ -13,7 +13,8 @@ const TurnByTurnDirections = {
   welcome_message: `Hello, I'm Nancy, an expert navigator and I provide turn by turn directions.`,
   example_prompts: [],
   placeholder_text: `tell Nancy where you want to go`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: false,
 };
 
 export default TurnByTurnDirections;

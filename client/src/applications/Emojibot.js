@@ -17,7 +17,8 @@ const Emojibot = {
     '"Shooby dooby doo, where are are you"',
   ],
   placeholder_text: `type something for Erik to translate into emojis`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: false,
 };
 
 export default Emojibot;

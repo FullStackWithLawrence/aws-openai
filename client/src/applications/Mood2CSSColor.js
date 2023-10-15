@@ -17,7 +17,8 @@ const Mood2CSSColor = {
     '"If I felt any better it would be illegal"',
   ],
   placeholder_text: `tell Marlene how you feel`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: false,
 };
 
 export default Mood2CSSColor;

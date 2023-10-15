@@ -13,7 +13,8 @@ const TweetClassifier = {
   welcome_message: `Hello, I'm Clare, and I classify tweets.`,
   example_prompts: [],
   placeholder_text: `paste a tweet for Clare`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: false,
 };
 
 export default TweetClassifier;

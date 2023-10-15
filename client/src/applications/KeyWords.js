@@ -13,7 +13,8 @@ const KeyWords = {
   welcome_message: `Hello, I'm Kiefer, and I will create a list of keywords from any content.`,
   example_prompts: [],
   placeholder_text: `send some text to Kiefer`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: false,
 };
 
 export default KeyWords;

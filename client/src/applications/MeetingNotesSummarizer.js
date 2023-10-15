@@ -13,7 +13,8 @@ const MeetingNotesSummarizer = {
   welcome_message: `Hello, I'm Bodhi, an executive assistant. I can help you summarize meeting notes.`,
   example_prompts: [],
   placeholder_text: `paste your notes for Bodhi...`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: false,
 };
 
 export default MeetingNotesSummarizer;

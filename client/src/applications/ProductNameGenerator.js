@@ -16,7 +16,8 @@ const ProductNameGenerator = {
     'a time travel machine',
   ],
   placeholder_text: `tell Pierson about your product`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: false,
 };
 
 export default ProductNameGenerator;

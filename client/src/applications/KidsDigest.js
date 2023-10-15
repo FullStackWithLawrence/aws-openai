@@ -13,7 +13,8 @@ const KidsDigest = {
   welcome_message: `Hello, I'm Kent, and I summarize any content so that a second-grade student can understand it.`,
   example_prompts: [],
   placeholder_text: `say something to Kent`,
-  info_url: OPENAI_EXAMPLES_URL + SLUG
+  info_url: OPENAI_EXAMPLES_URL + SLUG,
+  file_attach_button: false,
 };
 
 export default KidsDigest;

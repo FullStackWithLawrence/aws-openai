@@ -85,34 +85,9 @@ function ChatApp(props) {
   const handleInfoButtonClick = () => {
     window.open(info_url, '_blank');
   };
-  const handleAttachClick = async () => {
-    fileInputRef.current.click();
-  };
-  function handleFileChange(event) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = (event) => {
-      const fileContent = event.target.result;
-      console.log('File content:', fileContent);
-      openChatModal('File Open', fileContent);
-
-      // handleSendRequest(fileContent);
-    };
-    reader.readAsText(file);
-  }
-  const handleSendRequest = async (input_text) => {
-
-    // remove any HTML tags from the input_text
-    const sanitized_input_text = input_text.replace(/<[^>]+>/g, '');
-
-    // check if the sanitized input text is empty or only contains whitespace
-    if (!sanitized_input_text.trim()) {
-      return;
-    }
-
+  async function handleRequest(input_text) {
     const newMessage = {
-      message: sanitized_input_text,
+      message: input_text,
       direction: 'outgoing',
       sender: 'user',
     };
@@ -120,7 +95,8 @@ function ChatApp(props) {
     setIsTyping(true);
 
     try {
-      const response = await processApiRequest(sanitized_input_text, api_url, api_key, openChatModal);
+      const btoa_input_text = btoa(input_text);
+      const response = await processApiRequest(btoa_input_text, api_url, api_key, openChatModal);
 
       if ("choices" in response) { // simple way to ensure that we received a valid response
         const content = response.choices[0]?.message?.content;
@@ -137,7 +113,34 @@ function ChatApp(props) {
     } finally {
       setIsTyping(false);
     }
+  }
+
+  const handleAttachClick = async () => {
+    fileInputRef.current.click();
   };
+  function handleFileChange(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      const fileContent = event.target.result;
+      handleRequest(fileContent);
+    };
+    reader.readAsText(file);
+  }
+  const handleSendRequest = (input_text) => {
+
+    // remove any HTML tags from the input_text
+    const sanitized_input_text = input_text.replace(/<[^>]+>/g, '');
+
+    // check if the sanitized input text is empty or only contains whitespace
+    if (!sanitized_input_text.trim()) {
+      return;
+    }
+
+    handleRequest(sanitized_input_text);
+  };
+
 
   // UI widget styles
   // note that most styling is intended to be created in Component.css

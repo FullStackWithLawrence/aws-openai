@@ -6,12 +6,9 @@
 import React, { useRef } from 'react';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import ReactModal from 'react-modal';
 
 import './Component.css';
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
-
-
 import {
   MainContainer,
   ChatContainer,
@@ -27,6 +24,9 @@ import {
   VideoCallButton,
 } from '@chatscope/chat-ui-kit-react';
 
+import { ChatModal } from './Modal.jsx';
+import { processApiRequest } from './ApiRequest.js';
+
 const TIMESTAMP_NOW = 'just now';
 
 
@@ -41,38 +41,25 @@ function ChatApp(props) {
   const background_image_url = props.background_image_url;
   const info_url = props.info_url;
   const example_prompts = props.example_prompts;
+  const file_attach_button = props.file_attach_button;
 
-  async function processApiRequest(chatMessage, apiURL, apiKey) {
-    const init = {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'x-api-key': apiKey,
-        'Accept': '*/*',
-        'Content-Type': 'application/json',
-        'Origin': window.location.origin
-      },
-      body: JSON.stringify({
-        'input_text': chatMessage
-      }),
-    };
-    const response = await fetch(apiURL, init);
-    if (response && response.ok) {
-      const response_json = await response.json(); // Convert the ReadableStream to a JSON object
-      const response_body = response_json.body;
-      return response_body;
-    } else {
-      openModal(response);
-      return {};
-    }
+  // Error modal state management
+  function openChatModal(err) {
+    setIsModalOpen(true);
+    setErrMessage(err);
   }
+  function closeChatModal() {
+    setIsModalOpen(false);
+  }
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [errMessage, setErrMessage] = useState('');
 
+  // prompt hints
   const examplePrompts = (prompts) => {
     if (prompts.length == 0) {
       return '';
     } else return 'Some example prompts to get you started:\r\n\r\n' + prompts.map((prompt) => {return prompt + '\r\n'}).join('');
   }
-
   const examples = examplePrompts(example_prompts);
   let message_items = [{
     message: welcome_message,
@@ -86,25 +73,14 @@ function ChatApp(props) {
       sender: app_name,
     });
   }
-  function openModal(err) {
-    setIsModalOpen(true);
-    setErrMessage(err);
-  }
-  function closeModal() {
-    setIsModalOpen(false);
-  }
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [errMessage, setErrMessage] = useState('');
-
   const [messages, setMessages] = useState(message_items);
   const [isTyping, setIsTyping] = useState(false);
 
   const handleInfoButtonClick = () => {
-    // FIX NOTE: implement me
-    return (
-      <div></div>
-    )
+    window.open(info_url, '_blank');
+  };
+  const handleAttachClick = async () => {
+    return null;
   };
   const handleSendRequest = async (input_text) => {
 
@@ -125,7 +101,7 @@ function ChatApp(props) {
     setIsTyping(true);
 
     try {
-      const response = await processApiRequest(sanitized_input_text, api_url, api_key);
+      const response = await processApiRequest(sanitized_input_text, api_url, api_key, openChatModal);
 
       if ("choices" in response) { // simple way to ensure that we received a valid response
         const content = response.choices[0]?.message?.content;
@@ -154,39 +130,10 @@ function ChatApp(props) {
     backgroundPosition: 'center',
     height: '100%',
   };
-  const ModalStyle = {
-    overlay: {
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      zIndex: 9999 // set a high z-index value
-    },
-    content: {
-      margin: 'auto',
-      width: '50%',
-      height: '25%',
-      backgroundColor: 'white',
-      zIndex: 10000 // set an even higher z-index value
-    }
-  };
   return(
     <div className='chat-app'>
       <MainContainer style={MainContainerStyle} >
-        <ReactModal
-          isOpen={isModalOpen}
-          onRequestClose={closeModal}
-          appElement={document.getElementById('root')}
-          style={ModalStyle}
-          >
-            <div className='modal'>
-              <h2>Error</h2>
-              <p>There was an error processing your request.</p>
-              <p>{setErrMessage}</p>
-              <button onClick={closeModal}>Close</button>
-            </div>
-        </ReactModal>
-
+        <ChatModal isModalOpen={isModalOpen} errMessage={errMessage} onCloseClick={closeChatModal} />
         <ChatContainer style={transparentBackgroundStyle} >
           <ConversationHeader>
             <Avatar src={avatar_url} name={app_name} />
@@ -194,7 +141,7 @@ function ChatApp(props) {
             <ConversationHeader.Actions>
               <VoiceCallButton disabled />
               <VideoCallButton disabled />
-              <InfoButton onClick={handleInfoButtonClick} />
+              <InfoButton onClick={handleInfoButtonClick} title={info_url} />
           </ConversationHeader.Actions>
           </ConversationHeader>
           <MessageList
@@ -209,7 +156,8 @@ function ChatApp(props) {
           <MessageInput
             placeholder={placeholder_text}
             onSend={handleSendRequest}
-            attachButton={false}
+            onAttachClick={handleAttachClick}
+            attachButton={file_attach_button}
             fancyScroll={false}
             />
         </ChatContainer>
@@ -229,6 +177,7 @@ ChatApp.propTypes = {
   background_image_url: PropTypes.string.isRequired,
   info_url: PropTypes.string.isRequired,
   example_prompts: PropTypes.array.isRequired,
+  file_attach_button: PropTypes.bool.isRequired,
 };
 
 export default ChatApp;

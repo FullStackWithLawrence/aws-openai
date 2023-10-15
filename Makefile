@@ -34,6 +34,9 @@ client-update:
 	npm update -g
 	npm install ./client/
 
+client-run:
+	cd ./client && npm run dev
+
 client-build:
 	cd ./client && npm run build
 

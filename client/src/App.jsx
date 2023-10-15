@@ -8,7 +8,10 @@ import { ContainerLayout, SidebarLayout, ContentLayout, Logo } from './component
 import { FaInfo, FaDatabase, FaCode, FaChartLine, FaClipboardList, FaGamepad } from "react-icons/fa";
 import AboutPage from './components/about/Component';
 
+// chatApp routes
 import { APPLICATIONS } from './config';
+
+// chatApp definitions
 import AeroAssist from './applications/AeroAssist';
 import CodeExplainer from './applications/CodeExplainer';
 import CodeImprovement from './applications/CodeImprovement';
@@ -121,7 +124,7 @@ const App = () => {
                   <MenuItem onClick={() => handleItemClick(APPLICATIONS.Mood2CSSColor)}>{Mood2CSSColor.sidebar_title}</MenuItem>
                   <MenuItem onClick={() => handleItemClick(APPLICATIONS.SinglePageWebapp)}>{SinglePageWebapp.sidebar_title}</MenuItem>
                 </SubMenu>
-                <h5>More</h5>
+                <hr />
                 <MenuItem icon={<FaInfo />} onClick={() => handleItemClick('AboutPage')}>About</MenuItem>
               </Menu>
             </Sidebar>

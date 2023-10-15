@@ -3,6 +3,18 @@
   height: 100vh;
 }
 
+.app-stack {
+  text-align: center;
+}
+.app-stack h2 {
+  margin: 25px, 0;
+  padding: 0;
+}
+.app-stack img {
+  width: 60%;
+}
+
+
 .about-title {
   text-align: center;
   width: 100%;
@@ -17,21 +29,14 @@
   font-family: 'Courier New', Courier, monospace;
 }
 
-.about-title h1 {
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-.about-title h2 {
-  margin-top: 0;
-  padding-top: 0;
-}
+.fswl {
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+  background-image: url('/youtube-banner.jpeg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 35%;
 
-.fswl img {
-  max-width: 250px;
-}
-.app-stack {
-  text-align: center;
-}
-.app-stack img {
-  width: 100%;
 }

@@ -5,7 +5,14 @@
 
 # Customized chatGPT Application
 
+A full stack implementation of OpenAI's 30 example applications found in their official documentation. Created with React running on AWS serverless infrastructure integrated to the OpenAI Python API.
+
+- React is managed by Vite
+- AWS is managed by Terraform
+
 ## ReactJS chat application
+
+Complete documentation is located [here](./client/).
 
 ![React front end](https://github.com/FullStackWithLawrence/aws-openai/blob/main/doc/front-end.png)
 

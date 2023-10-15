@@ -54,7 +54,7 @@ const Footer = () => {
 };
 
 const App = () => {
-  const [selectedItem, setSelectedItem] = useState(APPLICATIONS.RapBattle);
+  const [selectedItem, setSelectedItem] = useState(APPLICATIONS.SarcasticChat);
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
@@ -85,10 +85,10 @@ const App = () => {
                 </a>
                 <h5 className='sample-applications'>Sample Applications</h5>
                 <SubMenu label='Fun Apps' defaultOpen icon={<FaGamepad />}>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.RapBattle)}>{RapBattle.sidebar_title}</MenuItem>
                   <MenuItem onClick={() => handleItemClick(APPLICATIONS.SarcasticChat)}>{SarcasticChat.sidebar_title}</MenuItem>
                   <MenuItem onClick={() => handleItemClick(APPLICATIONS.Emojibot)}>{Emojibot.sidebar_title}</MenuItem>
                   <MenuItem onClick={() => handleItemClick(APPLICATIONS.Emojibot4)}>{Emojibot4.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.RapBattle)}>{RapBattle.sidebar_title}</MenuItem>
                   <MenuItem onClick={() => handleItemClick(APPLICATIONS.SocraticTutor)}>{SocraticTutor.sidebar_title}</MenuItem>
                   <MenuItem onClick={() => handleItemClick(APPLICATIONS.ProConDiscusser)}>{ProConDiscusser.sidebar_title}</MenuItem>
                   <MenuItem onClick={() => handleItemClick(APPLICATIONS.TweetClassifier)}>{TweetClassifier.sidebar_title}</MenuItem>

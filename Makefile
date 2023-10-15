@@ -1,6 +1,8 @@
 SHELL := /bin/bash
+S3_BUCKET = openai.lawrencemcdaniel.com
+CLOUDFRONT_DISTRIBUTION_ID = E3AIBM1KMSJOP1
 
-.PHONY: init activate lint clean test
+.PHONY: api-init api-activate api-lint api-clean api-test client-init client-lint client-update client-run client-build client-release
 
 api-init: $(.env)
 	python3.11 -m venv .venv
@@ -19,7 +21,6 @@ api-lint:
 api-clean:
 	rm -rf .venv
 	# Add any other generated files to remove here
-
 
 client-init:
 	cd ./client && npm install
@@ -42,10 +43,8 @@ client-build:
 
 client-release:
 	#---------------------------------------------------------
-	# usage:      deploy prouduction build of openai.lawrencemcdaniel.com
+	# usage:      deploy prouduction build of the React
 	#             app to AWS S3 bucket.
-	#
-	#             https://gist.github.com/kellyrmilligan/e242d3dc743105fe91a83cc933ee1314
 	#
 	#             1. Build the React application
 	#             2. Upload to AWS S3
@@ -56,7 +55,7 @@ client-release:
 	# ------------------------
 	# add all built files to the S3 bucket.
 	# ------------------------
-	aws s3 sync ./client/dist/ s3://openai.lawrencemcdaniel.com \
+	aws s3 sync ./client/dist/ s3://$(S3_BUCKET) \
 				--acl public-read \
 				--delete --cache-control max-age=31536000,public \
 				--expires '31 Dec 2050 00:00:01 GMT'
@@ -64,8 +63,7 @@ client-release:
 	# ------------------------
 	# remove the cache-control header created above with a "no-cache" header so that browsers never cache this page
 	# ------------------------
-	aws s3 cp s3://openai.lawrencemcdaniel.com/index.html s3://openai.lawrencemcdaniel.com/index.html --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate --content-type text/html --acl public-read
-	aws s3 cp s3://openai.lawrencemcdaniel.com/manifest.json s3://openai.lawrencemcdaniel.com/manifest.json --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate --content-type text/json --acl public-read
+	aws s3 cp s3://$(S3_BUCKET)/index.html s3://$(S3_BUCKET)/index.html --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate --content-type text/html --acl public-read
 
 	# invalidate the Cloudfront cache
-	aws cloudfront create-invalidation --distribution-id E3AIBM1KMSJOP1 --paths "/*" "/index.html" "/manifest.json"
+	aws cloudfront create-invalidation --distribution-id $(CLOUDFRONT_DISTRIBUTION_ID) --paths "/*" "/index.html"

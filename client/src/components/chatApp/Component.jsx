@@ -16,7 +16,6 @@ import {
   Message,
   MessageInput,
   TypingIndicator,
-
   Avatar,
   ConversationHeader,
   InfoButton,
@@ -28,9 +27,9 @@ import { ChatModal } from './Modal.jsx';
 import { processApiRequest } from './ApiRequest.js';
 
 const TIMESTAMP_NOW = 'just now';
-
-
 function ChatApp(props) {
+
+  // props
   const welcome_message = props.welcome_message;
   const placeholder_text = props.placeholder_text;
   const api_url = props.api_url;
@@ -60,6 +59,8 @@ function ChatApp(props) {
       return '';
     } else return 'Some example prompts to get you started:\r\n\r\n' + prompts.map((prompt) => {return prompt + '\r\n'}).join('');
   }
+
+  // message thread content
   const examples = examplePrompts(example_prompts);
   let message_items = [{
     message: welcome_message,
@@ -76,6 +77,7 @@ function ChatApp(props) {
   const [messages, setMessages] = useState(message_items);
   const [isTyping, setIsTyping] = useState(false);
 
+  // UI widget event handlers
   const handleInfoButtonClick = () => {
     window.open(info_url, '_blank');
   };
@@ -120,6 +122,9 @@ function ChatApp(props) {
     }
   };
 
+  // UI widget styles
+  // note that most styling is intended to be created in Component.css
+  // these are outlying cases where inline styles are required in order to override the default styles
   const transparentBackgroundStyle = {
     backgroundColor: 'rgba(0,0,0,0.10)',
     color: 'lightgray',
@@ -130,6 +135,8 @@ function ChatApp(props) {
     backgroundPosition: 'center',
     height: '100%',
   };
+
+  // render the chat app
   return(
     <div className='chat-app'>
       <MainContainer style={MainContainerStyle} >

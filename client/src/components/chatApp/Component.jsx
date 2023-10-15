@@ -157,7 +157,7 @@ function ChatApp(props) {
           <MessageList
             style={transparentBackgroundStyle}
             scrollBehavior='smooth'
-            typingIndicator={isTyping ? <TypingIndicator content={assistant_name + ' is typing'} style={transparentBackgroundStyle} /> : null}
+            typingIndicator={isTyping ? <TypingIndicator content={assistant_name + ' is typing'} /> : null}
           >
             {messages.map((message, i) => {
               return <Message key={i} model={message} />

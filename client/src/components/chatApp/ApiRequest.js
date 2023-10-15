@@ -13,13 +13,18 @@ export async function processApiRequest(chatMessage, apiURL, apiKey, openChatMod
       'input_text': chatMessage
     }),
   };
-  const response = await fetch(apiURL, init);
-  if (response && response.ok) {
-    const response_json = await response.json(); // Convert the ReadableStream to a JSON object
-    const response_body = response_json.body;
-    return response_body;
-  } else {
-    openChatModal('Error', response);
+  try {
+    const response = await fetch(apiURL, init);
+    if (response && response.ok) {
+      const response_json = await response.json(); // Convert the ReadableStream to a JSON object
+      const response_body = response_json.body;
+      return response_body;
+    } else {
+      openChatModal('Error', response);
+      return {};
+    }
+  } catch (error) {
+    openChatModal('Error', error);
     return {};
   }
 }

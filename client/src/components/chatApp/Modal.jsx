@@ -26,14 +26,14 @@ export function ChatModal(props) {
   return (
     <ReactModal
       isOpen={props.isModalOpen}
-      onRequestClose={props.closeChatModal}
+      onRequestClose={props.onCloseClick}
       appElement={document.getElementById('root')}
       style={ModalStyle}
       >
         <div className='modal'>
           <h2>{props.title}</h2>
           <p>{props.message}</p>
-          <button className="modal-button" onClick={props.closeChatModal}>Close</button>
+          <button className="modal-button" onClick={props.onCloseClick}>Close</button>
         </div>
     </ReactModal>
   );

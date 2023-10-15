@@ -95,10 +95,11 @@ function ChatApp(props) {
     reader.onload = (event) => {
       const fileContent = event.target.result;
       console.log('File content:', fileContent);
-      // Do something with the file content
-    };
+      openChatModal('File Open', fileContent);
 
-    console.log(reader.readAsText(file));
+      // handleSendRequest(fileContent);
+    };
+    reader.readAsText(file);
   }
   const handleSendRequest = async (input_text) => {
 

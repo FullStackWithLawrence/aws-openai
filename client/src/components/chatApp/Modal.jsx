@@ -31,9 +31,8 @@ export function ChatModal(props) {
       style={ModalStyle}
       >
         <div className='modal'>
-          <h2>Error</h2>
-          <p>There was an error processing your request.</p>
-          <p>{props.errMessage}</p>
+          <h2>{props.title}</h2>
+          <p>{props.message}</p>
           <button className="modal-button" onClick={props.closeChatModal}>Close</button>
         </div>
     </ReactModal>

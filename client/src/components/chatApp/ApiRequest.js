@@ -19,7 +19,7 @@ export async function processApiRequest(chatMessage, apiURL, apiKey, openChatMod
     const response_body = response_json.body;
     return response_body;
   } else {
-    openChatModal(response);
+    openChatModal('Error', response);
     return {};
   }
 }

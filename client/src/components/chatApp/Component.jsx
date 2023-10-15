@@ -1,8 +1,9 @@
+//---------------------------------------------------------------------------------
+//  written by: Lawrence McDaniel
+//              https://lawrencemcdaniel.com
 //
-// see: https://chatscope.io/storybook/react/?path=/story/documentation-introduction--page
-//      https://stackoverflow.com/questions/45576200/fetch-api-post-call-returning-403-forbidden-error-in-react-js-but-the-same-url-w
-//      https://stackoverflow.com/questions/76182956/cors-preflight-response-error-with-aws-api-gateway-and-lambda-function
-//
+//  date:       Oct-2023
+//---------------------------------------------------------------------------------
 import React, { useRef } from 'react';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
@@ -43,15 +44,17 @@ function ChatApp(props) {
   const file_attach_button = props.file_attach_button;
 
   // Error modal state management
-  function openChatModal(err) {
+  function openChatModal(title, msg) {
     setIsModalOpen(true);
-    setErrMessage(err);
+    setmodalTitle(title);
+    setmodalMessage(msg);
   }
   function closeChatModal() {
     setIsModalOpen(false);
   }
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [errMessage, setErrMessage] = useState('');
+  const [modalMessage, setmodalMessage] = useState('');
+  const [modalTitle, setmodalTitle] = useState('');
 
   // prompt hints
   const examplePrompts = (prompts) => {
@@ -140,7 +143,7 @@ function ChatApp(props) {
   return(
     <div className='chat-app'>
       <MainContainer style={MainContainerStyle} >
-        <ChatModal isModalOpen={isModalOpen} errMessage={errMessage} onCloseClick={closeChatModal} />
+        <ChatModal isModalOpen={isModalOpen} title={modalTitle} message={modalMessage} onCloseClick={closeChatModal} />
         <ChatContainer style={transparentBackgroundStyle} >
           <ConversationHeader>
             <Avatar src={avatar_url} name={app_name} />

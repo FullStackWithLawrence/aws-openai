@@ -85,7 +85,7 @@ function ChatApp(props) {
   const handleInfoButtonClick = () => {
     window.open(info_url, '_blank');
   };
-  async function handleRequest(input_text) {
+  async function handleRequest(input_text, base64_encode=true) {
     const newMessage = {
       message: input_text,
       direction: 'outgoing',
@@ -95,8 +95,12 @@ function ChatApp(props) {
     setIsTyping(true);
 
     try {
-      const btoa_input_text = btoa(input_text);
-      const response = await processApiRequest(btoa_input_text, api_url, api_key, openChatModal);
+      let response;
+      if (base64_encode) {
+        response = await processApiRequest(btoa(input_text), api_url, api_key, openChatModal);
+      } else {
+        response = await processApiRequest(input_text, api_url, api_key, openChatModal);
+      }
 
       if ("choices" in response) { // simple way to ensure that we received a valid response
         const content = response.choices[0]?.message?.content;
@@ -124,7 +128,7 @@ function ChatApp(props) {
 
     reader.onload = (event) => {
       const fileContent = event.target.result;
-      handleRequest(fileContent);
+      handleRequest(fileContent, true);
     };
     reader.readAsText(file);
   }
@@ -138,7 +142,7 @@ function ChatApp(props) {
       return;
     }
 
-    handleRequest(sanitized_input_text);
+    handleRequest(sanitized_input_text, false);
   };
 
 

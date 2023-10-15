@@ -4,6 +4,7 @@ import { BACKEND_API_URL, AWS_API_GATEWAY_KEY, OPENAI_EXAMPLES_URL } from "../co
 const SLUG = 'default-mood-color';
 
 const Mood2CSSColor = {
+  sidebar_title: "Mood To CSS Color",
   api_url: BACKEND_API_URL + SLUG,
   api_key: AWS_API_GATEWAY_KEY,
   app_name: "Mood2CSSColor",

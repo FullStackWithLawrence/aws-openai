@@ -4,6 +4,7 @@ import { BACKEND_API_URL, AWS_API_GATEWAY_KEY, OPENAI_EXAMPLES_URL } from "../co
 const SLUG = 'default-marv-sarcastic-chat';
 
 const SarcasticChat = {
+  sidebar_title: "Sarcastic Chatbot",
   api_url: BACKEND_API_URL + SLUG,
   api_key: AWS_API_GATEWAY_KEY,
   app_name: "Marv the Sarcastic Chatbot",

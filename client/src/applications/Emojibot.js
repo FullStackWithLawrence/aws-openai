@@ -4,6 +4,7 @@ import { BACKEND_API_URL, AWS_API_GATEWAY_KEY, OPENAI_EXAMPLES_URL } from "../co
 const SLUG = 'default-emoji-translation';
 
 const Emojibot = {
+  sidebar_title: "Emoji Translator",
   api_url: BACKEND_API_URL + SLUG,
   api_key: AWS_API_GATEWAY_KEY,
   app_name: "Emojibot",

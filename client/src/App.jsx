@@ -82,43 +82,44 @@ const App = () => {
                 </a>
                 <h5 className='sample-applications'>Sample Applications</h5>
                 <SubMenu label='Fun Apps' defaultOpen icon={<FaGamepad />}>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.RapBattle)}>Rap Battle</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.SocraticTutor)}>Socratic Tutor</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.ProConDiscusser)}>Pros and Cons</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.SarcasticChat)}>Sarcastic Chatbot</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.Emojibot4)}>Emoji ChatBot</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.TweetClassifier)}>Tweet Classifier</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.RapBattle)}>{RapBattle.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.SocraticTutor)}>{SocraticTutor.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.ProConDiscusser)}>{ProConDiscusser.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.SarcasticChat)}>{SarcasticChat.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.Emojibot)}>{Emojibot.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.Emojibot4)}>{Emojibot4.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.TweetClassifier)}>{TweetClassifier.sidebar_title}</MenuItem>
                 </SubMenu>
                 <SubMenu label='Personal Assistant' icon={<FaClipboardList />}>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.VRFitness)}>VR Fitness Designer</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.GrammarGenius)}>Grammar Genius</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.English2French)}>French Translator</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.TurnByTurnDirections)}>Personal Navigator</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.KidsDigest)}>Kids Digest</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.VRFitness)}>{VRFitness.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.GrammarGenius)}>{GrammarGenius.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.English2French)}>{English2French.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.TurnByTurnDirections)}>{TurnByTurnDirections.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.KidsDigest)}>{KidsDigest.sidebar_title}</MenuItem>
                 </SubMenu>
                 <SubMenu label="Office Productivity" icon={<FaChartLine />}>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.AeroAssist)}>Aero Assist</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.KeyWords)}>Keyword Generator</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.InterviewQuestions)}>Interview Assistant</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.MemoWriter)}>Memo Writer</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.LessonPlanWriter)}>Lesson Plan Writer</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.MeetingNotesSummarizer)}>Meeting Summarizer</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.ProductNameGenerator)}>Product Name Generator</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.ReviewClassifier)}>Product Review Classifier</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.AeroAssist)}>{AeroAssist.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.KeyWords)}>{KeyWords.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.InterviewQuestions)}>{InterviewQuestions.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.MemoWriter)}>{MemoWriter.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.LessonPlanWriter)}>{LessonPlanWriter.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.MeetingNotesSummarizer)}>{MeetingNotesSummarizer.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.ProductNameGenerator)}>{ProductNameGenerator.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.ReviewClassifier)}>{ReviewClassifier.sidebar_title}</MenuItem>
                 </SubMenu>
                 <SubMenu label='Data Apps' icon={<FaDatabase />}>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.CSVify)}>CSVify</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.SpreadsheetGenerator)}>Spreadsheet Generator</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.CSVify)}>{CSVify.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.SpreadsheetGenerator)}>{SpreadsheetGenerator.sidebar_title}</MenuItem>
                 </SubMenu>
                 <SubMenu label='Coding Apps' icon={<FaCode />}>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.FunctionCreator)}>Function Creator</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.TimeComplexity)}>Time Complexity</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.CodeExplainer)}>Code Explainer</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.PythonDebugger)}>Python Debugger</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.SqlTranslator)}>SQL Translator</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.CodeImprovement)}>Coding CoPilot</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.Mood2CSSColor)}>Mood to CSS Color</MenuItem>
-                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.SinglePageWebapp)}>SPA Scaffolder</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.FunctionCreator)}>{FunctionCreator.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.TimeComplexity)}>{TimeComplexity.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.CodeExplainer)}>{CodeExplainer.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.PythonDebugger)}>{PythonDebugger.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.SqlTranslator)}>{SqlTranslator.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.CodeImprovement)}>{CodeImprovement.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.Mood2CSSColor)}>{Mood2CSSColor.sidebar_title}</MenuItem>
+                  <MenuItem onClick={() => handleItemClick(APPLICATIONS.SinglePageWebapp)}>{SinglePageWebapp.sidebar_title}</MenuItem>
                 </SubMenu>
                 <h5>More</h5>
                 <MenuItem icon={<FaInfo />} onClick={() => handleItemClick('AboutPage')}>About</MenuItem>

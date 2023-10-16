@@ -9,7 +9,7 @@
 		{
 			"name": "01-grammar",
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -42,7 +42,7 @@
 		{
 			"name": "02-summarize",
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -75,7 +75,7 @@
 		{
 			"name": "03-parse-data",
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -108,7 +108,7 @@
 		{
 			"name": "04-emoji-translation",
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -139,6 +139,39 @@
 			"response": []
 		},
 		{
+			"name": "04-emoji-chat",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"how are you?\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/examples/default-emoji-chatbot",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"examples",
+						"default-emoji-chatbot"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "05-time-complexity",
 			"event": [
 				{
@@ -152,7 +185,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -196,7 +229,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -240,7 +273,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -284,7 +317,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -328,7 +361,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -372,7 +405,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -416,7 +449,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -460,7 +493,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -504,7 +537,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -548,7 +581,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -592,7 +625,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -636,7 +669,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -680,7 +713,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -724,7 +757,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -768,7 +801,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -812,7 +845,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -856,7 +889,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -900,7 +933,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -944,7 +977,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -988,7 +1021,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -1032,7 +1065,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -1076,7 +1109,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -1120,7 +1153,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -1164,7 +1197,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",
@@ -1174,7 +1207,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"Analyze the pros and cons of remote work vs. office work\"\n}",
+					"raw": "{\n    \"input_text\": \"changing careers at 60\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1208,7 +1241,7 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-api-key",

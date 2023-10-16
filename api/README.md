@@ -158,6 +158,20 @@ Other reference materials on how to use this libary:
 
 Be aware that the OpenAI platform API is not free. Moreover, the costing models vary signficantly across the family of OpenAI models. GPT-4 for example cost significantly more to use than GPT-3.5. Having said that, for development purposes, the cost likely will be negligible. I spent a total of around $0.025 USD while developing and testing the initial release of this project, whereupon I invoked the openai api around 200 times (rough guess).
 
+## CORS
+
+CORS is always a tedious topics with regard to REST API's. Please note the following special considerations in this API project:
+
+- CORS preflight is implemented with a Node.js Lambda - openai_cors_preflight_handler
+- There are a total of 5 response types which require including CORS headers. These are
+  - the hoped-for 200 response status that is returned by Lambda
+  - the less hoped-for 400 and 500 response statuses returned by Lambda
+  - and the even less hoped-for 400 and 500 response statuses that can be returned by API Gateway itself in certain cases such as a.) Lambda timeout, b.) invalid api key credentials, amongst other possibilities.
+
+In each case this project attempts to compile an http response that is as verbose as technically possible given the nature and origin of the response data.
+
+![AWS API Gateway CORS Configuration](https://github.com/FullStackWithLawrence/aws-openai/blob/main/doc/aws-api-gateway-cors.png)
+
 ## Trouble Shooting and Logging
 
 The terraform scripts will automatically create a collection of CloudWatch Log Groups. Additionally, note the Terraform global variable 'debug_mode' (defaults to 'true') which will increase the verbosity of log entries in the [Lambda functions](./terraform/python/), which are implemented with Python.

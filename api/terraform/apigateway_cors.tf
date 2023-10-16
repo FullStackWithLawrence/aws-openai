@@ -26,7 +26,7 @@ resource "aws_api_gateway_integration" "cors" {
   depends_on              = [aws_api_gateway_method.cors]
 }
 
-resource "aws_api_gateway_method_response" "cors" {
+resource "aws_api_gateway_method_response" "cors_200" {
   rest_api_id = aws_api_gateway_rest_api.openai.id
   resource_id = aws_api_gateway_resource.proxy_plus.id
   http_method = aws_api_gateway_method.cors.http_method

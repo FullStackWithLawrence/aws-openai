@@ -167,6 +167,7 @@ CORS is always a tedious topics with regard to REST API's. Please note the follo
   - the hoped-for 200 response status that is returned by Lambda
   - the less hoped-for 400 and 500 response statuses returned by Lambda
   - and the even less hoped-for 400 and 500 response statuses that can be returned by API Gateway itself in certain cases such as a.) Lambda timeout, b.) invalid api key credentials, amongst other possibilities.
+- For audit and trouble shooting purposes, Cloudwatch logs exist for API Gateway as well as the two Lambas, [openai_text](../api/terraform/python/openai_text/openai_text.py) and [openai_cors_preflight_handler](../api/terraform/nodejs/openai_cors_preflight_handler/index.mjs)
 
 In each case this project attempts to compile an http response that is as verbose as technically possible given the nature and origin of the response data.
 

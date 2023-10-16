@@ -62,7 +62,7 @@ const App = () => {
   return (
     <div className='App'>
       <h1 className='app-title'>OpenAI Code Samples</h1>
-      <ContainerLayout className='hide-small'>
+      <ContainerLayout>
         <SidebarLayout className='hide-small'>
           <div style={{ display: 'flex',
                         height: '100%',

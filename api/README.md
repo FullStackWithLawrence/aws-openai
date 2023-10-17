@@ -173,6 +173,14 @@ In each case this project attempts to compile an http response that is as verbos
 
 ![AWS API Gateway CORS Configuration](https://github.com/FullStackWithLawrence/aws-openai/blob/main/doc/aws-api-gateway-cors.png)
 
+## Tests
+
+There are three end points that you can use for testing purposes. Each of these is implemented as a MOCK endpoint resource that returns a static response. Each endpoint returns a body response that is comparable to that returned by the Python Lambda.
+
+- test_200: a static example response from the OpenAI chatgpt-3.5 API
+- test_400: a static http 400 response
+- test_500: a static http 500 response
+
 ## Trouble Shooting and Logging
 
 The terraform scripts will automatically create a collection of CloudWatch Log Groups. Additionally, note the Terraform global variable 'debug_mode' (defaults to 'true') which will increase the verbosity of log entries in the [Lambda functions](./terraform/python/), which are implemented with Python.

@@ -1,5 +1,5 @@
 
-export async function processApiRequest(chatMessage, apiURL, apiKey, openChatModal) {
+export async function processApiRequest(chatMessage, apiURL, apiKey) {
   const init = {
     method: 'POST',
     mode: 'cors',
@@ -15,16 +15,14 @@ export async function processApiRequest(chatMessage, apiURL, apiKey, openChatMod
   };
   try {
     const response = await fetch(apiURL, init);
-    if (response && response.ok) {
-      const response_json = await response.json(); // Convert the ReadableStream to a JSON object
-      const response_body = response_json.body;
-      return response_body;
-    } else {
-      openChatModal('Error', response);
-      return {};
-    }
+    const response_json = await response.json(); // Convert the ReadableStream to a JSON object
+    return {
+      'status': response.status,
+      'statusText': response.statusText,
+      'ok': response.ok,
+      'json': response_json
+    };
   } catch (error) {
-    openChatModal('Error', error);
     return {};
   }
 }

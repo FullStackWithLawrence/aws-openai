@@ -5,6 +5,16 @@ import ReactModal from 'react-modal';
 
 import './Component.css';
 
+export function ErrorDialog(props) {
+  const isModalOpen = props.isModalOpen;
+  const modalTitle = props.title;
+  const modalMessage = props.message;
+  const closeChatModal = props.onCloseClick;
+  return (
+    <ChatModal isModalOpen={isModalOpen} title={modalTitle} message={modalMessage} onCloseClick={closeChatModal} />
+  );
+}
+
 export function ChatModal(props) {
 
   const ModalStyle = {

@@ -24,10 +24,12 @@ import {
   VideoCallButton,
 } from '@chatscope/chat-ui-kit-react';
 
-import { ChatModal } from './Modal.jsx';
+import { ErrorDialog } from './Modal.jsx';
 import { processApiRequest } from './ApiRequest.js';
 
 const TIMESTAMP_NOW = 'just now';
+
+
 function ChatApp(props) {
   const fileInputRef = useRef(null);
 
@@ -97,8 +99,10 @@ function ChatApp(props) {
     try {
       let response;
       if (base64_encode) {
+        // uploaded files need to be base64 encoded.
         response = await processApiRequest(btoa(input_text), api_url, api_key, openChatModal);
       } else {
+        // everything else is passed as plain text
         response = await processApiRequest(input_text, api_url, api_key, openChatModal);
       }
       if (response && "choices" in response) {
@@ -164,7 +168,7 @@ function ChatApp(props) {
   return(
     <div className='chat-app'>
       <MainContainer style={MainContainerStyle} >
-        <ChatModal isModalOpen={isModalOpen} title={modalTitle} message={modalMessage} onCloseClick={closeChatModal} />
+        <ErrorDialog isModalOpen={isModalOpen} title={modalTitle} message={modalMessage} onCloseClick={closeChatModal} />
         <ChatContainer style={transparentBackgroundStyle} >
           <ConversationHeader>
             <Avatar src={avatar_url} name={app_name} />

@@ -175,11 +175,68 @@ In each case this project attempts to compile an http response that is as verbos
 
 ## Tests
 
-There are three end points that you can use for testing purposes. Each of these is implemented as a MOCK endpoint resource that returns a static response. Each endpoint returns a body response that is comparable to that returned by the Python Lambda.
+There are three URL endpoints that you can use for development and testing purposes. These are especially useful when developing features in the React web app, as each end point reliably returns a known, static response body. Each endpoint returns a body response that is comparable to that returned by the Python Lambda.
 
-- test_200: a static example response from the OpenAI chatgpt-3.5 API
-- test_400: a static http 400 response
-- test_500: a static http 500 response
+### /tests/test_200
+
+a static example response from the OpenAI chatgpt-3.5 API
+
+```json
+{
+    "body": {
+        "choices": [
+            {
+                "finish_reason": "stop",
+                "index": 0,
+                "message": {
+                    "content": "Oh, hello there! What kind of trouble can I unknowingly get myself into for you today?",
+                    "role": "assistant"
+                }
+            }
+        ],
+        "created": 1697495501,
+        "id": "chatcmpl-8AQPdETlM808Fp0NjEeCOOc3a13Vt",
+        "model": "gpt-3.5-turbo-0613",
+        "object": "chat.completion",
+        "usage": {
+            "completion_tokens": 20,
+            "prompt_tokens": 31,
+            "total_tokens": 51
+        }
+    },
+    "isBase64Encoded": false,
+    "statusCode": 200
+}
+```
+
+### /tests/test_400
+
+a static http 400 response
+```json
+{
+    "body": {
+        "error": "Bad Request",
+        "message": "TEST 400 RESPONSE."
+    },
+    "isBase64Encoded": false,
+    "statusCode": 400
+}
+```
+
+### /tests/test_500
+
+a static http 500 response
+```json
+{
+    "body": {
+        "error": "Internal Server Error",
+        "message": "TEST 500 RESPONSE."
+    },
+    "isBase64Encoded": false,
+    "statusCode": 500
+}
+```
+
 
 ## Trouble Shooting and Logging
 

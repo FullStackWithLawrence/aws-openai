@@ -10,14 +10,14 @@
 ###############################################################################
 # AWS CLI parameters
 ###############################################################################
-aws_account_id = "090511222473"
+aws_account_id = "123456789012"
 tags = {
   "terraform" = "true",
-  "project"   = "chatGPT microservice"
-  "contact"   = "Lawrence McDaniel - https://lawrencemcdaniel.com/"
+  "project"   = "OpenAI Code Samples"
+  "contact"   = "YOUR CONTACT INFORMATION GOES HERE."
 }
 aws_region  = "us-east-1"
-aws_profile = "lawrence"
+aws_profile = "default"
 
 ###############################################################################
 # OpenAI API parameters

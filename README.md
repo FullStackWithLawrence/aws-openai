@@ -51,10 +51,6 @@ A Terraform-installed AWS Serverless REST API implementing each of the [30 examp
 - includes AWS API Gateway usage policy and api key
 - Full CORS configuration
 
-## Official YouTube Video For This Repo
-
-[![OpenAI Python API With AWS API Gateway + Lambda](https://img.youtube.com/vi/FqARAi8nS2M/hqdefault.jpg)](https://www.youtube.com/watch?v=FqARAi8nS2M)
-
 ## Requirements
 
 - [AWS account](https://aws.amazon.com/)

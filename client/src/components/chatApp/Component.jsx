@@ -24,7 +24,7 @@ import {
   VideoCallButton,
 } from '@chatscope/chat-ui-kit-react';
 
-import { ErrorDialog } from './Modal.jsx';
+import { ChatModal } from './Modal.jsx';
 import { processApiRequest } from './ApiRequest.js';
 
 const TIMESTAMP_NOW = 'just now';
@@ -168,7 +168,7 @@ function ChatApp(props) {
   return(
     <div className='chat-app'>
       <MainContainer style={MainContainerStyle} >
-        <ErrorDialog isModalOpen={isModalOpen} title={modalTitle} message={modalMessage} onCloseClick={closeChatModal} />
+        <ChatModal isModalOpen={isModalOpen} title={modalTitle} message={modalMessage} onCloseClick={closeChatModal} />
         <ChatContainer style={transparentBackgroundStyle} >
           <ConversationHeader>
             <Avatar src={avatar_url} name={app_name} />

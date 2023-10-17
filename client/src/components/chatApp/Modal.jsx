@@ -1,19 +1,11 @@
-
 import React from 'react';
-import { useState } from 'react';
 import ReactModal from 'react-modal';
 
-import './Component.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExclamation } from '@fortawesome/free-solid-svg-icons';
 
-export function ErrorDialog(props) {
-  const isModalOpen = props.isModalOpen;
-  const modalTitle = props.title;
-  const modalMessage = props.message;
-  const closeChatModal = props.onCloseClick;
-  return (
-    <ChatModal isModalOpen={isModalOpen} title={modalTitle} message={modalMessage} onCloseClick={closeChatModal} />
-  );
-}
+
+import './Modal.css';
 
 export function ChatModal(props) {
 
@@ -40,11 +32,18 @@ export function ChatModal(props) {
       appElement={document.getElementById('root')}
       style={ModalStyle}
       >
+      <div className='modal-container'>
         <div className='modal'>
-          <h2>{props.title}</h2>
+          <div className='modal-header'>
+            <FontAwesomeIcon icon={faExclamation} className='modal-icon' />
+            <h2>{props.title}</h2>
+            <hr />
+          </div>
           <p>{props.message}</p>
           <button className="modal-button" onClick={props.onCloseClick}>Close</button>
         </div>
+      </div>
+
     </ReactModal>
   );
 }

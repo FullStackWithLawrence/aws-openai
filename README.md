@@ -17,6 +17,7 @@ React app that leverages [Vite.js](https://github.com/FullStackWithLawrence/aws-
 
 ### Key features
 
+- robust, highly customizable chat features
 - A component model for implementing your own highly personalized OpenAI apps
 - Skinnable UI for each app
 - Includes default assets for each app
@@ -40,12 +41,13 @@ A Terraform-installed AWS Serverless REST API implementing each of the [30 examp
 ### Key features
 
 - Fully automated and [parameterized](./api/terraform/terraform.tfvars) Terraform build
-- Low-cost AWS serverless implementation; free or nearly free in most cases
+- well documented code plus supplemental [documentation resources](./doc/)
+- Low-cost [AWS serverless](https://aws.amazon.com/serverless/) implementation using [AWS API Gateway](https://aws.amazon.com/api-gateway/) and [AWS Lambda](https://aws.amazon.com/lambda/); free or nearly free in most cases
 - Robust, performant and infinitely scalable
 - Fast build time; usually less than 60 seconds to fully implement
 - Includes both Python and Node.js Lambda examples
 - Deploy https to a custom domain
-- Preconfigured Postman files for testing
+- Preconfigured [Postman](https://www.postman.com/) files for testing
 - includes AWS API Gateway usage policy and api key
 - Full CORS configuration
 

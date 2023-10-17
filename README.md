@@ -3,7 +3,7 @@
 [![ReactJS](https://a11ybadges.com/badge?logo=react)](https://react.dev/)
 [![FullStackWithLawrence](https://a11ybadges.com/badge?text=FullStackWithLawrence&badgeColor=orange&logo=youtube&logoColor=282828)](https://www.youtube.com/@FullStackWithLawrence)
 
-# Customized chatGPT Application
+# OpenAI Code Samples
 
 A full stack implementation of the [30 example applications](https://platform.openai.com/examples) found in the official OpenAI API documentation. Created with React running on AWS serverless infrastructure integrated to the OpenAI Python API.
 

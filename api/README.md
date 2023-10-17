@@ -162,7 +162,7 @@ Be aware that the OpenAI platform API is not free. Moreover, the costing models 
 
 CORS is always a tedious topics with regard to REST API's. Please note the following special considerations in this API project:
 
-- CORS preflight is implemented with a Node.js Lambda - openai_cors_preflight_handler
+- CORS preflight is implemented with a Node.js Lambda - [openai_cors_preflight_handler](../api/terraform/nodejs/openai_cors_preflight_handler/index.mjs)
 - There are a total of 5 response types which require including CORS headers. These are
   - the hoped-for 200 response status that is returned by Lambda
   - the less hoped-for 400 and 500 response statuses returned by Lambda

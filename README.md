@@ -42,6 +42,7 @@ A Terraform-installed AWS Serverless REST API implementing each of the [30 examp
 
 - Customizable. [Modularized endpoints](./terraform/apigateway_endpoints.tf) that only take a few lines of code each.
 - Highly secure. Your OpenAI API key is stored in a local .env file, and is kept safe during development, build and deployment to production.
+- Implements excellent [CloudWatch](https://aws.amazon.com/cloudwatch/) logs for Lambda as well as API Gateway
 - Fully automated and [parameterized](./api/terraform/terraform.tfvars) Terraform build
 - well documented code plus supplemental [documentation resources](./doc/)
 - Low-cost [AWS serverless](https://aws.amazon.com/serverless/) implementation using [AWS API Gateway](https://aws.amazon.com/api-gateway/) and [AWS Lambda](https://aws.amazon.com/lambda/); free or nearly free in most cases

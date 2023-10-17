@@ -212,6 +212,7 @@ a static example response from the OpenAI chatgpt-3.5 API
 ### /tests/test_400
 
 a static http 400 response
+
 ```json
 {
     "body": {
@@ -226,6 +227,7 @@ a static http 400 response
 ### /tests/test_500
 
 a static http 500 response
+
 ```json
 {
     "body": {

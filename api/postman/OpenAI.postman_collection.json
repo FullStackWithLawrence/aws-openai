@@ -7,6 +7,105 @@
 	},
 	"item": [
 		{
+			"name": "00-test_200",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"this is a test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/tests/test_200",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tests",
+						"test_200"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "00-test_400",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"this is a test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/tests/test_400",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tests",
+						"test_400"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "00-test_500",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"this is a test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/tests/test_500",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tests",
+						"test_500"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "01-grammar",
 			"request": {
 				"method": "POST",

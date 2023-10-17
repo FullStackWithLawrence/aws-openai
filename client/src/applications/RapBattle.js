@@ -14,7 +14,7 @@ const RapBattle = {
   welcome_message: `Hello, I'm Rhea, and I can generate rap battles between your two favorite people`,
   example_prompts: [
     'Linus Torvalds vs Bill Gates',
-    'Dave Grohl vs Barak Obama',
+    'Dave Grohl vs Barack Obama',
     'Ghandi vs Martin Luther King Jr.',
     'Wayne Gretzky vs Ronaldo',
   ],

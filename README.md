@@ -7,12 +7,19 @@
 
 A full stack implementation of the [30 example applications](https://platform.openai.com/examples) found in the official OpenAI API documentation. Created with React running on AWS serverless infrastructure integrated to the OpenAI Python API.
 
-- React is managed by Vite
-- AWS is managed by Terraform
+**IMPORTANT DISCLAIMER: AWS' Lambda service has a hard 29-second timeout. OpenAI API calls often take longer than this, in which case the AWS API Gateway endpoing will return a 504 "Gateway timeout error" response to the React client. This happens frequently with apps created using chatgpt-4. Each of the 30 OpenAI API example applications are nonetheless implemented exactly as they are specified in the official documentation.**
 
 ## ReactJS chat application
 
 Complete documentation is located [here](./client/).
+
+React app that leverages [Vite.js](https://github.com/FullStackWithLawrence/aws-openai), [@chatscope/chat-ui-kit-react](https://www.npmjs.com/package/@chatscope/chat-ui-kit-react), and [react-pro-sidebar](https://www.npmjs.com/package/react-pro-sidebar).
+
+### Key features
+
+- A component model for implementing your own highly personalized OpenAI apps.
+- Robust error handling for non-200 response codes from the custom REST API.
+- Handles direct text input as well as file attachments
 
 ![React front end](https://github.com/FullStackWithLawrence/aws-openai/blob/main/doc/front-end.png)
 

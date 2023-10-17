@@ -322,7 +322,7 @@ resource "aws_api_gateway_integration_response" "test_504" {
     "method.response.header.Access-Control-Allow-Origin"  = "'*'"
   }
   response_templates = {
-    "application/json" = jsonencode({})
+    "application/json" = jsonencode({ "message" : "TEST 504 RESPONSE." })
   }
 
   depends_on = [

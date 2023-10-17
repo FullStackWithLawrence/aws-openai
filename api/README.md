@@ -175,7 +175,7 @@ In each case this project attempts to compile an http response that is as verbos
 
 ## Tests
 
-There are three URL endpoints that you can use for development and testing purposes. These are especially useful when developing features in the React web app, as each end point reliably returns a known, static response body. Each endpoint returns a body response that is comparable to that returned by the Python Lambda.
+There are four URL endpoints that you can use for development and testing purposes. These are especially useful when developing features in the React web app, as each end point reliably returns a known, static response body. Each endpoint returns a body response that is comparable to that returned by the Python Lambda.
 
 ### /tests/test_200
 
@@ -238,6 +238,10 @@ a static http 500 response
     "statusCode": 500
 }
 ```
+
+### /tests/test_504
+
+a static http 504 response with an empty body.
 
 
 ## Trouble Shooting and Logging

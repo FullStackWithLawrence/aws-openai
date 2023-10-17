@@ -1,5 +1,5 @@
 
-export async function processApiRequest(chatMessage, apiURL, apiKey) {
+export async function processApiRequest(chatMessage, apiURL, apiKey, openChatModal) {
   const init = {
     method: 'POST',
     mode: 'cors',
@@ -15,14 +15,34 @@ export async function processApiRequest(chatMessage, apiURL, apiKey) {
   };
   try {
     const response = await fetch(apiURL, init);
+    const status = await response.status;
     const response_json = await response.json(); // Convert the ReadableStream to a JSON object
-    return {
-      'status': response.status,
-      'statusText': response.statusText,
-      'ok': response.ok,
-      'json': response_json
-    };
+    const response_body = await response_json.body;
+
+    // console.log('response', response);
+    // console.log('status', response.status);
+
+    if (response.ok) {
+      return response_body;
+    }
+    else {
+      let errTitle = 'Error ' + status;
+      let errMessage = 'An unknown error occurred.';
+      switch (status) {
+        case 400:
+          errMessage = response.statusText || response_body.message || 'The request was invalid.';
+          break;
+        case 500:
+          errMessage = response.statusText || response_body.message || 'An internal server error occurred.';
+          break;
+        case 504:
+          errMessage = response.statusText || 'Gateway timeout error. Note that AWS Lambda has a hard 30 second timeout. If OpenAI requests take longer, which is frequently the case with chatgpt-4 then you will receive this error. If the timeout persists then try again using chatgpt-3.5 instead.';
+          break;
+      }
+      openChatModal(errTitle, errMessage);
+    }
   } catch (error) {
-    return {};
+    openChatModal('Error', error);
+    return;
   }
 }

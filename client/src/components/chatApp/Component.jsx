@@ -97,13 +97,12 @@ function ChatApp(props) {
     try {
       let response;
       if (base64_encode) {
-        response = await processApiRequest(btoa(input_text), api_url, api_key);
+        response = await processApiRequest(btoa(input_text), api_url, api_key, openChatModal);
       } else {
-        response = await processApiRequest(input_text, api_url, api_key);
+        response = await processApiRequest(input_text, api_url, api_key, openChatModal);
       }
-      console.log('response:', response);
-      if (response.ok) {
-        const content = response.json.body.choices[0]?.message?.content;
+      if (response && "choices" in response) {
+        const content = response.choices[0]?.message?.content;
         if (content) {
           const chatGPTResponse = {
             message: content,
@@ -111,14 +110,9 @@ function ChatApp(props) {
           };
           setMessages((prevMessages) => [...prevMessages, chatGPTResponse]);
         }
-      } else {
-        let errTitle = 'Error';
-        if (response.status == 400) { errTitle = 'Bad Request'; }
-        if (response.status == 500) { errTitle = 'Internal Server Error'; }
-        if (response.status == 504) { errTitle = 'Gateway Timeout'; }
-        openChatModal(errTitle, JSON.stringify(response.json));
       }
     } catch (error) {
+      // FIX NOTE: ADD MODAL HERE
       console.error('Exception:', error);
     } finally {
       setIsTyping(false);

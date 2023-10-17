@@ -7,7 +7,7 @@
 
 A full stack implementation of the [30 example applications](https://platform.openai.com/examples) found in the official OpenAI API documentation. Created with React running on AWS serverless infrastructure integrated to the OpenAI Python API.
 
-**IMPORTANT DISCLAIMER: AWS' Lambda service has a hard 29-second timeout. OpenAI API calls often take longer than this, in which case the AWS API Gateway endpoing will return a 504 "Gateway timeout error" response to the React client. This happens frequently with apps created using chatgpt-4. Each of the 30 OpenAI API example applications are nonetheless implemented exactly as they are specified in the official documentation.**
+**IMPORTANT DISCLAIMER: AWS' Lambda service has a hard 29-second timeout. OpenAI API calls often take longer than this, in which case the AWS API Gateway endpoint will return a 504 "Gateway timeout error" response to the React client. This happens frequently with apps created using chatgpt-4. Each of the 30 OpenAI API example applications are nonetheless implemented exactly as they are specified in the official documentation.**
 
 ## ReactJS chat application
 
@@ -17,9 +17,14 @@ React app that leverages [Vite.js](https://github.com/FullStackWithLawrence/aws-
 
 ### Key features
 
-- A component model for implementing your own highly personalized OpenAI apps.
-- Robust error handling for non-200 response codes from the custom REST API.
+- A component model for implementing your own highly personalized OpenAI apps
+- Skinnable UI for each app
+- Includes default assets for each app
+- Small compact code base
+- Robust error handling for non-200 response codes from the custom REST API
 - Handles direct text input as well as file attachments
+- Info link to the OpenAI API official code sample
+- Build-deploy managed with Vite
 
 ![React front end](https://github.com/FullStackWithLawrence/aws-openai/blob/main/doc/front-end.png)
 
@@ -31,6 +36,18 @@ A Terraform-installed AWS Serverless REST API implementing each of the [30 examp
 
 - Creating new OpenAI applications and endpoints for this API only takes a few lines of code and is as easy as it is fun! Follow [this link](./terraform/apigateway_endpoints.tf) to see how each of these are coded.
 - **Follow [this link](./doc/examples/README.md) for detailed documentation on each URL endpoint.**
+
+### Key features
+
+- Fully automated and [parameterized](./api/terraform/terraform.tfvars) Terraform build
+- Low-cost AWS serverless implementation; free or nearly free in most cases
+- Robust, performant and infinitely scalable
+- Fast build time; usually less than 60 seconds to fully implement
+- Includes both Python and Node.js Lambda examples
+- Deploy https to a custom domain
+- Preconfigured Postman files for testing
+- includes AWS API Gateway usage policy and api key
+- Full CORS configuration
 
 ## Official YouTube Video For This Repo
 

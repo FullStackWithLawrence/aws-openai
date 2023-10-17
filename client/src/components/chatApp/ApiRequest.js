@@ -36,7 +36,7 @@ export async function processApiRequest(chatMessage, apiURL, apiKey, openChatMod
           errMessage = response.statusText || response_body.message || 'An internal server error occurred.';
           break;
         case 504:
-          errMessage = response.statusText || 'Gateway timeout error. Note that AWS Lambda has a hard 30 second timeout. If OpenAI requests take longer, which is frequently the case with chatgpt-4 then you will receive this error. If the timeout persists then try again using chatgpt-3.5 instead.';
+          errMessage = response.statusText || 'Gateway timeout error. Note that AWS Lambda has a hard 30 second timeout. If OpenAI requests take longer, which is frequently the case with chatgpt-4 then you will receive this error. If the timeout persists then you might try using chatgpt-3.5 instead as it is more performant.';
           break;
       }
       openChatModal(errTitle, errMessage);

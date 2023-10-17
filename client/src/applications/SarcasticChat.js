@@ -1,13 +1,12 @@
 // see https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L19
-import { BACKEND_API_TEST_URL, BACKEND_API_URL, AWS_API_GATEWAY_KEY, OPENAI_EXAMPLES_URL } from "../config";
+import { BACKEND_API_URL, AWS_API_GATEWAY_KEY, OPENAI_EXAMPLES_URL } from "../config";
 
-const TEST_URL = BACKEND_API_TEST_URL + 'test_504';
 const SLUG = 'default-marv-sarcastic-chat';
+
 
 const SarcasticChat = {
   sidebar_title: "Sarcastic Chatbot",
-  //api_url: BACKEND_API_URL + SLUG,
-  api_url: TEST_URL,
+  api_url: BACKEND_API_URL + SLUG,
   api_key: AWS_API_GATEWAY_KEY,
   app_name: "Marv the Sarcastic Chatbot",
   assistant_name: "Marv",

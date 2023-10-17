@@ -5,7 +5,7 @@
 
 # OpenAI Code Samples
 
-A full stack implementation of the [30 example applications](https://platform.openai.com/examples) found in the official OpenAI API documentation. Created with React running on AWS serverless infrastructure integrated to the OpenAI Python API.
+A [React](https://react.dev/) + [AWS Serverless](https://aws.amazon.com/serverless/) full stack implementation of the [30 example applications](https://platform.openai.com/examples) found in the official OpenAI API documentation.
 
 **IMPORTANT DISCLAIMER: AWS' Lambda service has a hard 29-second timeout. OpenAI API calls often take longer than this, in which case the AWS API Gateway endpoint will return a 504 "Gateway timeout error" response to the React client. This happens frequently with apps created using chatgpt-4. Each of the 30 OpenAI API example applications are nonetheless implemented exactly as they are specified in the official documentation.**
 

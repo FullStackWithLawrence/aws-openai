@@ -256,3 +256,76 @@ resource "aws_api_gateway_integration_response" "test_500" {
     aws_api_gateway_integration.test_500
   ]
 }
+
+###############################################################################
+# Test 504
+###############################################################################
+data "template_file" "test_504" {
+  template = jsonencode({
+    "statusCode" = 504
+  })
+}
+
+resource "aws_api_gateway_resource" "test_504" {
+  path_part   = "test_504"
+  parent_id   = aws_api_gateway_resource.tests.id
+  rest_api_id = aws_api_gateway_rest_api.openai.id
+}
+
+resource "aws_api_gateway_method" "test_504" {
+  rest_api_id      = aws_api_gateway_rest_api.openai.id
+  resource_id      = aws_api_gateway_resource.test_504.id
+  http_method      = "POST"
+  authorization    = "NONE"
+  api_key_required = "false"
+}
+
+resource "aws_api_gateway_integration" "test_504" {
+  rest_api_id             = aws_api_gateway_rest_api.openai.id
+  resource_id             = aws_api_gateway_resource.test_504.id
+  http_method             = aws_api_gateway_method.test_504.http_method
+  integration_http_method = "POST"
+  type                    = "MOCK"
+  request_templates = {
+    "application/json" = data.template_file.test_504.rendered
+  }
+  depends_on = [aws_api_gateway_method.test_504]
+}
+
+resource "aws_api_gateway_method_response" "test_504" {
+  rest_api_id = aws_api_gateway_rest_api.openai.id
+  resource_id = aws_api_gateway_resource.test_504.id
+  http_method = aws_api_gateway_method.test_504.http_method
+  status_code = "504"
+  response_models = {
+    "application/json" = "Error"
+  }
+  response_parameters = {
+    "method.response.header.Content-Type"                 = true
+    "method.response.header.Access-Control-Allow-Headers" = true
+    "method.response.header.Access-Control-Allow-Methods" = true
+    "method.response.header.Access-Control-Allow-Origin"  = true
+  }
+}
+
+resource "aws_api_gateway_integration_response" "test_504" {
+  rest_api_id       = aws_api_gateway_rest_api.openai.id
+  resource_id       = aws_api_gateway_resource.test_504.id
+  http_method       = aws_api_gateway_method.test_504.http_method
+  status_code       = aws_api_gateway_method_response.test_504.status_code
+  selection_pattern = "504"
+
+  response_parameters = {
+    "method.response.header.Content-Type"                 = "'application/json'",
+    "method.response.header.Access-Control-Allow-Headers" = "'*'",
+    "method.response.header.Access-Control-Allow-Methods" = "'*'",
+    "method.response.header.Access-Control-Allow-Origin"  = "'*'"
+  }
+  response_templates = {
+    "application/json" = jsonencode({})
+  }
+
+  depends_on = [
+    aws_api_gateway_integration.test_504
+  ]
+}

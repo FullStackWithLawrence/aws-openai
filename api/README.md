@@ -69,36 +69,38 @@ An example complete URL for one of the end points described below: https://api.o
 
 Implementations of each example application found in [OpenAI API - Examples](https://platform.openai.com/examples).
 
-- [/examples/default-grammar](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L19)
-- [/examples/default-summarize](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L41)
-- [/examples/default-parse-data](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L65)
-- [/examples/default-emoji-translation](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L90)
-- [/examples/default-time-complexity](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L114)
-- [/examples/default-explain-code](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L138)
-- [/examples/default-keywords](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L162)
-- [/examples/default-product-name-gen](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L186)
-- [/examples/default-fix-python-bugs](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L210)
-- [/examples/default-spreadsheet-gen](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L234)
-- [/examples/default-tweet-classifier](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L257)
-- [/examples/default-airport-codes](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L281)
-- [/examples/default-mood-color](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L305)
-- [/examples/default-vr-fitness](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L329)
-- [/examples/default-marv-sarcastic-chat](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L352)
-- [/examples/default-turn-by-turn-directions](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L376)
-- [/examples/default-interview-questions](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L400)
-- [/examples/default-function-from-spec](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L423)
-- [/examples/default-code-improvement](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L446)
-- [/examples/default-single-page-website](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L470)
-- [/examples/default-rap-battle](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L493)
-- [/examples/default-memo-writer](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L516)
-- [/examples/default-emoji-chatbot](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L539)
-- [/examples/default-translation](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L563)
-- [/examples/default-socratic-tutor](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L587)
-- [/examples/default-sql-translate](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L611)
-- [/examples/default-meeting-notes-summarizer](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L635)
-- [/examples/default-review-classifier](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L659)
-- [/examples/default-pro-con-discusser](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L683)
-- [/examples/default-lesson-plan-writer](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L706)
+| Example | Link |
+|---------|------|
+| default-grammar | [/examples/default-grammar](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L19) |
+| default-summarize | [/examples/default-summarize](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L41) |
+| default-parse-data | [/examples/default-parse-data](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L65) |
+| default-emoji-translation | [/examples/default-emoji-translation](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L90) |
+| default-time-complexity | [/examples/default-time-complexity](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L114) |
+| default-explain-code | [/examples/default-explain-code](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L138) |
+| default-keywords | [/examples/default-keywords](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L162) |
+| default-product-name-gen | [/examples/default-product-name-gen](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L186) |
+| default-fix-python-bugs | [/examples/default-fix-python-bugs](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L210) |
+| default-spreadsheet-gen | [/examples/default-spreadsheet-gen](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L234) |
+| default-tweet-classifier | [/examples/default-tweet-classifier](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L257) |
+| default-airport-codes | [/examples/default-airport-codes](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L281) |
+| default-mood-color | [/examples/default-mood-color](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L305) |
+| default-vr-fitness | [/examples/default-vr-fitness](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L329) |
+| default-marv-sarcastic-chat | [/examples/default-marv-sarcastic-chat](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L352) |
+| default-turn-by-turn-directions | [/examples/default-turn-by-turn-directions](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L376) |
+| default-interview-questions | [/examples/default-interview-questions](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L400) |
+| default-function-from-spec | [/examples/default-function-from-spec](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L423) |
+| default-code-improvement | [/examples/default-code-improvement](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L446) |
+| default-single-page-website | [/examples/default-single-page-website](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L470) |
+| default-rap-battle | [/examples/default-rap-battle](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L493) |
+| default-memo-writer | [/examples/default-memo-writer](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L516) |
+| default-emoji-chatbot | [/examples/default-emoji-chatbot](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L539) |
+| default-translation | [/examples/default-translation](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L563) |
+| default-socratic-tutor | [/examples/default-socratic-tutor](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L587) |
+| default-sql-translate | [/examples/default-sql-translate](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L611) |
+| default-meeting-notes-summarizer | [/examples/default-meeting-notes-summarizer](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L635) |
+| default-review-classifier | [/examples/default-review-classifier](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L659) |
+| default-pro-con-discusser | [/examples/default-pro-con-discusser](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L683) |
+| default-lesson-plan-writer | [/examples/default-lesson-plan-writer](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L706) |
 
 ### Passthrough
 

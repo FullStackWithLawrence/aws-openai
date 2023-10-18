@@ -58,12 +58,6 @@ return value
 
 An example complete URL for one of the end points described below: https://api.openai.example.com/examples/default-grammar
 
-### Passthrough
-
-A single URL end point that passes the http request body directly to the OpenAI API
-
-- [/passthrough](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoint_passthrough.tf)
-
 ### Tests
 
 - [/tests/test_200](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_tests.tf#L10)
@@ -105,6 +99,31 @@ Implementations of each example application found in [OpenAI API - Examples](htt
 - [/examples/default-review-classifier](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L659)
 - [/examples/default-pro-con-discusser](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L683)
 - [/examples/default-lesson-plan-writer](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L706)
+
+### Passthrough
+
+A single URL end point, [/passthrough](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoint_passthrough.tf), that passes the http request body directly to the OpenAI API
+
+Example valid request body:
+
+```json
+{
+    "model": "gpt-3.5-turbo",
+    "end_point": "ChatCompletion",
+    "temperature": 0.9,
+    "max_tokens": 1024,
+    "messages": [
+        {
+            "role": "system",
+            "content": "Summarize content you are provided with for a second-grade student."
+        },
+        {
+            "role": "user",
+            "content": "what is quantum computing?"
+        }
+    ]
+}
+```
 
 ## Official YouTube Video For This Repo
 

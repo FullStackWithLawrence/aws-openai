@@ -60,7 +60,7 @@ An example complete URL for one of the end points described below: https://api.o
 
 ### Passthrough
 
-A single end points that passes the http request body directly to the OpenAI API
+A single URL end point that passes the http request body directly to the OpenAI API
 
 - [/passthrough](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoint_passthrough.tf)
 

@@ -7,32 +7,9 @@ resource "aws_api_gateway_resource" "tests" {
 ###############################################################################
 # Test 200
 ###############################################################################
+
 data "template_file" "test_200" {
-  template = jsonencode({
-    "isBase64Encoded" : false,
-    "statusCode" : 200,
-    "body" : {
-      "id" : "chatcmpl-8AQPdETlM808Fp0NjEeCOOc3a13Vt",
-      "object" : "chat.completion",
-      "created" : 1697495501,
-      "model" : "gpt-3.5-turbo-0613",
-      "choices" : [
-        {
-          "index" : 0,
-          "message" : {
-            "role" : "assistant",
-            "content" : "Oh, hello there! What kind of trouble can I unknowingly get myself into for you today?"
-          },
-          "finish_reason" : "stop"
-        }
-      ],
-      "usage" : {
-        "prompt_tokens" : 31,
-        "completion_tokens" : 20,
-        "total_tokens" : 51
-      }
-    }
-  })
+  template = file("${path.module}/templates/test_200.json")
 }
 
 resource "aws_api_gateway_resource" "test_200" {
@@ -104,14 +81,7 @@ resource "aws_api_gateway_integration_response" "test_200" {
 # Test 400
 ###############################################################################
 data "template_file" "test_400" {
-  template = jsonencode({
-    "isBase64Encoded" : false,
-    "statusCode" = 400
-    "body" : {
-      "error" : "Bad Request",
-      "message" : "TEST 400 RESPONSE."
-    }
-  })
+  template = file("${path.module}/templates/test_400.json")
 }
 
 resource "aws_api_gateway_resource" "test_400" {

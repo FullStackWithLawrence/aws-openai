@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "00-test_200",
+			"name": "passthrough",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -17,6 +17,32 @@
 						"type": "text"
 					}
 				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"model\": \"gpt-3.5-turbo\",\n \"end_point\": \"ChatCompletion\",\n \"temperature\": 0.9,\n \"max_tokens\": 1024,\n \"messages\": [\n   {\n      \"role\": \"system\",\n      \"content\": \"Summarize content you are provided with for a second-grade student.\"\n   },\n   {\n      \"role\": \"user\",\n      \"content\": \"what is quantum computing?\"\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/passthrough",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"passthrough"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test-00-test_200",
+			"request": {
+				"method": "POST",
+				"header": [],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"input_text\": \"this is a test\"\n}",
@@ -40,16 +66,10 @@
 			"response": []
 		},
 		{
-			"name": "00-test_400",
+			"name": "test-00-test_400",
 			"request": {
 				"method": "POST",
-				"header": [
-					{
-						"key": "x-api-key",
-						"value": "{{api_key}}",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"input_text\": \"this is a test\"\n}",
@@ -73,16 +93,10 @@
 			"response": []
 		},
 		{
-			"name": "00-test_500",
+			"name": "test-00-test_500",
 			"request": {
 				"method": "POST",
-				"header": [
-					{
-						"key": "x-api-key",
-						"value": "{{api_key}}",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"input_text\": \"this is a test\"\n}",
@@ -106,7 +120,34 @@
 			"response": []
 		},
 		{
-			"name": "01-grammar",
+			"name": "test-00-test_504",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input_text\": \"this is a test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/tests/test_504",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tests",
+						"test_504"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "example-01-grammar",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -139,7 +180,7 @@
 			"response": []
 		},
 		{
-			"name": "02-summarize",
+			"name": "example-02-summarize",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -172,7 +213,7 @@
 			"response": []
 		},
 		{
-			"name": "03-parse-data",
+			"name": "example-03-parse-data",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -205,7 +246,7 @@
 			"response": []
 		},
 		{
-			"name": "04-emoji-translation",
+			"name": "example-04-emoji-translation",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -238,7 +279,7 @@
 			"response": []
 		},
 		{
-			"name": "04-emoji-chat",
+			"name": "example-04-emoji-chat",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -271,7 +312,7 @@
 			"response": []
 		},
 		{
-			"name": "05-time-complexity",
+			"name": "example-05-time-complexity",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -315,7 +356,7 @@
 			"response": []
 		},
 		{
-			"name": "06-explain-code",
+			"name": "example-06-explain-code",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -359,7 +400,7 @@
 			"response": []
 		},
 		{
-			"name": "07-keywords",
+			"name": "example-07-keywords",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -403,7 +444,7 @@
 			"response": []
 		},
 		{
-			"name": "08-product-name-gen",
+			"name": "example-08-product-name-gen",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -447,7 +488,7 @@
 			"response": []
 		},
 		{
-			"name": "09-fix-python-bugs",
+			"name": "example-09-fix-python-bugs",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -491,7 +532,7 @@
 			"response": []
 		},
 		{
-			"name": "10-spreadsheet-gen",
+			"name": "example-10-spreadsheet-gen",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -535,7 +576,7 @@
 			"response": []
 		},
 		{
-			"name": "11-tweet-classifier",
+			"name": "example-11-tweet-classifier",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -579,7 +620,7 @@
 			"response": []
 		},
 		{
-			"name": "12-airport-codes",
+			"name": "example-12-airport-codes",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -623,7 +664,7 @@
 			"response": []
 		},
 		{
-			"name": "13-mood-color",
+			"name": "example-13-mood-color",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -667,7 +708,7 @@
 			"response": []
 		},
 		{
-			"name": "14-vr-fitness",
+			"name": "example-14-vr-fitness",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -711,7 +752,7 @@
 			"response": []
 		},
 		{
-			"name": "15-marv-sarcastic-chat",
+			"name": "example-15-marv-sarcastic-chat",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -755,7 +796,7 @@
 			"response": []
 		},
 		{
-			"name": "16-turn-by-turn-directions",
+			"name": "example-16-turn-by-turn-directions",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -799,7 +840,7 @@
 			"response": []
 		},
 		{
-			"name": "17-interview-questions",
+			"name": "example-17-interview-questions",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -843,7 +884,7 @@
 			"response": []
 		},
 		{
-			"name": "18-function-from-spec",
+			"name": "example-18-function-from-spec",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -887,7 +928,7 @@
 			"response": []
 		},
 		{
-			"name": "19-code-improvement",
+			"name": "example-19-code-improvement",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -931,7 +972,7 @@
 			"response": []
 		},
 		{
-			"name": "20-single-page-website",
+			"name": "example-20-single-page-website",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -975,7 +1016,7 @@
 			"response": []
 		},
 		{
-			"name": "21-rap-battle",
+			"name": "example-21-rap-battle",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -1019,7 +1060,7 @@
 			"response": []
 		},
 		{
-			"name": "22-memo-writer",
+			"name": "example-22-memo-writer",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -1063,7 +1104,7 @@
 			"response": []
 		},
 		{
-			"name": "24-translation",
+			"name": "example-24-translation",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -1107,7 +1148,7 @@
 			"response": []
 		},
 		{
-			"name": "25-socratic-tutor",
+			"name": "example-25-socratic-tutor",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -1151,7 +1192,7 @@
 			"response": []
 		},
 		{
-			"name": "26-sql-translate",
+			"name": "example-26-sql-translate",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -1195,7 +1236,7 @@
 			"response": []
 		},
 		{
-			"name": "27-notes-summarizer",
+			"name": "example-27-notes-summarizer",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -1239,7 +1280,7 @@
 			"response": []
 		},
 		{
-			"name": "28-review-classifier",
+			"name": "example-28-review-classifier",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -1283,7 +1324,7 @@
 			"response": []
 		},
 		{
-			"name": "29-pro-con-discusser",
+			"name": "example-29-pro-con-discusser",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -1327,7 +1368,7 @@
 			"response": []
 		},
 		{
-			"name": "30-lesson-plan-writer",
+			"name": "example-30-lesson-plan-writer",
 			"event": [
 				{
 					"listen": "prerequest",

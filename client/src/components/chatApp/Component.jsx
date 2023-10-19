@@ -4,11 +4,13 @@
 //
 //  date:       Oct-2023
 //---------------------------------------------------------------------------------
+
+// React stuff
 import React, { useRef } from 'react';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import './Component.css';
+// Chat UI stuff
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import {
   MainContainer,
@@ -24,16 +26,20 @@ import {
   VideoCallButton,
 } from '@chatscope/chat-ui-kit-react';
 
+// Our stuff
+import './Component.css';
 import { ChatModal } from './Modal.jsx';
 import { processApiRequest } from './ApiRequest.js';
 
 const TIMESTAMP_NOW = 'just now';
 
-
 function ChatApp(props) {
   const fileInputRef = useRef(null);
 
-  // props
+  // props. These are passed in from the parent component.
+  // In all fairness this probably isn't necessary, but it's a good practice
+  // to define the props that are expected to be passed in and also
+  // to make these immutable.
   const welcome_message = props.welcome_message;
   const placeholder_text = props.placeholder_text;
   const api_url = props.api_url;
@@ -87,6 +93,8 @@ function ChatApp(props) {
   const handleInfoButtonClick = () => {
     window.open(info_url, '_blank');
   };
+
+  // API request handler
   async function handleRequest(input_text, base64_encode=true) {
     const newMessage = {
       message: input_text,
@@ -123,6 +131,7 @@ function ChatApp(props) {
     }
   }
 
+  // file upload event handlers
   const handleAttachClick = async () => {
     fileInputRef.current.click();
   };
@@ -136,9 +145,14 @@ function ChatApp(props) {
     };
     reader.readAsText(file);
   }
+
+  // send button event handler
   const handleSendRequest = (input_text) => {
 
-    // remove any HTML tags from the input_text
+    // remove any HTML tags from the input_text. Pasting text into the
+    // input box (from any source) tends to result in HTML span tags being included
+    // in the input_text. This is a problem because the API doesn't know how to
+    // handle HTML tags. So we remove them here.
     const sanitized_input_text = input_text.replace(/<[^>]+>/g, '');
 
     // check if the sanitized input text is empty or only contains whitespace
@@ -202,6 +216,8 @@ function ChatApp(props) {
   )
 }
 
+// define the props that are expected to be passed in and also
+// make these immutable.
 ChatApp.propTypes = {
   welcome_message: PropTypes.string.isRequired,
   placeholder_text: PropTypes.string.isRequired,

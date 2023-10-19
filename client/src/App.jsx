@@ -1,14 +1,16 @@
-// see: https://www.npmjs.com/package/react-pro-sidebar
+// React code
 import React from 'react';
 import { useState } from 'react';
-import './App.css';
-import ChatApp from './components/chatApp/Component';
+
+// Third party components
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { ContainerLayout, SidebarLayout, ContentLayout, Logo } from './components/Layout/';
 import { FaInfo, FaDatabase, FaCode, FaChartLine, FaClipboardList, FaGamepad } from "react-icons/fa";
-import AboutPage from './components/about/Component';
 
-// chatApp routes
+// Our code
+import './App.css';
+import ChatApp from './components/chatApp/Component';
+import AboutPage from './components/about/Component';
 import { APPLICATIONS } from './config';
 
 // chatApp definitions

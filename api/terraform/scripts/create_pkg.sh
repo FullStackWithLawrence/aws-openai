@@ -14,25 +14,29 @@
 # see https://github.com/ruzin/terraform_aws_lambda_python/
 #------------------------------------------------------------------------------
 
-cd $source_code_path
+echo SOURCE_CODE_PATH ${SOURCE_CODE_PATH}
+echo PACKAGE_FOLDER ${PACKAGE_FOLDER}
+echo RUNTIME ${RUNTIME}
+
+cd $SOURCE_CODE_PATH
 
 # triggers a complete rebuild of the package
-if [ -d $package_folder ]; then
-  rm -rf $package_folder
+if [ -d $PACKAGE_FOLDER ]; then
+  rm -rf $PACKAGE_FOLDER
 fi
 
 # force a Terraform state change in the package
 # by deleting any existing zip archive that might exist.
-if [ -f "${package_folder}.zip" ]; then
-  rm "${package_folder}.zip"
+if [ -f "${PACKAGE_FOLDER}.zip" ]; then
+  rm "${PACKAGE_FOLDER}.zip"
 fi
 
-mkdir -p $package_folder
+mkdir -p $PACKAGE_FOLDER
 
 # create a dedicated Python virtual environment
 # for the Python Lambda resources calling this script.
 if [ ! -d "venv" ]; then
-  virtualenv -p $runtime venv
+  virtualenv -p $RUNTIME venv
 fi
 
 # launch the environment, install all requirements
@@ -47,5 +51,5 @@ deactivate
 #
 #       The overall size of this package exceeds that which is viewable
 #       from within the AWS Lambda console.
-cp -r "venv/lib/$runtime/site-packages/" $package_folder/
-cp *.py $package_folder/
+cp -r "venv/lib/$RUNTIME/site-packages/" $PACKAGE_FOLDER/
+cp *.py $PACKAGE_FOLDER/

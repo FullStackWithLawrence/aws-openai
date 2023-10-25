@@ -6,6 +6,7 @@ venv
 .env
 lambda_dist_pkg
 *.zip
+__pycache__
 
 # .tfstate files
 *.tfstate

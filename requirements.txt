@@ -7,5 +7,8 @@
 #             modules will look for and include these requirements in the zip
 #             packages for each Python-based Lambda function.
 # -----------------------------------------------------------------------------
+python-dotenv
 openai>=0.28.0
 boto3>=1.28
+pytest
+pytest_mock

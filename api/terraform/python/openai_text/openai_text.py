@@ -57,7 +57,7 @@ HTTP_RESPONSE_INTERNAL_SERVER_ERROR = 500
 # https://platform.openai.com/api_keys
 OPENAI_ENDPOINT_IMAGE_N = int(os.getenv("OPENAI_ENDPOINT_IMAGE_N", 4))
 OPENAI_ENDPOINT_IMAGE_SIZE = os.getenv("OPENAI_ENDPOINT_IMAGE_SIZE", "1024x768")
-openai.organization = os.getenv("OPENAI_API_ORGANIZATION", "Personal")
+openai.organization = os.getenv("OPENAI_API_ORGANIZATION")
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
@@ -262,13 +262,19 @@ def parse_request(request_body: dict):
     return end_point, model, messages, input_text
 
 
-def handler(event, context):
+def handler(event, context, api_key=None, organization=None):
     """
     Main Lambda handler function.
 
     Responsible for processing incoming requests and invoking the appropriate
     OpenAI API endpoint based on the contents of the request.
     """
+    # set api key if not already set
+    if api_key and not openai.api_key:
+        openai.api_key = api_key
+    if organization and not openai.organization:
+        openai.organization = organization
+
     dump_environment(event)
     try:
         openai_results = {}

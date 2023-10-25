@@ -11,7 +11,11 @@ api-init: $(.env)
 
 api-activate:
 	. .venv/bin/activate
-	pip install -r requirements.txt
+	pip3 install -r requirements.txt
+
+api-test:
+	cd ./api/terraform/python/openai_text && \
+	pytest -k "not lambda_dist_pkg" tests/
 
 api-lint:
 	terraform fmt -recursive

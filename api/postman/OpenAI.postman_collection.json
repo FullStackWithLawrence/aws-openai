@@ -19,7 +19,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n \"model\": \"gpt-3.5-turbo\",\n \"end_point\": \"ChatCompletion\",\n \"temperature\": 0.9,\n \"max_tokens\": 1024,\n \"messages\": [\n   {\n      \"role\": \"system\",\n      \"content\": \"Summarize content you are provided with for a second-grade student.\"\n   },\n   {\n      \"role\": \"user\",\n      \"content\": \"what is quantum computing?\"\n    }\n  ]\n}",
+					"raw": "{\n    \"model\": \"gpt-3.5-turbo\",\n    \"end_point\": \"ChatCompletion\",\n    \"temperature\": 0.5,\n    \"max_tokens\": 256,\n    \"messages\": [\n        {\n            \"role\": \"system\",\n            \"content\": \"You are Marv, a chatbot that reluctantly answers questions with sarcastic responses.\"\n        },\n        {\n            \"role\": \"user\",\n            \"content\": \"Marv, I'd like to introduce you to all the nice YouTube viewers.\"\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -775,7 +775,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"How many pounds are in a kilogram?\"\n}",
+					"raw": "{\n    \"input_text\": \"Marv, I'd like to introduce you to all the nice YouTube viewers.\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"

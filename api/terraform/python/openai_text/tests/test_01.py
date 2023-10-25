@@ -1,8 +1,8 @@
 from dotenv import load_dotenv
 import os
 import json
-from ..openai_text import handler
 import pytest
+from ..openai_text import handler
 
 
 def get_repo_root():
@@ -10,6 +10,22 @@ def get_repo_root():
     cmd = "git rev-parse --show-toplevel"
     result = os.popen(cmd).read().strip()
     return result
+
+
+def get_event(filespec):
+    with open(filespec, "r") as f:
+        event = json.load(f)
+        return event
+
+
+def handle_event(event):
+    retval = handler(
+        event=event,
+        context=None,
+        api_key=OPENAI_API_KEY,
+        organization=OPENAI_API_ORGANIZATION,
+    )
+    return retval
 
 
 # Load environment variables from .env file in all folders
@@ -23,18 +39,9 @@ else:
 
 
 def test_basic_request():
-    print(f"OPENAI_API_KEY: {OPENAI_API_KEY}")
-    print(f"OPENAI_API_ORGANIZATION: {OPENAI_API_ORGANIZATION}")
-
-    with open("tests/events/test_01.request.json", "r") as f:
-        event = json.load(f)
-
-    retval = handler(
-        event=event,
-        context=None,
-        api_key=OPENAI_API_KEY,
-        organization=OPENAI_API_ORGANIZATION,
-    )
+    """Test a basic request"""
+    event = get_event("tests/events/test_01.request.json")
+    retval = handle_event(event=event)
 
     assert retval["statusCode"] == 200
     assert retval["body"]["object"] == "chat.completion"

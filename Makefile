@@ -5,26 +5,29 @@ CLOUDFRONT_DISTRIBUTION_ID = E3AIBM1KMSJOP1
 .PHONY: api-init api-activate api-lint api-clean api-test client-init client-lint client-update client-run client-build client-release
 
 api-init: $(.env)
-	python3.11 -m venv .venv
-	echo -e "OPENAI_API_ORGANIZATION=PLEASE-ADD-ME\nOPENAI_API_KEY=PLEASE-ADD-ME" >> .env
+	ifeq ($(wildcard .venv),)
+		python3.11 -m venv .venv
+	endif
+	ifeq ($(wildcard .env),)
+		echo -e "OPENAI_API_ORGANIZATION=PLEASE-ADD-ME\nOPENAI_API_KEY=PLEASE-ADD-ME" >> .env
+	endif
 	pre-commit install
 
 api-activate:
-	. .venv/bin/activate
-	pip3 install -r requirements.txt
+	. .venv/bin/activate &&  \
+	pip install -r requirements.txt
 
 api-test:
 	cd ./api/terraform/python/openai_text && \
 	pytest -k "not lambda_dist_pkg" tests/
 
 api-lint:
-	terraform fmt -recursive
-	pre-commit run --all-files
+	terraform fmt -recursive && \
+	pre-commit run --all-files && \
 	black ./api/terraform/python/
 
 api-clean:
 	rm -rf .venv
-	# Add any other generated files to remove here
 
 client-init:
 	cd ./client && npm install

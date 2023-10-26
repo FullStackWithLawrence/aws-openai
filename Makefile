@@ -9,7 +9,7 @@ api-init: $(.env)
 		python3.11 -m venv .venv
 	endif
 	ifeq ($(wildcard .env),)
-		echo -e "OPENAI_API_ORGANIZATION=PLEASE-ADD-ME\nOPENAI_API_KEY=PLEASE-ADD-ME" >> .env
+		echo -e "OPENAI_API_ORGANIZATION=PLEASE-ADD-ME\nOPENAI_API_KEY=PLEASE-ADD-ME\nPINECONE_API_KEY=PLEASE-ADD-ME\nDEBUG_MODE=True\n" >> .env
 	endif
 	pre-commit install
 

@@ -11,5 +11,9 @@ python-dotenv
 boto3>=1.28
 pytest
 pytest_mock
+
+# substantive requirements
 openai>=0.28.0
 langchain>=0.0.323
+pinecone-client>=2.2.4
+tiktoken

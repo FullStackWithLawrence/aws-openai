@@ -5,6 +5,7 @@ written by: Lawrence McDaniel
 date:       sep-2023
 
 usage:
+    see: https://www.youtube.com/watch?v=aywZrzNaKjs
     API Documentation: https://platform.openai.com/docs/api-reference/making-requests?lang=python
     Source: https://github.com/openai/openai-python
     Code Samples: https://github.com/openai/openai-cookbook/
@@ -43,8 +44,10 @@ Endpoint request body after transformations: {
 
 import base64
 import json  # library for interacting with JSON data https://www.json.org/json-en.html
+import langchain
 import openai
 import os  # library for interacting with the operating system
+import pinecone
 import platform  # library to view informatoin about the server host this Lambda runs on
 import sys  # libraries for error management
 import traceback  # libraries for error management
@@ -262,7 +265,7 @@ def parse_request(request_body: dict):
     return end_point, model, messages, input_text
 
 
-def handler(event, context, api_key=None, organization=None):
+def handler(event, context, api_key=None, organization=None, pinecone_api_key=None):
     """
     Main Lambda handler function.
 
@@ -274,6 +277,8 @@ def handler(event, context, api_key=None, organization=None):
         openai.api_key = api_key
     if organization and not openai.organization:
         openai.organization = organization
+    if pinecone_api_key:
+        pass
 
     dump_environment(event)
     try:

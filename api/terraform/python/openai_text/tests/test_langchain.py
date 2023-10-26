@@ -5,7 +5,7 @@ from dotenv import load_dotenv, find_dotenv
 import os
 
 # substantive imports
-from langchain.llms import OpenAI
+from langchain.llms.openai import OpenAI
 from langchain.schema import AIMessage, HumanMessage, SystemMessage
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
@@ -13,16 +13,11 @@ from langchain.chains import LLMChain
 from langchain.chains import SimpleSequentialChain
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
-
-import pinecone
 from langchain.vectorstores.pinecone import Pinecone
-
 from langchain_experimental.agents.agent_toolkits.python.base import create_python_agent
 from langchain.tools.python.tool import PythonAstREPLTool
 from langchain.python import PythonREPL
-from langchain.llms.openai import OpenAI
-
-PINECONE_INDEX_NAME = "langchain-quickstart"
+import pinecone
 
 # Load environment variables from .env file in all folders
 dotenv_path = find_dotenv()
@@ -32,12 +27,13 @@ if os.path.exists(dotenv_path):
     OPENAI_API_ORGANIZATION = os.environ["OPENAI_API_ORGANIZATION"]
     PINECONE_API_KEY = os.environ["PINECONE_API_KEY"]
     PINECONE_ENVIRONMENT = os.environ["PINECONE_ENVIRONMENT"]
-    pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_ENVIRONMENT)
 else:
     raise Exception("No .env file found in root directory of repository")
 
 
-class PineconeTests:
+class LangChainDev:
+    PINECONE_INDEX_NAME = "langchain-quickstart"
+
     multi_prompt_explanation = None
     texts_splitter_results = None
     pinecone_search = None
@@ -48,6 +44,7 @@ class PineconeTests:
         tool=PythonAstREPLTool(),
         verbose=True,
     )
+    pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_ENVIRONMENT)
 
     def test_01_basic(self):
         """Test a basic request"""
@@ -138,7 +135,7 @@ class PineconeTests:
         self.pinecone_search = Pinecone.from_documents(
             self.texts_splitter_results,
             embedding=self.openai_embedding,
-            index_name=PINECONE_INDEX_NAME,
+            index_name=self.PINECONE_INDEX_NAME,
         )
 
     def test_07_pinecone_search(self):
@@ -156,11 +153,12 @@ class PineconeTests:
         # self.test_06_embeddings()
         # self.test_06_embeddings_b()
         # self.test_07_pinecone_search()
-        self.test_08_agent_executor
+        # self.test_08_agent_executor
+        self.test_03_prompt_templates()
 
 
 def main():
-    pintcode_tests = PineconeTests()
+    pintcode_tests = LangChainDev()
     pintcode_tests.main()
 
 

@@ -4,6 +4,12 @@ CLOUDFRONT_DISTRIBUTION_ID = E3AIBM1KMSJOP1
 
 .PHONY: api-init api-activate api-lint api-clean api-test client-init client-lint client-update client-run client-build client-release
 
+# Default target executed when no arguments are given to make.
+all: help
+
+######################
+# AWS API Gateway + Lambda + OpenAI
+######################
 api-init: $(.env)
 	ifeq ($(wildcard .venv),)
 		python3.11 -m venv .venv
@@ -14,12 +20,12 @@ api-init: $(.env)
 	pre-commit install
 
 api-activate:
-	. .venv/bin/activate &&  \
+	. .venv/bin/activate && \
 	pip install -r requirements.txt
 
 api-test:
 	cd ./api/terraform/python/openai_text && \
-	pytest -k "not lambda_dist_pkg" tests/
+	pytest -v -s -k "not lambda_dist_pkg" tests/
 
 api-lint:
 	terraform fmt -recursive && \
@@ -29,6 +35,9 @@ api-lint:
 api-clean:
 	rm -rf .venv
 
+######################
+# React app
+######################
 client-init:
 	cd ./client && npm install
 
@@ -74,3 +83,23 @@ client-release:
 
 	# invalidate the Cloudfront cache
 	aws cloudfront create-invalidation --distribution-id $(CLOUDFRONT_DISTRIBUTION_ID) --paths "/*" "/index.html"
+
+######################
+# HELP
+######################
+
+help:
+	@echo '===================='
+	@echo '-- AWS API Gateway + Lambda --'
+	@echo 'api-init            - create a Python virtual environment and install dependencies'
+	@echo 'api-activate        - activate the Python virtual environment'
+	@echo 'api-test            - run Python unit tests'
+	@echo 'api-lint            - run Python linting'
+	@echo 'api-clean           - destroy the Python virtual environment'
+	@echo '-- React App --'
+	@echo 'client-init         - run npm install'
+	@echo 'client-lint         - run npm lint'
+	@echo 'client-update       - update npm packages'
+	@echo 'client-run          - run the React app in development mode'
+	@echo 'client-build        - build the React app for production'
+	@echo 'client-release      - deploy the React app to AWS S3 and invalidate the Cloudfront CDN'

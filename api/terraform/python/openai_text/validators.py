@@ -1,3 +1,6 @@
+"""
+Internal validation functions for requests from API Gateway.
+"""
 import json
 
 
@@ -49,6 +52,10 @@ def validate_completion_request(request_body) -> None:
     validate_request_body(request_body=request_body)
     if "model" not in request_body:
         raise ValueError("dict key 'model' not found in request body object")
+    if "temperature" not in request_body:
+        raise ValueError("dict key 'temperature' not found in request body object")
+    if "max_tokens" not in request_body:
+        raise ValueError("dict key 'max_tokens' not found in request body object")
     validate_messages(request_body=request_body)
 
 

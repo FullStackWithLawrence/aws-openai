@@ -13,58 +13,53 @@
 #           that call this Lambda, rather than here.
 #------------------------------------------------------------------------------
 locals {
-  text_slug             = "text"
-  text_function_name    = "${var.shared_resource_identifier}_${local.text_slug}"
-  text_source_directory = "${path.module}/python/${local.text_function_name}"
-  packaging_script      = "${path.module}/scripts/create_pkg.sh"
-  text_package_folder   = "lambda_dist_pkg"
-  dist_package_name     = "lambda_dist_pkg"
+  openai_function_name     = "lambda_${var.shared_resource_identifier}"
+  openai_source_directory  = "${path.module}/python/${local.openai_function_name}"
+  openai_packaging_script  = "${path.module}/scripts/create_pkg_${local.openai_function_name}.sh"
+  openai_package_folder    = "lambda_dist_pkg"
+  openai_dist_package_name = "lambda_dist_pkg"
 }
 
 ###############################################################################
 # Python package
 # https://alek-cora-glez.medium.com/deploying-aws-lambda-function-with-terraform-custom-dependencies-7874407cd4fc
 ###############################################################################
-resource "null_resource" "package_openai_text" {
+resource "null_resource" "package_lambda_openai" {
   triggers = {
     redeployment = sha1(jsonencode([
-      file("${local.text_source_directory}/lambda_handler.py"),
-      file("${local.text_source_directory}/const.py"),
-      file("${local.text_source_directory}/utils.py"),
-      file("${local.text_source_directory}/validators.py"),
-      file("${local.text_source_directory}/langchain_wrapper.py"),
-      file("${local.text_source_directory}/requirements.txt"),
-      file("${local.packaging_script}")
+      file("${local.openai_source_directory}/lambda_handler.py"),
+      file("${local.openai_source_directory}/requirements.txt"),
+      file("${local.openai_packaging_script}")
     ]))
   }
 
   provisioner "local-exec" {
     interpreter = ["/bin/bash"]
-    command     = "${path.module}/scripts/create_pkg.sh"
+    command     = local.openai_packaging_script
 
     environment = {
-      PACKAGE_NAME     = local.text_function_name
-      SOURCE_CODE_PATH = local.text_source_directory
-      PACKAGE_FOLDER   = local.text_package_folder
+      PACKAGE_NAME     = local.openai_function_name
+      SOURCE_CODE_PATH = local.openai_source_directory
+      PACKAGE_FOLDER   = local.openai_package_folder
       RUNTIME          = var.lambda_python_runtime
     }
   }
 }
 
-data "archive_file" "openai_text" {
+data "archive_file" "lambda_openai" {
   # see https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file
-  source_dir  = "${local.text_source_directory}/${local.text_package_folder}/"
-  output_path = "${local.text_source_directory}/${local.dist_package_name}.zip"
+  source_dir  = "${local.openai_source_directory}/${local.openai_package_folder}/"
+  output_path = "${local.openai_source_directory}/${local.openai_dist_package_name}.zip"
   type        = "zip"
-  depends_on  = [null_resource.package_openai_text]
+  depends_on  = [null_resource.package_lambda_openai]
 }
 
 ###############################################################################
 # OpenAI API key and organization
 ###############################################################################
-data "external" "env_text" {
+data "external" "env_lambda_openai" {
   # kluge to read and map the openai api key and org data contained in .env
-  program = ["${path.module}/scripts/env.sh"]
+  program = ["${path.module}/scripts/env_${local.openai_function_name}.sh"]
 
   # For Windows (or Powershell core on MacOS and Linux),
   # run a Powershell script instead
@@ -74,26 +69,26 @@ data "external" "env_text" {
 ###############################################################################
 # AWS Lambda function
 ###############################################################################
-resource "aws_lambda_function" "openai_text" {
+resource "aws_lambda_function" "lambda_openai" {
   # see https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function.html
   # see https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
-  function_name    = local.text_function_name
-  description      = "OpenAI API integrator for text-based inputs"
+  function_name    = local.openai_function_name
+  description      = "OpenAI API request handler"
   role             = aws_iam_role.lambda.arn
   publish          = true
   runtime          = var.lambda_python_runtime
   memory_size      = var.lambda_memory_size
   timeout          = var.lambda_timeout
   handler          = "lambda_handler.handler"
-  filename         = data.archive_file.openai_text.output_path
-  source_code_hash = data.archive_file.openai_text.output_base64sha256
+  filename         = data.archive_file.lambda_openai.output_path
+  source_code_hash = data.archive_file.lambda_openai.output_base64sha256
   tags             = var.tags
 
   environment {
     variables = {
       DEBUG_MODE                 = var.debug_mode
-      OPENAI_API_ORGANIZATION    = data.external.env_text.result["OPENAI_API_ORGANIZATION"]
-      OPENAI_API_KEY             = data.external.env_text.result["OPENAI_API_KEY"]
+      OPENAI_API_ORGANIZATION    = data.external.env_lambda_openai.result["OPENAI_API_ORGANIZATION"]
+      OPENAI_API_KEY             = data.external.env_lambda_openai.result["OPENAI_API_KEY"]
       OPENAI_ENDPOINT_IMAGE_N    = var.openai_endpoint_image_n
       OPENAI_ENDPOINT_IMAGE_SIZE = var.openai_endpoint_image_size
     }
@@ -103,8 +98,8 @@ resource "aws_lambda_function" "openai_text" {
 ###############################################################################
 # Cloudwatch logging
 ###############################################################################
-resource "aws_cloudwatch_log_group" "openai_text" {
-  name              = "/aws/lambda/${local.text_function_name}"
+resource "aws_cloudwatch_log_group" "lambda_openai" {
+  name              = "/aws/lambda/${local.openai_function_name}"
   retention_in_days = var.log_retention_days
   tags              = var.tags
 }

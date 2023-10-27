@@ -11,7 +11,7 @@
 #         it can be archived to a zip file for upload to
 #         AWS Lambda by Terraform.
 #
-# see https://github.com/ruzin/terraform_aws_lambda_python/
+# see https://github.com/ruzin/terraform_aws_lambda_langchain/
 #------------------------------------------------------------------------------
 
 echo SOURCE_CODE_PATH ${SOURCE_CODE_PATH}
@@ -33,30 +33,6 @@ fi
 
 mkdir -p $PACKAGE_FOLDER/$PACKAGE_NAME
 
-# create a dedicated Python virtual environment
-# for the Python Lambda resources calling this script.
-if [ ! -d "venv" ]; then
-  virtualenv -p $RUNTIME venv
-fi
-
-# launch the environment, install all requirements
-# and then deactivate in order to avoid any
-# potentially weird ghost effects later on.
-source venv/bin/activate
-pip install -r requirements.txt
-deactivate
-
-# Note: this copies openai along with all of its requirements.
-#       in aggregate there are around 2 dozen packages.
-#
-#       The overall size of this package exceeds that which is viewable
-#       from within the AWS Lambda console.
-cp -r "venv/lib/$RUNTIME/site-packages/" $PACKAGE_FOLDER/
 
 # copy the python module(s) to the package folder
-cp *.py $PACKAGE_FOLDER/
-rm "$PACKAGE_FOLDER/__init__.py"
-
-# cp lambda_handler.py $PACKAGE_FOLDER
-# cp __init__.py $PACKAGE_FOLDER
-# rm "$PACKAGE_FOLDER/$PACKAGE_NAME/lambda_handler.py"
+cp lambda_handler.py $PACKAGE_FOLDER/

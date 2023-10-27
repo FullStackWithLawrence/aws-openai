@@ -1,7 +1,7 @@
 from dotenv import load_dotenv, find_dotenv
 import os
 import json
-from openai_text.handler import handler
+from lambda_langchain.handler import handler
 
 # Load environment variables from .env file in all folders
 dotenv_path = find_dotenv()

@@ -28,10 +28,10 @@ import os  # library for interacting with the operating system
 from dotenv import load_dotenv, find_dotenv
 
 import openai
-from openai_text.langchain_wrapper import (
+from api.terraform.python.lambda_langchain.lambda_langchain.wrapper import (
     process_request as process_langchain_request,
 )
-from openai_text.const import (
+from lambda_langchain.const import (
     OpenAIEndPoint,
     HTTP_RESPONSE_OK,
     HTTP_RESPONSE_BAD_REQUEST,
@@ -39,14 +39,14 @@ from openai_text.const import (
     VALID_CHAT_COMPLETION_MODELS,
     VALID_EMBEDDING_MODELS,
 )
-from openai_text.utils import (
+from lambda_langchain.utils import (
     http_response_factory,
     exception_response_factory,
     dump_environment,
     get_request_body,
     parse_request,
 )
-from openai_text.validators import (
+from lambda_langchain.validators import (
     validate_item,
     validate_request_body,
     validate_messages,

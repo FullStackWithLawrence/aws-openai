@@ -7,11 +7,11 @@ import platform  # library to view informatoin about the server host this Lambda
 import sys  # libraries for error management
 import traceback  # libraries for error management
 
-from const import (
+from openai_text.const import (
     OpenAIEndPoint,
     DEBUG_MODE,
 )
-from validators import validate_item
+from openai_text.validators import validate_item
 
 
 def http_response_factory(status_code: int, body) -> dict:

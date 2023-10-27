@@ -18,7 +18,7 @@ locals {
   text_source_directory = "${path.module}/python/${local.text_function_name}"
   packaging_script      = "${path.module}/scripts/create_pkg.sh"
   text_package_folder   = local.text_function_name
-  #text_package_folder   = "lambda_dist_pkg"
+  dist_package_name     = "lambda_dist_pkg"
 }
 
 ###############################################################################
@@ -30,6 +30,7 @@ resource "null_resource" "package_openai_text" {
     redeployment = sha1(jsonencode([
       file("${local.text_source_directory}/lambda_handler.py"),
       file("${local.text_source_directory}/const.py"),
+      file("${local.text_source_directory}/utils.py"),
       file("${local.text_source_directory}/validators.py"),
       file("${local.text_source_directory}/langchain_wrapper.py"),
       file("${local.text_source_directory}/requirements.txt"),
@@ -53,7 +54,7 @@ resource "null_resource" "package_openai_text" {
 data "archive_file" "openai_text" {
   # see https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file
   source_dir  = "${local.text_source_directory}/${local.text_package_folder}/"
-  output_path = "${local.text_source_directory}/${local.text_package_folder}.zip"
+  output_path = "${local.text_source_directory}/${local.dist_package_name}.zip"
   type        = "zip"
   depends_on  = [null_resource.package_openai_text]
 }

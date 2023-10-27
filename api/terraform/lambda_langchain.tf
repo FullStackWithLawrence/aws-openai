@@ -4,8 +4,8 @@
 #
 # date:   sep-2023
 #
-# usage:  implement a Python Lambda function to to format and pass
-#         text-based http requests to OpenAI API.
+# usage:  implement a Python Lambda function to format and pass
+#         text-based http requests to LangChain.
 #         - create a Lambda zip archive which includes openai PyPi package
 #         - pass openai api key credentials to Lambda in a safe manner
 #         - create a Cloudwatch log for the Lambda

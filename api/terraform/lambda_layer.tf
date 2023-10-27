@@ -4,8 +4,7 @@
 #
 # date:   sep-2023
 #
-# usage:  implement a Python Lambda layer with an langchain virtual environment
-# see:    https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_layer_version
+# usage:  implement a Python Lambda layer with a langchain virtual environment
 #------------------------------------------------------------------------------
 locals {
   layer_slug              = "langchain"

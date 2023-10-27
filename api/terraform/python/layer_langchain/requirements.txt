@@ -2,10 +2,10 @@
 # written by: Lawrence McDaniel
 #             https://lawrencemcdaniel.com
 #
-# usage:      Python requirements for AWS Lambda functions. Create a virtual
-#             environment in the root of this repository named `.venv`. Terraform
-#             modules will look for and include these requirements in the zip
-#             packages for each Python-based Lambda function.
+# usage:      Shared Python requirements for AWS Lambda functions.
+#             Create a virtual environment in the root of this repository
+#             named `venv`. Terraform modules will look for and include these
+#             requirements in the zip package for this layer.
 # -----------------------------------------------------------------------------
 python-dotenv
 openai>=0.28.0

@@ -7,6 +7,7 @@
 #             modules will look for and include these requirements in the zip
 #             packages for each Python-based Lambda function.
 # -----------------------------------------------------------------------------
+python-dotenv
 openai>=0.28.0
 langchain>=0.0.323
 langchain-experimental>=0.0.34

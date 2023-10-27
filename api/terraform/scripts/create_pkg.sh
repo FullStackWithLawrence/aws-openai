@@ -31,7 +31,7 @@ if [ -f "${PACKAGE_FOLDER}.zip" ]; then
   rm "${PACKAGE_FOLDER}.zip"
 fi
 
-mkdir -p $PACKAGE_FOLDER
+mkdir -p $PACKAGE_FOLDER/$PACKAGE_NAME
 
 # create a dedicated Python virtual environment
 # for the Python Lambda resources calling this script.
@@ -52,4 +52,10 @@ deactivate
 #       The overall size of this package exceeds that which is viewable
 #       from within the AWS Lambda console.
 cp -r "venv/lib/$RUNTIME/site-packages/" $PACKAGE_FOLDER/
+
+# copy the python module(s) to the package folder
 cp *.py $PACKAGE_FOLDER/
+
+# cp lambda_handler.py $PACKAGE_FOLDER
+# cp __init__.py $PACKAGE_FOLDER
+# rm "$PACKAGE_FOLDER/$PACKAGE_NAME/lambda_handler.py"

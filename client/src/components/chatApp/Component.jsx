@@ -113,15 +113,12 @@ function ChatApp(props) {
         // everything else is passed as plain text
         response = await processApiRequest(input_text, api_url, api_key, openChatModal);
       }
-      if (response && "choices" in response) {
-        const content = response.choices[0]?.message?.content;
-        if (content) {
-          const chatGPTResponse = {
-            message: content,
-            sender: app_name,
-          };
-          setMessages((prevMessages) => [...prevMessages, chatGPTResponse]);
-        }
+      if (response) {
+        const chatGPTResponse = {
+          message: response,
+          sender: app_name,
+        };
+        setMessages((prevMessages) => [...prevMessages, chatGPTResponse]);
       }
     } catch (error) {
       // FIX NOTE: ADD MODAL HERE

@@ -16,21 +16,24 @@ locals {
   text_slug             = "text"
   text_function_name    = "${var.shared_resource_identifier}_${local.text_slug}"
   text_source_directory = "${path.module}/python/${local.text_function_name}"
-  text_package_folder   = "lambda_dist_pkg"
+  packaging_script      = "${path.module}/scripts/create_pkg.sh"
+  text_package_folder   = local.text_function_name
+  #text_package_folder   = "lambda_dist_pkg"
 }
 
 ###############################################################################
 # Python package
 # https://alek-cora-glez.medium.com/deploying-aws-lambda-function-with-terraform-custom-dependencies-7874407cd4fc
 ###############################################################################
-data "template_file" "openai_text" {
-  template = file("${local.text_source_directory}/openai_text.py")
-
-}
 resource "null_resource" "package_openai_text" {
   triggers = {
     redeployment = sha1(jsonencode([
-      data.template_file.openai_text.rendered
+      file("${local.text_source_directory}/lambda_handler.py"),
+      file("${local.text_source_directory}/const.py"),
+      file("${local.text_source_directory}/validators.py"),
+      file("${local.text_source_directory}/langchain_wrapper.py"),
+      file("${local.text_source_directory}/requirements.txt"),
+      file("${local.packaging_script}")
     ]))
   }
 
@@ -39,6 +42,7 @@ resource "null_resource" "package_openai_text" {
     command     = "${path.module}/scripts/create_pkg.sh"
 
     environment = {
+      PACKAGE_NAME     = local.text_function_name
       SOURCE_CODE_PATH = local.text_source_directory
       PACKAGE_FOLDER   = local.text_package_folder
       RUNTIME          = var.lambda_python_runtime
@@ -79,7 +83,7 @@ resource "aws_lambda_function" "openai_text" {
   runtime          = var.lambda_python_runtime
   memory_size      = var.lambda_memory_size
   timeout          = var.lambda_timeout
-  handler          = "${var.shared_resource_identifier}_${local.text_slug}.handler"
+  handler          = "lambda_handler.handler"
   filename         = data.archive_file.openai_text.output_path
   source_code_hash = data.archive_file.openai_text.output_base64sha256
   tags             = var.tags

@@ -4,7 +4,7 @@
 //
 // The API_KEY is only used to demonstrate how you'd set this up in
 // the event that you needed it.
-export const AWS_API_GATEWAY_KEY = '7zkZvgtk2A1WGrwTw5Qex2aHqWfJlxgl3s5MSWYs';
+export const AWS_API_GATEWAY_KEY = 'XvxAJQOmeeaIg4sqzQsqx9eRXP2G6rLVaHFyq8kL';
 export const BACKEND_API_URL = 'https://api.openai.lawrencemcdaniel.com/examples/';
 export const BACKEND_API_TEST_URL = 'https://api.openai.lawrencemcdaniel.com/tests/';
 export const OPENAI_EXAMPLES_URL = 'https://platform.openai.com/examples/';

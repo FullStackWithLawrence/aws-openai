@@ -11,16 +11,3 @@ class TestOpenAIText:
 
         assert retval["statusCode"] == 200
         assert isinstance(retval["body"], str)
-
-        # assert retval["body"]["object"] == "chat.completion"
-        # assert isinstance(retval["body"]["created"], int)
-        # assert retval["body"]["model"] == "gpt-3.5-turbo-0613"
-
-        # choice = retval["body"]["choices"][0]
-        # assert choice["index"] == 0
-        # assert choice["message"]["role"] == "assistant"
-        # assert choice["finish_reason"] == "stop"
-
-        # assert isinstance(retval["body"]["usage"]["prompt_tokens"], int)
-        # assert isinstance(retval["body"]["usage"]["completion_tokens"], int)
-        # assert isinstance(retval["body"]["usage"]["total_tokens"], int)

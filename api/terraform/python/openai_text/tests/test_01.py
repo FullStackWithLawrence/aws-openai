@@ -1,5 +1,5 @@
 import pytest
-from tests.test_init import get_event, handle_event
+from openai_text.tests.test_init import get_event, handle_event
 
 
 class TestOpenAIText:

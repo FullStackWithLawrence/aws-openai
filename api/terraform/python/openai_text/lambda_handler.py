@@ -28,10 +28,10 @@ import os  # library for interacting with the operating system
 from dotenv import load_dotenv, find_dotenv
 
 import openai
-from langchain_wrapper import (
+from openai_text.langchain_wrapper import (
     process_request as process_langchain_request,
 )
-from const import (
+from openai_text.const import (
     OpenAIEndPoint,
     HTTP_RESPONSE_OK,
     HTTP_RESPONSE_BAD_REQUEST,
@@ -39,14 +39,14 @@ from const import (
     VALID_CHAT_COMPLETION_MODELS,
     VALID_EMBEDDING_MODELS,
 )
-from utils import (
+from openai_text.utils import (
     http_response_factory,
     exception_response_factory,
     dump_environment,
     get_request_body,
     parse_request,
 )
-from validators import (
+from openai_text.validators import (
     validate_item,
     validate_request_body,
     validate_messages,

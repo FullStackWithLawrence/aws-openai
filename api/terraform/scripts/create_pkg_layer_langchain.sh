@@ -31,7 +31,7 @@ if [ -f "${PACKAGE_FOLDER}.zip" ]; then
   rm "${PACKAGE_FOLDER}.zip"
 fi
 
-mkdir -p $PACKAGE_FOLDER/$LAYER_NAME
+mkdir -p $LAYER_NAME/$PACKAGE_FOLDER
 
 # create a dedicated Python virtual environment
 # for the Python Lambda resources calling this script.
@@ -51,4 +51,4 @@ deactivate
 #
 #       The overall size of this package exceeds that which is viewable
 #       from within the AWS Lambda console.
-cp -r "venv/" $PACKAGE_FOLDER/$LAYER_NAME/
+cp -r "venv/" $LAYER_NAME/$PACKAGE_FOLDER/

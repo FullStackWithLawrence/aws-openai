@@ -28,7 +28,7 @@ import os  # library for interacting with the operating system
 from dotenv import load_dotenv, find_dotenv
 
 import openai
-from api.terraform.python.lambda_langchain.lambda_langchain.wrapper import (
+from lambda_langchain.wrapper import (
     process_request as process_langchain_request,
 )
 from lambda_langchain.const import (

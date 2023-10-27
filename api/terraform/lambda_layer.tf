@@ -11,7 +11,7 @@ locals {
   layer_name              = "layer_${local.layer_slug}"
   layer_source_directory  = "${path.module}/python/${local.layer_name}"
   layer_packaging_script  = "${path.module}/scripts/create_pkg_${local.layer_name}.sh"
-  layer_package_folder    = "${local.layer_name}_dst"
+  layer_package_folder    = "python"
   layer_dist_package_name = "${local.layer_name}_dst"
 }
 
@@ -22,6 +22,7 @@ locals {
 resource "null_resource" "package_layer_langchain" {
   triggers = {
     redeployment = sha1(jsonencode([
+      "${path.module}/lambda_layer.tf",
       file("${local.layer_source_directory}/requirements.txt"),
       file("${local.layer_packaging_script}")
     ]))
@@ -32,7 +33,7 @@ resource "null_resource" "package_layer_langchain" {
     command     = local.layer_packaging_script
 
     environment = {
-      PACKAGE_NAME     = local.layer_name
+      LAYER_NAME       = local.layer_slug
       SOURCE_CODE_PATH = local.layer_source_directory
       PACKAGE_FOLDER   = local.layer_package_folder
       RUNTIME          = var.lambda_python_runtime
@@ -49,10 +50,9 @@ data "archive_file" "layer_langchain" {
 }
 
 resource "aws_lambda_layer_version" "langchain" {
-  filename   = data.archive_file.layer_langchain.output_path
-  layer_name = "langchain"
-  compatible_runtimes = [
-    "python3.10",
-    "python3.11"
-  ]
+  filename                 = data.archive_file.layer_langchain.output_path
+  source_code_hash         = filebase64sha256(data.archive_file.layer_langchain.output_path)
+  layer_name               = local.layer_slug
+  compatible_architectures = ["x86_64", "arm64"]
+  compatible_runtimes      = [var.lambda_python_runtime]
 }

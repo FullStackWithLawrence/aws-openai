@@ -31,8 +31,9 @@ if [ -f "${PACKAGE_FOLDER}.zip" ]; then
   rm "${PACKAGE_FOLDER}.zip"
 fi
 
-mkdir -p $PACKAGE_FOLDER/$PACKAGE_NAME
+mkdir -p $PACKAGE_FOLDER
 
 
 # copy the python module(s) to the package folder
 cp lambda_handler.py $PACKAGE_FOLDER/
+cp -R $PACKAGE_NAME $PACKAGE_FOLDER/

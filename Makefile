@@ -24,8 +24,8 @@ api-activate:
 	pip install -r requirements.txt
 
 api-test:
-	cd ./api/terraform/python/openai_text && \
-	pytest -v -s -k "not lambda_dist_pkg" tests/
+	cd ./api/terraform/python/openai_text/openai_text/ && \
+	pytest -v -s tests/
 
 api-lint:
 	terraform fmt -recursive && \

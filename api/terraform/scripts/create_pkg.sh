@@ -55,6 +55,7 @@ cp -r "venv/lib/$RUNTIME/site-packages/" $PACKAGE_FOLDER/
 
 # copy the python module(s) to the package folder
 cp *.py $PACKAGE_FOLDER/
+rm "$PACKAGE_FOLDER/__init__.py"
 
 # cp lambda_handler.py $PACKAGE_FOLDER
 # cp __init__.py $PACKAGE_FOLDER

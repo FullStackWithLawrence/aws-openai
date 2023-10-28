@@ -11,16 +11,17 @@ all: help
 # AWS API Gateway + Lambda + OpenAI
 ######################
 api-init: $(.env)
-	ifeq ($(wildcard .venv),)
-		python3.11 -m venv .venv
-	endif
+	python3.11 -m venv venv && \
+	source venv/bin/activate && \
+	pip install --upgrade pip && \
+	pip install -r requirements.txt && \
+	pre-commit install
 	ifeq ($(wildcard .env),)
 		echo -e "OPENAI_API_ORGANIZATION=PLEASE-ADD-ME\nOPENAI_API_KEY=PLEASE-ADD-ME\nPINECONE_API_KEY=PLEASE-ADD-ME\nDEBUG_MODE=True\n" >> .env
 	endif
-	pre-commit install
 
 api-activate:
-	. .venv/bin/activate && \
+	. venv/bin/activate && \
 	pip install -r requirements.txt
 
 api-test:
@@ -33,7 +34,7 @@ api-lint:
 	black ./api/terraform/python/
 
 api-clean:
-	rm -rf .venv
+	rm -rf venv
 
 ######################
 # React app

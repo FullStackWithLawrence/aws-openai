@@ -15,7 +15,7 @@
 locals {
   langchain_function_name     = "lambda_langchain"
   langchain_source_directory  = "${path.module}/python/${local.langchain_function_name}"
-  langchain_packaging_script  = "${path.module}/scripts/create_pkg_${local.langchain_function_name}.sh"
+  langchain_packaging_script  = "${local.langchain_source_directory}/create_pkg.sh"
   langchain_package_folder    = "lambda_dist_pkg"
   langchain_dist_package_name = "lambda_dist_pkg"
 }
@@ -58,7 +58,7 @@ data "archive_file" "lambda_langchain" {
 ###############################################################################
 data "external" "env_lambda_langchain" {
   # kluge to read and map the openai api key and org data contained in .env
-  program = ["${path.module}/scripts/env_${local.langchain_function_name}.sh"]
+  program = ["${local.langchain_source_directory}/env.sh"]
 
   # For Windows (or Powershell core on MacOS and Linux),
   # run a Powershell script instead

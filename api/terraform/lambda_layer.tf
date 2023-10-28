@@ -11,7 +11,7 @@ locals {
   layer_slug              = "genai"
   layer_name              = "layer_${local.layer_slug}"
   layer_source_directory  = "${path.module}/python/${local.layer_name}"
-  layer_packaging_script  = "${path.module}/scripts/create_pkg_${local.layer_name}.sh"
+  layer_packaging_script  = "${local.layer_source_directory}/create_pkg.sh"
   layer_package_folder    = local.layer_slug
   layer_dist_package_name = "${local.layer_name}_dst"
 }

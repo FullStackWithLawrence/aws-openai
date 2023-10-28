@@ -3,18 +3,19 @@
 #             https://lawrencemcdaniel.com
 #
 # usage:      Python requirements for AWS Lambda functions. Create a virtual
-#             environment in the root of this repository named `.venv`. Terraform
+#             environment in the root of this repository named `venv`. Terraform
 #             modules will look for and include these requirements in the zip
 #             packages for each Python-based Lambda function.
 # -----------------------------------------------------------------------------
+
+# dev and test
+# ------------
 python-dotenv
 boto3>=1.28
 pytest
 pytest_mock
+flake8
 
 # substantive requirements
-openai>=0.28.0
-langchain>=0.0.323
-langchain-experimental>=0.0.34
-pinecone-client>=2.2.4
-tiktoken
+# ------------
+-r ./api/terraform/python/layer_genai/requirements.txt

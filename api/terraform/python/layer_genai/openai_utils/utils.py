@@ -1,4 +1,3 @@
-import json
 import base64
 import json  # library for interacting with JSON data https://www.json.org/json-en.html
 import openai

@@ -24,19 +24,10 @@ usage:
     /v1/fine-tunes	            davinci, curie, babbage, ada
     /v1/moderations	            text-moderation-stable, text-moderation-latest
 """
-import sys
 import os  # library for interacting with the operating system
 from dotenv import load_dotenv, find_dotenv
-
-
-# FIX NOTE: VALIDATE THAT WE ACTUALLY NEED THIS.
-# Add the path to the layer to the sys.path list
-# see: https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html
-# ------------------------------------------------------------
-layer_path = os.path.join(os.environ["LAMBDA_TASK_ROOT"], "python", "genai")
-sys.path.append(layer_path)
-# ------------------------------------------------------------
-
+from langchain.schema import HumanMessage, SystemMessage
+from langchain.chat_models import ChatOpenAI
 import openai
 from openai_utils.const import (
     OpenAIEndPoint,
@@ -61,12 +52,6 @@ from openai_utils.validators import (
     validate_embedding_request,
 )
 
-"""
-Transformations for the LangChain API for OpenAI
-"""
-from langchain.schema import AIMessage, HumanMessage, SystemMessage
-from langchain.chat_models import ChatOpenAI
-
 
 # from langchain.llms.openai import OpenAI
 # from langchain.prompts import PromptTemplate
@@ -78,6 +63,9 @@ from langchain.chat_models import ChatOpenAI
 # from langchain_experimental.agents.agent_toolkits.python.base import create_python_agent
 # from langchain.tools.python.tool import PythonAstREPLTool
 # from langchain.python import PythonREPL
+"""
+Transformations for the LangChain API for OpenAI
+"""
 
 
 def get_content_for_role(messages: list, role: str) -> str:

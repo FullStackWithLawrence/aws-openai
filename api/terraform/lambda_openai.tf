@@ -15,7 +15,7 @@
 locals {
   openai_function_name     = "lambda_${var.shared_resource_identifier}"
   openai_source_directory  = "${path.module}/python/${local.openai_function_name}"
-  openai_packaging_script  = "${path.module}/scripts/create_pkg_${local.openai_function_name}.sh"
+  openai_packaging_script  = "${local.openai_source_directory}/create_pkg.sh"
   openai_package_folder    = "lambda_dist_pkg"
   openai_dist_package_name = "lambda_dist_pkg"
 }
@@ -59,7 +59,7 @@ data "archive_file" "lambda_openai" {
 ###############################################################################
 data "external" "env_lambda_openai" {
   # kluge to read and map the openai api key and org data contained in .env
-  program = ["${path.module}/scripts/env_${local.openai_function_name}.sh"]
+  program = ["${local.openai_source_directory}/env.sh"]
 
   # For Windows (or Powershell core on MacOS and Linux),
   # run a Powershell script instead

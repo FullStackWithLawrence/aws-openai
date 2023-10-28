@@ -2,3 +2,4 @@ python
 layer_genai_dst.zip
 venv
 genai
+openai_utils.egg-info/

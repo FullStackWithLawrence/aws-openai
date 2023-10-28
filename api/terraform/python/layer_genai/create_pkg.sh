@@ -44,6 +44,7 @@ fi
 # potentially weird ghost effects later on.
 source venv/bin/activate
 pip install -r requirements.txt
+pip install --no-cache-dir ./openai_utils
 deactivate
 
 # Note: this copies openai along with all of its requirements.

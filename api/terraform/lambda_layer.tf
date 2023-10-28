@@ -55,8 +55,8 @@ data "archive_file" "layer_genai" {
 }
 
 resource "aws_lambda_layer_version" "genai" {
-  filename                 = data.archive_file.layer_genai.output_path
-  source_code_hash         = filebase64sha256(data.archive_file.layer_genai.output_path)
+  filename = data.archive_file.layer_genai.output_path
+  #  source_code_hash         = filebase64sha256(data.archive_file.layer_genai.output_path)
   layer_name               = local.layer_slug
   compatible_architectures = ["x86_64", "arm64"]
   compatible_runtimes      = [var.lambda_python_runtime]

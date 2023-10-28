@@ -4,10 +4,11 @@
 #
 # date:   sep-2023
 #
-# usage:  implement a Python Lambda layer with a langchain virtual environment
+# usage:  implement a Python Lambda layer with a virtual environment
+#         that includes the packages required by OpenAI API and LangChain.
 #------------------------------------------------------------------------------
 locals {
-  layer_slug              = "langchain"
+  layer_slug              = "genai"
   layer_name              = "layer_${local.layer_slug}"
   layer_source_directory  = "${path.module}/python/${local.layer_name}"
   layer_packaging_script  = "${path.module}/scripts/create_pkg_${local.layer_name}.sh"
@@ -19,7 +20,7 @@ locals {
 # Python package
 # https://alek-cora-glez.medium.com/deploying-aws-lambda-function-with-terraform-custom-dependencies-7874407cd4fc
 ###############################################################################
-resource "null_resource" "package_layer_langchain" {
+resource "null_resource" "package_layer_genai" {
   triggers = {
     redeployment = sha1(jsonencode([
       "${path.module}/lambda_layer.tf",
@@ -41,17 +42,17 @@ resource "null_resource" "package_layer_langchain" {
   }
 }
 
-data "archive_file" "layer_langchain" {
+data "archive_file" "layer_genai" {
   # see https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file
   source_dir  = "${local.layer_source_directory}/${local.layer_package_folder}/"
   output_path = "${local.layer_source_directory}/${local.layer_dist_package_name}.zip"
   type        = "zip"
-  depends_on  = [null_resource.package_layer_langchain]
+  depends_on  = [null_resource.package_layer_genai]
 }
 
-resource "aws_lambda_layer_version" "langchain" {
-  filename                 = data.archive_file.layer_langchain.output_path
-  source_code_hash         = filebase64sha256(data.archive_file.layer_langchain.output_path)
+resource "aws_lambda_layer_version" "genai" {
+  filename                 = data.archive_file.layer_genai.output_path
+  source_code_hash         = filebase64sha256(data.archive_file.layer_genai.output_path)
   layer_name               = local.layer_slug
   compatible_architectures = ["x86_64", "arm64"]
   compatible_runtimes      = [var.lambda_python_runtime]

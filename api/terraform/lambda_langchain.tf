@@ -28,12 +28,6 @@ resource "null_resource" "package_lambda_langchain" {
   triggers = {
     redeployment = sha1(jsonencode([
       file("${local.langchain_source_directory}/lambda_handler.py"),
-      file("${local.langchain_source_directory}/${local.langchain_function_name}/handler.py"),
-      file("${local.langchain_source_directory}/${local.langchain_function_name}/const.py"),
-      file("${local.langchain_source_directory}/${local.langchain_function_name}/utils.py"),
-      file("${local.langchain_source_directory}/${local.langchain_function_name}/validators.py"),
-      file("${local.langchain_source_directory}/${local.langchain_function_name}/wrapper.py"),
-      file("${local.langchain_source_directory}/requirements.txt"),
       file("${local.langchain_packaging_script}")
     ]))
   }

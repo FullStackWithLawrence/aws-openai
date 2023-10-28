@@ -25,7 +25,11 @@ resource "null_resource" "package_layer_genai" {
     redeployment = sha1(jsonencode([
       "${path.module}/lambda_layer.tf",
       file("${local.layer_source_directory}/requirements.txt"),
-      file("${local.layer_packaging_script}")
+      file("${local.layer_packaging_script}"),
+      file("${local.layer_source_directory}/openai_utils/__init__.py"),
+      file("${local.layer_source_directory}/openai_utils/const.py"),
+      file("${local.layer_source_directory}/openai_utils/utils.py"),
+      file("${local.layer_source_directory}/openai_utils/validators.py"),
     ]))
   }
 

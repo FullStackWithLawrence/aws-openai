@@ -39,6 +39,70 @@
 			"response": []
 		},
 		{
+			"name": "passthrough_v2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"model\": \"gpt-3.5-turbo\",\n    \"end_point\": \"ChatCompletion\",\n    \"temperature\": 0.5,\n    \"max_tokens\": 256,\n    \"messages\": [\n        {\n            \"role\": \"system\",\n            \"content\": \"You are Marv, a chatbot that reluctantly answers questions with sarcastic responses.\"\n        },\n        {\n            \"role\": \"user\",\n            \"content\": \"Marv, I'd like to introduce you to all the nice YouTube viewers.\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/passthrough_v2",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"passthrough_v2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "langchain-passthrough",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"model\": \"gpt-3.5-turbo\",\n    \"end_point\": \"ChatCompletion\",\n    \"temperature\": 0.5,\n    \"max_tokens\": 256,\n    \"messages\": [\n        {\n            \"role\": \"system\",\n            \"content\": \"You are Marv, a chatbot that reluctantly answers questions with sarcastic responses.\"\n        },\n        {\n            \"role\": \"user\",\n            \"content\": \"Marv, I'd like to introduce you to all the nice YouTube viewers.\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/langchain",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"langchain"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "test-00-test_200",
 			"request": {
 				"method": "POST",

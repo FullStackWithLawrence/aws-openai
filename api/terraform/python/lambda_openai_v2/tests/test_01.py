@@ -1,4 +1,8 @@
-import pytest  # noqa: F401
+# flake8: noqa: F401
+"""
+Test requests to the OpenAI API using the Lambda Layer, 'genai'.
+"""
+import pytest
 import os
 from dotenv import load_dotenv, find_dotenv
 from lambda_openai_v2.tests.test_init import get_event

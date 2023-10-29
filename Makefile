@@ -3,7 +3,13 @@ S3_BUCKET = openai.lawrencemcdaniel.com
 CLOUDFRONT_DISTRIBUTION_ID = E3AIBM1KMSJOP1
 
 ifneq ("$(wildcard .env)","")
-include .env
+	include .env
+endif
+
+ifneq ("$(wildcard $(.env))","")
+	include .env
+else
+	echo -e "OPENAI_API_ORGANIZATION=PLEASE-ADD-ME\nOPENAI_API_KEY=PLEASE-ADD-ME\nPINECONE_API_KEY=PLEASE-ADD-ME\nPINECONE_ENVIRONMENT=gcp-starter\nDEBUG_MODE=True\n" >> .env
 endif
 
 .PHONY: api-init api-activate api-lint api-clean api-test client-init client-lint client-update client-run client-build client-release
@@ -15,9 +21,6 @@ all: help
 # AWS API Gateway + Lambda + OpenAI
 ######################
 api-init:
-	# ifndef OPENAI_API_ORGANIZATION
-	# 	echo -e "OPENAI_API_ORGANIZATION=PLEASE-ADD-ME\nOPENAI_API_KEY=PLEASE-ADD-ME\nPINECONE_API_KEY=PLEASE-ADD-ME\nDEBUG_MODE=True\n" >> .env
-	# endif
 	# ---------------------------------------------------------
 	# create python virtual environments for dev as well
 	# as for the Lambda layer.

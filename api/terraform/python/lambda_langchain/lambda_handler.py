@@ -2,33 +2,19 @@
 written by: Lawrence McDaniel
             https://lawrencemcdaniel.com/
 
-date:       sep-2023
+date:       nov-2023
 
-usage:
-    see: https://www.youtube.com/watch?v=aywZrzNaKjs
-    API Documentation: https://platform.openai.com/docs/api-reference/making-requests?lang=python
-    Source: https://github.com/openai/openai-python
-    Code Samples: https://github.com/openai/openai-cookbook/
-
-    ENDPOINT	                MODEL NAME
-    ------------------------   ------------------------------------------------------------------
-    /v1/audio/transcriptions	whisper-1
-    /v1/audio/translations	    whisper-1
-    /v1/chat/completions	    gpt-4, gpt-4-0613, gpt-4-32k, gpt-4-32k-0613, gpt-3.5-turbo,
-                                gpt-3.5-turbo-0613, gpt-3.5-turbo-16k, gpt-3.5-turbo-16k-0613
-    /v1/completions (Legacy)	text-davinci-003, text-davinci-002, text-davinci-001, text-curie-001,
-                                text-babbage-001, text-ada-001, davinci, curie, babbage, ada
-    /v1/embeddings	            text-embedding-ada-002, text-similarity-*-001,
-                                text-search-*-*-001, code-search-*-*-001
-    /v1/fine_tuning/jobs	    gpt-3.5-turbo, babbage-002, davinci-002
-    /v1/fine-tunes	            davinci, curie, babbage, ada
-    /v1/moderations	            text-moderation-stable, text-moderation-latest
+usage:      Use langchain to process requests to the OpenAI API.
+            an OpenAI API key is required.
+            see: https://platform.openai.com/api_keys
 """
-import os  # library for interacting with the operating system
+import os
 from dotenv import load_dotenv, find_dotenv
 from langchain.schema import HumanMessage, SystemMessage
 from langchain.chat_models import ChatOpenAI
 import openai
+
+# local imports from 'layer_genai' virtual environment or AWS Lambda layer.
 from openai_utils.const import (
     OpenAIEndPoint,
     HTTP_RESPONSE_OK,
@@ -52,20 +38,25 @@ from openai_utils.validators import (
     validate_embedding_request,
 )
 
+###############################################################################
+# ENVIRONMENT CREDENTIALS
+###############################################################################
 
-# from langchain.llms.openai import OpenAI
-# from langchain.prompts import PromptTemplate
-# from langchain.chains import LLMChain
-# from langchain.chains import SimpleSequentialChain
-# from langchain.text_splitter import RecursiveCharacterTextSplitter
-# from langchain.embeddings import OpenAIEmbeddings
-# from langchain.vectorstores.pinecone import Pinecone
-# from langchain_experimental.agents.agent_toolkits.python.base import create_python_agent
-# from langchain.tools.python.tool import PythonAstREPLTool
-# from langchain.python import PythonREPL
-"""
-Transformations for the LangChain API for OpenAI
-"""
+# for local development and unit testing
+dotenv_path = find_dotenv()
+if os.path.exists(dotenv_path):
+    load_dotenv(dotenv_path=dotenv_path, verbose=True)
+
+# for production these values are set inside the AWS Lambda function environment
+# see ./env.sh and lambda_langchain.tf
+OPENAI_ENDPOINT_IMAGE_N = int(os.getenv("OPENAI_ENDPOINT_IMAGE_N", 4))
+OPENAI_ENDPOINT_IMAGE_SIZE = os.getenv("OPENAI_ENDPOINT_IMAGE_SIZE", "1024x768")
+openai.organization = os.getenv("OPENAI_API_ORGANIZATION", "SET-ME-WITH-DOTENV")
+openai.api_key = os.getenv("OPENAI_API_KEY", "SET-ME-WITH-DOTENV")
+
+###############################################################################
+# Transformations for the LangChain API for OpenAI
+###############################################################################
 
 
 def get_content_for_role(messages: list, role: str) -> str:
@@ -88,17 +79,8 @@ def process_langchain_request(model, messages, temperature, max_tokens) -> str:
 
 
 ###############################################################################
-# https://platform.openai.com/api_keys
+# Main Lambda Handler
 ###############################################################################
-dotenv_path = find_dotenv()
-if os.path.exists(dotenv_path):
-    # this is only used during local development and unit testing
-    load_dotenv(dotenv_path=dotenv_path, verbose=True)
-
-OPENAI_ENDPOINT_IMAGE_N = int(os.getenv("OPENAI_ENDPOINT_IMAGE_N", 4))
-OPENAI_ENDPOINT_IMAGE_SIZE = os.getenv("OPENAI_ENDPOINT_IMAGE_SIZE", "1024x768")
-openai.organization = os.getenv("OPENAI_API_ORGANIZATION", "SET-ME-WITH-DOTENV")
-openai.api_key = os.getenv("OPENAI_API_KEY", "SET-ME-WITH-DOTENV")
 
 
 def handler(event, context, api_key=None, organization=None, pinecone_api_key=None):

@@ -1,0 +1,16 @@
+{
+  "model": "gpt-3.5-turbo",
+  "end_point": "ChatCompletion",
+  "temperature": 0.5,
+  "max_tokens": 256,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are Marv, a chatbot that reluctantly answers questions with sarcastic responses."
+    },
+    {
+      "role": "user",
+      "content": "'sup Chuck?"
+    }
+  ]
+}

@@ -18,6 +18,7 @@ def validate_item(item, valid_items: list, item_type: str) -> None:
 
 
 def validate_temperature(temperature: any) -> None:
+    """ensure that temperature is a float between 0 and 1"""
     try:
         float_temperature = float(temperature)
         if float_temperature < 0 or float_temperature > 1:
@@ -27,6 +28,7 @@ def validate_temperature(temperature: any) -> None:
 
 
 def validate_max_tokens(max_tokens: any) -> None:
+    """ensure that max_tokens is an int between 1 and 2048"""
     if type(max_tokens) is not int:
         raise TypeError("max_tokens should be an int")
 
@@ -35,6 +37,7 @@ def validate_max_tokens(max_tokens: any) -> None:
 
 
 def validate_endpoint(end_point: any) -> None:
+    """ensure that end_point is a valid endpoint based on the OpenAIEndPoint enum"""
     if type(end_point) is not str:
         raise TypeError("end_point should be a string")
 

@@ -3,6 +3,8 @@ Internal validation functions for requests from API Gateway.
 """
 import json
 
+from openai_utils.const import OpenAIEndPoint
+
 
 def validate_item(item, valid_items: list, item_type: str) -> None:
     """ensure that item exists in valid_items"""
@@ -13,6 +15,35 @@ def validate_item(item, valid_items: list, item_type: str) -> None:
             )
         )
     return
+
+
+def validate_temperature(temperature: any) -> None:
+    try:
+        float_temperature = float(temperature)
+        if float_temperature < 0 or float_temperature > 1:
+            raise ValueError("temperature should be between 0 and 1")
+    except ValueError:
+        raise ValueError("Temperature must be a float")
+
+
+def validate_max_tokens(max_tokens: any) -> None:
+    if type(max_tokens) is not int:
+        raise TypeError("max_tokens should be an int")
+
+    if max_tokens < 1 or max_tokens > 2048:
+        raise ValueError("max_tokens should be between 1 and 2048")
+
+
+def validate_endpoint(end_point: any) -> None:
+    if type(end_point) is not str:
+        raise TypeError("end_point should be a string")
+
+    if end_point not in OpenAIEndPoint.all_endpoints:
+        raise ValueError(
+            "end_point should be one of {end_points}".format(
+                end_points=OpenAIEndPoint.all_endpoints
+            )
+        )
 
 
 def validate_request_body(request_body) -> None:

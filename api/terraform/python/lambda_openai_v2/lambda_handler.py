@@ -24,11 +24,11 @@ usage:
     /v1/moderations	            text-moderation-stable, text-moderation-latest
 
 """
-import openai
 import os  # library for interacting with the operating system
 
-# from genai Lambda Layer
+# All of these imports are sourced from genai Lambda Layer
 # -----------------------
+import openai
 from openai_utils.const import (
     OpenAIEndPoint,
     HTTP_RESPONSE_OK,
@@ -45,8 +45,6 @@ from openai_utils.utils import (
     parse_request,
 )
 from openai_utils.validators import (
-    # validate_request_body,
-    # validate_messages,
     validate_item,
     validate_completion_request,
     validate_embedding_request,

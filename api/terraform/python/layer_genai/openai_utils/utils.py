@@ -10,7 +10,14 @@ from openai_utils.const import (
     OpenAIEndPoint,
     DEBUG_MODE,
 )
-from openai_utils.validators import validate_item
+from openai_utils.validators import (
+    validate_item,
+    validate_request_body,
+    validate_messages,
+    validate_temperature,
+    validate_max_tokens,
+    validate_endpoint,
+)
 
 
 def http_response_factory(status_code: int, body) -> dict:
@@ -95,6 +102,22 @@ def get_request_body(event) -> dict:
         request_body = base64.b64decode(request_body)
     else:
         request_body = event
+
+    validate_request_body(request_body=request_body)
+
+    if hasattr(request_body, "temperature"):
+        temperature = request_body["temperature"]
+        validate_temperature(temperature=temperature)
+
+    if hasattr(request_body, "max_tokens"):
+        max_tokens = request_body["max_tokens"]
+        validate_max_tokens(max_tokens=max_tokens)
+
+    if hasattr(request_body, "end_point"):
+        end_point = request_body["end_point"]
+        validate_endpoint(end_point=end_point)
+
+    validate_messages(request_body=request_body)
     return request_body
 
 

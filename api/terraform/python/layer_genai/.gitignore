@@ -1,6 +1,4 @@
-python
-layer_genai_dst.zip
+*.zip
 venv
-genai
 openai_utils.egg-info/
 archive

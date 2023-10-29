@@ -13,25 +13,26 @@
 #
 # see https://github.com/ruzin/terraform_aws_lambda_python/
 #------------------------------------------------------------------------------
-
-echo SOURCE_CODE_PATH ${SOURCE_CODE_PATH}
-echo PACKAGE_FOLDER ${PACKAGE_FOLDER}
-echo RUNTIME ${RUNTIME}
+#LAYER_NAME       = "genai"
+#SOURCE_CODE_PATH = "/Users/mcdaniel/desktop/aws-openai/api/terraform/python/layer_genai"
+#PACKAGE_FOLDER   = "python"
+#RUNTIME          = var.lambda_python_runtime
 
 cd $SOURCE_CODE_PATH
 
-# triggers a complete rebuild of the package
-if [ -d $PACKAGE_FOLDER ]; then
-  rm -rf $PACKAGE_FOLDER
-fi
-
 # force a Terraform state change in the package
 # by deleting any existing zip archive that might exist.
-if [ -f "${PACKAGE_FOLDER}.zip" ]; then
-  rm "${PACKAGE_FOLDER}.zip"
+touch "layer_${LAYER_NAME}_dst.zip"
+if [ -f "layer_${LAYER_NAME}_dst.zip" ]; then
+  rm "layer_${LAYER_NAME}_dst.zip"
 fi
 
-mkdir -p $LAYER_NAME/$PACKAGE_FOLDER
+# triggers a complete rebuild of the package
+if [ -d "archive" ]; then
+  rm -rf "archive"
+fi
+
+mkdir -p "archive/$PACKAGE_FOLDER/$LAYER_NAME"
 
 # create a dedicated Python virtual environment
 # for the Python Lambda resources calling this script.
@@ -52,4 +53,4 @@ deactivate
 #
 #       The overall size of this package exceeds that which is viewable
 #       from within the AWS Lambda console.
-cp -r "venv/" $LAYER_NAME/$PACKAGE_FOLDER/
+cp -r "venv/" "archive/$PACKAGE_FOLDER"

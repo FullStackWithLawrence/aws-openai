@@ -24,8 +24,8 @@ resource "null_resource" "package_layer_genai" {
   triggers = {
     redeployment = sha1(jsonencode([
       "${path.module}/lambda_layer.tf",
-      file("${local.layer_source_directory}/requirements.txt"),
       file("${local.layer_packaging_script}"),
+      file("${local.layer_source_directory}/requirements.txt"),
       file("${local.layer_source_directory}/openai_utils/__init__.py"),
       file("${local.layer_source_directory}/openai_utils/const.py"),
       file("${local.layer_source_directory}/openai_utils/utils.py"),
@@ -40,7 +40,7 @@ resource "null_resource" "package_layer_genai" {
     environment = {
       LAYER_NAME       = local.layer_slug
       SOURCE_CODE_PATH = local.layer_source_directory
-      PACKAGE_FOLDER   = local.layer_package_folder
+      PACKAGE_FOLDER   = "python"
       RUNTIME          = var.lambda_python_runtime
     }
   }
@@ -48,16 +48,19 @@ resource "null_resource" "package_layer_genai" {
 
 data "archive_file" "layer_genai" {
   # see https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file
-  source_dir  = "${local.layer_source_directory}/${local.layer_package_folder}/"
+  source_dir  = "${local.layer_source_directory}/archive/"
   output_path = "${local.layer_source_directory}/${local.layer_dist_package_name}.zip"
   type        = "zip"
   depends_on  = [null_resource.package_layer_genai]
 }
 
 resource "aws_lambda_layer_version" "genai" {
-  filename = data.archive_file.layer_genai.output_path
-  #  source_code_hash         = filebase64sha256(data.archive_file.layer_genai.output_path)
+  filename                 = data.archive_file.layer_genai.output_path
+  source_code_hash         = fileexists(data.archive_file.layer_genai.output_path) ? filebase64sha256(data.archive_file.layer_genai.output_path) : null
   layer_name               = local.layer_slug
   compatible_architectures = ["x86_64", "arm64"]
   compatible_runtimes      = [var.lambda_python_runtime]
+  depends_on = [
+    null_resource.package_layer_genai
+  ]
 }

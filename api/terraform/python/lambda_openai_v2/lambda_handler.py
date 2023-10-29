@@ -2,7 +2,7 @@
 written by: Lawrence McDaniel
             https://lawrencemcdaniel.com/
 
-date:       sep-2023
+date:       nov-2023
 
 usage:
     API Documentation: https://platform.openai.com/docs/api-reference/making-requests?lang=python
@@ -23,26 +23,12 @@ usage:
     /v1/fine-tunes	            davinci, curie, babbage, ada
     /v1/moderations	            text-moderation-stable, text-moderation-latest
 
-    openai.Model.list()
-
-Endpoint request body after transformations: {
-    "model": "gpt-3.5-turbo",
-    "end_point": "ChatCompletion",
-    "messages": [
-        {
-            "role": "system",
-            "content": "You will be provided with statements, and your task is to convert them to standard English."
-        },
-        {
-            "role": "user",
-            "content": "She no went to the market."
-        }
-    ]
-}
 """
 import openai
 import os  # library for interacting with the operating system
 
+# from genai Lambda Layer
+# -----------------------
 from openai_utils.const import (
     OpenAIEndPoint,
     HTTP_RESPONSE_OK,
@@ -58,10 +44,9 @@ from openai_utils.utils import (
     get_request_body,
     parse_request,
 )
-
-# validate_request_body,
-# validate_messages,
 from openai_utils.validators import (
+    # validate_request_body,
+    # validate_messages,
     validate_item,
     validate_completion_request,
     validate_embedding_request,

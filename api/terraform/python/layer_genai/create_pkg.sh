@@ -3,7 +3,7 @@
 # written by: Lawrence McDaniel
 #             https://lawrencemcdaniel.com/
 #
-# date: sep-2023
+# date:   nov-2023
 #
 # usage:  Lambda Python packaging tool.
 #         Called by Terraform "null_resource". Copies python
@@ -13,11 +13,6 @@
 #
 # see https://github.com/ruzin/terraform_aws_lambda_python/
 #------------------------------------------------------------------------------
-#LAYER_NAME       = "genai"
-#SOURCE_CODE_PATH = "/Users/mcdaniel/desktop/aws-openai/api/terraform/python/layer_genai"
-#PACKAGE_FOLDER   = "python"
-#RUNTIME          = var.lambda_python_runtime
-
 cd $SOURCE_CODE_PATH
 
 # force a Terraform state change in the package
@@ -53,4 +48,5 @@ deactivate
 #
 #       The overall size of this package exceeds that which is viewable
 #       from within the AWS Lambda console.
-cp -r "venv/" "archive/$PACKAGE_FOLDER"
+cp -R ./openai_utils ./venv/lib/python3.8/site-packages/
+cp -R "venv/" "archive/$PACKAGE_FOLDER"

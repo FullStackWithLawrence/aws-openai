@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.3.0] (2023-11-01)
+
+- add lambda_langchain
+- add lambda_openai_v2
+- improve Terraform Lambda state management
+- create a shared Lambda Layer
+- move common Python validation code to Lambda Layer
+
 ## [0.2.2] (2023-10-17)
 
 - fix CORS headers on non-200 responses

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.3.0] (2023-11-01)
 
+The YouTube video for this release: [AWS Lamba Layers: When and How to use them](https://youtu.be/5Jf34t_UlZA)
+
 - add lambda_langchain
 - add lambda_openai_v2
 - improve Terraform Lambda state management
@@ -14,6 +16,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - move common Python validation code to Lambda Layer
 
 ## [0.2.2] (2023-10-17)
+
+The YouTube video for this release: [Build a ChatGPT chatbot with React and AWS Serverless](https://youtu.be/emW0E8E6M0c)
 
 - fix CORS headers on non-200 responses
 - add error handling with modal popup for non-200 responses
@@ -24,6 +28,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - bug fix: strip html tags from pasted input text
 
 ## [0.2.0] (2023-10-11)
+
+The YouTube video for this release: [OpenAI Python API With AWS API Gateway + Lambda](https://youtu.be/FqARAi8nS2M)
 
 - add full CORS support to API
 - add a Vite ReactJS front end

@@ -2,26 +2,63 @@ SHELL := /bin/bash
 S3_BUCKET = openai.lawrencemcdaniel.com
 CLOUDFRONT_DISTRIBUTION_ID = E3AIBM1KMSJOP1
 
+ifneq ("$(wildcard .env)","")
+	include .env
+endif
+
+ifneq ("$(wildcard $(.env))","")
+	include .env
+else
+	echo -e "OPENAI_API_ORGANIZATION=PLEASE-ADD-ME\nOPENAI_API_KEY=PLEASE-ADD-ME\nPINECONE_API_KEY=PLEASE-ADD-ME\nPINECONE_ENVIRONMENT=gcp-starter\nDEBUG_MODE=True\n" >> .env
+endif
+
 .PHONY: api-init api-activate api-lint api-clean api-test client-init client-lint client-update client-run client-build client-release
 
-api-init: $(.env)
-	python3.11 -m venv .venv
-	echo -e "OPENAI_API_ORGANIZATION=PLEASE-ADD-ME\nOPENAI_API_KEY=PLEASE-ADD-ME" >> .env
+# Default target executed when no arguments are given to make.
+all: help
+
+######################
+# AWS API Gateway + Lambda + OpenAI
+######################
+api-init:
+	# ---------------------------------------------------------
+	# create python virtual environments for dev as well
+	# as for the Lambda layer.
+	# ---------------------------------------------------------
+	python3.11 -m venv venv && \
+	source venv/bin/activate && \
+	pip install --upgrade pip && \
+	pip install -r requirements.txt && \
+	cp -R ./api/terraform/python/layer_genai/openai_utils ./venv/lib/python3.11/site-packages/ && \
+	deactivate && \
+	cd ./api/terraform/python/layer_genai/ && \
+	python3.11 -m venv venv && \
+	source venv/bin/activate && \
+	pip install --upgrade pip && \
+	pip install -r requirements.txt && \
+	cp -R ./openai_utils ./venv/lib/python3.11/site-packages/ && \
+	deactivate && \
 	pre-commit install
 
 api-activate:
-	. .venv/bin/activate
+	. venv/bin/activate && \
 	pip install -r requirements.txt
 
+api-test:
+	cd ./api/terraform/python/openai_text/openai_text/ && \
+	pytest -v -s tests/
+
 api-lint:
-	terraform fmt -recursive
-	pre-commit run --all-files
+	terraform fmt -recursive && \
+	pre-commit run --all-files && \
 	black ./api/terraform/python/
 
 api-clean:
-	rm -rf .venv
-	# Add any other generated files to remove here
+	rm -rf venv
 
+######################
+# React app
+######################
 client-init:
 	cd ./client && npm install
 
@@ -67,3 +104,23 @@ client-release:
 
 	# invalidate the Cloudfront cache
 	aws cloudfront create-invalidation --distribution-id $(CLOUDFRONT_DISTRIBUTION_ID) --paths "/*" "/index.html"
+
+######################
+# HELP
+######################
+
+help:
+	@echo '===================='
+	@echo '-- AWS API Gateway + Lambda --'
+	@echo 'api-init            - create a Python virtual environment and install dependencies'
+	@echo 'api-activate        - activate the Python virtual environment'
+	@echo 'api-test            - run Python unit tests'
+	@echo 'api-lint            - run Python linting'
+	@echo 'api-clean           - destroy the Python virtual environment'
+	@echo '-- React App --'
+	@echo 'client-init         - run npm install'
+	@echo 'client-lint         - run npm lint'
+	@echo 'client-update       - update npm packages'
+	@echo 'client-run          - run the React app in development mode'
+	@echo 'client-build        - build the React app for production'
+	@echo 'client-release      - deploy the React app to AWS S3 and invalidate the Cloudfront CDN'

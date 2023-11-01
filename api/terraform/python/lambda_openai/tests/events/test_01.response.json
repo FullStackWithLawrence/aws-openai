@@ -1,0 +1,25 @@
+{
+  "isBase64Encoded": false,
+  "statusCode": 200,
+  "body": {
+    "id": "chatcmpl-8DYZiGd8e0f1l1kQALzxRCz5FnsZQ",
+    "object": "chat.completion",
+    "created": 1698241862,
+    "model": "gpt-3.5-turbo-0613",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Oh, just the usual. The sky is still blue, the grass is still green, and I'm still here answering your fabulous questions. Anything exciting happening in your life?"
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 31,
+      "completion_tokens": 35,
+      "total_tokens": 66
+    }
+  }
+}

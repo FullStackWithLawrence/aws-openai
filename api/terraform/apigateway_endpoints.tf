@@ -29,8 +29,8 @@ module "default_grammar" {
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -53,8 +53,8 @@ module "default_summarize" {
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -77,8 +77,8 @@ module "default_parse_data" {
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -102,8 +102,8 @@ module "default_emoji_translation" {
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -126,8 +126,8 @@ module "default_time_complexity" {
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -150,8 +150,8 @@ module "default_explain_code" {
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -174,8 +174,8 @@ module "default_keywords" {
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -198,8 +198,8 @@ module "default_product_name_gen" {
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -222,8 +222,8 @@ module "default_fix_python_bugs" {
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -236,17 +236,18 @@ module "default_spreadsheet_gen" {
   path_part = "default-spreadsheet-gen"
 
   # OpenAI application definition
-  mapping_end_point   = "ChatCompletion"
-  mapping_model       = "gpt-3.5-turbo"
-  mapping_temperature = 0.5
-  mapping_max_tokens  = 256
+  mapping_end_point           = "ChatCompletion"
+  mapping_model               = "gpt-3.5-turbo"
+  mapping_role_system_content = "Your task is to create spreadsheets from various kinds of data"
+  mapping_temperature         = 0.5
+  mapping_max_tokens          = 256
 
   # integrate this endpoint to the AWS Gateway API.
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -269,8 +270,8 @@ module "default_tweet_classifier" {
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -293,8 +294,8 @@ module "default_airport_codes" {
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -317,8 +318,8 @@ module "default_mood_color" {
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -331,17 +332,18 @@ module "default_vr_fitness" {
   path_part = "default-vr-fitness"
 
   # OpenAI application definition
-  mapping_end_point   = "ChatCompletion"
-  mapping_model       = "gpt-3.5-turbo"
-  mapping_temperature = 0.6
-  mapping_max_tokens  = 256
+  mapping_end_point           = "ChatCompletion"
+  mapping_model               = "gpt-3.5-turbo"
+  mapping_role_system_content = "You are a helpful assistant. Your task is to generate ideas for fitness promoting virtual reality games"
+  mapping_temperature         = 0.6
+  mapping_max_tokens          = 256
 
   # integrate this endpoint to the AWS Gateway API.
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -364,8 +366,8 @@ module "default_marv_sarcastic_chat" {
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -388,8 +390,8 @@ module "default_turn_by_turn_directions" {
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -402,17 +404,18 @@ module "default_interview_questions" {
   path_part = "default-interview-questions"
 
   # OpenAI application definition
-  mapping_end_point   = "ChatCompletion"
-  mapping_model       = "gpt-3.5-turbo"
-  mapping_temperature = 0.5
-  mapping_max_tokens  = 1024
+  mapping_end_point           = "ChatCompletion"
+  mapping_model               = "gpt-3.5-turbo"
+  mapping_role_system_content = "Your are a helpful assistant. Your task is to create job interview questions."
+  mapping_temperature         = 0.5
+  mapping_max_tokens          = 1024
 
   # integrate this endpoint to the AWS Gateway API.
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -425,17 +428,18 @@ module "default_function_from_spec" {
   path_part = "default-function-from-spec"
 
   # OpenAI application definition
-  mapping_end_point   = "ChatCompletion"
-  mapping_model       = "gpt-4"
-  mapping_temperature = 0
-  mapping_max_tokens  = 1024
+  mapping_end_point           = "ChatCompletion"
+  mapping_model               = "gpt-4"
+  mapping_role_system_content = "You are an expert Python programmer. Your task is to create a Python function from a specification."
+  mapping_temperature         = 0
+  mapping_max_tokens          = 1024
 
   # integrate this endpoint to the AWS Gateway API.
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -458,8 +462,8 @@ module "default_code_improvement" {
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -472,17 +476,18 @@ module "default_single_page_website" {
   path_part = "default-single-page-website"
 
   # OpenAI application definition
-  mapping_end_point   = "ChatCompletion"
-  mapping_model       = "gpt-4"
-  mapping_temperature = 0
-  mapping_max_tokens  = 2048
+  mapping_end_point           = "ChatCompletion"
+  mapping_model               = "gpt-4"
+  mapping_role_system_content = "You are an expert front-end developer. Your task is to create a single page website based on a spec."
+  mapping_temperature         = 0
+  mapping_max_tokens          = 2048
 
   # integrate this endpoint to the AWS Gateway API.
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -495,17 +500,18 @@ module "default_rap_battle" {
   path_part = "default-rap-battle"
 
   # OpenAI application definition
-  mapping_end_point   = "ChatCompletion"
-  mapping_model       = "gpt-4"
-  mapping_temperature = 0.8
-  mapping_max_tokens  = 1024
+  mapping_end_point           = "ChatCompletion"
+  mapping_model               = "gpt-4"
+  mapping_role_system_content = "You are an accomplished rapper. Your task is to generate a rap battle between two characters."
+  mapping_temperature         = 0.8
+  mapping_max_tokens          = 1024
 
   # integrate this endpoint to the AWS Gateway API.
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -518,17 +524,18 @@ module "default_memo_writer" {
   path_part = "default-memo-writer"
 
   # OpenAI application definition
-  mapping_end_point   = "ChatCompletion"
-  mapping_model       = "gpt-4"
-  mapping_temperature = 0
-  mapping_max_tokens  = 1024
+  mapping_end_point           = "ChatCompletion"
+  mapping_model               = "gpt-4"
+  mapping_role_system_content = "You are a helpful assistant. Your task is to generate a company memo based on provided points."
+  mapping_temperature         = 0
+  mapping_max_tokens          = 1024
 
   # integrate this endpoint to the AWS Gateway API.
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -551,8 +558,8 @@ module "default_emoji_chatbot" {
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -575,8 +582,8 @@ module "default_translation" {
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -599,8 +606,8 @@ module "default_socratic_tutor" {
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -623,8 +630,8 @@ module "default_sql_translate" {
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -647,8 +654,8 @@ module "default_meeting_notes_summarizer" {
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -671,8 +678,8 @@ module "default_review_classifier" {
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -685,17 +692,18 @@ module "default_pro_con_discusser" {
   path_part = "default-pro-con-discusser"
 
   # OpenAI application definition
-  mapping_end_point   = "ChatCompletion"
-  mapping_model       = "gpt-4"
-  mapping_temperature = 0.8
-  mapping_max_tokens  = 1024
+  mapping_end_point           = "ChatCompletion"
+  mapping_model               = "gpt-4"
+  mapping_role_system_content = "You are a helpful assistant. Your task is to analyze the pros and cons of a given topic."
+  mapping_temperature         = 0.8
+  mapping_max_tokens          = 1024
 
   # integrate this endpoint to the AWS Gateway API.
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 
@@ -708,16 +716,17 @@ module "default_lesson_plan_writer" {
   path_part = "default-lesson-plan-writer"
 
   # OpenAI application definition
-  mapping_end_point   = "ChatCompletion"
-  mapping_model       = "gpt-4"
-  mapping_temperature = 0.8
-  mapping_max_tokens  = 2048
+  mapping_end_point           = "ChatCompletion"
+  mapping_model               = "gpt-4"
+  mapping_role_system_content = "You are an experienced teacher. Your task is to generate a lesson plan for a specific topic."
+  mapping_temperature         = 0.8
+  mapping_max_tokens          = 2048
 
   # integrate this endpoint to the AWS Gateway API.
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.openai_text.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.openai_text.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }

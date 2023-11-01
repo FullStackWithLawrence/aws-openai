@@ -1,0 +1,4 @@
+*.zip
+venv
+openai_utils.egg-info/
+archive

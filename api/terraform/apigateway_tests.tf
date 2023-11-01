@@ -36,6 +36,11 @@ resource "aws_api_gateway_integration" "test_200" {
     "application/json" = data.template_file.test_200.rendered
   }
   depends_on = [aws_api_gateway_method.test_200]
+  lifecycle {
+    ignore_changes = [
+      integration_http_method
+    ]
+  }
 }
 
 resource "aws_api_gateway_method_response" "test_200" {
@@ -108,6 +113,11 @@ resource "aws_api_gateway_integration" "test_400" {
     "application/json" = data.template_file.test_400.rendered
   }
   depends_on = [aws_api_gateway_method.test_400]
+  lifecycle {
+    ignore_changes = [
+      integration_http_method
+    ]
+  }
 }
 
 resource "aws_api_gateway_method_response" "test_400" {
@@ -187,6 +197,11 @@ resource "aws_api_gateway_integration" "test_500" {
     "application/json" = data.template_file.test_500.rendered
   }
   depends_on = [aws_api_gateway_method.test_500]
+  lifecycle {
+    ignore_changes = [
+      integration_http_method
+    ]
+  }
 }
 
 resource "aws_api_gateway_method_response" "test_500" {
@@ -260,6 +275,11 @@ resource "aws_api_gateway_integration" "test_504" {
     "application/json" = data.template_file.test_504.rendered
   }
   depends_on = [aws_api_gateway_method.test_504]
+  lifecycle {
+    ignore_changes = [
+      integration_http_method
+    ]
+  }
 }
 
 resource "aws_api_gateway_method_response" "test_504" {

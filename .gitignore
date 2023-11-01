@@ -1,11 +1,21 @@
 .DS_Store
 #  Local .terraform directories
 .terraform/
-venv
-.venv
 .env
 lambda_dist_pkg
 *.zip
+__pycache__
+.pytest_cache
+
+# Python
+venv
+.venv
+.pytest_cache
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.log
 
 # .tfstate files
 *.tfstate

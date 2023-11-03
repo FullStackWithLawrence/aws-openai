@@ -25,6 +25,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r ./api/terraform/python/layer_genai/requirements.txt
 
+      - name: Create .env
+        run: |
+          touch ./.env
+          echo "OPENAI_API_ORGANIZATION=${OPENAI_API_ORGANIZATION}" >> ./.env
+          echo "OPENAI_API_KEY=${OPENAI_API_KEY}" >> ./.env
+          echo "PINECONE_API_KEY=${PINECONE_API_KEY}" >> ./.env
+          echo "PINECONE_ENVIRONMENT=${PINECONE_ENVIRONMENT}" >> ./.env
+
       - name: Test lambda_openai_v2
         run: |
           python -m unittest discover ./api/terraform/python/lambda_openai_v2

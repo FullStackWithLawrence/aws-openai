@@ -37,7 +37,7 @@ jobs:
             @semantic-release/git
             @semantic-release/changelog
         env:
-            GITHUB_TOKEN: ${{ secrets.PAT }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
       - name: Publish To GitHub Package Registry
@@ -49,5 +49,5 @@ jobs:
         if: steps.semantic.outputs.new_release_published == 'true'
         run: "git push https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:refs/heads/v${{steps.semantic.outputs.new_release_major_version}}"
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}

@@ -23,7 +23,7 @@ from openai_utils.const import (
     VALID_CHAT_COMPLETION_MODELS,
     VALID_EMBEDDING_MODELS,
 )
-from openai_utils import (
+from openai_utils.utils import (
     http_response_factory,
     exception_response_factory,
     dump_environment,

@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: 3.11
 
@@ -25,10 +25,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r ./requirements.txt
           cp -R ./api/terraform/python/layer_genai/openai_utils /opt/hostedtoolcache/Python/3.11.6/x64/lib/python3.11/site-packages/
-
-      - name: Print Python sys.path
-        run: |
-          python -c "import sys; print('\n'.join(sys.path))"
 
       - name: Create .env
         run: |

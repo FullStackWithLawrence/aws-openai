@@ -2,7 +2,7 @@
 
 See [Conventional Commits](https://www.conventionalcommits.org/)
 
-The [release.yml](.github/workflows/release.yml), [checkPullRequest.yml](.github/workflows/checkPullRequest.yml) and [testRelease.yml](.github/workflows/testRelease.yml) Github Action Workflows in this repo is designed to act on the commit comment rules that follow.
+The [release.yml](.github/workflows/release.yml), [checkPullRequest.yml](.github/workflows/checkPullRequest.yml) and [testRelease.yml](.github/workflows/testRelease.yml) Github Action Workflows in this repo are designed to act on the commit comment rules that follow.
 
 As an open-source maintainer, squash feature branches onto master and write a standardized commit message while doing so. The commit message should be structured as follows:
 

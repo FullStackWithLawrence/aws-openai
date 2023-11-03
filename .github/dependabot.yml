@@ -16,7 +16,14 @@ updates:
     reviewers:
       - "lpm0073"
   - package-ecosystem: "pip"
-    directory: "/api/terraform/python/"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    versioning-strategy: "auto"
+    reviewers:
+      - "lpm0073"
+  - package-ecosystem: "npm"
+    directory: "/client"
     schedule:
       interval: "daily"
     versioning-strategy: "auto"

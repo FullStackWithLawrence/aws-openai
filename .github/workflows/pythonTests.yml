@@ -23,8 +23,22 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r ./api/terraform/python/layer_genai/requirements.txt
+          pip install -r ./requirements.txt
+          cp -R ./api/terraform/python/layer_genai/openai_utils /opt/hostedtoolcache/Python/3.11.6/x64/lib/python3.11/site-packages/
+
+      - name: Print Python sys.path
+        run: |
+          python -c "import sys; print('\n'.join(sys.path))"
+
+      - name: Create .env
+        run: |
+          touch ./.env
+          echo "OPENAI_API_ORGANIZATION=${OPENAI_API_ORGANIZATION}" >> ./.env
+          echo "OPENAI_API_KEY=${OPENAI_API_KEY}" >> ./.env
+          echo "PINECONE_API_KEY=${PINECONE_API_KEY}" >> ./.env
+          echo "PINECONE_ENVIRONMENT=${PINECONE_ENVIRONMENT}" >> ./.env
 
       - name: Test lambda_openai_v2
         run: |
-          python -m unittest discover ./api/terraform/python/lambda_openai_v2
+          cd ./api/terraform/python/lambda_openai_v2
+          pytest -v -s tests/

@@ -1,15 +1,15 @@
 version: 2
 updates:
   - package-ecosystem: terraform
-    directory: "/"
+    directory: "/api/terraform/"
     schedule:
       interval: daily
     open-pull-requests-limit: 10
   - package-ecosystem: "pip"
-    directory: "/"
+    directory: "/api/terraform/python/layer_genai/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
   - package-ecosystem: "pip"
     directory: "/api/terraform/python/"
     schedule:
-      interval: "weekly"
+      interval: "daily"

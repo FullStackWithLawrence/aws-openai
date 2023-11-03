@@ -38,3 +38,8 @@ jobs:
         run: |
           cd ./api/terraform/python/lambda_openai_v2
           pytest -v -s tests/
+
+      - name: Test lambda_langchain
+        run: |
+          cd ./api/terraform/python/lambda_langchain
+          pytest -v -s tests/

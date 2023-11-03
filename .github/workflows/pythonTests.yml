@@ -24,6 +24,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r ./requirements.txt
+          python -c "import sys; import os; sys.path.append(os.path.abspath('./api/terraform/python/layer_genai/openai_utils'))"
+
+      - name: Print Python sys.path
+        run: |
+          python -c "import sys; print('\n'.join(sys.path))"
 
       - name: Create .env
         run: |

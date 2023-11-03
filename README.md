@@ -74,4 +74,6 @@ To get community support, go to the official [Issues Page](https://github.com/Fu
 
 We welcome contributions! There are a variety of ways for you to get involved, regardless of your background. In additional to Pull requests, this project would benefit from contributors focused on documentation and how-to video content creation, testing, community engagement, and stewards to help us to ensure that we comply with evolving standards for the ethical use of AI.
 
+Please review these [commit comment guidelines](./SEMANTIC_VERSIONING.md) for managing CI rules for automated semantic versioning as well as automated comment generation in CHANGELOG.md.
+
 You can also contact [Lawrence McDaniel](https://lawrencemcdaniel.com/contact) directly.

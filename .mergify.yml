@@ -2,8 +2,6 @@ pull_request_rules:
   - name: automatic approve dependabot pull requests
     conditions:
       - 'author~=dependabot[bot]|dependabot-preview[bot]|dependabot'
-      - 'status-success=Travis CI - Branch'
-      - 'status-success=Travis CI - Pull Request'
     actions:
       review:
         type: APPROVE
@@ -12,6 +10,7 @@ pull_request_rules:
     conditions:
       - 'author~=dependabot[bot]|dependabot-preview[bot]|dependabot'
       - '#approved-reviews-by>=1'
+      - 'base=main'  # replace 'main' with the name of the branch you want to auto-merge into
     actions:
       merge:
         method: merge

@@ -1,3 +1,10 @@
+## [0.3.1](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.3.0...v0.3.1) (2023-11-03)
+
+
+### Bug Fixes
+
+* revert to secrets.PAT ([7342489](https://github.com/FullStackWithLawrence/aws-openai/commit/7342489ef7b7537419cc12732c1739a9fc3b42a8))
+
 # CHANGE LOG
 
 All notable changes to this project will be documented in this file.

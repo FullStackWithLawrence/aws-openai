@@ -1,0 +1,30 @@
+name: Python Tests
+
+on: [workflow_dispatch, pull_request]
+
+jobs:
+  python-tests:
+    env:
+      OPENAI_API_ORGANIZATION: ${{ secrets.OPENAI_API_ORGANIZATION }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
+      PINECONE_ENVIRONMENT: ${{ secrets.PINECONE_ENVIRONMENT }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ./api/terraform/python/layer_genai/requirements.txt
+
+      - name: Test lambda_openai_v2
+        run: |
+          python -m unittest discover ./api/terraform/python/lambda_openai_v2

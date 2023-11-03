@@ -10,19 +10,18 @@
 
 # dev and test
 # ------------
-python-dotenv
-boto3>=1.28
-pytest
-pytest_mock
-flake8
+boto3==1.28
+pytest==7.4.3
+pytest_mock==3.12.0
+flake8==6.1.0
 
-# substantive requirements
+# production
 # ------------
-python-dotenv
-openai>=0.28.0
-langchain>=0.0.323
-langchain-experimental>=0.0.34
-pinecone-client>=2.2.4
+python-dotenv==1.0.0
+openai==0.28.0
+langchain==0.0.323
+langchain-experimental==0.0.34
+pinecone-client==2.2.4
 
 # local packages
 ./api/terraform/python/layer_genai/openai_utils

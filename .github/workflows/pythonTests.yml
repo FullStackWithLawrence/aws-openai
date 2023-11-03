@@ -35,4 +35,5 @@ jobs:
 
       - name: Test lambda_openai_v2
         run: |
-          python -m unittest discover ./api/terraform/python/lambda_openai_v2
+          cd ./api/terraform/python/lambda_openai_v2
+          pytest -v -s tests/

@@ -12,10 +12,10 @@ jobs:
 
     steps:
       # required antecedent
-      - uses: actions/checkout@v3.5.2
+      - uses: actions/checkout@v4
 
       - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v3
+        uses: cycjimmy/semantic-release-action@v4
         id: semantic
         with:
           branches: |
@@ -38,6 +38,7 @@ jobs:
             @semantic-release/changelog
         env:
             GITHUB_TOKEN: ${{ secrets.PAT }}
+            OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
       - name: Publish To GitHub Package Registry
         if: steps.semantic.outputs.new_release_published == 'true'
@@ -49,3 +50,4 @@ jobs:
         run: "git push https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:refs/heads/v${{steps.semantic.outputs.new_release_major_version}}"
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}

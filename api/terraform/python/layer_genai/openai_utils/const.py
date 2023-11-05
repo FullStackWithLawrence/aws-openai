@@ -25,6 +25,7 @@ class OpenAIEndPoint:
     all_endpoints = [Embedding, ChatCompletion, Moderation, Image, Audio, Models]
 
 
+VALID_MESSAGE_ROLES = ["system", "user", "assistant"]
 VALID_CHAT_COMPLETION_MODELS = [
     "gpt-4",
     "gpt-4-0613",
@@ -41,3 +42,5 @@ VALID_EMBEDDING_MODELS = [
     "text-search-*-*-001",
     "code-search-*-*-001",
 ]
+
+LANGCHAIN_MESSAGE_HISTORY_ROLES = ["user", "assistant"]

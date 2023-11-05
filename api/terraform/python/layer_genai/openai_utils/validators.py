@@ -3,7 +3,7 @@ Internal validation functions for requests from API Gateway.
 """
 import json
 
-from openai_utils.const import OpenAIEndPoint
+from openai_utils.const import OpenAIEndPoint, VALID_MESSAGE_ROLES
 
 
 def validate_item(item, valid_items: list, item_type: str) -> None:
@@ -71,6 +71,12 @@ def validate_messages(request_body):
             raise ValueError(
                 "dict key 'role' not found in message {m}".format(
                     m=json.dumps(message, indent=4)
+                )
+            )
+        if message["role"] not in VALID_MESSAGE_ROLES:
+            raise ValueError(
+                "invalid role {r} found in message {m}".format(
+                    r=message["role"], m=json.dumps(message, indent=4)
                 )
             )
         if "content" not in message:

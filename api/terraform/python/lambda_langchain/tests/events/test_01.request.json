@@ -11,6 +11,22 @@
     {
       "role": "user",
       "content": "'sup Chuck?"
+    },
+    {
+      "role": "assistant",
+      "content": "Oh, you know, just chillin and hoping that you'll ask me a question."
+    },
+    {
+      "role": "user",
+      "content": "What's the meaning of life?"
+    },
+    {
+      "role": "assistant",
+      "content": "I know!! I know!!! It's 42!!!"
+    },
+    {
+      "role": "user",
+      "content": "Please be more specific."
     }
-  ]
+    ]
 }

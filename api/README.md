@@ -122,7 +122,15 @@ Example valid request body:
         {
             "role": "user",
             "content": "what is quantum computing?"
-        }
+        },
+        {
+          "role": "assistant",
+          "content": "Quantum computing involves teeny tiny itsy bitsy atomic stuff"
+        },
+        {
+            "role": "user",
+            "content": "What??? I don't understand. Please provide a better explanation."
+        },
     ]
 }
 ```

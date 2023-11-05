@@ -7,9 +7,16 @@ date:       nov-2023
 usage:      Use langchain to process requests to the OpenAI API.
             an OpenAI API key is required.
             see: https://platform.openai.com/api_keys
+
+            https://python.langchain.com/docs/modules/memory/
+
+            To do: persist message history to DynamoDB
+            https://python.langchain.com/docs/integrations/memory/aws_dynamodb
+            https://bobbyhadz.com/blog/react-generate-unique-id
 """
 import os
 from dotenv import load_dotenv, find_dotenv
+import openai
 
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts import (
@@ -21,7 +28,7 @@ from langchain.prompts import (
 from langchain.chains import LLMChain
 from langchain.memory import ConversationBufferMemory
 
-import openai
+# from langchain.schema.messages import AIMessage, HumanMessage, SystemMessage
 
 # local imports from 'layer_genai' virtual environment or AWS Lambda layer.
 from openai_utils.const import (
@@ -103,11 +110,12 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
             case OpenAIEndPoint.ChatCompletion:
                 """
                 Need to keep in mind that this is a stateless operation. We have to bring
-                everything we need to run the conversation with us. This means we need to
+                along everything needed to run the conversation. This means we need to
                 extract the message history from the request body, and we need to initialize
                 the memory object with the message history.
                 """
                 # 1. extract and validate the source data from the http request
+                # -------------------------------------------------------------
                 validate_item(
                     item=model,
                     valid_items=VALID_CHAT_COMPLETION_MODELS,
@@ -118,7 +126,7 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
                 user_message = get_content_for_role(messages, "user")
 
                 # 2. initialize the LangChain ChatOpenAI model
-                # https://python.langchain.com/docs/modules/memory/
+                # -------------------------------------------------------------
                 llm = ChatOpenAI(
                     model=model, temperature=temperature, max_tokens=max_tokens
                 )
@@ -131,19 +139,25 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
                 )
 
                 # 3. extract message history and initialize memory
+                # -------------------------------------------------------------
                 message_history = get_message_history(messages)
                 memory = ConversationBufferMemory(
-                    memory_key=LANGCHAIN_MEMORY_KEY, return_messages=True
+                    memory_key=LANGCHAIN_MEMORY_KEY,
+                    chat_memory=message_history,
+                    return_messages=True,
                 )
-                memory.load_memory_variables(message_history)
+                memory.load_memory_variables({})
 
                 # 4. run the conversation
+                # -------------------------------------------------------------
                 conversation = LLMChain(
                     llm=llm, prompt=prompt, memory=memory, verbose=True
                 )
                 conversation({"question": user_message})
+                # conversation.predict({"question": user_message})
 
                 # 5. return the results
+                # -------------------------------------------------------------
                 openai_results = conversation
 
             case OpenAIEndPoint.Embedding:

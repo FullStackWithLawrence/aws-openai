@@ -77,7 +77,10 @@ This repo is referenced by multiple YouTube videos, including various tutorials 
 - [GitHub Issues](https://github.com/features/issues)
 - [Makefile](./Makefile) automates procedures like init, build, test, release and linting for Python, ReactJS and Terraform.
 - [pre-commit](https://pre-commit.com/) automatically enforces a multitude of code quality, coding style and security policies.
-- [Unit Tests](https://docs.pytest.org/) are automated and can be invoked a.) manually from the command line, b.) manually from GitHub Actions, and c.) automatically by various bots.
+- [Unit Tests](https://docs.pytest.org/) are automated and can be invoked
+  - manually from the command line
+  - manually from GitHub Actions
+  - automatically by various bots.
 - [Dependabot](https://github.com/dependabot) updates code library dependencies for Python, ReactJS and Terraform.
 - [Mergify](https://mergify.com/) automates processing of bot-created pull requests
 - [Semantic Release](https://github.com/semantic-release/semantic-release) automates version releases as well as maintains the [CHANGELOG](./CHANGELOG.md) for the repo.

@@ -48,5 +48,5 @@ deactivate
 #
 #       The overall size of this package exceeds that which is viewable
 #       from within the AWS Lambda console.
-cp -R ./openai_utils ./venv/lib/python3.8/site-packages/
+cp -R ./openai_utils ./venv/lib/$RUNTIME/site-packages/
 cp -R "venv/" "archive/$PACKAGE_FOLDER"

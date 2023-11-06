@@ -1,3 +1,20 @@
+# [0.4.0](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.3.1...v0.4.0) (2023-11-03)
+
+
+### Bug Fixes
+
+* add a .env file to root so that test environment matches prod ([293b20e](https://github.com/FullStackWithLawrence/aws-openai/commit/293b20ec1537ef493539a59aa7a8d0216809b9f4))
+* add openai_utils source location to the sys path for Python ([30eed8e](https://github.com/FullStackWithLawrence/aws-openai/commit/30eed8e2c6e1c27391d94597e43afee6db5eeb44))
+* need to setup venv from ./requirements.txt so that the dev imports are included ([a907e98](https://github.com/FullStackWithLawrence/aws-openai/commit/a907e983051ad2cad721cb6a9347b0adb8f60c9a))
+* paths should begin with ./ ([c8060bc](https://github.com/FullStackWithLawrence/aws-openai/commit/c8060bc2302190f074d3d7e78496781f5d6e627a))
+* physically copy openai_utils to pip packages folder ([772b1d6](https://github.com/FullStackWithLawrence/aws-openai/commit/772b1d659b3bde6c5f80620e4539f23df68c3ffc))
+* switch to Pytest ([be7746b](https://github.com/FullStackWithLawrence/aws-openai/commit/be7746bb090ac60d29ad42359d50c3c554ab80cf))
+
+
+### Features
+
+* add automated Python unit testing workflow to Github Actions ([dea18fc](https://github.com/FullStackWithLawrence/aws-openai/commit/dea18fc8cf2183d03613893f950ad30d7acd77fe))
+
 ## [0.3.1](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.3.0...v0.3.1) (2023-11-03)
 
 

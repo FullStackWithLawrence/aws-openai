@@ -16,19 +16,20 @@ usage:      Use langchain to process requests to the OpenAI API.
 """
 import os
 from dotenv import load_dotenv, find_dotenv
+
+# OpenAI imports
 import openai
 
+# Langchain imports
 from langchain.chat_models import ChatOpenAI
+from langchain.chains import LLMChain
+from langchain.memory import ConversationBufferMemory
 from langchain.prompts import (
     ChatPromptTemplate,
     MessagesPlaceholder,
     SystemMessagePromptTemplate,
     HumanMessagePromptTemplate,
 )
-from langchain.chains import LLMChain
-from langchain.memory import ConversationBufferMemory
-
-# from langchain.schema.messages import AIMessage, HumanMessage, SystemMessage
 
 # local imports from 'layer_genai' virtual environment or AWS Lambda layer.
 from openai_utils.const import (

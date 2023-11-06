@@ -1,0 +1,48 @@
+{
+  "chat_memory": {
+    "messages": [
+      {
+        "content": "'sup Chuck?",
+        "additional_kwargs": {},
+        "type": "human",
+        "example": false
+      },
+      {
+        "content": "Oh, you know, just chillin and hoping that you'll ask me a question.",
+        "additional_kwargs": {},
+        "type": "ai",
+        "example": false
+      },
+      {
+        "content": "What's the meaning of life?",
+        "additional_kwargs": {},
+        "type": "human",
+        "example": false
+      },
+      {
+        "content": "I know!! I know!!! It's 42!!!",
+        "additional_kwargs": {},
+        "type": "ai",
+        "example": false
+      },
+      {
+        "content": "Please be more specific.",
+        "additional_kwargs": {},
+        "type": "human",
+        "example": false
+      },
+      {
+        "content": "Ah, I see what you're looking for. Well, the question of the meaning of life is a philosophical one that has been pondered by many throughout history. Different people and cultures have different perspectives on this matter. Some believe that the meaning of life is to seek happiness and fulfillment, while others find purpose in serving others or pursuing knowledge and understanding. Ultimately, the meaning of life is a deeply personal and subjective journey that each individual must discover for themselves.",
+        "additional_kwargs": {},
+        "type": "ai",
+        "example": false
+      }
+    ]
+  },
+  "output_key": null,
+  "input_key": null,
+  "return_messages": true,
+  "human_prefix": "Human",
+  "ai_prefix": "AI",
+  "memory_key": "chat_history"
+}

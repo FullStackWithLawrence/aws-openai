@@ -1,6 +1,22 @@
+# -----------------------------------------------------------------------------
+# Python Tests
+#
+# This workflow will run tests on the Python code located in ./api/terraform/python
+#
+# Notes:
+# - pull_request_target is used instead of pull_request because the
+#   pull_request_target event behaves in an almost identical way to the
+#   pull_request event, however, t runs in the context of the base repository of the
+#   pull request rather than in the merge commit. This means that you have
+#   access to Github Organization secrets when the workflow is triggered by
+#   a pull_request_target event.
+#
+# - optionally add `if: github.actor != 'dependabot[bot]'` to the python-tests job to
+#   prevent dependabot from running tests
+# -----------------------------------------------------------------------------
 name: Python Tests
 
-on: [workflow_dispatch, pull_request]
+on: [workflow_dispatch, pull_request_target]
 
 jobs:
   python-tests:
@@ -10,7 +26,6 @@ jobs:
       PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
       PINECONE_ENVIRONMENT: ${{ secrets.PINECONE_ENVIRONMENT }}
 
-    if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
 
     steps:

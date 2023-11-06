@@ -1,45 +1,61 @@
-name: Python Tests
+# -----------------------------------------------------------------------------
+# Python Tests
+#
+# This workflow will run tests on the Python code located in ./api/terraform/python
+#
+# Notes:
+# - pull_request_target is used instead of pull_request because the
+#   pull_request_target event behaves in an almost identical way to the
+#   pull_request event, however, t runs in the context of the base repository of the
+#   pull request rather than in the merge commit. This means that you have
+#   access to Github Organization secrets when the workflow is triggered by
+#   a pull_request_target event.
+#
+# - optionally add `if: github.actor != 'dependabot[bot]'` to the python-tests job to
+#   prevent dependabot from running tests
+# -----------------------------------------------------------------------------
+  name: Python Tests
 
-on: [workflow_dispatch, pull_request]
+  on: [workflow_dispatch, pull_request_target]
 
-jobs:
-  python-tests:
-    env:
-      OPENAI_API_ORGANIZATION: ${{ secrets.OPENAI_API_ORGANIZATION }}
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
-      PINECONE_ENVIRONMENT: ${{ secrets.PINECONE_ENVIRONMENT }}
+  jobs:
+    python-tests:
+      env:
+        OPENAI_API_ORGANIZATION: ${{ secrets.OPENAI_API_ORGANIZATION }}
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
+        PINECONE_ENVIRONMENT: ${{ secrets.PINECONE_ENVIRONMENT }}
 
-    runs-on: ubuntu-latest
+      runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v4
+      steps:
+        - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.11
+        - name: Set up Python
+          uses: actions/setup-python@v4
+          with:
+            python-version: 3.11
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r ./requirements.txt
-          cp -R ./api/terraform/python/layer_genai/openai_utils /opt/hostedtoolcache/Python/3.11.6/x64/lib/python3.11/site-packages/
+        - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install -r ./requirements.txt
+            cp -R ./api/terraform/python/layer_genai/openai_utils /opt/hostedtoolcache/Python/3.11.6/x64/lib/python3.11/site-packages/
 
-      - name: Create .env
-        run: |
-          touch ./.env
-          echo "OPENAI_API_ORGANIZATION=${OPENAI_API_ORGANIZATION}" >> ./.env
-          echo "OPENAI_API_KEY=${OPENAI_API_KEY}" >> ./.env
-          echo "PINECONE_API_KEY=${PINECONE_API_KEY}" >> ./.env
-          echo "PINECONE_ENVIRONMENT=${PINECONE_ENVIRONMENT}" >> ./.env
+        - name: Create .env
+          run: |
+            touch ./.env
+            echo "OPENAI_API_ORGANIZATION=${OPENAI_API_ORGANIZATION}" >> ./.env
+            echo "OPENAI_API_KEY=${OPENAI_API_KEY}" >> ./.env
+            echo "PINECONE_API_KEY=${PINECONE_API_KEY}" >> ./.env
+            echo "PINECONE_ENVIRONMENT=${PINECONE_ENVIRONMENT}" >> ./.env
 
-      - name: Test lambda_openai_v2
-        run: |
-          cd ./api/terraform/python/lambda_openai_v2
-          pytest -v -s tests/
+        - name: Test lambda_openai_v2
+          run: |
+            cd ./api/terraform/python/lambda_openai_v2
+            pytest -v -s tests/
 
-      - name: Test lambda_langchain
-        run: |
-          cd ./api/terraform/python/lambda_langchain
-          pytest -v -s tests/
+        - name: Test lambda_langchain
+          run: |
+            cd ./api/terraform/python/lambda_langchain
+            pytest -v -s tests/

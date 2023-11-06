@@ -15,6 +15,7 @@ usage:      Use langchain to process requests to the OpenAI API.
             https://bobbyhadz.com/blog/react-generate-unique-id
 """
 import os
+import json
 from dotenv import load_dotenv, find_dotenv
 
 # OpenAI imports
@@ -30,6 +31,10 @@ from langchain.prompts import (
     SystemMessagePromptTemplate,
     HumanMessagePromptTemplate,
 )
+
+# from langchain.memory.chat_message_histories.in_memory import ChatMessageHistory
+# from langchain.schema.messages import HumanMessage, SystemMessage, AIMessage
+# from langchain.schema.messages import BaseMessage
 
 # local imports from 'layer_genai' virtual environment or AWS Lambda layer.
 from openai_utils.const import (
@@ -48,6 +53,8 @@ from openai_utils.utils import (
     parse_request,
     get_content_for_role,
     get_message_history,
+    get_messages_for_role,
+    get_messages_for_type,
 )
 from openai_utils.validators import (
     validate_item,
@@ -77,6 +84,8 @@ openai.api_key = os.getenv("OPENAI_API_KEY", "SET-ME-WITH-DOTENV")
 # Transformations for the LangChain API for OpenAI
 ###############################################################################
 LANGCHAIN_MEMORY_KEY = "chat_history"
+OPENAI_USER_MESSAGE_KEY = "user"
+OPENAI_ASSISTANT_MESSAGE_KEY = "assistant"
 
 
 def handler(event, context, api_key=None, organization=None, pinecone_api_key=None):
@@ -123,8 +132,10 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
                     item_type="ChatCompletion models",
                 )
                 validate_completion_request(request_body)
-                system_message = get_content_for_role(messages, "system")
-                user_message = get_content_for_role(messages, "user")
+                system_message = get_content_for_role(
+                    messages, OPENAI_ASSISTANT_MESSAGE_KEY
+                )
+                user_message = get_content_for_role(messages, OPENAI_USER_MESSAGE_KEY)
 
                 # 2. initialize the LangChain ChatOpenAI model
                 # -------------------------------------------------------------
@@ -141,25 +152,40 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
 
                 # 3. extract message history and initialize memory
                 # -------------------------------------------------------------
-                message_history = get_message_history(messages)
                 memory = ConversationBufferMemory(
                     memory_key=LANGCHAIN_MEMORY_KEY,
-                    chat_memory=message_history,
                     return_messages=True,
                 )
-                memory.load_memory_variables({})
+                message_history = get_message_history(messages)
+                user_messages = get_messages_for_role(message_history, "user")
+                assistant_messages = get_messages_for_role(message_history, "assistant")
+                for i in range(0, len(assistant_messages)):
+                    memory.chat_memory.add_user_message(user_messages[i])
+                    memory.chat_memory.add_ai_message(assistant_messages[i])
 
                 # 4. run the conversation
                 # -------------------------------------------------------------
                 conversation = LLMChain(
-                    llm=llm, prompt=prompt, memory=memory, verbose=True
+                    llm=llm,
+                    prompt=prompt,
+                    verbose=True,
+                    memory=memory,
                 )
                 conversation({"question": user_message})
-                # conversation.predict({"question": user_message})
 
-                # 5. return the results
+                # 5. extract the results
                 # -------------------------------------------------------------
-                openai_results = conversation
+                conversation_response = json.loads(conversation.memory.json())
+                conversation_response_messages = conversation_response["chat_memory"][
+                    "messages"
+                ]
+                conversation_assistant_messages = get_messages_for_type(
+                    messages=conversation_response_messages, message_type="ai"
+                )
+
+                # 6. return the results
+                # -------------------------------------------------------------
+                openai_results = conversation_assistant_messages[-1]
 
             case OpenAIEndPoint.Embedding:
                 # https://platform.openai.com/docs/guides/embeddings/embeddings

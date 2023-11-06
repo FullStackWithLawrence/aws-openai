@@ -10,6 +10,7 @@ jobs:
       PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
       PINECONE_ENVIRONMENT: ${{ secrets.PINECONE_ENVIRONMENT }}
 
+    if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
 
     steps:

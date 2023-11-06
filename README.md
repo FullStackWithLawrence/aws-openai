@@ -69,7 +69,7 @@ Detailed documentation for each endpoint is available here: [Documentation](./do
 
 This repo is referenced by multiple YouTube videos, including various tutorials about good coding practices and good code management. Of note:
 
-- [.env] file for storing sensitive data for local development
+- [python-dotenv](https://pypi.org/project/python-dotenv/) for storing sensitive data for local development
 - [.gitignore](./.gitignore)  ensures that no sensitive nor useless data accidentally gets pushed to GitHub.
 - [tox.ini](./tox.ini) file for configuring behaviors of Python testing tools
 - [GitHub Actions](https://github.com/features/actions) automates unit testing, semantic release rule checking, and dependabot actions.

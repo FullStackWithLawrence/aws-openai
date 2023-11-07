@@ -1,13 +1,14 @@
 [![OpenAI](https://a11ybadges.com/badge?logo=openai)](https://platform.openai.com/)
+[![LangChain](https://a11ybadges.com/badge?text=LangChain&badgeColor=0834ac)](https://www.langchain.com/)
 [![Amazon AWS](https://a11ybadges.com/badge?logo=amazonaws)](https://aws.amazon.com/)
 [![ReactJS](https://a11ybadges.com/badge?logo=react)](https://react.dev/)
 [![FullStackWithLawrence](https://a11ybadges.com/badge?text=FullStackWithLawrence&badgeColor=orange&logo=youtube&logoColor=282828)](https://www.youtube.com/@FullStackWithLawrence)
 
 # OpenAI Code Samples
 
-A [React](https://react.dev/) + [AWS Serverless](https://aws.amazon.com/serverless/) full stack implementation of the [30 example applications](https://platform.openai.com/examples) found in the official OpenAI API documentation.
+A [React](https://react.dev/) + [AWS Serverless](https://aws.amazon.com/serverless/) full stack implementation of the [30 example applications](https://platform.openai.com/examples) found in the official OpenAI API documentation. Now with [LangChain](https://www.langchain.com/)!
 
-![React front end](https://github.com/FullStackWithLawrence/aws-openai/blob/main/doc/front-end.png)
+[![React front end](https://github.com/FullStackWithLawrence/aws-openai/blob/main/doc/front-end.png)](https://openai.lawrencemcdaniel.com/)
 
 **IMPORTANT DISCLAIMER: AWS' Lambda service has a hard 29-second timeout. OpenAI API calls often take longer than this, in which case the AWS API Gateway endpoint will return a 504 "Gateway timeout error" response to the React client. This happens frequently with apps created using chatgpt-4. Each of the 30 OpenAI API example applications are nonetheless implemented exactly as they are specified in the official documentation.**
 
@@ -38,6 +39,7 @@ A REST API implementing each of the [30 example applications](https://platform.o
 ### API Key features
 
 - Built on the [OpenAI API Python Library](https://pypi.org/project/openai/)
+- [LangChain](https://www.langchain.com/) enabled API endpoints where designated.
 - Customizable. [Modularized endpoints](./terraform/apigateway_endpoints.tf) that only take a few lines of code each.
 - Highly secure. Your OpenAI API key is stored in a local .env file, and is kept safe during development, build and deployment to production.
 - Implements excellent [CloudWatch](https://aws.amazon.com/cloudwatch/) logs for Lambda as well as API Gateway

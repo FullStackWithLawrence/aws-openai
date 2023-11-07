@@ -30,7 +30,6 @@ function mapResponse(response) {
   */
 
   if (response["request_meta_data"]["lambda"] == "lambda_langchain") {
-    console.log("LangChain response detected.");
     const messages = response["chat_memory"]["messages"];
     let aiMessages = messages.filter(message => message.type === 'ai');
     let ai_response = "";
@@ -49,7 +48,8 @@ function mapResponse(response) {
               },
               "finish_reason": "stop"
           }
-      ]
+      ],
+      "request_meta_data": response["request_meta_data"]
     };
   }
 

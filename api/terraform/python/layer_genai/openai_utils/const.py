@@ -32,8 +32,15 @@ class OpenAIMessageKeys:
     OPENAI_ASSISTANT_MESSAGE_KEY = "assistant"
     OPENAI_SYSTEM_MESSAGE_KEY = "system"
 
+    @property
+    def all(self):
+        return [
+            self.OPENAI_SYSTEM_MESSAGE_KEY,
+            self.OPENAI_USER_MESSAGE_KEY,
+            self.OPENAI_ASSISTANT_MESSAGE_KEY,
+        ]
 
-VALID_MESSAGE_ROLES = ["system", "user", "assistant"]
+
 VALID_CHAT_COMPLETION_MODELS = [
     "gpt-4",
     "gpt-4-0613",

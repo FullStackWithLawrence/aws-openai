@@ -24,7 +24,7 @@ def handle_event_wrapper(event):
     return retval
 
 
-class TestOpenAIText:
+class TestLangchain:
     def test_basic_request(self):
         """Test a basic request"""
         event = get_event("tests/events/test_01.request.json")

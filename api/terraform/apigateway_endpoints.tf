@@ -350,6 +350,8 @@ module "default_vr_fitness" {
 ###############################################################################
 # 15. see https://platform.openai.com/examples/default-marv-sarcastic-chat
 #     Marv is a factual chatbot that is also sarcastic.
+#
+#     Note: migrated to Langchain in v0.5.0
 ###############################################################################
 module "default_marv_sarcastic_chat" {
   source    = "./endpoint"
@@ -366,8 +368,8 @@ module "default_marv_sarcastic_chat" {
   aws_region                                 = var.aws_region
   aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
   aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
-  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai.invoke_arn
-  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai.function_name
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_langchain.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_langchain.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
 

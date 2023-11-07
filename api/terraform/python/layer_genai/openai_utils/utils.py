@@ -9,6 +9,7 @@ import traceback  # libraries for error management
 from openai_utils.const import (
     OpenAIEndPoint,
     DEBUG_MODE,
+    LANGCHAIN_MESSAGE_HISTORY_ROLES,
 )
 from openai_utils.validators import (
     validate_item,
@@ -143,3 +144,33 @@ def parse_request(request_body: dict):
         raise ValueError("A value for either messages or input_text is required")
 
     return end_point, model, messages, input_text, temperature, max_tokens
+
+
+def get_content_for_role(messages: list, role: str) -> str:
+    """Get the text content from the messages list for a given role"""
+    retval = [d.get("content") for d in messages if d["role"] == role]
+    try:
+        return retval[-1]
+    except IndexError:
+        return ""
+
+
+def get_message_history(messages: list) -> list:
+    message_history = [
+        {"role": d["role"], "content": d.get("content")}
+        for d in messages
+        if d["role"] in LANGCHAIN_MESSAGE_HISTORY_ROLES
+    ]
+    return message_history
+
+
+def get_messages_for_role(messages: list, role: str) -> list:
+    """Get the text content from the messages list for a given role"""
+    retval = [d.get("content") for d in messages if d["role"] == role]
+    return retval
+
+
+def get_messages_for_type(messages: list, message_type: str) -> list:
+    """Get the text content from the messages list for a given role"""
+    retval = [d.get("content") for d in messages if d["type"] == message_type]
+    return retval

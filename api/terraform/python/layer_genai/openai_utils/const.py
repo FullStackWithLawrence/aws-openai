@@ -25,6 +25,22 @@ class OpenAIEndPoint:
     all_endpoints = [Embedding, ChatCompletion, Moderation, Image, Audio, Models]
 
 
+class OpenAIMessageKeys:
+    """A class representing the keys for a message in the OpenAI API."""
+
+    OPENAI_USER_MESSAGE_KEY = "user"
+    OPENAI_ASSISTANT_MESSAGE_KEY = "assistant"
+    OPENAI_SYSTEM_MESSAGE_KEY = "system"
+
+    @property
+    def all(self):
+        return [
+            self.OPENAI_SYSTEM_MESSAGE_KEY,
+            self.OPENAI_USER_MESSAGE_KEY,
+            self.OPENAI_ASSISTANT_MESSAGE_KEY,
+        ]
+
+
 VALID_CHAT_COMPLETION_MODELS = [
     "gpt-4",
     "gpt-4-0613",
@@ -41,3 +57,5 @@ VALID_EMBEDDING_MODELS = [
     "text-search-*-*-001",
     "code-search-*-*-001",
 ]
+
+LANGCHAIN_MESSAGE_HISTORY_ROLES = ["user", "assistant"]

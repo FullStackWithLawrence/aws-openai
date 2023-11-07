@@ -7,7 +7,7 @@
 #             named `venv`. Terraform modules will look for and include these
 #             requirements in the zip package for this layer.
 # -----------------------------------------------------------------------------
-python-dotenv
+python-dotenv==1.0.0
 openai==1.1.1
 langchain==0.0.331
 langchain-experimental==0.0.37

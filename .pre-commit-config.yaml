@@ -3,11 +3,11 @@ default_language_version:
   python: python3.11
 repos:
   - repo: https://github.com/psf/black
-    rev: 23.7.0
+    rev: 23.10.1
     hooks:
     - id: black
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
       # See https://pre-commit.com/hooks.html for more hooks
       #- id: check-added-large-files
@@ -35,3 +35,9 @@ repos:
     #  - id: shellcheck
     #  - id: yapf
     #  - id: markdown-link-check
+  - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
+    rev: v9.5.0
+    hooks:
+      - id: commitlint
+        stages: [commit-msg]
+        additional_dependencies: ['@commitlint/config-angular']

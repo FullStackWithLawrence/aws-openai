@@ -129,3 +129,9 @@ variable "lambda_timeout" {
   type        = number
   default     = 60
 }
+
+variable "compatible_architectures" {
+  type        = list(string)
+  description = "A list of architectures (x86_64 or arm64) that the Lambda function is compatible with."
+  default     = ["x86_64"]
+}

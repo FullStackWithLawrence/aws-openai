@@ -7,16 +7,39 @@ date:       nov-2023
 usage:      Use langchain to process requests to the OpenAI API.
             an OpenAI API key is required.
             see: https://platform.openai.com/api_keys
+
+            https://python.langchain.com/docs/modules/memory/
+
+            To do: persist message history to DynamoDB
+            https://python.langchain.com/docs/integrations/memory/aws_dynamodb
+            https://bobbyhadz.com/blog/react-generate-unique-id
 """
 import os
+import json
 from dotenv import load_dotenv, find_dotenv
-from langchain.schema import HumanMessage, SystemMessage
-from langchain.chat_models import ChatOpenAI
+
+# OpenAI imports
 import openai
+
+# Langchain imports
+from langchain.chat_models import ChatOpenAI
+from langchain.chains import LLMChain
+from langchain.memory import ConversationBufferMemory
+from langchain.prompts import (
+    ChatPromptTemplate,
+    MessagesPlaceholder,
+    SystemMessagePromptTemplate,
+    HumanMessagePromptTemplate,
+)
+
+# from langchain.memory.chat_message_histories.in_memory import ChatMessageHistory
+# from langchain.schema.messages import HumanMessage, SystemMessage, AIMessage
+# from langchain.schema.messages import BaseMessage
 
 # local imports from 'layer_genai' virtual environment or AWS Lambda layer.
 from openai_utils.const import (
     OpenAIEndPoint,
+    OpenAIMessageKeys,
     HTTP_RESPONSE_OK,
     HTTP_RESPONSE_BAD_REQUEST,
     HTTP_RESPONSE_INTERNAL_SERVER_ERROR,
@@ -29,6 +52,10 @@ from openai_utils.utils import (
     dump_environment,
     get_request_body,
     parse_request,
+    get_content_for_role,
+    get_message_history,
+    get_messages_for_role,
+    get_messages_for_type,
 )
 from openai_utils.validators import (
     validate_item,
@@ -57,30 +84,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY", "SET-ME-WITH-DOTENV")
 ###############################################################################
 # Transformations for the LangChain API for OpenAI
 ###############################################################################
-
-
-def get_content_for_role(messages: list, role: str) -> str:
-    """Get the text content from the messages list for a given role"""
-    retval = [d.get("content") for d in messages if d["role"] == role][0]
-    return retval
-
-
-def process_langchain_request(model, messages, temperature, max_tokens) -> str:
-    chat = ChatOpenAI(model_name=model, temperature=temperature, max_tokens=max_tokens)
-
-    system_message = get_content_for_role(messages, "system")
-    user_message = get_content_for_role(messages, "user")
-    messages = [
-        SystemMessage(content=system_message),
-        HumanMessage(content=user_message),
-    ]
-    retval = chat(messages)
-    return retval.content
-
-
-###############################################################################
-# Main Lambda Handler
-###############################################################################
+LANGCHAIN_MEMORY_KEY = "chat_history"
 
 
 def handler(event, context, api_key=None, organization=None, pinecone_api_key=None):
@@ -113,19 +117,81 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
 
         match end_point:
             case OpenAIEndPoint.ChatCompletion:
-                # https://platform.openai.com/docs/guides/gpt/chat-completions-api
+                """
+                Need to keep in mind that this is a stateless operation. We have to bring
+                along everything needed to run the conversation. This means we need to
+                extract the message history from the request body, and we need to initialize
+                the memory object with the message history.
+                """
+                # 1. extract and validate the source data from the http request
+                # -------------------------------------------------------------
                 validate_item(
                     item=model,
                     valid_items=VALID_CHAT_COMPLETION_MODELS,
                     item_type="ChatCompletion models",
                 )
                 validate_completion_request(request_body)
-                openai_results = process_langchain_request(
-                    model=model,
-                    messages=messages,
-                    temperature=temperature,
-                    max_tokens=max_tokens,
+                system_message = get_content_for_role(
+                    messages, OpenAIMessageKeys.OPENAI_SYSTEM_MESSAGE_KEY
                 )
+                user_message = get_content_for_role(
+                    messages, OpenAIMessageKeys.OPENAI_USER_MESSAGE_KEY
+                )
+
+                # 2. initialize the LangChain ChatOpenAI model
+                # -------------------------------------------------------------
+                llm = ChatOpenAI(
+                    model=model, temperature=temperature, max_tokens=max_tokens
+                )
+                prompt = ChatPromptTemplate(
+                    messages=[
+                        SystemMessagePromptTemplate.from_template(system_message),
+                        MessagesPlaceholder(variable_name=LANGCHAIN_MEMORY_KEY),
+                        HumanMessagePromptTemplate.from_template("{question}"),
+                    ]
+                )
+
+                # 3. extract message history and initialize memory
+                # -------------------------------------------------------------
+                memory = ConversationBufferMemory(
+                    memory_key=LANGCHAIN_MEMORY_KEY,
+                    return_messages=True,
+                )
+                message_history = get_message_history(messages)
+                user_messages = get_messages_for_role(
+                    message_history, OpenAIMessageKeys.OPENAI_USER_MESSAGE_KEY
+                )
+                assistant_messages = get_messages_for_role(
+                    message_history, OpenAIMessageKeys.OPENAI_ASSISTANT_MESSAGE_KEY
+                )
+                for i in range(0, len(assistant_messages)):
+                    memory.chat_memory.add_user_message(user_messages[i])
+                    memory.chat_memory.add_ai_message(assistant_messages[i])
+
+                # 4. run the conversation
+                # -------------------------------------------------------------
+                conversation = LLMChain(
+                    llm=llm,
+                    prompt=prompt,
+                    verbose=True,
+                    memory=memory,
+                )
+                conversation({"question": user_message})
+
+                # 5. extract the results
+                # -------------------------------------------------------------
+                conversation_response = json.loads(conversation.memory.json())
+                print(json.dumps(conversation_response, indent=4))
+                conversation_response_messages = conversation_response["chat_memory"][
+                    "messages"
+                ]
+                conversation_assistant_messages = get_messages_for_type(
+                    messages=conversation_response_messages, message_type="ai"
+                )
+
+                # 6. return the results
+                # -------------------------------------------------------------
+                openai_results = conversation_assistant_messages[-1]
 
             case OpenAIEndPoint.Embedding:
                 # https://platform.openai.com/docs/guides/embeddings/embeddings

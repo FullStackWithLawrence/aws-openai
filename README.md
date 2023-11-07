@@ -9,7 +9,6 @@ A [React](https://react.dev/) + [AWS Serverless](https://aws.amazon.com/serverle
 
 ![React front end](https://github.com/FullStackWithLawrence/aws-openai/blob/main/doc/front-end.png)
 
-
 **IMPORTANT DISCLAIMER: AWS' Lambda service has a hard 29-second timeout. OpenAI API calls often take longer than this, in which case the AWS API Gateway endpoint will return a 504 "Gateway timeout error" response to the React client. This happens frequently with apps created using chatgpt-4. Each of the 30 OpenAI API example applications are nonetheless implemented exactly as they are specified in the official documentation.**
 
 ## ReactJS chat application
@@ -18,7 +17,7 @@ Complete documentation is located [here](./client/).
 
 React app that leverages [Vite.js](https://github.com/FullStackWithLawrence/aws-openai), [@chatscope/chat-ui-kit-react](https://www.npmjs.com/package/@chatscope/chat-ui-kit-react), and [react-pro-sidebar](https://www.npmjs.com/package/react-pro-sidebar).
 
-### Key features
+### Webapp Key features
 
 - robust, highly customizable chat features
 - A component model for implementing your own highly personalized OpenAI apps
@@ -36,7 +35,7 @@ Complete documentation is located [here](./api/).
 
 A REST API implementing each of the [30 example applications](https://platform.openai.com/examples) from the official [OpenAI API Documentation](https://platform.openai.com/docs/api-reference/making-requests?lang=python) using a modularized Terraform approach. Leverages OpenAI's suite of AI models, including [GPT-3.5](https://platform.openai.com/docs/models/gpt-3-5), [GPT-4](https://platform.openai.com/docs/models/gpt-4), [DALL·E](https://platform.openai.com/docs/models/dall-e), [Whisper](https://platform.openai.com/docs/models/whisper), [Embeddings](https://platform.openai.com/docs/models/embeddings), and [Moderation](https://platform.openai.com/docs/models/moderation).
 
-### Key features
+### API Key features
 
 - Built on the [OpenAI API Python Library](https://pypi.org/project/openai/)
 - Customizable. [Modularized endpoints](./terraform/apigateway_endpoints.tf) that only take a few lines of code each.
@@ -65,6 +64,27 @@ A REST API implementing each of the [30 example applications](https://platform.o
 ## Documentation
 
 Detailed documentation for each endpoint is available here: [Documentation](./doc/examples/)
+
+## Examples of Code Management Best Practices
+
+This repo is referenced by multiple YouTube videos, including various tutorials about good coding practices and good code management. Of note:
+
+- [python-dotenv](https://pypi.org/project/python-dotenv/) for storing sensitive data for local development
+- [.gitignore](./.gitignore)  ensures that no sensitive nor useless data accidentally gets pushed to GitHub.
+- [tox.ini](./tox.ini) file for configuring behaviors of Python testing tools
+- [GitHub Actions](https://github.com/features/actions) automates unit testing, semantic release rule checking, and dependabot actions.
+- [GitHub Secrets](https://github.com/FullStackWithLawrence/aws-openai/settings/secrets/actions) to provide sensitive data to Github Actions workflows
+- [GitHub Issues](https://github.com/features/issues)
+- [Makefile](./Makefile) automates procedures like init, build, test, release and linting for Python, ReactJS and Terraform.
+- [pre-commit](https://pre-commit.com/) automatically enforces a multitude of code quality, coding style and security policies.
+- [Dependabot](https://github.com/dependabot) automatically updates the version pins of code library dependencies for Python, ReactJS and Terraform.
+- [Unit Tests](https://docs.pytest.org/) are automated and can be invoked
+  - manually from the command line
+  - manually from GitHub Actions
+  - automatically by Dependabot.
+- [Mergify](https://mergify.com/) automates processing of bot-created pull requests
+- [Semantic Release](https://github.com/semantic-release/semantic-release) automates version releases as well as maintains the [CHANGELOG](./CHANGELOG.md) for the repo.
+- [Change Log](http://keepachangelog.com/)
 
 ## Support
 

@@ -114,6 +114,15 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
             request_body
         )
         validate_messages(request_body=request_body)
+        request_meta_data = {
+            "request_meta_data": {
+                "lambda": "lambda_langchain",
+                "model": model,
+                "end_point": end_point,
+                "temperature": temperature,
+                "max_tokens": max_tokens,
+            }
+        }
 
         match end_point:
             case OpenAIEndPoint.ChatCompletion:
@@ -235,4 +244,6 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
         )
 
     # success!! return the results
-    return http_response_factory(status_code=HTTP_RESPONSE_OK, body=openai_results)
+    return http_response_factory(
+        status_code=HTTP_RESPONSE_OK, body={**openai_results, **request_meta_data}
+    )

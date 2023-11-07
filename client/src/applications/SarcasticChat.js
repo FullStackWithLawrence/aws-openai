@@ -18,9 +18,9 @@ const SarcasticChat = {
   info_url: OPENAI_EXAMPLES_URL + SLUG,
   file_attach_button: false,
   uses_openai: true,
-  uses_openai_api: true,
-  uses_langchain: false,
-  uses_memory: false,
+  uses_openai_api: false,
+  uses_langchain: true,
+  uses_memory: true,
 };
 
 export default SarcasticChat;

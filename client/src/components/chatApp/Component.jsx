@@ -54,7 +54,30 @@ function ChatApp(props) {
   const uses_langchain = props.uses_langchain;
   const uses_memory = props.uses_memory;
 
-  // message factory
+  const [isTyping, setIsTyping] = useState(false);
+  const [llm, setLLM] = useState("");
+
+  function conversationHeaderFactory() {
+    let conversation_header = ""
+    if (uses_openai_api) {
+      conversation_header = "OpenAI API";
+    }
+    if (uses_langchain) {
+      conversation_header = "Langchain";
+      if (uses_memory && uses_langchain) {
+        conversation_header = conversation_header + " with Memory";
+      }
+      if (uses_openai) {
+        conversation_header = conversation_header + " running OpenAI LLM";
+      }
+    }
+    if (llm != "") {
+      conversation_header = conversation_header + " " + llm;
+
+    }
+    return conversation_header;
+  }
+
   function messageFactory(message, direction, sender) {
     return {
       message: message,
@@ -91,7 +114,6 @@ function ChatApp(props) {
     message_items.push(messageFactory(examples, 'incoming', 'system'));
   }
   const [messages, setMessages] = useState(message_items);
-  const [isTyping, setIsTyping] = useState(false);
 
   // UI widget event handlers
   const handleInfoButtonClick = () => {
@@ -119,6 +141,9 @@ function ChatApp(props) {
           const chatGPTResponse = messageFactory(content, 'incoming', 'assistant');
           setMessages((prevMessages) => [...prevMessages, chatGPTResponse]);
         }
+        console.log(response)
+        const llm_response = response.request_meta_data.model;
+        setLLM(llm_response);
       }
     } catch (error) {
       // FIX NOTE: ADD MODAL HERE
@@ -183,7 +208,7 @@ function ChatApp(props) {
         <ChatContainer style={transparentBackgroundStyle} >
           <ConversationHeader>
             <Avatar src={avatar_url} name={app_name} />
-            <ConversationHeader.Content userName={app_name} info="online" />
+            <ConversationHeader.Content userName={app_name} info={conversationHeaderFactory()} />
             <ConversationHeader.Actions>
               <VoiceCallButton disabled />
               <VideoCallButton disabled />

@@ -49,7 +49,8 @@ function mapResponse(response) {
               },
               "finish_reason": "stop"
           }
-      ]
+      ],
+      "request_meta_data": response["request_meta_data"]
     };
   }
 

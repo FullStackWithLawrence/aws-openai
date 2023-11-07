@@ -1,5 +1,11 @@
-# [0.5.0](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.4.0...v0.5.0) (2023-11-07)
+# CHANGE LOG
 
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
+and this project adheres to [Semantic Versioning](http://semver.org/).
+
+## [0.5.0](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.4.0...v0.5.0) (2023-11-07)
 
 ### Bug Fixes
 
@@ -11,20 +17,11 @@
 * switch event from pull_request to pull_request_target ([321ec8f](https://github.com/FullStackWithLawrence/aws-openai/commit/321ec8f8c806a86ed2f8263a1b326fb29fef10a5))
 * switch from pull_requests event to pull_request_target event ([d70f2bc](https://github.com/FullStackWithLawrence/aws-openai/commit/d70f2bc57098d8066a5d1e5dd3c7d2e99bd8a60e))
 
-
 ### Features
 
 * add a generic Langchain chat completion algorithm with chat history memory ([82dd402](https://github.com/FullStackWithLawrence/aws-openai/commit/82dd402e407c43f99d6499e6a4d2c5560f195421))
 * add backward compatibility for Langchain responses ([93ad1d7](https://github.com/FullStackWithLawrence/aws-openai/commit/93ad1d7064fff6853b311c27218d1d9a1e96f191))
 * upgrade Marv The Sarcastic Chatbot to Langchain w memory ([3c38ee2](https://github.com/FullStackWithLawrence/aws-openai/commit/3c38ee2d37ea0f880db0549286db2baa2717a81d))
-
-# CHANGE LOG
-
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](http://keepachangelog.com/)
-and this project adheres to [Semantic Versioning](http://semver.org/).
-
 
 ## [0.4.0](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.3.1...v0.4.0) (2023-11-03)
 

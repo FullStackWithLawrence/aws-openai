@@ -32,6 +32,7 @@ resource "null_resource" "package_layer_genai" {
       file("${local.layer_source_directory}/openai_utils/const.py"),
       file("${local.layer_source_directory}/openai_utils/utils.py"),
       file("${local.layer_source_directory}/openai_utils/validators.py"),
+      fileexists("${local.layer_source_directory}/${local.layer_dist_package_name}") ? filebase64("${local.layer_source_directory}/${local.layer_dist_package_name}") : null
     ]))
   }
 

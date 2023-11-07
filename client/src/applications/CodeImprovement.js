@@ -16,6 +16,10 @@ const CodeImprovement = {
   placeholder_text: `give Camilla a Python code snippet to evaluate`,
   info_url: OPENAI_EXAMPLES_URL + SLUG,
   file_attach_button: true,
+  uses_openai: true,
+  uses_openai_api: true,
+  uses_langchain: false,
+  uses_memory: false,
 };
 
 export default CodeImprovement;

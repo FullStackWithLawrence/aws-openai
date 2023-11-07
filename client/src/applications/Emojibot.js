@@ -20,6 +20,10 @@ const Emojibot = {
   placeholder_text: `type something for Erik to translate into emojis`,
   info_url: OPENAI_EXAMPLES_URL + SLUG,
   file_attach_button: false,
+  uses_openai: true,
+  uses_openai_api: true,
+  uses_langchain: false,
+  uses_memory: false,
 };
 
 export default Emojibot;

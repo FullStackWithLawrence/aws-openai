@@ -16,6 +16,10 @@ const SqlTranslator = {
   placeholder_text: `send some data to Svea`,
   info_url: OPENAI_EXAMPLES_URL + SLUG,
   file_attach_button: false,
+  uses_openai: true,
+  uses_openai_api: true,
+  uses_langchain: false,
+  uses_memory: false,
 };
 
 export default SqlTranslator;

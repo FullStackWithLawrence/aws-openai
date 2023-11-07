@@ -15,6 +15,10 @@ const KeyWords = {
   example_prompts: [],
   placeholder_text: `send some text to Kiefer`,
   info_url: OPENAI_EXAMPLES_URL + SLUG,
+  uses_openai: true,
+  uses_openai_api: true,
+  uses_langchain: false,
+  uses_memory: false,
   file_attach_button: false,
 };
 

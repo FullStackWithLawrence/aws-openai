@@ -114,6 +114,15 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
             request_body
         )
         validate_messages(request_body=request_body)
+        request_meta_data = {
+            "request_meta_data": {
+                "lambda": "lambda_langchain",
+                "model": model,
+                "end_point": end_point,
+                "temperature": temperature,
+                "max_tokens": max_tokens,
+            }
+        }
 
         match end_point:
             case OpenAIEndPoint.ChatCompletion:
@@ -178,20 +187,10 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
                 )
                 conversation({"question": user_message})
 
-                # 5. extract the results
+                # 5. extract and return the results
                 # -------------------------------------------------------------
                 conversation_response = json.loads(conversation.memory.json())
-                print(json.dumps(conversation_response, indent=4))
-                conversation_response_messages = conversation_response["chat_memory"][
-                    "messages"
-                ]
-                conversation_assistant_messages = get_messages_for_type(
-                    messages=conversation_response_messages, message_type="ai"
-                )
-
-                # 6. return the results
-                # -------------------------------------------------------------
-                openai_results = conversation_assistant_messages[-1]
+                openai_results = conversation_response
 
             case OpenAIEndPoint.Embedding:
                 # https://platform.openai.com/docs/guides/embeddings/embeddings
@@ -235,4 +234,6 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
         )
 
     # success!! return the results
-    return http_response_factory(status_code=HTTP_RESPONSE_OK, body=openai_results)
+    return http_response_factory(
+        status_code=HTTP_RESPONSE_OK, body={**openai_results, **request_meta_data}
+    )

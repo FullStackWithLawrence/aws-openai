@@ -20,6 +20,10 @@ const ProConDiscusser = {
   placeholder_text: `tell Persephone what to evaluate...`,
   info_url: OPENAI_EXAMPLES_URL + SLUG,
   file_attach_button: false,
+  uses_openai: true,
+  uses_openai_api: true,
+  uses_langchain: false,
+  uses_memory: false,
 };
 
 export default ProConDiscusser;

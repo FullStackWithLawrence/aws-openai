@@ -31,8 +31,6 @@ import './Component.css';
 import { ChatModal } from './Modal.jsx';
 import { processApiRequest } from './ApiRequest.js';
 
-const TIMESTAMP_NOW = 'just now';
-
 function ChatApp(props) {
   const fileInputRef = useRef(null);
 
@@ -51,6 +49,20 @@ function ChatApp(props) {
   const info_url = props.info_url;
   const example_prompts = props.example_prompts;
   const file_attach_button = props.file_attach_button;
+  const uses_openai = props.uses_openai;
+  const uses_openai_api = props.uses_openai_api;
+  const uses_langchain = props.uses_langchain;
+  const uses_memory = props.uses_memory;
+
+  // message factory
+  function messageFactory(message, direction, sender) {
+    return {
+      message: message,
+      direction: direction,
+      sentTime: new Date().toLocaleString(),
+      sender: sender,
+    };
+  }
 
   // Error modal state management
   function openChatModal(title, msg) {
@@ -74,17 +86,9 @@ function ChatApp(props) {
 
   // message thread content
   const examples = examplePrompts(example_prompts);
-  let message_items = [{
-    message: welcome_message,
-    sentTime: TIMESTAMP_NOW,
-    sender: app_name,
-  }];
+  let message_items = [messageFactory(welcome_message, 'incoming', 'system')];
   if (examples) {
-    message_items.push({
-      message: examples,
-      sentTime: TIMESTAMP_NOW,
-      sender: app_name,
-    });
+    message_items.push(messageFactory(examples, 'incoming', 'system'));
   }
   const [messages, setMessages] = useState(message_items);
   const [isTyping, setIsTyping] = useState(false);
@@ -96,11 +100,7 @@ function ChatApp(props) {
 
   // API request handler
   async function handleRequest(input_text, base64_encode=true) {
-    const newMessage = {
-      message: input_text,
-      direction: 'outgoing',
-      sender: 'user',
-    };
+    const newMessage = messageFactory(input_text, 'outgoing', 'user');
     setMessages((prevMessages) => [...prevMessages, newMessage]);
     setIsTyping(true);
 
@@ -108,18 +108,15 @@ function ChatApp(props) {
       let response;
       if (base64_encode) {
         // uploaded files need to be base64 encoded.
-        response = await processApiRequest(btoa(input_text), api_url, api_key, openChatModal);
+        response = await processApiRequest(btoa(input_text), messages, api_url, api_key, openChatModal);
       } else {
         // everything else is passed as plain text
-        response = await processApiRequest(input_text, api_url, api_key, openChatModal);
+        response = await processApiRequest(input_text, messages, api_url, api_key, openChatModal);
       }
       if (response && "choices" in response) {
         const content = response.choices[0]?.message?.content;
         if (content) {
-          const chatGPTResponse = {
-            message: content,
-            sender: app_name,
-          };
+          const chatGPTResponse = messageFactory(content, 'incoming', 'assistant');
           setMessages((prevMessages) => [...prevMessages, chatGPTResponse]);
         }
       }

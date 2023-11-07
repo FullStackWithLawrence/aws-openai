@@ -274,6 +274,15 @@ def handler(event, context):
         openai_results = {}
         request_body = get_request_body(event=event)
         end_point, model, messages, input_text = parse_request(request_body)
+        request_meta_data = {
+            "request_meta_data": {
+                "lambda": "lambda_openai",
+                "model": model,
+                "end_point": end_point,
+                "temperature": 0.5,
+                "max_tokens": 256,
+            }
+        }
 
         match end_point:
             case OpenAIEndPoint.ChatCompletion:
@@ -330,4 +339,7 @@ def handler(event, context):
         )
 
     # success!! return the results
-    return http_response_factory(status_code=HTTP_RESPONSE_OK, body=openai_results)
+    return http_response_factory(
+        status_code=HTTP_RESPONSE_OK,
+        body={**openai_results, **request_meta_data},
+    )

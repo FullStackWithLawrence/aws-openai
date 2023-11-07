@@ -79,6 +79,7 @@ resource "aws_lambda_function" "lambda_langchain" {
   memory_size      = var.lambda_memory_size
   timeout          = var.lambda_timeout
   handler          = "lambda_handler.handler"
+  architectures    = var.compatible_architectures
   filename         = data.archive_file.lambda_langchain.output_path
   source_code_hash = data.archive_file.lambda_langchain.output_base64sha256
   layers           = [aws_lambda_layer_version.genai.arn]

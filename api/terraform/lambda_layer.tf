@@ -13,7 +13,7 @@ locals {
   layer_source_directory  = "${path.module}/python/${local.layer_name}"
   layer_packaging_script  = "${local.layer_source_directory}/create_container.sh"
   layer_package_folder    = local.layer_slug
-  layer_dist_package_name = "${local.layer_name}_dst"
+  layer_dist_package_name = "${local.layer_name}_dst.zip"
 }
 
 ###############################################################################
@@ -42,23 +42,17 @@ resource "null_resource" "package_layer_genai" {
     environment = {
       SOURCE_CODE_PATH = local.layer_source_directory
       RUNTIME          = var.lambda_python_runtime
+      CONTAINER_NAME   = local.layer_name
+      PACKAGE_NAME     = local.layer_dist_package_name
     }
   }
 }
 
-# data "archive_file" "layer_genai" {
-#   # see https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file
-#   source_dir  = "${local.layer_source_directory}/archive/"
-#   output_path = "${local.layer_source_directory}/${local.layer_dist_package_name}.zip"
-#   type        = "zip"
-#   depends_on  = [null_resource.package_layer_genai]
-# }
-
 resource "aws_lambda_layer_version" "genai" {
-  filename                 = "${local.layer_source_directory}/layer.zip"
-  source_code_hash         = fileexists("${local.layer_source_directory}/layer.zip") ? filebase64sha256("${local.layer_source_directory}/layer.zip") : null
+  filename                 = "${local.layer_source_directory}/${local.layer_dist_package_name}"
+  source_code_hash         = fileexists("${local.layer_source_directory}/${local.layer_dist_package_name}") ? filebase64sha256("${local.layer_source_directory}/${local.layer_dist_package_name}") : null
   layer_name               = local.layer_slug
-  compatible_architectures = ["x86_64", "arm64"]
+  compatible_architectures = var.compatible_architectures
   compatible_runtimes      = [var.lambda_python_runtime]
   lifecycle {
     create_before_destroy = true

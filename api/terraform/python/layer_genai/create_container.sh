@@ -10,19 +10,16 @@
 #         module(s) plus any requirements to a dedicated folder so that
 #         it can be archived to a zip file for upload to
 #         AWS Lambda by Terraform.
-#
-# see https://github.com/ruzin/terraform_aws_lambda_python/
 #------------------------------------------------------------------------------
 cd $SOURCE_CODE_PATH
-echo "source-code-path: $SOURCE_CODE_PATH"
 
-docker build -t lambda-genai .
-docker rm lambda-genai
-docker run --name lambda-genai --entrypoint /bin/bash lambda-genai -c "zip -r layer.zip ."
+docker build -t $CONTAINER_NAME .
+docker rm $CONTAINER_NAME
+docker run --name $CONTAINER_NAME --entrypoint /bin/bash $CONTAINER_NAME -c "zip -r $PACKAGE_NAME ."
 
-# Delete the layer.zip file if it exists
-if [ -f layer.zip ]; then
-    rm layer.zip
+# Delete the distribution package if it exists
+if [ -f $PACKAGE_NAME ]; then
+    rm $PACKAGE_NAME
 fi
 
-docker cp lambda-genai:/var/task/layer.zip .
+docker cp $CONTAINER_NAME:/var/task/$PACKAGE_NAME .

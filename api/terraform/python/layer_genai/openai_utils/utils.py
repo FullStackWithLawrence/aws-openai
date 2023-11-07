@@ -130,6 +130,7 @@ def parse_request(request_body: dict):
     input_text = request_body.get("input_text")
     temperature = request_body.get("temperature")
     max_tokens = request_body.get("max_tokens")
+    chat_history = request_body.get("chat_history")
 
     if not end_point:
         raise ValueError("end_point key not found in request body")
@@ -142,6 +143,14 @@ def parse_request(request_body: dict):
 
     if not messages and not input_text:
         raise ValueError("A value for either messages or input_text is required")
+
+    if chat_history and input_text:
+        # memory-enabled request assumed to be destined for lambda_langchain
+        # we'll need to rebuild the messages list from the chat_history
+        messages = []
+        for chat in chat_history:
+            messages.append({"role": chat["sender"], "content": chat["message"]})
+        messages.append({"role": "user", "content": input_text})
 
     return end_point, model, messages, input_text, temperature, max_tokens
 

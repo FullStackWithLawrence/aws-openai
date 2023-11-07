@@ -141,7 +141,6 @@ function ChatApp(props) {
           const chatGPTResponse = messageFactory(content, 'incoming', 'assistant');
           setMessages((prevMessages) => [...prevMessages, chatGPTResponse]);
         }
-        console.log(response)
         const llm_response = response.request_meta_data.model;
         setLLM(llm_response);
       }

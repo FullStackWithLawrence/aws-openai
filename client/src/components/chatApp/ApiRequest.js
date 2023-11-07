@@ -55,7 +55,8 @@ function mapResponse(response) {
 
 }
 
-export async function processApiRequest(chatMessage, apiURL, apiKey, openChatModal) {
+export async function processApiRequest(chatMessage, chatHistory, apiURL, apiKey, openChatModal) {
+
   const init = {
     method: 'POST',
     mode: 'cors',
@@ -66,7 +67,8 @@ export async function processApiRequest(chatMessage, apiURL, apiKey, openChatMod
       'Origin': window.location.origin
     },
     body: JSON.stringify({
-      'input_text': chatMessage
+      'input_text': chatMessage,
+      'chat_history': chatHistory,
     }),
   };
   try {

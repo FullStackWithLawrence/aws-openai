@@ -18,32 +18,42 @@
 
  Returns: the backend API is configured to return a JSON object that substantially
     conforms to the following structure for all 200 responses:
-           {
-             "isBase64Encoded": false,
-             "statusCode": 200,
-             "body": {
-                 "id": "chatcmpl-8B4RwgebWS8ZdTQ1ppHgElsru0BVW",
-                 "object": "chat.completion",
-                 "created": 1697649404,
-                 "model": "gpt-3.5-turbo-0613",
-                 "choices": [
-                     {
-                         "index": 0,
-                         "message": {
-                             "role": "assistant",
-                             "content": "Quantum computing is a type of computing that uses tiny particles called quantum bits, or qubits, to process and store information. It's like regular computers, but instead of using regular bits that can be either 0 or 1, quantum computers use qubits that can be both 0 and 1 at the same time. This allows them to solve certain problems much faster than regular computers. Quantum computers are very advanced and not widely used yet, but scientists are working on developing them to help solve complex problems in areas like science, medicine, and cryptography."
-                         },
-                         "finish_reason": "stop"
-                     }
-                 ],
-                 "usage": {
-                     "prompt_tokens": 30,
-                     "completion_tokens": 113,
-                     "total_tokens": 143
-                 }
-             }
-           }
+    v0.1.0 - v0.4.0:  ./test/events/openai.response.v0.4.0.json
+    v0.5.0:       ./test/events/langchain.response.v0.5.0.json
 -----------------------------------------------------------------------------*/
+
+function mapResponse(response) {
+  /*
+    note: to maintain backward compatibility with the original OpenAI API response format.
+    - OpenAI API responses are JSON objects of the format ./test/events/openai.response.v0.4.0.json
+    - LangChain API responses are text/plain of the format ./test/events/langchain.response.v0.5.0.json
+  */
+  if (response && typeof response === 'string') {
+    // LangChain response with a text/plain body.
+    return {
+      "choices": [
+          {
+              "index": 0,
+              "message": {
+                  "role": "assistant",
+                  "content": response
+              },
+              "finish_reason": "stop"
+          }
+      ]
+    };
+  }
+
+  try {
+    // OpenAI response with a JSON body.
+    let foo = JSON.stringify(response);
+    return response;
+  } catch (e) {
+      // unknown response format
+      console.log("internal error:", e);
+    }
+
+}
 
 export async function processApiRequest(chatMessage, apiURL, apiKey, openChatModal) {
   const init = {
@@ -66,7 +76,7 @@ export async function processApiRequest(chatMessage, apiURL, apiKey, openChatMod
     const response_body = await response_json.body; // ditto
 
     if (response.ok) {
-      return response_body;
+      return mapResponse(response_body);
     }
     else {
       /*

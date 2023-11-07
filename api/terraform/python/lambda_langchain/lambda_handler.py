@@ -181,6 +181,7 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
                 # 5. extract the results
                 # -------------------------------------------------------------
                 conversation_response = json.loads(conversation.memory.json())
+                print(json.dumps(conversation_response, indent=4))
                 conversation_response_messages = conversation_response["chat_memory"][
                     "messages"
                 ]

@@ -37,4 +37,4 @@ class TestLangchain:
 
         assert retval["statusCode"] == 200
         assert retval["isBase64Encoded"] == False
-        assert isinstance(retval["body"], str)
+        assert isinstance(retval["body"], dict)

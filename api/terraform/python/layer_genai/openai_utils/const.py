@@ -31,14 +31,11 @@ class OpenAIMessageKeys:
     OPENAI_USER_MESSAGE_KEY = "user"
     OPENAI_ASSISTANT_MESSAGE_KEY = "assistant"
     OPENAI_SYSTEM_MESSAGE_KEY = "system"
-
-    @property
-    def all(self):
-        return [
-            self.OPENAI_SYSTEM_MESSAGE_KEY,
-            self.OPENAI_USER_MESSAGE_KEY,
-            self.OPENAI_ASSISTANT_MESSAGE_KEY,
-        ]
+    all = [
+        OPENAI_SYSTEM_MESSAGE_KEY,
+        OPENAI_USER_MESSAGE_KEY,
+        OPENAI_ASSISTANT_MESSAGE_KEY,
+    ]
 
 
 VALID_CHAT_COMPLETION_MODELS = [

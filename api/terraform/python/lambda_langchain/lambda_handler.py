@@ -187,20 +187,10 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
                 )
                 conversation({"question": user_message})
 
-                # 5. extract the results
+                # 5. extract and return the results
                 # -------------------------------------------------------------
                 conversation_response = json.loads(conversation.memory.json())
-                print(json.dumps(conversation_response, indent=4))
-                conversation_response_messages = conversation_response["chat_memory"][
-                    "messages"
-                ]
-                conversation_assistant_messages = get_messages_for_type(
-                    messages=conversation_response_messages, message_type="ai"
-                )
-
-                # 6. return the results
-                # -------------------------------------------------------------
-                openai_results = conversation_assistant_messages[-1]
+                openai_results = conversation_response
 
             case OpenAIEndPoint.Embedding:
                 # https://platform.openai.com/docs/guides/embeddings/embeddings

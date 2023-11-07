@@ -39,6 +39,7 @@ from langchain.prompts import (
 # local imports from 'layer_genai' virtual environment or AWS Lambda layer.
 from openai_utils.const import (
     OpenAIEndPoint,
+    OpenAIMessageKeys,
     HTTP_RESPONSE_OK,
     HTTP_RESPONSE_BAD_REQUEST,
     HTTP_RESPONSE_INTERNAL_SERVER_ERROR,
@@ -84,8 +85,6 @@ openai.api_key = os.getenv("OPENAI_API_KEY", "SET-ME-WITH-DOTENV")
 # Transformations for the LangChain API for OpenAI
 ###############################################################################
 LANGCHAIN_MEMORY_KEY = "chat_history"
-OPENAI_USER_MESSAGE_KEY = "user"
-OPENAI_ASSISTANT_MESSAGE_KEY = "assistant"
 
 
 def handler(event, context, api_key=None, organization=None, pinecone_api_key=None):
@@ -133,9 +132,11 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
                 )
                 validate_completion_request(request_body)
                 system_message = get_content_for_role(
-                    messages, OPENAI_ASSISTANT_MESSAGE_KEY
+                    messages, OpenAIMessageKeys.OPENAI_SYSTEM_MESSAGE_KEY
                 )
-                user_message = get_content_for_role(messages, OPENAI_USER_MESSAGE_KEY)
+                user_message = get_content_for_role(
+                    messages, OpenAIMessageKeys.OPENAI_USER_MESSAGE_KEY
+                )
 
                 # 2. initialize the LangChain ChatOpenAI model
                 # -------------------------------------------------------------
@@ -157,8 +158,12 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
                     return_messages=True,
                 )
                 message_history = get_message_history(messages)
-                user_messages = get_messages_for_role(message_history, "user")
-                assistant_messages = get_messages_for_role(message_history, "assistant")
+                user_messages = get_messages_for_role(
+                    message_history, OpenAIMessageKeys.OPENAI_USER_MESSAGE_KEY
+                )
+                assistant_messages = get_messages_for_role(
+                    message_history, OpenAIMessageKeys.OPENAI_ASSISTANT_MESSAGE_KEY
+                )
                 for i in range(0, len(assistant_messages)):
                     memory.chat_memory.add_user_message(user_messages[i])
                     memory.chat_memory.add_ai_message(assistant_messages[i])

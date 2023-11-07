@@ -149,7 +149,10 @@ def parse_request(request_body: dict):
 def get_content_for_role(messages: list, role: str) -> str:
     """Get the text content from the messages list for a given role"""
     retval = [d.get("content") for d in messages if d["role"] == role]
-    return retval[-1]
+    try:
+        return retval[-1]
+    except IndexError:
+        return ""
 
 
 def get_message_history(messages: list) -> list:

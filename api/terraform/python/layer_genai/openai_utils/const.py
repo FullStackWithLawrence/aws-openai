@@ -25,6 +25,14 @@ class OpenAIEndPoint:
     all_endpoints = [Embedding, ChatCompletion, Moderation, Image, Audio, Models]
 
 
+class OpenAIMessageKeys:
+    """A class representing the keys for a message in the OpenAI API."""
+
+    OPENAI_USER_MESSAGE_KEY = "user"
+    OPENAI_ASSISTANT_MESSAGE_KEY = "assistant"
+    OPENAI_SYSTEM_MESSAGE_KEY = "system"
+
+
 VALID_MESSAGE_ROLES = ["system", "user", "assistant"]
 VALID_CHAT_COMPLETION_MODELS = [
     "gpt-4",

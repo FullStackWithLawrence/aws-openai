@@ -251,6 +251,10 @@ ChatApp.propTypes = {
   info_url: PropTypes.string.isRequired,
   example_prompts: PropTypes.array.isRequired,
   file_attach_button: PropTypes.bool.isRequired,
+  uses_openai: PropTypes.bool.isRequired,
+  uses_openai_api: PropTypes.bool.isRequired,
+  uses_langchain: PropTypes.bool.isRequired,
+  uses_memory: PropTypes.bool.isRequired,
 };
 
 export default ChatApp;

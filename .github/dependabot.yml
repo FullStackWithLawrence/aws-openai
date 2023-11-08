@@ -5,27 +5,43 @@ updates:
     schedule:
       interval: "daily"
     open-pull-requests-limit: 10
-    versioning-strategy: "auto"
+    labels:
+      - "dependencies"
+      - "automated pr"
+    assignees:
+      - "lpm0073"
     reviewers:
       - "lpm0073"
   - package-ecosystem: "pip"
     directory: "/api/terraform/python/layer_genai/"
     schedule:
       interval: "daily"
-    versioning-strategy: "auto"
+    labels:
+      - "dependencies"
+      - "automated pr"
+    assignees:
+      - "lpm0073"
     reviewers:
       - "lpm0073"
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
       interval: "daily"
-    versioning-strategy: "auto"
+    labels:
+      - "dependencies"
+      - "automated pr"
+    assignees:
+      - "lpm0073"
     reviewers:
       - "lpm0073"
   - package-ecosystem: "npm"
     directory: "/client"
+    labels:
+      - "dependencies"
+      - "automated pr"
     schedule:
       interval: "daily"
-    versioning-strategy: "auto"
+    assignees:
+      - "lpm0073"
     reviewers:
       - "lpm0073"

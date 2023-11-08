@@ -20,7 +20,7 @@ flake8==6.1.0
 python-dotenv==1.0.0
 openai==1.1.1
 langchain==0.0.331
-langchain-experimental==0.0.37
+langchain-experimental==0.0.38
 pinecone-client==2.2.4
 
 # local packages

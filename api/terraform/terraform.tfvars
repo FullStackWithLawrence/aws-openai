@@ -10,14 +10,14 @@
 ###############################################################################
 # AWS CLI parameters
 ###############################################################################
-aws_account_id = "090511222473"
+aws_account_id = "123456789012"
 tags = {
   "terraform" = "true",
-  "project"   = "chatGPT microservice"
-  "contact"   = "Lawrence McDaniel - https://lawrencemcdaniel.com/"
+  "project"   = "OpenAI Code Samples"
+  "contact"   = "YOUR CONTACT INFORMATION GOES HERE."
 }
 aws_region  = "us-east-1"
-aws_profile = "lawrence"
+aws_profile = "default"
 
 ###############################################################################
 # OpenAI API parameters
@@ -29,11 +29,10 @@ openai_endpoint_image_size = "1024x768"
 ###############################################################################
 # Lambda parameters
 ###############################################################################
-lambda_python_runtime    = "python3.11"
-compatible_architectures = ["x86_64"]
-debug_mode               = true
-lambda_memory_size       = 256
-lambda_timeout           = 600
+lambda_python_runtime = "python3.11"
+debug_mode            = true
+lambda_memory_size    = 256
+lambda_timeout        = 600
 
 ###############################################################################
 # CloudWatch logging parameters
@@ -45,8 +44,8 @@ log_retention_days = 3
 ###############################################################################
 # APIGateway parameters
 ###############################################################################
-create_custom_domain       = true
-root_domain                = "lawrencemcdaniel.com"
+create_custom_domain       = false
+root_domain                = "example.com"
 shared_resource_identifier = "openai"
 stage                      = "v1"
 

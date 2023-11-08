@@ -12,10 +12,13 @@ else
 	echo -e "OPENAI_API_ORGANIZATION=PLEASE-ADD-ME\nOPENAI_API_KEY=PLEASE-ADD-ME\nPINECONE_API_KEY=PLEASE-ADD-ME\nPINECONE_ENVIRONMENT=gcp-starter\nDEBUG_MODE=True\n" >> .env
 endif
 
-.PHONY: api-init api-activate api-lint api-clean api-test client-init client-lint client-update client-run client-build client-release
+.PHONY: analyze api-init api-activate api-lint api-clean api-test client-init client-lint client-update client-run client-build client-release
 
 # Default target executed when no arguments are given to make.
 all: help
+
+analyze:
+	cloc . --exclude-ext=svg,json,zip --vcs=git
 
 ######################
 # AWS API Gateway + Lambda + OpenAI

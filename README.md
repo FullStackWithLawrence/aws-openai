@@ -8,11 +8,7 @@
 
 A [React](https://react.dev/) + [AWS Serverless](https://aws.amazon.com/serverless/) full stack implementation of the [30 example applications](https://platform.openai.com/examples) found in the official OpenAI API documentation. Now with [LangChain](https://www.langchain.com/)!
 
-<p align="center">
-  <a href="http://www.youtube.com/watch?v=A7z25m3x1QE" title="React front end">
-    <img src="http://img.youtube.com/vi/A7z25m3x1QE/0.jpg" alt="React front end" width="600">
-  </a>
-</p>
+![Marv](https://cdn.lawrencemcdaniel.com/marv.gif)
 
 **IMPORTANT DISCLAIMER: AWS' Lambda service has a hard 29-second timeout. OpenAI API calls often take longer than this, in which case the AWS API Gateway endpoint will return a 504 "Gateway timeout error" response to the React client. This happens frequently with apps created using chatgpt-4. Each of the 30 OpenAI API example applications are nonetheless implemented exactly as they are specified in the official documentation.**
 

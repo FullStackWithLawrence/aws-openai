@@ -113,7 +113,8 @@ client-release:
 ######################
 
 help:
-	@echo '===================='
+	@echo '===================================================================='
+	@echo 'analyze             - generate code analysis report'
 	@echo '-- AWS API Gateway + Lambda --'
 	@echo 'api-init            - create a Python virtual environment and install dependencies'
 	@echo 'api-activate        - activate the Python virtual environment'

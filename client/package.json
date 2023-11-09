@@ -19,7 +19,7 @@
     "react-icons": "^4.11.0",
     "react-modal": "^3.16.1",
     "react-pro-sidebar": "^1.1.0-alpha.1",
-    "styled-components": "^6.0.9"
+    "styled-components": "^6.1.1"
   },
   "devDependencies": {
     "@chatscope/chat-ui-kit-react": "^1.10.1",

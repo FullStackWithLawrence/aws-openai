@@ -9,13 +9,6 @@
 * revert to last stable version of openai ([d57c5db](https://github.com/FullStackWithLawrence/aws-openai/commit/d57c5db44853a06a7d32578932f86e92490637e0))
 * stabilize openai breaking changes by making dependabot ignore related packages ([5ca1d81](https://github.com/FullStackWithLawrence/aws-openai/commit/5ca1d81e5cb3d8b8115e5343d114950506316597))
 
-# CHANGE LOG
-
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](http://keepachangelog.com/)
-and this project adheres to [Semantic Versioning](http://semver.org/).
-
 ## [0.5.0](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.4.0...v0.5.0) (2023-11-07)
 
 ### Bug Fixes

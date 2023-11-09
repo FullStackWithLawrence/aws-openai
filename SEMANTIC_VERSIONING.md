@@ -28,3 +28,9 @@ As an open-source maintainer, squash feature branches onto master and write a st
 - `perf`: A code change that improves performance
 - `test`: Adding missing or correcting existing tests
 - `chore`: Changes to the build process or auxiliary tools and libraries such as documentation generation
+
+Example
+
+```console
+git commit -m "docs: add an example of a good commit message"
+```

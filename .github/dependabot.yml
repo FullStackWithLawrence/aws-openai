@@ -18,6 +18,7 @@ updates:
       interval: "daily"
     labels:
       - "dependencies"
+      - "python"
       - "automated pr"
     assignees:
       - "lpm0073"
@@ -33,6 +34,7 @@ updates:
       interval: "daily"
     labels:
       - "dependencies"
+      - "python"
       - "automated pr"
     assignees:
       - "lpm0073"
@@ -46,6 +48,7 @@ updates:
     directory: "/client"
     labels:
       - "dependencies"
+      - "javascript"
       - "automated pr"
     schedule:
       interval: "daily"

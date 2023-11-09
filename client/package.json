@@ -18,19 +18,19 @@
     "react-icons": "^4.11.0",
     "react-modal": "^3.16.1",
     "react-pro-sidebar": "^1.1.0-alpha.1",
-    "styled-components": "^6.0.9"
+    "styled-components": "^6.1.1"
   },
   "devDependencies": {
     "@chatscope/chat-ui-kit-react": "^1.10.1",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
-    "@typescript-eslint/eslint-plugin": "^6.7.5",
-    "@typescript-eslint/parser": "^6.7.5",
-    "@vitejs/plugin-react": "^4.0.3",
-    "eslint": "^8.45.0",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0",
+    "@vitejs/plugin-react": "^4.1.1",
+    "eslint": "^8.53.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.3",
+    "eslint-plugin-react-refresh": "^0.4.4",
     "vite": "^4.5.0"
   }
 }

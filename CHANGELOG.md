@@ -1,3 +1,14 @@
+## [0.5.1](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.5.0...v0.5.1) (2023-11-09)
+
+
+### Bug Fixes
+
+* don't persist credentials when calling actions/checkout ([72dea97](https://github.com/FullStackWithLawrence/aws-openai/commit/72dea975cb9d551f09ca329b354ac42189af14b2))
+* downgrade openai to previous stable version ([bfc6962](https://github.com/FullStackWithLawrence/aws-openai/commit/bfc69624c9284c16a370b00c7d265f8898fb9c0f))
+* revert last commit ([564e3fd](https://github.com/FullStackWithLawrence/aws-openai/commit/564e3fdd42465895f6f48937e420897a9d677348))
+* revert to last stable version of openai ([d57c5db](https://github.com/FullStackWithLawrence/aws-openai/commit/d57c5db44853a06a7d32578932f86e92490637e0))
+* stabilize openai breaking changes by making dependabot ignore related packages ([5ca1d81](https://github.com/FullStackWithLawrence/aws-openai/commit/5ca1d81e5cb3d8b8115e5343d114950506316597))
+
 # CHANGE LOG
 
 All notable changes to this project will be documented in this file.

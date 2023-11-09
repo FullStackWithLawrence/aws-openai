@@ -6,7 +6,6 @@ The [release.yml](.github/workflows/release.yml), [checkPullRequest.yml](.github
 
 As an open-source maintainer, squash feature branches onto master and write a standardized commit message while doing so. The commit message should be structured as follows:
 
-```code
 `<type>`: This represents the type of change made in the commit. Common types include feat (for a new feature), fix (for a bug fix), chore (for routine tasks like updating dependencies), docs (for documentation changes), style (for code style changes), refactor (for refactoring existing code), test (for adding or updating tests), and perf (for performance improvements).
 
 `[optional scope]`: This is an optional part that provides additional contextual information, like the part of the codebase the commit modifies.
@@ -16,7 +15,6 @@ As an open-source maintainer, squash feature branches onto master and write a st
 `[optional body]`: This is an optional part where you can provide a more detailed explanation of the changes.
 
 `[optional footer(s)]`: This is also optional and is often used to reference issue tracker IDs.
-```
 
 ## Commit Message format
 

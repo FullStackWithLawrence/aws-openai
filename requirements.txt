@@ -10,7 +10,7 @@
 
 # dev and test
 # ------------
-boto3==1.28.82
+boto3==1.28.83
 pytest==7.4.3
 pytest_mock==3.12.0
 flake8==6.1.0

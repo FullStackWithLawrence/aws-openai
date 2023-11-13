@@ -56,3 +56,25 @@ updates:
       - "lpm0073"
     reviewers:
       - "lpm0073"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    labels:
+      - "dependencies"
+      - "automated pr"
+    schedule:
+      interval: "daily"
+    assignees:
+      - "lpm0073"
+    reviewers:
+      - "lpm0073"
+  - package-ecosystem: "pre-commit"
+    directory: "/"
+    labels:
+      - "dependencies"
+      - "automated pr"
+    schedule:
+      interval: "daily"
+    assignees:
+      - "lpm0073"
+    reviewers:
+      - "lpm0073"

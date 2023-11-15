@@ -1,0 +1,104 @@
+#---------------------------------------------------------
+# - Create a semantical release
+# - Merge main into next, alpha, beta, and next-major
+#---------------------------------------------------------
+name: Push to main
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  merge-main-to-dev-branches:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.PAT }}
+
+    steps:
+      - name: Checkout code
+        id: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Merge main into next
+        id: merge_main_to_next
+        shell: bash
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git checkout main
+          git pull
+          git checkout next
+          git merge main
+          git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:next
+
+      - name: Merge main into next-major
+        id: merge_main_to_next_major
+        shell: bash
+        run: |
+            echo "Scaffolding: merge main into next-major"
+
+      - name: Merge main into alpha
+        id: merge_main_to_alpha
+        shell: bash
+        run: |
+            echo "Scaffolding: merge main into alpha"
+
+      - name: Merge main into beta
+        id: merge_main_to_beta
+        shell: bash
+        run: |
+            echo "Scaffolding: merge main into beta"
+
+  semantic-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        id: checkout
+        with:
+          persist-credentials: false
+
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v4
+        id: semantic
+        with:
+          branches: |
+            [
+              '+([0-9])?(.{+([0-9]),x}).x',
+              'main',
+              'next',
+              'next-major',
+              {
+                name: 'beta',
+                prerelease: true
+              },
+              {
+                name: 'alpha',
+                prerelease: true
+              }
+            ]
+          extra_plugins: |
+            @semantic-release/git
+            @semantic-release/changelog
+        env:
+            GIT_COMMITTER_NAME: github-actions[bot]
+            GIT_COMMITTER_EMAIL: github-actions[bot]@users.noreply.github.com
+            GIT_AUTHOR_NAME: github-actions[bot]
+            GIT_AUTHOR_EMAIL: github-actions[bot]@users.noreply.github.com
+
+      - name: Publish To GitHub Package Registry
+        id: publish
+        if: steps.semantic.outputs.new_release_published == 'true'
+        run: echo "new release was published"
+        shell: bash
+
+      - name: Push updates to branch for major version
+        id: push_major
+        if: steps.semantic.outputs.new_release_published == 'true'
+        run: "git push https://x-access-token:${{ env.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git HEAD:refs/heads/v${{steps.semantic.outputs.new_release_major_version}}"
+        shell: bash

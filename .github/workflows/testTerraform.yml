@@ -34,7 +34,7 @@
 
         - name: Create lambda_dist_pkg directory
           run: |
-            mkdir -p api/terraform/python/lambda_langchain/lambda_dist_pkg/
+            mkdir -p ${{ github.workspace }}/api/terraform/python/lambda_langchain/lambda_dist_pkg/
 
         - name: Terraform Init
           run: |

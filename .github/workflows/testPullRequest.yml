@@ -1,0 +1,166 @@
+#------------------------------------------------------------------------------
+# Use semantic release rules to determine if a new release will be published.
+#
+# If a new release is to be published, then do the following:
+#   1. run Python tests, but only if Python-related files have changed.
+#   2. run Terraform tests, but only if Terraform-related files have changed.
+#   3. run ReactJS tests, but only if ReactJS-related files have changed.
+#   4. run pre-commit hooks to ensure code is formatted correctly.
+#
+# Called automatically on relavant actions performed on pull requests.
+# Can also be run manually by clicking the "Run workflow" button.
+#------------------------------------------------------------------------------
+name: Test Pull Request
+
+on:
+  workflow_dispatch:
+
+  # GitHub Copilot: The `pull_request` and `pull_request_target` are two different event types in GitHub Actions that trigger workflows when activity related to pull requests occurs.
+  # - `pull_request`: This event triggers a workflow run whenever a pull request is opened, synchronized, or closed. The workflow runs in the context of the pull request, meaning it has access to the code and environment variables of the head branch of the pull request. This is safe for pull requests within the same repository, but for pull requests from a fork, this could potentially expose sensitive information.
+  # - `pull_request_target`: This event is similar to `pull_request`, but it runs in the context of the base of the pull request, rather than the head. This means it has access to the code and environment variables of the base branch, not the head branch. This is safer for pull requests from forks, as it prevents the fork from accessing sensitive information in the base repository. However, it means the workflow does not have access to the code in the pull request by default. If you need to access the code in the pull request, you can use the `actions/checkout` action with the `ref` input set to `github.event.pull_request.head.ref`.
+  # In general, use `pull_request` for workflows that need to access the code in the pull request, and `pull_request_target` for workflows that need to be safe for pull requests from forks.
+  pull_request_target:
+    types: [opened, closed, synchronize, edited, ready_for_review, review_requested, assigned]
+    paths:
+      - '**.py'
+      - '**.tf'
+      - '**.js'
+      - '**.jsx'
+      - '**.requirements.txt'
+      - '**.package.json'
+      - './client/**'
+      - './api/terraform/**'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  check_for_pending_release:
+    name: test-semantic-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v4
+        id: semantic
+        with:
+          dry_run: true
+          branches: |
+            [
+              '+([0-9])?(.{+([0-9]),x}).x',
+              'main',
+              'next',
+              'next-major',
+              {
+                name: 'beta',
+                prerelease: true
+              },
+              {
+                name: 'alpha',
+                prerelease: true
+              }
+            ]
+          extra_plugins: |
+            @semantic-release/git
+            @semantic-release/changelog
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+      - name: Test Outputs
+        if: steps.semantic.outputs.new_release_published == 'true'
+        run: |
+          echo ${{ steps.semantic.outputs.new_release_version }}
+          echo ${{ steps.semantic.outputs.new_release_major_version }}
+          echo ${{ steps.semantic.outputs.new_release_minor_version }}
+          echo ${{ steps.semantic.outputs.new_release_patch_version }}
+
+  python_tests:
+    needs: check_for_pending_release
+    runs-on: ubuntu-latest
+    if: needs.check_for_pending_release.outputs.new_release_published == 'true' || github.event.action == 'opened' || github.event.action == 'closed'
+    env:
+      REQUIREMENTS_PATH: 'api/terraform/python/layer_genai/requirements.txt'
+
+    steps:
+      - name: Checkout code
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Check for Python files changed
+        id: file_changes
+        run: |
+          echo "::set-output name=py_files_changed::$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep '\.py$' || true)"
+          echo "::set-output name=requirements_changed::$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep '^${{ env.REQUIREMENTS_PATH }}$' || true)"
+
+      - name: Run Python Tests
+        if: steps.file_changes.outputs.py_files_changed != '' || steps.file_changes.outputs.requirements_changed != ''
+        id: python_tests
+        uses: ./.github/workflows/testPython.yml
+
+      - name: No Python changes detected
+        if: steps.file_changes.outputs.py_files_changed == '' && steps.file_changes.outputs.requirements_changed == ''
+        run: echo "No Python or requirements.txt changes detected."
+
+  terraform_tests:
+    needs: check_for_pending_release
+    runs-on: ubuntu-latest
+    if: needs.check_for_pending_release.outputs.new_release_published == 'true' || github.event.action == 'opened' || github.event.action == 'closed'
+    steps:
+      - name: Checkout code
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Check for Terraform files changed
+        id: file_changes
+        run: |
+          echo "::set-output name=terraform_files_changed::$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep '\.tf$' || true)"
+
+      - name: Run Terraform Tests
+        if: steps.file_changes.outputs.terraform_files_changed != ''
+        id: terraform_tests
+        uses: ./.github/workflows/testTerraform.yml
+
+      - name: No Terraform changes detected
+        if: steps.file_changes.outputs.py_files_changed == ''
+        run: echo "No Terraform changes detected."
+
+  reactjs_tests:
+    needs: check_for_pending_release
+    runs-on: ubuntu-latest
+    if: needs.check_for_pending_release.outputs.new_release_published == 'true' || github.event.action == 'opened' || github.event.action == 'closed'
+    steps:
+      - name: Checkout code
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Check for ReactJS files changed
+        id: file_changes
+        run: |
+          echo "::set-output name=reactjs_files_changed::$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep '^client/' || true)"
+
+      - name: Run ReactJS Tests
+        if: steps.file_changes.outputs.reactjs_files_changed != ''
+        id: reactjs_tests
+        uses: ./.github/workflows/testReact.yml
+
+      - name: No ReactJS changes detected
+        if: steps.file_changes.outputs.py_files_changed == ''
+        run: echo "No ReactJS changes detected."
+
+  pre_commit_tests:
+    needs: check_for_pending_release
+    runs-on: ubuntu-latest
+    if: needs.check_for_pending_release.outputs.new_release_published == 'true' || github.event.action == 'opened' || github.event.action == 'closed'
+    steps:
+      - name: Checkout code
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Run ReactJS Tests
+        id: precommit_tests
+        uses: ./.github/workflows/testPreCommitRules.yml

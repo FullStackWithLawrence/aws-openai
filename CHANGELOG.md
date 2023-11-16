@@ -1,5 +1,17 @@
 ## [0.5.2](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.5.1...v0.5.2) (2023-11-16)
 
+### Features
+
+* propagate merges to main back into dev branches: next, next-major, alpha, beta ([fd32caf](https://github.com/FullStackWithLawrence/aws-openai/pull/73/commits/959ebb91afe30bd7dec0ce93b994e2c0dfd32caf))
+* create a top-level Pull Request workflow that triggers tech-specific unit  ([fd32caf](https://github.com/FullStackWithLawrence/aws-openai/pull/73/commits/959ebb91afe30bd7dec0ce93b994e2c0dfd32caf))tests
+
+### Refactoring
+
+* refactor and expand the scope of automated PR revision workflows ([fd32caf](https://github.com/FullStackWithLawrence/aws-openai/pull/73/commits/959ebb91afe30bd7dec0ce93b994e2c0dfd32caf))
+* consolidate all jobs related to merging to main into a single workflow ([fd32caf](https://github.com/FullStackWithLawrence/aws-openai/pull/73/commits/959ebb91afe30bd7dec0ce93b994e2c0dfd32caf))
+* refactor Python unit test and only run when relevant modifications are  ([fd32caf](https://github.com/FullStackWithLawrence/aws-openai/pull/73/commits/959ebb91afe30bd7dec0ce93b994e2c0dfd32caf))included in commit (*.py, requirements.txt ([fd32caf](https://github.com/FullStackWithLawrence/aws-openai/pull/73/commits/959ebb91afe30bd7dec0ce93b994e2c0dfd32caf)), etc)
+* scaffold a ReactJS unit test workflow ([fd32caf](https://github.com/FullStackWithLawrence/aws-openai/pull/73/commits/959ebb91afe30bd7dec0ce93b994e2c0dfd32caf))
+* create a Terraform unit test workflow ([fd32caf](https://github.com/FullStackWithLawrence/aws-openai/pull/73/commits/959ebb91afe30bd7dec0ce93b994e2c0dfd32caf))
 
 ### Bug Fixes
 

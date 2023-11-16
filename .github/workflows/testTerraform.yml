@@ -32,6 +32,10 @@
             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             aws-region: ${{ secrets.AWS_REGION }}
 
+        - name: Create lambda_dist_pkg directory
+          run: |
+            mkdir -p api/terraform/python/lambda_langchain/lambda_dist_pkg/
+
         - name: Terraform Init
           run: |
             cd api/terraform

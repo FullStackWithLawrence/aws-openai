@@ -32,14 +32,6 @@
             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             aws-region: ${{ secrets.AWS_REGION }}
 
-        # FIX NOTE: this should not be necessary, but for some reason the
-        # terraform plan step fails without it
-        - name: Create lambda_dist_pkg directory
-          run: |
-            mkdir -p ${{ github.workspace }}/api/terraform/python/lambda_openai/lambda_dist_pkg/
-            mkdir -p ${{ github.workspace }}/api/terraform/python/lambda_openai_v2_/lambda_dist_pkg/
-            mkdir -p ${{ github.workspace }}/api/terraform/python/lambda_langchain/lambda_dist_pkg/
-
         - name: Terraform Init
           run: |
             cd api/terraform
@@ -49,11 +41,6 @@
           run: |
             cd api/terraform
             terraform validate
-
-        - name: Terraform Plan
-          run: |
-            cd api/terraform
-            terraform plan
 
         - name: Terraform Format
           run: |

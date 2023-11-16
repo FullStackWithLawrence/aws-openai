@@ -18,6 +18,7 @@ venv
 *.log
 
 # .tfstate files
+.terraform.lock.hcl
 *.tfstate
 *.tfstate.*
 

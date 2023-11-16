@@ -1,0 +1,23 @@
+# -----------------------------------------------------------------------------
+# pre-commit tests
+# -----------------------------------------------------------------------------
+  name: Test pre-commit rules
+
+  on: [workflow_dispatch]
+
+  jobs:
+    pre-commit:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+
+        - name: Set up Python
+          uses: actions/setup-python@v4
+          with:
+            python-version: 3.11
+
+        # see: https://pre-commit.ci/lite.html
+        - name: pre-commit ci
+          id: pre-commit-ci
+          if: always()
+          uses: pre-commit-ci/lite-action@v1.0.0

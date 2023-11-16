@@ -21,7 +21,6 @@ jobs:
         id: checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
           persist-credentials: false
 
       - name: Merge main into next
@@ -40,19 +39,37 @@ jobs:
         id: merge_main_to_next_major
         shell: bash
         run: |
-            echo "Scaffolding: merge main into next-major"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git checkout main
+          git pull
+          git checkout next-major
+          git merge main
+          git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:next-major
 
       - name: Merge main into alpha
         id: merge_main_to_alpha
         shell: bash
         run: |
-            echo "Scaffolding: merge main into alpha"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git checkout main
+          git pull
+          git checkout alpha
+          git merge main
+          git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:alpha
 
       - name: Merge main into beta
         id: merge_main_to_beta
         shell: bash
         run: |
-            echo "Scaffolding: merge main into beta"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git checkout main
+          git pull
+          git checkout beta
+          git merge main
+          git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:beta
 
   semantic-release:
     runs-on: ubuntu-latest

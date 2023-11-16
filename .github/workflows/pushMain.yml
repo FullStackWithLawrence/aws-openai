@@ -56,6 +56,8 @@ jobs:
 
   semantic-release:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.PAT }}
 
     steps:
       - uses: actions/checkout@v4

@@ -3,7 +3,7 @@
 [![ReactJS](https://a11ybadges.com/badge?logo=react)](https://react.dev/)
 [![FullStackWithLawrence](https://a11ybadges.com/badge?text=FullStackWithLawrence&badgeColor=orange&logo=youtube&logoColor=282828)](https://www.youtube.com/@FullStackWithLawrence)
 
-# Reacdt Client Application
+# React Client Application
 
 This application implements each of the [30 Code Samples](https://platform.openai.com/examples) as found in the OpenAI API official documentation. Created with [React](https://react.dev/) leveraging [@chatscope/chat-ui-kit-react](https://www.npmjs.com/package/@chatscope/chat-ui-kit-react) and [react-pro-sidebar](https://www.npmjs.com/package/react-pro-sidebar) running on [AWS](https://aws.amazon.com/) serverless infrastructure integrated to [OpenAI Python API](https://platform.openai.com/docs/api-reference?lang=python).
 
@@ -101,6 +101,6 @@ To get community support, go to the official [Issues Page](https://github.com/Fu
 
 ## Contributing
 
-We welcome contributions! There are a variety of ways for you to get involved, regardless of your background. In additional to Pull requests, this project would benefit from contributors focused on documentation and how-to video content creation, testing, community engagement, and stewards to help us to ensure that we comply with evolving standards for the ethical use of AI.
+We welcome contributions! There are a variety of ways for you to get involved, regardless of your background. In addition to Pull requests, this project would benefit from contributors focused on documentation and how-to video content creation, testing, community engagement, and stewards to help us to ensure that we comply with evolving standards for the ethical use of AI.
 
 You can also contact [Lawrence McDaniel](https://lawrencemcdaniel.com/contact) directly.

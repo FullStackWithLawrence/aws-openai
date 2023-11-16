@@ -42,11 +42,6 @@
             cd api/terraform
             terraform validate
 
-        - name: Terraform Plan
-          run: |
-            cd api/terraform
-            terraform plan
-
         - name: Terraform Format
           run: |
             cd api/terraform

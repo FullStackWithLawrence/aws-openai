@@ -79,6 +79,12 @@ jobs:
           echo ${{ steps.semantic.outputs.new_release_minor_version }}
           echo ${{ steps.semantic.outputs.new_release_patch_version }}
 
+      # see: https://pre-commit.ci/lite.html
+      - name: pre-commit ci
+        id: pre-commit-ci
+        if: always()
+        uses: pre-commit-ci/lite-action@v1.0.0
+
   python_tests:
     needs: check_for_pending_release
     runs-on: ubuntu-latest

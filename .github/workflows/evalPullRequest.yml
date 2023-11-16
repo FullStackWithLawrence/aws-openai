@@ -1,24 +1,46 @@
 #------------------------------------------------------------------------------
-# Use semantic release rules to determine if a new release will be published.
+# Pull Request Workflow Controller.
 #
-# If a new release is to be published, then do the following:
-#   1. run Python tests, but only if Python-related files have changed.
-#   2. run Terraform tests, but only if Terraform-related files have changed.
-#   3. run ReactJS tests, but only if ReactJS-related files have changed.
-#   4. run pre-commit hooks to ensure code is formatted correctly.
+# Triggers:
+# - Called automatically on relavant actions performed on pull requests.
+# - Can also be run manually by clicking the "Run workflow" button.
 #
-# Called automatically on relavant actions performed on pull requests.
-# Can also be run manually by clicking the "Run workflow" button.
+# Actions:
+# - Use semantic release rules to determine if a new release will be published.
+# - run Python tests, but only if Python-related files have changed.
+# - run Terraform tests, but only if Terraform-related files have changed.
+# - run ReactJS tests, but only if ReactJS-related files have changed.
+# - run pre-commit hooks to ensure code is formatted correctly.
+#
+# To-Do:
+# If a new release is to be published then we want to consider running QA tests
+# to ensure formatting and documentation is correct.
 #------------------------------------------------------------------------------
-name: Test Pull Request
+name: Evaluate Pull Request
 
 on:
   workflow_dispatch:
 
-  # GitHub Copilot: The `pull_request` and `pull_request_target` are two different event types in GitHub Actions that trigger workflows when activity related to pull requests occurs.
-  # - `pull_request`: This event triggers a workflow run whenever a pull request is opened, synchronized, or closed. The workflow runs in the context of the pull request, meaning it has access to the code and environment variables of the head branch of the pull request. This is safe for pull requests within the same repository, but for pull requests from a fork, this could potentially expose sensitive information.
-  # - `pull_request_target`: This event is similar to `pull_request`, but it runs in the context of the base of the pull request, rather than the head. This means it has access to the code and environment variables of the base branch, not the head branch. This is safer for pull requests from forks, as it prevents the fork from accessing sensitive information in the base repository. However, it means the workflow does not have access to the code in the pull request by default. If you need to access the code in the pull request, you can use the `actions/checkout` action with the `ref` input set to `github.event.pull_request.head.ref`.
-  # In general, use `pull_request` for workflows that need to access the code in the pull request, and `pull_request_target` for workflows that need to be safe for pull requests from forks.
+  # GitHub Copilot: The `pull_request` and `pull_request_target` are two different
+  # event types in GitHub Actions that trigger workflows when activity related
+  # to pull requests occurs.
+  # - `pull_request`: This event triggers a workflow run whenever a pull
+  #   request is opened, synchronized, or closed. The workflow runs in the context of the
+  #   pull request, meaning it has access to the code and environment variables of the head
+  #   branch of the pull request. This is safe for pull requests within the same repository,
+  #   but for pull requests from a fork, this could potentially expose sensitive information.
+  #
+  # - `pull_request_target`: This event is similar to `pull_request`, but it runs in the context
+  #   of the base of the pull request, rather than the head. This means it has access to the code
+  #   and environment variables of the base branch, not the head branch. This is safer for
+  #   pull requests from forks, as it prevents the fork from accessing sensitive information
+  #   in the base repository. However, it means the workflow does not have access to the code
+  #   in the pull request by default. If you need to access the code in the pull request,
+  #   you can use the `actions/checkout` action with the `ref` input
+  #   set to `github.event.pull_request.head.ref`.
+  #
+  # In general, use `pull_request` for workflows that need to access the code in the pull request,
+  # and `pull_request_target` for workflows that need to be safe for pull requests from forks.
   pull_request_target:
     types: [opened, closed, synchronize, edited, ready_for_review, review_requested, assigned]
     paths:
@@ -69,7 +91,6 @@ jobs:
             @semantic-release/changelog
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
       - name: Test Outputs
         if: steps.semantic.outputs.new_release_published == 'true'
@@ -82,7 +103,6 @@ jobs:
   python_tests:
     needs: check_for_pending_release
     runs-on: ubuntu-latest
-    if: needs.check_for_pending_release.outputs.new_release_published == 'true' || github.event.action == 'opened' || github.event.action == 'closed'
     env:
       REQUIREMENTS_PATH: 'api/terraform/python/layer_genai/requirements.txt'
 
@@ -109,7 +129,6 @@ jobs:
   terraform_tests:
     needs: check_for_pending_release
     runs-on: ubuntu-latest
-    if: needs.check_for_pending_release.outputs.new_release_published == 'true' || github.event.action == 'opened' || github.event.action == 'closed'
     steps:
       - name: Checkout code
         id: checkout
@@ -132,7 +151,6 @@ jobs:
   reactjs_tests:
     needs: check_for_pending_release
     runs-on: ubuntu-latest
-    if: needs.check_for_pending_release.outputs.new_release_published == 'true' || github.event.action == 'opened' || github.event.action == 'closed'
     steps:
       - name: Checkout code
         id: checkout
@@ -155,7 +173,6 @@ jobs:
   pre_commit_tests:
     needs: check_for_pending_release
     runs-on: ubuntu-latest
-    if: needs.check_for_pending_release.outputs.new_release_published == 'true' || github.event.action == 'opened' || github.event.action == 'closed'
     steps:
       - name: Checkout code
         id: checkout

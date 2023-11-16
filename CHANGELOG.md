@@ -1,3 +1,10 @@
+## [0.5.2](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.5.1...v0.5.2) (2023-11-16)
+
+
+### Bug Fixes
+
+* add GITHUB_TOKEN to semantic-release job ([bf4152d](https://github.com/FullStackWithLawrence/aws-openai/commit/bf4152d282b4652390b356711c0e84b422b07b30))
+
 ## [0.5.1](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.5.0...v0.5.1) (2023-11-09)
 
 

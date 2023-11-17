@@ -1,0 +1,33 @@
+#------------------------------------------------------------------------------
+# Run all tests
+#------------------------------------------------------------------------------
+name: Run all tests
+
+on:
+  workflow_dispatch:
+env:
+  python-version: "3.11"
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Run Python tests
+        uses: ./.github/actions/tests/python
+        with:
+          python-version: "${{ env.python-version}}"
+
+      - name: Run Terraform tests
+        uses: ./.github/actions/tests/reactjs
+
+      - name: Run ReactJS tests
+        uses: ./.github/actions/tests/reactjs
+
+      - name: Run pre-commit tests
+        uses: ./.github/actions/tests/pre-commit
+        with:
+          python-version: "${{ env.python-version}}"

@@ -25,10 +25,6 @@ inputs:
     required: true
     type: string
 
-env:
-  SOURCE_BRANCH: ${{ inputs.source-branch }}
-  TARGET_BRANCH: ${{ inputs.target-branch }}
-
 runs:
   using: "composite"
   steps:
@@ -46,6 +42,8 @@ runs:
             echo "source-branch '${{ env.SOURCE_BRANCH }}' does not exist in git repository" >&2
             exit 1
           fi
+        with:
+          SOURCE_BRANCH: ${{ inputs.source-branch }}
 
       - name: Verify target-branch
         shell: bash
@@ -54,6 +52,9 @@ runs:
             echo "target-branch '${{ env.TARGET_BRANCH }}' does not exist in git repository" >&2
             exit 1
           fi
+        with:
+          TARGET_BRANCH: ${{ inputs.target-branch }}
+
 
       - name: Remember current branch
         shell: bash

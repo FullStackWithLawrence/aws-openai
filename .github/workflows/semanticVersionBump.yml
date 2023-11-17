@@ -1,6 +1,6 @@
 #------------------------------------------------------------------------------
 # Lawrence McDaniel - https://lawrencemcdaniel.com
-# Version Bump Workflow
+# Version Bump Workflow for Python package openai_utils
 #
 # Calculate the version of the 'next' branch based on semantic-release rules.
 # Compares the existing value of __version__.py to the calculated value.
@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       VERSION_FILE: __version__.py
-      VERSION_FILE_PATH: ${{ github.workspace }}/api/terraform/python/layer_genai/openai_utils/
+      PACKAGE_PATH: ${{ github.workspace }}/api/terraform/python/layer_genai/openai_utils/
 
     steps:
       - uses: actions/checkout@v4
@@ -46,7 +46,7 @@ jobs:
         # the current version persisted to __version__.py
         id: current_version
         run: |
-          cd ${{ env.VERSION_FILE_PATH }}
+          cd ${{ env.PACKAGE_PATH }}
           echo "CURRENT_VERSION=$(python -c 'from __version__ import __version__; print(__version__)')" >> $GITHUB_ENV
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
@@ -106,7 +106,7 @@ jobs:
           git commit -m "chore: [gh] Update __version__.py to ${{ env.NEXT_VERSION }} [skip ci]"
           git push https://${{ secrets.PAT }}@github.com/${{ github.repository }}.git HEAD:${{ github.ref }}
         env:
-          VERSION_FILE: ${{ env.VERSION_FILE_PATH }}${{ env.VERSION_FILE }}
+          VERSION_FILE: ${{ env.PACKAGE_PATH }}${{ env.VERSION_FILE }}
           GITHUB_TOKEN: ${{ secrets.PAT }}
           NEXT_VERSION: ${{ env.NEXT_VERSION }}
           VERSION_CHANGED: ${{ env.VERSION_CHANGED }}

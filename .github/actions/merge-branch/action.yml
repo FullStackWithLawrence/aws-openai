@@ -35,6 +35,9 @@ runs:
           fetch-depth: 0
           persist-credentials: false
 
+      - name: Remember current branch
+        run: echo "CURRENT_BRANCH=$(git branch --show-current)" >> $GITHUB_ENV
+
       - name: Merge
         id: merge
         shell: bash
@@ -46,3 +49,8 @@ runs:
           git checkout ${{ inputs.target-branch }}
           git merge -Xtheirs ${{ inputs.source-branch }}
           git push https://${{ inputs.github-token }}@github.com/${{ github.repository }}.git HEAD:${{ inputs.target-branch }}
+
+      - name: Checkout current branch
+        shell: bash
+        run: |
+          git checkout ${{ env.CURRENT_BRANCH }}

@@ -42,7 +42,7 @@ runs:
             echo "source-branch '${{ env.SOURCE_BRANCH }}' does not exist in git repository" >&2
             exit 1
           fi
-        with:
+        env:
           SOURCE_BRANCH: ${{ inputs.source-branch }}
 
       - name: Verify target-branch
@@ -52,7 +52,7 @@ runs:
             echo "target-branch '${{ env.TARGET_BRANCH }}' does not exist in git repository" >&2
             exit 1
           fi
-        with:
+        env:
           TARGET_BRANCH: ${{ inputs.target-branch }}
 
 

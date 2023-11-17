@@ -13,6 +13,30 @@ runs:
         id: checkout
         uses: actions/checkout@v4
 
+      - name: Verify AWS_ACCESS_KEY_ID
+        shell: bash
+        run: |
+          if [[ -z "${{ secrets.AWS_ACCESS_KEY_ID }}" ]]; then
+            echo "AWS_ACCESS_KEY_ID is not set" >&2
+            exit 1
+          fi
+
+      - name: Verify AWS_SECRET_ACCESS_KEY
+        shell: bash
+        run: |
+          if [[ -z "${{ secrets.AWS_SECRET_ACCESS_KEY }}" ]]; then
+            echo "AWS_SECRET_ACCESS_KEY is not set" >&2
+            exit 1
+          fi
+
+      - name: Verify AWS_REGION
+        shell: bash
+        run: |
+          if [[ -z "${{ secrets.AWS_REGION }}" ]]; then
+            echo "AWS_REGION is not set" >&2
+            exit 1
+          fi
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:

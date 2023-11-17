@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 written by: Lawrence McDaniel
             https://lawrencemcdaniel.com/
@@ -55,7 +56,6 @@ from openai_utils.utils import (
     get_content_for_role,
     get_message_history,
     get_messages_for_role,
-    get_messages_for_type,
 )
 from openai_utils.validators import (
     validate_item,
@@ -89,9 +89,7 @@ LANGCHAIN_MEMORY_KEY = "chat_history"
 
 def handler(event, context, api_key=None, organization=None, pinecone_api_key=None):
     """
-    Main Lambda handler function.
-
-    Responsible for processing incoming requests and invoking the appropriate
+    Process incoming requests and invoking the appropriate
     OpenAI API endpoint based on the contents of the request.
     """
     # set api key if not already set

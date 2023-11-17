@@ -1,0 +1,112 @@
+#------------------------------------------------------------------------------
+# Lawrence McDaniel - https://lawrencemcdaniel.com
+# Version Bump Workflow
+#
+# Calculate the version of the 'next' branch based on semantic-release rules.
+# Compares the existing value of __version__.py to the calculated value.
+# If they are different, it will update __version__.py and push the changes
+# to the main branch.
+#------------------------------------------------------------------------------
+name: Semantic Version Bump (next)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - next
+      - next-major
+
+jobs:
+  bump-version-next:
+    runs-on: ubuntu-latest
+    env:
+      VERSION_FILE: __version__.py
+      VERSION_FILE_PATH: ${{ github.workspace }}/api/terraform/python/layer_genai/openai_utils/
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.11'
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.9.0'
+
+      - name: Install npm dev dependencies
+        run: npm install
+
+      - name: Get current version
+        #  step 1
+        # the current version persisted to __version__.py
+        id: current_version
+        run: |
+          cd ${{ env.VERSION_FILE_PATH }}
+          echo "CURRENT_VERSION=$(python -c 'from __version__ import __version__; print(__version__)')" >> $GITHUB_ENV
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+
+      - name: null step
+        id: null_step1
+        run: echo "i ensure that CURRENT_VERSION is set."
+
+      - name: Get next version
+        # step 2
+        # calculate the next version based on semantic-release rules
+        # this will return a null string is there in fact is no version bump.
+        # so set NEXT_VERSION to CURRENT_VERSION if there is no version bump.
+        id: next_version
+        run: |
+          NEXT_VERSION=$(npx semantic-release --dry-run --no-ci  | awk '/The next release version is/{print $NF}')
+          echo "NEXT_VERSION=${NEXT_VERSION:-${{ env.CURRENT_VERSION }}}" >> $GITHUB_ENV
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+          CURRENT_VERSION: ${{ env.CURRENT_VERSION }}
+
+      - name: null step
+        id: null_step2
+        run: echo "i ensure that NEXT_VERSION is set."
+
+      - name: Check versions
+        # step 3
+        # compare the current version to the next version.
+        # if they are different, set VERSION_CHANGED to true
+        id: check_versions
+        run: |
+          if [ "$CURRENT_VERSION" != "$NEXT_VERSION" ]; then
+            echo "VERSION_CHANGED=true" >> $GITHUB_ENV
+          else
+            echo "VERSION_CHANGED=false" >> $GITHUB_ENV
+          fi
+        env:
+          CURRENT_VERSION: ${{ env.CURRENT_VERSION }}
+          NEXT_VERSION: ${{ env.NEXT_VERSION }}
+
+      - name: another null step
+        id: null_step3
+        run: echo "i ensure that CURRENT_VERSION, NEXT_VERSION and VERSION_CHANGED are set."
+
+
+      - name: Update __version__.py
+        # step 4
+        # if VERSION_CHANGED is true, update __version__.py and push the changes to the
+        # branch that triggered this workflow.
+        if: env.VERSION_CHANGED == 'true'
+        id: update_version
+        run: |
+          echo "__version__ = '${{ env.NEXT_VERSION }}'" > ${{ env.VERSION_FILE }}
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add ${{ env.VERSION_FILE }}
+          git commit -m "chore: [gh] Update __version__.py to ${{ env.NEXT_VERSION }} [skip ci]"
+          git push https://${{ secrets.PAT }}@github.com/${{ github.repository }}.git HEAD:${{ github.ref }}
+        env:
+          VERSION_FILE: ${{ env.VERSION_FILE_PATH }}${{ env.VERSION_FILE }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+          NEXT_VERSION: ${{ env.NEXT_VERSION }}
+          VERSION_CHANGED: ${{ env.VERSION_CHANGED }}

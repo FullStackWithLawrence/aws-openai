@@ -1,8 +1,12 @@
+# -*- coding: utf-8 -*-
+"""Setup for openai_utils package."""
 from setuptools import setup, find_packages
+
+from openai_utils.setup_utils import get_semantic_version
 
 setup(
     name="openai_utils",
-    version="0.5.0",
+    version=get_semantic_version(),
     description="Common utilities for OpenAI",
     author="Lawrence McDaniel",
     author_email="lpm0073@gmail.com",

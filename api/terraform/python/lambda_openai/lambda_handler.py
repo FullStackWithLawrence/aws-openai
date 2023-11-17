@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 written by: Lawrence McDaniel
             https://lawrencemcdaniel.com/
@@ -139,7 +140,7 @@ def exception_response_factory(exception: Exception) -> dict:
 
 
 def validate_item(item, valid_items: list, item_type: str) -> None:
-    """ensure that item exists in valid_items"""
+    """Ensure that item exists in valid_items"""
     if item not in valid_items:
         raise ValueError(
             "Item {item} not found in {item_type}: {valid_items}".format(
@@ -150,13 +151,13 @@ def validate_item(item, valid_items: list, item_type: str) -> None:
 
 
 def validate_request_body(request_body) -> None:
-    """see openai.chat.completion.request.json"""
+    """Eee openai.chat.completion.request.json"""
     if type(request_body) is not dict:
         raise TypeError("request body should be a dict")
 
 
 def validate_messages(request_body):
-    """see openai.chat.completion.request.json"""
+    """See openai.chat.completion.request.json"""
     if "messages" not in request_body:
         raise ValueError("dict key 'messages' not found in request body object")
     messages = request_body["messages"]
@@ -182,7 +183,7 @@ def validate_messages(request_body):
 
 
 def validate_completion_request(request_body) -> None:
-    """see openai.chat.completion.request.json"""
+    """See openai.chat.completion.request.json"""
     validate_request_body(request_body=request_body)
     if "model" not in request_body:
         raise ValueError("dict key 'model' not found in request body object")
@@ -190,20 +191,20 @@ def validate_completion_request(request_body) -> None:
 
 
 def validate_embedding_request(request_body) -> None:
-    """see openai.embedding.request.json"""
+    """See openai.embedding.request.json"""
     validate_request_body(request_body=request_body)
     if "input_text" not in request_body:
         raise ValueError("dict key 'input_text' not found in request body object")
 
 
 def event_log(log_entry):
-    """print to CloudWatch Logs"""
+    """Print to CloudWatch Logs"""
     if DEBUG_MODE:
         print(log_entry)
 
 
 def dump_environment(event):
-    """print to CloudWatch Logs"""
+    """Print to CloudWatch Logs"""
     if DEBUG_MODE:
         cloudwatch_dump = {
             "environment": {
@@ -241,7 +242,7 @@ def get_request_body(event) -> dict:
 
 
 def parse_request(request_body: dict):
-    """parse the request body and return the endpoint, model, messages, and input_text"""
+    """Parse the request body and return the endpoint, model, messages, and input_text"""
     end_point = request_body.get("end_point")
     model = request_body.get("model")
     messages = request_body.get("messages")

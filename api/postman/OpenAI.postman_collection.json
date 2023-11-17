@@ -51,7 +51,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"model\": \"gpt-3.5-turbo\",\n    \"end_point\": \"ChatCompletion\",\n    \"temperature\": 0.5,\n    \"max_tokens\": 256,\n    \"messages\": [\n        {\n            \"role\": \"system\",\n            \"content\": \"You are Marv, a chatbot that reluctantly answers questions with sarcastic responses.\"\n        },\n        {\n            \"role\": \"user\",\n            \"content\": \"Marv, I'd like to introduce you to all the nice YouTube viewers.\"\n        }\n    ]\n}",
+					"raw": "{\n    \"model\": \"gpt-3.5-turbo\",\n    \"end_point\": \"ChatCompletion\",\n    \"temperature\": 0.5,\n    \"max_tokens\": 256,\n    \"messages\": [\n        {\n            \"role\": \"system\",\n            \"content\": \"You are Marv, a chatbot that reluctantly answers questions with sarcastic responses.\"\n        },\n        {\n            \"role\": \"user\",\n            \"content\": \"Marv, I'd like to introduce you to all the nice YouTube viewers.\"\n        }\n    ],\n    \"chat_history\": [\n        {\n            \"message\": \"Hello, I'm Marv, a sarcastic chatbot.\",\n            \"direction\": \"incoming\",\n            \"sentTime\": \"11/16/2023, 5:53:32 PM\",\n            \"sender\": \"system\"\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -83,7 +83,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"model\": \"gpt-3.5-turbo\",\n    \"end_point\": \"ChatCompletion\",\n    \"temperature\": 0.5,\n    \"max_tokens\": 256,\n    \"messages\": [\n        {\n            \"role\": \"system\",\n            \"content\": \"You are Marv, a chatbot that reluctantly answers questions with sarcastic responses.\"\n        },\n        {\n            \"role\": \"user\",\n            \"content\": \"Marv, I'd like to introduce you to all the nice YouTube viewers.\"\n        }\n    ]\n}",
+					"raw": "{\n  \"model\": \"gpt-3.5-turbo\",\n  \"end_point\": \"ChatCompletion\",\n  \"temperature\": 0.5,\n  \"max_tokens\": 256,\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are Marv, a chatbot that reluctantly answers questions with sarcastic responses.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"'sup Chuck?\"\n    },\n    {\n      \"role\": \"assistant\",\n      \"content\": \"Oh, you know, just chillin and hoping that you'll ask me a question.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"What's the meaning of life?\"\n    },\n    {\n      \"role\": \"assistant\",\n      \"content\": \"I know!! I know!!! It's 42!!!\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Please be more specific.\"\n    }\n    ],\n    \"chat_history\": [\n        {\n            \"message\": \"Hello, I'm Marv, a sarcastic chatbot.\",\n            \"direction\": \"incoming\",\n            \"sentTime\": \"11/16/2023, 5:53:32 PM\",\n            \"sender\": \"system\"\n        }\n    ]\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -109,7 +109,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"this is a test\"\n}",
+					"raw": "{\n    \"input_text\": \"this is a test\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -136,7 +136,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"this is a test\"\n}",
+					"raw": "{\n    \"input_text\": \"this is a test\",\n    \"chat_history\": []\n\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -163,7 +163,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"this is a test\"\n}",
+					"raw": "{\n    \"input_text\": \"this is a test\",\n    \"chat_history\": []\n\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -190,7 +190,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"this is a test\"\n}",
+					"raw": "{\n    \"input_text\": \"this is a test\",\n    \"chat_history\": []\n\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -223,7 +223,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"she broked the lamp post\"\n}",
+					"raw": "{\n    \"input_text\": \"she broked the lamp post\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -256,7 +256,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"Jupiter is a really big planet in our Solar System. It is the fifth planet from the Sun and it is the largest planet. It is called a gas giant because it is made mostly of gas. Jupiter is much smaller than the Sun, but it is bigger than all the other planets combined. It is very bright and can be seen in the night sky without a telescope. People have known about Jupiter for a very long time, even before they started writing things down. It is named after a god from ancient Rome. Sometimes, Jupiter is so bright that it can make shadows on Earth. It is usually the third-brightest thing we can see in the night sky, after the Moon and Venus.\"\n}",
+					"raw": "{\n    \"input_text\": \"Jupiter is a really big planet in our Solar System. It is the fifth planet from the Sun and it is the largest planet. It is called a gas giant because it is made mostly of gas. Jupiter is much smaller than the Sun, but it is bigger than all the other planets combined. It is very bright and can be seen in the night sky without a telescope. People have known about Jupiter for a very long time, even before they started writing things down. It is named after a god from ancient Rome. Sometimes, Jupiter is so bright that it can make shadows on Earth. It is usually the third-brightest thing we can see in the night sky, after the Moon and Venus.\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -289,7 +289,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"There are many fruits that were found on the recently discovered planet Goocrux. There are neoskizzles that grow there, which are purple and taste like candy. There are also loheckles, which are a grayish blue fruit and are very tart, a little bit like a lemon. Pounits are a bright green color and are more savory than sweet. There are also plenty of loopnovas which are a neon pink flavor and taste like cotton candy. Finally, there are fruits called glowls, which have a very sour and bitter taste which is acidic and caustic, and a pale orange tinge to them.\"\n}",
+					"raw": "{\n    \"input_text\": \"There are many fruits that were found on the recently discovered planet Goocrux. There are neoskizzles that grow there, which are purple and taste like candy. There are also loheckles, which are a grayish blue fruit and are very tart, a little bit like a lemon. Pounits are a bright green color and are more savory than sweet. There are also plenty of loopnovas which are a neon pink flavor and taste like cotton candy. Finally, there are fruits called glowls, which have a very sour and bitter taste which is acidic and caustic, and a pale orange tinge to them.\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -322,7 +322,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"Artificial intelligence is a technology with great promise.\"\n}",
+					"raw": "{\n    \"input_text\": \"Artificial intelligence is a technology with great promise.\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -355,7 +355,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"how are you?\"\n}",
+					"raw": "{\n    \"input_text\": \"how are you?\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -399,7 +399,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"def foo(n, k):\\\\r\\\\n    accum = 0\\\\r\\\\n    for i in range(n):\\\\r\\\\n        for l in range(k):\\\\r\\\\n            accum += i\\\\r\\\\n    return accum\\\\r\\\\n\"\n}",
+					"raw": "{\n    \"input_text\": \"def foo(n, k):\\\\r\\\\n    accum = 0\\\\r\\\\n    for i in range(n):\\\\r\\\\n        for l in range(k):\\\\r\\\\n            accum += i\\\\r\\\\n    return accum\\\\r\\\\n\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -443,7 +443,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"class Log:\\\\r\\\\n    def __init__(self, path):\\\\r\\\\n        dirname = os.path.dirname(path)\\\\r\\\\n        os.makedirs(dirname, exist_ok=True)\\\\r\\\\n        f = open(path, 'a+')\\\\r\\\\n\\\\r\\\\n        # Check that the file is newline-terminated\\\\r\\\\n        size = os.path.getsize(path)\\\\r\\\\n        if size > 0:\\\\r\\\\n            f.seek(size - 1)\\\\r\\\\n            end = f.read(1)\\\\r\\\\n            if end != '\\n':\\\\r\\\\n                f.write('\\n')\\\\r\\\\n        self.f = f\\\\r\\\\n        self.path = path\\\\r\\\\n\\\\r\\\\n    def log(self, event):\\\\r\\\\n        event['_event_id'] = str(uuid.uuid4())\\\\r\\\\n        json.dump(event, self.f)\\\\r\\\\n        self.f.write('\\n')\\\\r\\\\n\\\\r\\\\n    def state(self):\\\\r\\\\n        state = {'complete': set(), 'last': None}\\\\r\\\\n        for line in open(self.path):\\\\r\\\\n            event = json.loads(line)\\\\r\\\\n            if event['type'] == 'submit' and event['success']:\\\\r\\\\n                state['complete'].add(event['id'])\\\\r\\\\n                state['last'] = event\\\\r\\\\n        return state\\\\r\\\\n\"\n}",
+					"raw": "{\n    \"input_text\": \"class Log:\\\\r\\\\n    def __init__(self, path):\\\\r\\\\n        dirname = os.path.dirname(path)\\\\r\\\\n        os.makedirs(dirname, exist_ok=True)\\\\r\\\\n        f = open(path, 'a+')\\\\r\\\\n\\\\r\\\\n        # Check that the file is newline-terminated\\\\r\\\\n        size = os.path.getsize(path)\\\\r\\\\n        if size > 0:\\\\r\\\\n            f.seek(size - 1)\\\\r\\\\n            end = f.read(1)\\\\r\\\\n            if end != '\\n':\\\\r\\\\n                f.write('\\n')\\\\r\\\\n        self.f = f\\\\r\\\\n        self.path = path\\\\r\\\\n\\\\r\\\\n    def log(self, event):\\\\r\\\\n        event['_event_id'] = str(uuid.uuid4())\\\\r\\\\n        json.dump(event, self.f)\\\\r\\\\n        self.f.write('\\n')\\\\r\\\\n\\\\r\\\\n    def state(self):\\\\r\\\\n        state = {'complete': set(), 'last': None}\\\\r\\\\n        for line in open(self.path):\\\\r\\\\n            event = json.loads(line)\\\\r\\\\n            if event['type'] == 'submit' and event['success']:\\\\r\\\\n                state['complete'].add(event['id'])\\\\r\\\\n                state['last'] = event\\\\r\\\\n        return state\\\\r\\\\n\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -487,7 +487,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"Black-on-black ware is a 20th- and 21st-century pottery tradition developed by the Puebloan Native American ceramic artists in Northern New Mexico. Traditional reduction-fired blackware has been made for centuries by pueblo artists. Black-on-black ware of the past century is produced with a smooth surface, with the designs applied through selective burnishing or the application of refractory slip. Another style involves carving or incising designs and selectively polishing the raised areas. For generations several families from Kha'po Owingeh and P'ohwhóge Owingeh pueblos have been making black-on-black ware with the techniques passed down from matriarch potters. Artists from other pueblos have also produced black-on-black ware. Several contemporary artists have created works honoring the pottery of their ancestors.\"\n}",
+					"raw": "{\n    \"input_text\": \"Black-on-black ware is a 20th- and 21st-century pottery tradition developed by the Puebloan Native American ceramic artists in Northern New Mexico. Traditional reduction-fired blackware has been made for centuries by pueblo artists. Black-on-black ware of the past century is produced with a smooth surface, with the designs applied through selective burnishing or the application of refractory slip. Another style involves carving or incising designs and selectively polishing the raised areas. For generations several families from Kha'po Owingeh and P'ohwhóge Owingeh pueblos have been making black-on-black ware with the techniques passed down from matriarch potters. Artists from other pueblos have also produced black-on-black ware. Several contemporary artists have created works honoring the pottery of their ancestors.\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -531,7 +531,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"Product description: A home milkshake maker. Seed words: fast, healthy, compact.\"\n}",
+					"raw": "{\n    \"input_text\": \"Product description: A home milkshake maker. Seed words: fast, healthy, compact.\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -575,7 +575,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"import Random\\\\r\\\\na = random.randint(1,12)\\\\r\\\\nb = random.randint(1,12)\\\\r\\\\nfor i in range(10):\\\\r\\\\n    question = 'What is '+a+' x '+b+'? '\\\\r\\\\n    answer = input(question)\\\\r\\\\n    if answer = a*b\\\\r\\\\n        print (Well done!)\\\\r\\\\n    else:\\\\r\\\\n        print('No.')\\\\r\\\\n\"\n}",
+					"raw": "{\n    \"input_text\": \"import Random\\\\r\\\\na = random.randint(1,12)\\\\r\\\\nb = random.randint(1,12)\\\\r\\\\nfor i in range(10):\\\\r\\\\n    question = 'What is '+a+' x '+b+'? '\\\\r\\\\n    answer = input(question)\\\\r\\\\n    if answer = a*b\\\\r\\\\n        print (Well done!)\\\\r\\\\n    else:\\\\r\\\\n        print('No.')\\\\r\\\\n\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -619,7 +619,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"Create a two-column CSV of top science fiction movies along with the year of release.\"\n}",
+					"raw": "{\n    \"input_text\": \"Create a two-column CSV of top science fiction movies along with the year of release.\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -663,7 +663,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"I loved the new Batman movie!\"\n}",
+					"raw": "{\n    \"input_text\": \"I loved the new Batman movie!\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -707,7 +707,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"I want to fly from Orlando to Boston\"\n}",
+					"raw": "{\n    \"input_text\": \"I want to fly from Orlando to Boston\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -751,7 +751,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"Blue sky at dusk.\"\n}",
+					"raw": "{\n    \"input_text\": \"Blue sky at dusk.\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -795,7 +795,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"Brainstorm some ideas combining VR and fitness.\"\n}",
+					"raw": "{\n    \"input_text\": \"Brainstorm some ideas combining VR and fitness.\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -839,7 +839,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"Marv, I'd like to introduce you to all the nice YouTube viewers.\"\n}",
+					"raw": "{\n    \"input_text\": \"Marv, I'd like to introduce you to all the nice YouTube viewers.\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -883,7 +883,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"Go south on 95 until you hit Sunrise boulevard then take it east to us 1 and head south. Tom Jenkins bbq will be on the left after several miles.\"\n}",
+					"raw": "{\n    \"input_text\": \"Go south on 95 until you hit Sunrise boulevard then take it east to us 1 and head south. Tom Jenkins bbq will be on the left after several miles.\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -927,7 +927,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"Create a list of 8 questions for an interview with a science fiction author.\"\n}",
+					"raw": "{\n    \"input_text\": \"Create a list of 8 questions for an interview with a science fiction author.\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -971,7 +971,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"Write a Python function that takes as input a file path to an image, loads the image into memory as a numpy array, then crops the rows and columns around the perimeter if they are darker than a threshold value. Use the mean value of rows and columns to decide if they should be marked for deletion.\"\n}",
+					"raw": "{\n    \"input_text\": \"Write a Python function that takes as input a file path to an image, loads the image into memory as a numpy array, then crops the rows and columns around the perimeter if they are darker than a threshold value. Use the mean value of rows and columns to decide if they should be marked for deletion.\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1015,7 +1015,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"from typing import List\\\\r\\\\n\\\\r\\\\ndef has_sum_k(nums: List[int], k: int) -> bool:\\\\r\\\\n    n = len(nums)\\\\r\\\\n    for i in range(n):\\\\r\\\\n        for j in range(i+1, n):\\\\r\\\\n            if nums[i] + nums[j] == k:\\\\r\\\\n                return True\\\\r\\\\n    return False\"\n}",
+					"raw": "{\n    \"input_text\": \"from typing import List\\\\r\\\\n\\\\r\\\\ndef has_sum_k(nums: List[int], k: int) -> bool:\\\\r\\\\n    n = len(nums)\\\\r\\\\n    for i in range(n):\\\\r\\\\n        for j in range(i+1, n):\\\\r\\\\n            if nums[i] + nums[j] == k:\\\\r\\\\n                return True\\\\r\\\\n    return False\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1059,7 +1059,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"Make a single page website that shows off different neat javascript features for drop-downs and things to display information. The website should be an HTML file with embedded javascript and CSS.\"\n}",
+					"raw": "{\n    \"input_text\": \"Make a single page website that shows off different neat javascript features for drop-downs and things to display information. The website should be an HTML file with embedded javascript and CSS.\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1103,7 +1103,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"Write a rap battle between Alan Turing and Claude Shannon.\"\n}",
+					"raw": "{\n    \"input_text\": \"Write a rap battle between Alan Turing and Claude Shannon.\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1147,7 +1147,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"Draft a company memo to be distributed to all employees. The memo should cover the following specific points without deviating from the topics mentioned and not writing any fact which is not present here:\\n\\nIntroduction: Remind employees about the upcoming quarterly review scheduled for the last week of April.\\n\\nPerformance Metrics: Clearly state the three key performance indicators (KPIs) that will be assessed during the review: sales targets, customer satisfaction (measured by net promoter score), and process efficiency (measured by average project completion time).\\n\\nProject Updates: Provide a brief update on the status of the three ongoing company projects:\\n\\na. Project Alpha: 75% complete, expected completion by May 30th.\\nb. Project Beta: 50% complete, expected completion by June 15th.\\nc. Project Gamma: 30% complete, expected completion by July 31st.\\n\\nTeam Recognition: Announce that the Sales Team was the top-performing team of the past quarter and congratulate them for achieving 120% of their target.\\n\\nTraining Opportunities: Inform employees about the upcoming training workshops that will be held in May, including \\\"Advanced Customer Service\\\" on May 10th and \\\"Project Management Essentials\\\" on May 25th.\"\n}",
+					"raw": "{\n    \"input_text\": \"Draft a company memo to be distributed to all employees. The memo should cover the following specific points without deviating from the topics mentioned and not writing any fact which is not present here:\\n\\nIntroduction: Remind employees about the upcoming quarterly review scheduled for the last week of April.\\n\\nPerformance Metrics: Clearly state the three key performance indicators (KPIs) that will be assessed during the review: sales targets, customer satisfaction (measured by net promoter score), and process efficiency (measured by average project completion time).\\n\\nProject Updates: Provide a brief update on the status of the three ongoing company projects:\\n\\na. Project Alpha: 75% complete, expected completion by May 30th.\\nb. Project Beta: 50% complete, expected completion by June 15th.\\nc. Project Gamma: 30% complete, expected completion by July 31st.\\n\\nTeam Recognition: Announce that the Sales Team was the top-performing team of the past quarter and congratulate them for achieving 120% of their target.\\n\\nTraining Opportunities: Inform employees about the upcoming training workshops that will be held in May, including \\\"Advanced Customer Service\\\" on May 10th and \\\"Project Management Essentials\\\" on May 25th.\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1191,7 +1191,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"My name is Jane. What is yours?\"\n}",
+					"raw": "{\n    \"input_text\": \"My name is Jane. What is yours?\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1235,7 +1235,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"Help me to understand the future of artificial intelligence.\"\n}",
+					"raw": "{\n    \"input_text\": \"Help me to understand the future of artificial intelligence.\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1279,7 +1279,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"Write a SQL query which computes the average total order value for all orders on 2023-04-01.\"\n}",
+					"raw": "{\n    \"input_text\": \"Write a SQL query which computes the average total order value for all orders on 2023-04-01.\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1323,7 +1323,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"Meeting Date: March 5th, 2050\\nMeeting Time: 2:00 PM\\nLocation: Conference Room 3B, Intergalactic Headquarters\\n\\nAttendees:\\n- Captain Stardust\\n- Dr. Quasar\\n- Lady Nebula\\n- Sir Supernova\\n- Ms. Comet\\n\\nMeeting called to order by Captain Stardust at 2:05 PM\\n\\n1. Introductions and welcome to our newest team member, Ms. Comet\\n\\n2. Discussion of our recent mission to Planet Zog\\n- Captain Stardust: \\\"Overall, a success, but communication with the Zogians was difficult. We need to improve our language skills.\\\"\\n- Dr. Quasar: \\\"Agreed. I'll start working on a Zogian-English dictionary right away.\\\"\\n- Lady Nebula: \\\"The Zogian food was out of this world, literally! We should consider having a Zogian food night on the ship.\\\"\\n\\n3. Addressing the space pirate issue in Sector 7\\n- Sir Supernova: \\\"We need a better strategy for dealing with these pirates. They've already plundered three cargo ships this month.\\\"\\n- Captain Stardust: \\\"I'll speak with Admiral Starbeam about increasing patrols in that area.\\n- Dr. Quasar: \\\"I've been working on a new cloaking technology that could help our ships avoid detection by the pirates. I'll need a few more weeks to finalize the prototype.\\\"\\n\\n4. Review of the annual Intergalactic Bake-Off\\n- Lady Nebula: \\\"I'm happy to report that our team placed second in the competition! Our Martian Mud Pie was a big hit!\\\"\\n- Ms. Comet: \\\"Let's aim for first place next year. I have a secret recipe for Jupiter Jello that I think could be a winner.\\\"\\n\\n5. Planning for the upcoming charity fundraiser\\n- Captain Stardust: \\\"We need some creative ideas for our booth at the Intergalactic Charity Bazaar.\\\"\\n- Sir Supernova: \\\"How about a 'Dunk the Alien' game? We can have people throw water balloons at a volunteer dressed as an alien.\\\"\\n- Dr. Quasar: \\\"I can set up a 'Name That Star' trivia game with prizes for the winners.\\\"\\n- Lady Nebula: \\\"Great ideas, everyone. Let's start gathering the supplies and preparing the games.\\\"\\n\\n6. Upcoming team-building retreat\\n- Ms. Comet: \\\"I would like to propose a team-building retreat to the Moon Resort and Spa. It's a great opportunity to bond and relax after our recent missions.\\\"\\n- Captain Stardust: \\\"Sounds like a fantastic idea. I'll check the budget and see if we can make it happen.\\\"\\n\\n7. Next meeting agenda items\\n- Update on the Zogian-English dictionary (Dr. Quasar)\\n- Progress report on the cloaking technology (Dr. Quasar)\\n- Results of increased patrols in Sector 7 (Captain Stardust)\\n- Final preparations for the Intergalactic Charity Bazaar (All)\\n\\nMeeting adjourned at 3:15 PM. Next meeting scheduled for March 19th, 2050 at 2:00 PM in Conference Room 3B, Intergalactic Headquarters.\\n\"\n}",
+					"raw": "{\n    \"input_text\": \"Meeting Date: March 5th, 2050\\nMeeting Time: 2:00 PM\\nLocation: Conference Room 3B, Intergalactic Headquarters\\n\\nAttendees:\\n- Captain Stardust\\n- Dr. Quasar\\n- Lady Nebula\\n- Sir Supernova\\n- Ms. Comet\\n\\nMeeting called to order by Captain Stardust at 2:05 PM\\n\\n1. Introductions and welcome to our newest team member, Ms. Comet\\n\\n2. Discussion of our recent mission to Planet Zog\\n- Captain Stardust: \\\"Overall, a success, but communication with the Zogians was difficult. We need to improve our language skills.\\\"\\n- Dr. Quasar: \\\"Agreed. I'll start working on a Zogian-English dictionary right away.\\\"\\n- Lady Nebula: \\\"The Zogian food was out of this world, literally! We should consider having a Zogian food night on the ship.\\\"\\n\\n3. Addressing the space pirate issue in Sector 7\\n- Sir Supernova: \\\"We need a better strategy for dealing with these pirates. They've already plundered three cargo ships this month.\\\"\\n- Captain Stardust: \\\"I'll speak with Admiral Starbeam about increasing patrols in that area.\\n- Dr. Quasar: \\\"I've been working on a new cloaking technology that could help our ships avoid detection by the pirates. I'll need a few more weeks to finalize the prototype.\\\"\\n\\n4. Review of the annual Intergalactic Bake-Off\\n- Lady Nebula: \\\"I'm happy to report that our team placed second in the competition! Our Martian Mud Pie was a big hit!\\\"\\n- Ms. Comet: \\\"Let's aim for first place next year. I have a secret recipe for Jupiter Jello that I think could be a winner.\\\"\\n\\n5. Planning for the upcoming charity fundraiser\\n- Captain Stardust: \\\"We need some creative ideas for our booth at the Intergalactic Charity Bazaar.\\\"\\n- Sir Supernova: \\\"How about a 'Dunk the Alien' game? We can have people throw water balloons at a volunteer dressed as an alien.\\\"\\n- Dr. Quasar: \\\"I can set up a 'Name That Star' trivia game with prizes for the winners.\\\"\\n- Lady Nebula: \\\"Great ideas, everyone. Let's start gathering the supplies and preparing the games.\\\"\\n\\n6. Upcoming team-building retreat\\n- Ms. Comet: \\\"I would like to propose a team-building retreat to the Moon Resort and Spa. It's a great opportunity to bond and relax after our recent missions.\\\"\\n- Captain Stardust: \\\"Sounds like a fantastic idea. I'll check the budget and see if we can make it happen.\\\"\\n\\n7. Next meeting agenda items\\n- Update on the Zogian-English dictionary (Dr. Quasar)\\n- Progress report on the cloaking technology (Dr. Quasar)\\n- Results of increased patrols in Sector 7 (Captain Stardust)\\n- Final preparations for the Intergalactic Charity Bazaar (All)\\n\\nMeeting adjourned at 3:15 PM. Next meeting scheduled for March 19th, 2050 at 2:00 PM in Conference Room 3B, Intergalactic Headquarters.\\n\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1367,7 +1367,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"I recently purchased the Inflatotron 2000 airbed for a camping trip and wanted to share my experience with others. Overall, I found the airbed to be a mixed bag with some positives and negatives.\\\\Starting with the positives, the Inflatotron 2000 is incredibly easy to set up and inflate. It comes with a built-in electric pump that quickly inflates the bed within a few minutes, which is a huge plus for anyone who wants to avoid the hassle of manually pumping up their airbed. The bed is also quite comfortable to sleep on and offers decent support for your back, which is a major plus if you have any issues with back pain.\\\\On the other hand, I did experience some negatives with the Inflatotron 2000. Firstly, I found that the airbed is not very durable and punctures easily. During my camping trip, the bed got punctured by a stray twig that had fallen on it, which was quite frustrating. Secondly, I noticed that the airbed tends to lose air overnight, which meant that I had to constantly re-inflate it every morning. This was a bit annoying as it disrupted my sleep and made me feel less rested in the morning.\\\\Another negative point is that the Inflatotron 2000 is quite heavy and bulky, which makes it difficult to transport and store. If you're planning on using this airbed for camping or other outdoor activities, you'll need to have a large enough vehicle to transport it and a decent amount of storage space to store it when not in use.\"\n}",
+					"raw": "{\n    \"input_text\": \"I recently purchased the Inflatotron 2000 airbed for a camping trip and wanted to share my experience with others. Overall, I found the airbed to be a mixed bag with some positives and negatives.\\\\Starting with the positives, the Inflatotron 2000 is incredibly easy to set up and inflate. It comes with a built-in electric pump that quickly inflates the bed within a few minutes, which is a huge plus for anyone who wants to avoid the hassle of manually pumping up their airbed. The bed is also quite comfortable to sleep on and offers decent support for your back, which is a major plus if you have any issues with back pain.\\\\On the other hand, I did experience some negatives with the Inflatotron 2000. Firstly, I found that the airbed is not very durable and punctures easily. During my camping trip, the bed got punctured by a stray twig that had fallen on it, which was quite frustrating. Secondly, I noticed that the airbed tends to lose air overnight, which meant that I had to constantly re-inflate it every morning. This was a bit annoying as it disrupted my sleep and made me feel less rested in the morning.\\\\Another negative point is that the Inflatotron 2000 is quite heavy and bulky, which makes it difficult to transport and store. If you're planning on using this airbed for camping or other outdoor activities, you'll need to have a large enough vehicle to transport it and a decent amount of storage space to store it when not in use.\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1411,7 +1411,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"changing careers at 60\"\n}",
+					"raw": "{\n    \"input_text\": \"changing careers at 60\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1455,7 +1455,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"input_text\": \"Write a lesson plan for an introductory algebra class. The lesson plan should cover the distributive law, in particular how it works in simple cases involving mixes of positive and negative numbers. Come up with some examples that show common student errors.\"\n}",
+					"raw": "{\n    \"input_text\": \"Write a lesson plan for an introductory algebra class. The lesson plan should cover the distributive law, in particular how it works in simple cases involving mixes of positive and negative numbers. Come up with some examples that show common student errors.\",\n    \"chat_history\": []\n}",
 					"options": {
 						"raw": {
 							"language": "json"

@@ -28,6 +28,7 @@ api-init:
 	# create python virtual environments for dev as well
 	# as for the Lambda layer.
 	# ---------------------------------------------------------
+	npm install && \
 	python3.11 -m venv venv && \
 	source venv/bin/activate && \
 	pip install --upgrade pip && \

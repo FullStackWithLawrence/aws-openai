@@ -36,3 +36,5 @@ tests/go.*
 # ReactJS
 client/node_modules/
 node_modules
+
+package-lock.json

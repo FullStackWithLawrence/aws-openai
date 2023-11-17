@@ -1,0 +1,40 @@
+#------------------------------------------------------------------------------
+# Run Terraform tests
+#------------------------------------------------------------------------------
+name: Test Terraform
+branding:
+  icon: 'git-pull-request'
+  color: 'orange'
+
+runs:
+  using: "composite"
+  steps:
+      - name: Checkout code
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        if: steps.file_changes.outputs.terraform_files_changed != ''
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Terraform Init
+        if: steps.file_changes.outputs.terraform_files_changed != ''
+        run: |
+          cd api/terraform
+          terraform init
+
+      - name: Terraform Validate
+        if: steps.file_changes.outputs.terraform_files_changed != ''
+        run: |
+          cd api/terraform
+          terraform validate
+
+      - name: Terraform Format
+        if: steps.file_changes.outputs.terraform_files_changed != ''
+        run: |
+          cd api/terraform
+          terraform fmt -check

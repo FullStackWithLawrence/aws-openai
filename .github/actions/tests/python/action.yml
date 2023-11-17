@@ -78,9 +78,9 @@ runs:
         shell: bash
         run: |
           python -m pip install --upgrade pip
+          cp -R ./api/terraform/python/layer_genai/openai_utils venv/lib/python${{ inputs.python-version }}/site-packages/
           pip install -r ./requirements.txt
           pip install -r ${{ env.REQUIREMENTS_PATH }}
-          cp -R ./api/terraform/python/layer_genai/openai_utils venv/lib/python${{ inputs.python-version }}/site-packages/
 
       - name: Create .env
         shell: bash

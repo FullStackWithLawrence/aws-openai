@@ -25,4 +25,4 @@ langchain-experimental==0.0.37
 pinecone-client==2.2.4
 
 # local packages
-./api/terraform/python/layer_genai/openai_utils
+-e ./api/terraform/python/layer_genai/openai_utils

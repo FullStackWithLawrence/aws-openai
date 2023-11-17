@@ -38,6 +38,7 @@ runs:
       - name: Verify source-branch
         shell: bash
         run: |
+          echo $(git show-ref --verify refs/heads/${{ env.SOURCE_BRANCH }})
           if ! git show-ref --verify refs/heads/${{ env.SOURCE_BRANCH }}; then
             echo "source-branch '${{ env.SOURCE_BRANCH }}' does not exist in git repository" >&2
             exit 1

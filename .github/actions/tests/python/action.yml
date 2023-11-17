@@ -86,10 +86,10 @@ runs:
         shell: bash
         run: |
           touch ./.env
-          echo "OPENAI_API_ORGANIZATION=${{ secrets.OPENAI_API_ORGANIZATION }}" >> ./.env
-          echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> ./.env
-          echo "PINECONE_API_KEY=${{ secrets.PINECONE_API_KEY }}" >> ./.env
-          echo "PINECONE_ENVIRONMENT=${{ secrets.PINECONE_ENVIRONMENT }}" >> ./.env
+          echo "OPENAI_API_ORGANIZATION=${{ env.OPENAI_API_ORGANIZATION }}" >> ./.env
+          echo "OPENAI_API_KEY=${{ env.OPENAI_API_KEY }}" >> ./.env
+          echo "PINECONE_API_KEY=${{ env.PINECONE_API_KEY }}" >> ./.env
+          echo "PINECONE_ENVIRONMENT=${{ env.PINECONE_ENVIRONMENT }}" >> ./.env
         env:
           OPENAI_API_ORGANIZATION: ${{ inputs.openai-api-organization }}
           OPENAI_API_KEY: ${{ inputs.openai-api-key }}

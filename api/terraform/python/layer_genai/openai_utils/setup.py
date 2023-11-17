@@ -2,7 +2,7 @@
 """Setup for openai_utils package."""
 from setuptools import setup, find_packages
 
-from openai_utils.setup_utils import get_semantic_version
+from setup_utils import get_semantic_version
 
 setup(
     name="openai_utils",
@@ -11,5 +11,8 @@ setup(
     author="Lawrence McDaniel",
     author_email="lpm0073@gmail.com",
     packages=find_packages(),
+    package_data={
+        "openai_utils": ["*.md", "data/*"],
+    },
     install_requires=["openai>=0.28"],
 )

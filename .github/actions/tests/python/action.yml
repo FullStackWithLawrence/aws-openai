@@ -10,6 +10,23 @@ inputs:
     description: 'The version of Python to use, such as 3.11.0'
     required: true
     type: string
+openai-api-organization:
+  description: 'The OpenAI API organization'
+  required: true
+  type: string
+openai-api-key:
+  description: 'The OpenAI API key'
+  required: true
+  type: string
+pinecone-api-key:
+  description: 'The Pinecone API key'
+  required: true
+  type: string
+pinecone-environment:
+  description: 'The Pinecone environment'
+  required: true
+  type: string
+
 env:
   REQUIREMENTS_PATH: 'api/terraform/python/layer_genai/requirements.txt'
 
@@ -20,39 +37,8 @@ runs:
         id: checkout
         uses: actions/checkout@v4
 
-      - name: Verify OPENAI_API_ORGANIZATION
-        shell: bash
-        run: |
-          if [[ -z "${{ secrets.OPENAI_API_ORGANIZATION }}" ]]; then
-            echo "OPENAI_API_ORGANIZATION is not set" >&2
-            exit 1
-          fi
-
-      - name: Verify OPENAI_API_KEY
-        shell: bash
-        run: |
-          if [[ -z "${{ secrets.OPENAI_API_KEY }}" ]]; then
-            echo "OPENAI_API_KEY is not set" >&2
-            exit 1
-          fi
-
-      - name: Verify PINECONE_API_KEY
-        shell: bash
-        run: |
-          if [[ -z "${{ secrets.PINECONE_API_KEY }}" ]]; then
-            echo "PINECONE_API_KEY is not set" >&2
-            exit 1
-          fi
-
-      - name: Verify PINECONE_ENVIRONMENT
-        shell: bash
-        run: |
-          if [[ -z "${{ secrets.PINECONE_ENVIRONMENT }}" ]]; then
-            echo "PINECONE_ENVIRONMENT is not set" >&2
-            exit 1
-          fi
-
       - name: Check for openai in requirements
+        shell: bash
         run: |
           if ! grep -q "openai" ./requirements.txt; then
             echo "openai not found in requirements.txt" >&2
@@ -60,6 +46,7 @@ runs:
           fi
 
       - name: Check for langchain in requirements
+        shell: bash
         run: |
           if ! grep -q "langchain" ./requirements.txt; then
             echo "langchain not found in requirements.txt" >&2
@@ -67,6 +54,7 @@ runs:
           fi
 
       - name: Check for langchain-experimental in requirements
+        shell: bash
         run: |
           if ! grep -q "langchain-experimental" ./requirements.txt; then
             echo "langchain-experimental not found in requirements.txt" >&2
@@ -74,6 +62,7 @@ runs:
           fi
 
       - name: Check for pinecone-client in requirements
+        shell: bash
         run: |
           if ! grep -q "pinecone-client" ./requirements.txt; then
             echo "pinecone-client not found in requirements.txt" >&2
@@ -83,24 +72,39 @@ runs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ inputs.python-version }} }}}
+          python-version: ${{ inputs.python-version }}
+
+      - name: locate site-packages path
+        shell: bash
+        run: |
+          echo "SITE_PACKAGES_PATH=$(python -c 'import site; print(site.getsitepackages()[0])')" >> $GITHUB_ENV
+
+      - name: Install pip
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip
 
       - name: Install dependencies
         shell: bash
         run: |
-          python -m pip install --upgrade pip
+          cp -R ./api/terraform/python/layer_genai/openai_utils ${{ env.SITE_PACKAGES_PATH }}
           pip install -r ./requirements.txt
-          pip install -r ${{ env.REQUIREMENTS_PATH }}
-          cp -R ./api/terraform/python/layer_genai/openai_utils venv/lib/python${{ inputs.python-version }}/site-packages/
+        env:
+          SITE_PACKAGES_PATH: ${{ env.SITE_PACKAGES_PATH }}
 
       - name: Create .env
         shell: bash
         run: |
           touch ./.env
-          echo "OPENAI_API_ORGANIZATION=${{ secrets.OPENAI_API_ORGANIZATION }}" >> ./.env
-          echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> ./.env
-          echo "PINECONE_API_KEY=${{ secrets.PINECONE_API_KEY }}" >> ./.env
-          echo "PINECONE_ENVIRONMENT=${{ secrets.PINECONE_ENVIRONMENT }}" >> ./.env
+          echo "OPENAI_API_ORGANIZATION=${{ env.OPENAI_API_ORGANIZATION }}" >> ./.env
+          echo "OPENAI_API_KEY=${{ env.OPENAI_API_KEY }}" >> ./.env
+          echo "PINECONE_API_KEY=${{ env.PINECONE_API_KEY }}" >> ./.env
+          echo "PINECONE_ENVIRONMENT=${{ env.PINECONE_ENVIRONMENT }}" >> ./.env
+        env:
+          OPENAI_API_ORGANIZATION: ${{ inputs.openai-api-organization }}
+          OPENAI_API_KEY: ${{ inputs.openai-api-key }}
+          PINECONE_API_KEY: ${{ inputs.pinecone-api-key }}
+          PINECONE_ENVIRONMENT: ${{ inputs.pinecone-environment }}
 
       - name: Test lambda_openai_v2
         shell: bash

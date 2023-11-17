@@ -13,8 +13,10 @@
 boto3==1.29.2
 pytest==7.4.3
 pytest_mock==3.12.0
+black==23.11.0
 flake8==6.1.0
 flake8-coding==1.3.2
+pre-commit==3.5.0
 
 # production
 # ------------
@@ -25,4 +27,4 @@ langchain-experimental==0.0.37
 pinecone-client==2.2.4
 
 # local packages
-./api/terraform/python/layer_genai/openai_utils
+-e ./api/terraform/python/layer_genai/openai_utils

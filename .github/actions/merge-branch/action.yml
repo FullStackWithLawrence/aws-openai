@@ -38,7 +38,7 @@ runs:
       - name: Verify source-branch
         shell: bash
         run: |
-          if ! git show-ref --verify --quiet refs/heads/${{ env.SOURCE_BRANCH }}; then
+          if ! git show-ref --verify refs/heads/${{ env.SOURCE_BRANCH }}; then
             echo "source-branch '${{ env.SOURCE_BRANCH }}' does not exist in git repository" >&2
             exit 1
           fi
@@ -48,7 +48,7 @@ runs:
       - name: Verify target-branch
         shell: bash
         run: |
-          if ! git show-ref --verify --quiet refs/heads/${{ env.TARGET_BRANCH }}; then
+          if ! git show-ref --verify refs/heads/${{ env.TARGET_BRANCH }}; then
             echo "target-branch '${{ env.TARGET_BRANCH }}' does not exist in git repository" >&2
             exit 1
           fi

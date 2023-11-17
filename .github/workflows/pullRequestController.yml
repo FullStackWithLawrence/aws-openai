@@ -53,11 +53,6 @@ on:
       - './client/**'
       - './api/terraform/**'
 
-permissions:
-  contents: write
-  pages: write
-  id-token: write
-
 env:
   python-version: "3.11"
 

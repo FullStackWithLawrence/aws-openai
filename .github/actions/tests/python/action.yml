@@ -79,10 +79,14 @@ runs:
         run: |
           echo "export SITE_PACKAGES_PATH=$(python -c 'import site; print(site.getsitepackages()[0])')" >> $GITHUB_ENV
 
-      - name: Install dependencies
+      - name: Install pip
         shell: bash
         run: |
           python -m pip install --upgrade pip
+
+      - name: Install dependencies
+        shell: bash
+        run: |
           cp -R ./api/terraform/python/layer_genai/openai_utils ${{ env.SITE_PACKAGES_PATH }}
           pip install -r ./requirements.txt
         env:

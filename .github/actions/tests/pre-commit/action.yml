@@ -19,6 +19,7 @@ runs:
         uses: actions/checkout@v4
 
       - name: Check for pre-commit in requirements
+        shell: bash
         run: |
           if ! grep -q "pre-commit" ./requirements.txt; then
             echo "pre-commit not found in requirements.txt" >&2
@@ -26,6 +27,7 @@ runs:
           fi
 
       - name: Check for black in requirements
+        shell: bash
         run: |
           if ! grep -q "black" ./requirements.txt; then
             echo "black not found in requirements.txt" >&2
@@ -33,6 +35,7 @@ runs:
           fi
 
       - name: Check for flake8 in requirements
+        shell: bash
         run: |
           if ! grep -q "flake8" ./requirements.txt; then
             echo "flake8 not found in requirements.txt" >&2
@@ -40,6 +43,7 @@ runs:
           fi
 
       - name: Check for flake8-coding in requirements
+        shell: bash
         run: |
           if ! grep -q "flake8-coding" ./requirements.txt; then
             echo "flake8-coding not found in requirements.txt" >&2

@@ -13,13 +13,8 @@ runs:
         id: checkout
         uses: actions/checkout@v4
 
-      - name: Check for ReactJS files changed
-        id: file_changes
-        run: |
-          echo "::set-output name=reactjs_files_changed::$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep '^client/' || true)"
-
       - name: Run ReactJS Tests
-        if: steps.file_changes.outputs.reactjs_files_changed != ''
         id: reactjs_tests
+        shell: bash
         run: |
           echo "Test scaffolding for ReactJS"

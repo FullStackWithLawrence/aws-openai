@@ -35,28 +35,6 @@ runs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Verify source-branch
-        shell: bash
-        run: |
-          echo $(git show-ref --verify refs/heads/${{ env.SOURCE_BRANCH }})
-          if ! git show-ref --verify refs/heads/${{ env.SOURCE_BRANCH }}; then
-            echo "source-branch '${{ env.SOURCE_BRANCH }}' does not exist in git repository" >&2
-            exit 1
-          fi
-        env:
-          SOURCE_BRANCH: ${{ inputs.source-branch }}
-
-      - name: Verify target-branch
-        shell: bash
-        run: |
-          if ! git show-ref --verify refs/heads/${{ env.TARGET_BRANCH }}; then
-            echo "target-branch '${{ env.TARGET_BRANCH }}' does not exist in git repository" >&2
-            exit 1
-          fi
-        env:
-          TARGET_BRANCH: ${{ inputs.target-branch }}
-
-
       - name: Remember current branch
         shell: bash
         run: |

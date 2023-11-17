@@ -49,8 +49,9 @@ jobs:
           git checkout main
           git pull
           git checkout next-major
-          git pull
-          git merge main
+          git rebase main
+          git checkout main
+          git merge --no-ff next-major
           git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:next-major
 
       - name: Merge main into alpha
@@ -63,8 +64,9 @@ jobs:
           git checkout main
           git pull
           git checkout alpha
-          git pull
-          git merge main
+          git rebase main
+          git checkout main
+          git merge --no-ff alpha
           git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:alpha
 
       - name: Merge main into beta
@@ -77,8 +79,9 @@ jobs:
           git checkout main
           git pull
           git checkout beta
-          git pull
-          git merge main
+          git rebase main
+          git checkout main
+          git merge --no-ff beta
           git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:beta
 
   semantic-release:

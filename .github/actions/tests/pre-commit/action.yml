@@ -1,0 +1,30 @@
+#------------------------------------------------------------------------------
+# Run pre-commit
+#------------------------------------------------------------------------------
+name: Test pre-commit
+branding:
+  icon: 'git-pull-request'
+  color: 'orange'
+inputs:
+  python-version:
+    description: 'The version of Python to use, such as 3.11.0'
+    required: true
+    type: string
+
+runs:
+  using: "composite"
+  steps:
+      - name: Checkout code
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ inputs.python-version }}
+
+      # see: https://pre-commit.ci/lite.html
+      - name: pre-commit ci
+        id: pre-commit-ci
+        if: always()
+        uses: pre-commit-ci/lite-action@v1.0.1

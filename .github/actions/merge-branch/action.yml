@@ -36,7 +36,9 @@ runs:
           persist-credentials: false
 
       - name: Remember current branch
-        run: echo "CURRENT_BRANCH=$(git branch --show-current)" >> $GITHUB_ENV
+        shell: bash
+        run: |
+          echo "CURRENT_BRANCH=$(git branch --show-current)" >> $GITHUB_ENV
 
       - name: Merge
         id: merge

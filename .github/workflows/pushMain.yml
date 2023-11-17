@@ -23,6 +23,18 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Rebase and merge
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git checkout main
+          git pull
+          git checkout ${{ github.event.pull_request.head.ref }}
+          git rebase main
+          git checkout main
+          git merge --no-ff ${{ github.event.pull_request.head.ref }}
+          git push origin main
+
       - name: Merge main into next
         id: merge_main_to_next
         shell: bash
@@ -33,7 +45,7 @@ jobs:
           git pull
           git checkout next
           git pull
-          git merge --allow-unrelated-histories main
+          git merge main
           git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:next
 
       - name: Merge main into next-major
@@ -46,7 +58,7 @@ jobs:
           git pull
           git checkout next-major
           git pull
-          git merge --allow-unrelated-histories main
+          git merge main
           git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:next-major
 
       - name: Merge main into alpha
@@ -59,7 +71,7 @@ jobs:
           git pull
           git checkout alpha
           git pull
-          git merge --allow-unrelated-histories main
+          git merge main
           git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:alpha
 
       - name: Merge main into beta
@@ -72,10 +84,11 @@ jobs:
           git pull
           git checkout beta
           git pull
-          git merge --allow-unrelated-histories main
+          git merge main
           git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:beta
 
   semantic-release:
+    needs: merge-main-to-dev-branches
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.PAT }}

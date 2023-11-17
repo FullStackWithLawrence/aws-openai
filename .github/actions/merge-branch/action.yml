@@ -36,6 +36,7 @@ runs:
           persist-credentials: false
 
       - name: Verify source-branch
+        shell: bash
         run: |
           if ! git show-ref --verify --quiet refs/heads/${{ inputs.source-branch }}; then
             echo "source-branch does not exist in git repository" >&2
@@ -43,6 +44,7 @@ runs:
           fi
 
       - name: Verify target-branch
+        shell: bash
         run: |
           if ! git show-ref --verify --quiet refs/heads/${{ inputs.target-branch }}; then
             echo "target-branch does not exist in git repository" >&2

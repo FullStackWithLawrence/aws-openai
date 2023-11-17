@@ -35,6 +35,20 @@ runs:
           fetch-depth: 0
           persist-credentials: false
 
+      - name: Verify source-branch
+        run: |
+          if ! git show-ref --verify --quiet refs/heads/${{ inputs.source-branch }}; then
+            echo "source-branch does not exist in git repository" >&2
+            exit 1
+          fi
+
+      - name: Verify target-branch
+        run: |
+          if ! git show-ref --verify --quiet refs/heads/${{ inputs.target-branch }}; then
+            echo "target-branch does not exist in git repository" >&2
+            exit 1
+          fi
+
       - name: Remember current branch
         shell: bash
         run: |

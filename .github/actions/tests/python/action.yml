@@ -52,6 +52,34 @@ runs:
             exit 1
           fi
 
+      - name: Check for openai in requirements
+        run: |
+          if ! grep -q "openai" ./requirements.txt; then
+            echo "openai not found in requirements.txt" >&2
+            exit 1
+          fi
+
+      - name: Check for langchain in requirements
+        run: |
+          if ! grep -q "langchain" ./requirements.txt; then
+            echo "langchain not found in requirements.txt" >&2
+            exit 1
+          fi
+
+      - name: Check for langchain-experimental in requirements
+        run: |
+          if ! grep -q "langchain-experimental" ./requirements.txt; then
+            echo "langchain-experimental not found in requirements.txt" >&2
+            exit 1
+          fi
+
+      - name: Check for pinecone-client in requirements
+        run: |
+          if ! grep -q "pinecone-client" ./requirements.txt; then
+            echo "pinecone-client not found in requirements.txt" >&2
+            exit 1
+          fi
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:

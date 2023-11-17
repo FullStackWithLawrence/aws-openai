@@ -37,6 +37,14 @@ runs:
             exit 1
           fi
 
+      - name: Verify Terraform is installed
+        run: |
+          if ! command -v terraform &> /dev/null
+          then
+            echo "Terraform could not be found"
+            exit 1
+          fi
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:

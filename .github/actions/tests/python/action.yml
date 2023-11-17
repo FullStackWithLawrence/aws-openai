@@ -77,7 +77,7 @@ runs:
       - name: locate site-packages path
         shell: bash
         run: |
-          echo "export SITE_PACKAGES_PATH=$(python -c 'import site; print(site.getsitepackages()[0])')" >> $GITHUB_ENV
+          echo "SITE_PACKAGES_PATH=$(python -c 'import site; print(site.getsitepackages()[0])')" >> $GITHUB_ENV
 
       - name: Install pip
         shell: bash

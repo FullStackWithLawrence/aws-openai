@@ -74,6 +74,11 @@ runs:
         with:
           python-version: ${{ inputs.python-version }}
 
+      - name: print site-packages path
+        shell: bash
+        run: |
+          echo $(python -c "import site; print(site.getsitepackages())")
+
       - name: Install dependencies
         shell: bash
         run: |

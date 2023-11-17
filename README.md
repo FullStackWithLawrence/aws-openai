@@ -71,6 +71,7 @@ Detailed documentation for each endpoint is available here: [Documentation](./do
 
 This repo is referenced by multiple YouTube videos, including various tutorials about good coding practices and good code management. Of note:
 
+- Automated Pull Requests: See the Github Actions tab of the GitHub Repository. Github Actions are triggered on pull requests to run any of several different kinds of technology-specific unit tests depending on the contents of the commits included in the PR.
 - [python-dotenv](https://pypi.org/project/python-dotenv/) for storing sensitive data for local development
 - [.gitignore](./.gitignore)  ensures that no sensitive nor useless data accidentally gets pushed to GitHub.
 - [tox.ini](./tox.ini) file for configuring behaviors of Python testing tools

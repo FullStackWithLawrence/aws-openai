@@ -117,14 +117,39 @@ jobs:
           echo "::set-output name=py_files_changed::$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep '\.py$' || true)"
           echo "::set-output name=requirements_changed::$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep '^${{ env.REQUIREMENTS_PATH }}$' || true)"
 
-      - name: Run Python Tests
+      - name: Set up Python
         if: steps.file_changes.outputs.py_files_changed != '' || steps.file_changes.outputs.requirements_changed != ''
-        id: python_tests
-        uses: ./.github/workflows/testPython.yml
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
 
-      - name: No Python changes detected
-        if: steps.file_changes.outputs.py_files_changed == '' && steps.file_changes.outputs.requirements_changed == ''
-        run: echo "No Python or requirements.txt changes detected."
+      - name: Install dependencies
+        if: steps.file_changes.outputs.py_files_changed != '' || steps.file_changes.outputs.requirements_changed != ''
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ./requirements.txt
+          cp -R ./api/terraform/python/layer_genai/openai_utils /opt/hostedtoolcache/Python/3.11.6/x64/lib/python3.11/site-packages/
+
+      - name: Create .env
+        if: steps.file_changes.outputs.py_files_changed != '' || steps.file_changes.outputs.requirements_changed != ''
+        run: |
+          touch ./.env
+          echo "OPENAI_API_ORGANIZATION=${OPENAI_API_ORGANIZATION}" >> ./.env
+          echo "OPENAI_API_KEY=${OPENAI_API_KEY}" >> ./.env
+          echo "PINECONE_API_KEY=${PINECONE_API_KEY}" >> ./.env
+          echo "PINECONE_ENVIRONMENT=${PINECONE_ENVIRONMENT}" >> ./.env
+
+      - name: Test lambda_openai_v2
+        if: steps.file_changes.outputs.py_files_changed != '' || steps.file_changes.outputs.requirements_changed != ''
+        run: |
+          cd ./api/terraform/python/lambda_openai_v2
+          pytest -v -s tests/
+
+      - name: Test lambda_langchain
+        if: steps.file_changes.outputs.py_files_changed != '' || steps.file_changes.outputs.requirements_changed != ''
+        run: |
+          cd ./api/terraform/python/lambda_langchain
+          pytest -v -s tests/
 
   terraform_tests:
     needs: check_for_pending_release
@@ -139,14 +164,31 @@ jobs:
         run: |
           echo "::set-output name=terraform_files_changed::$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep '\.tf$' || true)"
 
-      - name: Run Terraform Tests
+      - name: Configure AWS credentials
         if: steps.file_changes.outputs.terraform_files_changed != ''
-        id: terraform_tests
-        uses: ./.github/workflows/testTerraform.yml
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: No Terraform changes detected
-        if: steps.file_changes.outputs.py_files_changed == ''
-        run: echo "No Terraform changes detected."
+      - name: Terraform Init
+        if: steps.file_changes.outputs.terraform_files_changed != ''
+        run: |
+          cd api/terraform
+          terraform init
+
+      - name: Terraform Validate
+        if: steps.file_changes.outputs.terraform_files_changed != ''
+        run: |
+          cd api/terraform
+          terraform validate
+
+      - name: Terraform Format
+        if: steps.file_changes.outputs.terraform_files_changed != ''
+        run: |
+          cd api/terraform
+          terraform fmt -check
 
   reactjs_tests:
     needs: check_for_pending_release
@@ -164,11 +206,8 @@ jobs:
       - name: Run ReactJS Tests
         if: steps.file_changes.outputs.reactjs_files_changed != ''
         id: reactjs_tests
-        uses: ./.github/workflows/testReact.yml
-
-      - name: No ReactJS changes detected
-        if: steps.file_changes.outputs.py_files_changed == ''
-        run: echo "No ReactJS changes detected."
+        run: |
+          echo "Test scaffolding for ReactJS"
 
   pre_commit_tests:
     needs: check_for_pending_release
@@ -178,6 +217,13 @@ jobs:
         id: checkout
         uses: actions/checkout@v4
 
-      - name: Run ReactJS Tests
-        id: precommit_tests
-        uses: ./.github/workflows/testPreCommitRules.yml
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      # see: https://pre-commit.ci/lite.html
+      - name: pre-commit ci
+        id: pre-commit-ci
+        if: always()
+        uses: pre-commit-ci/lite-action@v1.0.0

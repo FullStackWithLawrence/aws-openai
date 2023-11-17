@@ -19,33 +19,30 @@ jobs:
       - name: Checkout code
         id: checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          persist-credentials: false
 
       - name: Merge main into next
-        uses: ./github/actions/merge-branch
+        uses: ./.github/actions/merge-branch
         with:
           github-token: ${{ env.GITHUB_TOKEN }}
           source-branch: main
           target-branch: next
 
       - name: Merge main into next-major
-        uses: ./github/actions/merge-branch
+        uses: ./.github/actions/merge-branch
         with:
           github-token: ${{ env.GITHUB_TOKEN }}
           source-branch: main
           target-branch: next-major
 
       - name: Merge main into alpha
-        uses: ./github/actions/merge-branch
+        uses: ./.github/actions/merge-branch
         with:
           github-token: ${{ env.GITHUB_TOKEN }}
           source-branch: main
           target-branch: alpha
 
       - name: Merge main into beta
-        uses: ./github/actions/merge-branch
+        uses: ./.github/actions/merge-branch
         with:
           github-token: ${{ env.GITHUB_TOKEN }}
           source-branch: main

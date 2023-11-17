@@ -31,6 +31,9 @@ runs:
       - name: Checkout code
         id: checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
 
       - name: Merge
         id: merge

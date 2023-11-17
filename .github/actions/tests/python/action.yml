@@ -20,6 +20,34 @@ runs:
         id: checkout
         uses: actions/checkout@v4
 
+      - name: Verify OPENAI_API_ORGANIZATION
+        run: |
+          if [[ -z "${{ secrets.OPENAI_API_ORGANIZATION }}" ]]; then
+            echo "OPENAI_API_ORGANIZATION is not set" >&2
+            exit 1
+          fi
+
+      - name: Verify OPENAI_API_KEY
+        run: |
+          if [[ -z "${{ secrets.OPENAI_API_KEY }}" ]]; then
+            echo "OPENAI_API_KEY is not set" >&2
+            exit 1
+          fi
+
+      - name: Verify PINECONE_API_KEY
+        run: |
+          if [[ -z "${{ secrets.PINECONE_API_KEY }}" ]]; then
+            echo "PINECONE_API_KEY is not set" >&2
+            exit 1
+          fi
+
+      - name: Verify PINECONE_ENVIRONMENT
+        run: |
+          if [[ -z "${{ secrets.PINECONE_ENVIRONMENT }}" ]]; then
+            echo "PINECONE_ENVIRONMENT is not set" >&2
+            exit 1
+          fi
+
       - name: Set up Python
         if: steps.file_changes.outputs.files_changed != '' || steps.file_changes.outputs.requirements_changed != ''
         uses: actions/setup-python@v4

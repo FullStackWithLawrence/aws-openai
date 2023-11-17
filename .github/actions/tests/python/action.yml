@@ -20,14 +20,73 @@ runs:
         id: checkout
         uses: actions/checkout@v4
 
+      - name: Verify OPENAI_API_ORGANIZATION
+        shell: bash
+        run: |
+          if [[ -z "${{ secrets.OPENAI_API_ORGANIZATION }}" ]]; then
+            echo "OPENAI_API_ORGANIZATION is not set" >&2
+            exit 1
+          fi
+
+      - name: Verify OPENAI_API_KEY
+        shell: bash
+        run: |
+          if [[ -z "${{ secrets.OPENAI_API_KEY }}" ]]; then
+            echo "OPENAI_API_KEY is not set" >&2
+            exit 1
+          fi
+
+      - name: Verify PINECONE_API_KEY
+        shell: bash
+        run: |
+          if [[ -z "${{ secrets.PINECONE_API_KEY }}" ]]; then
+            echo "PINECONE_API_KEY is not set" >&2
+            exit 1
+          fi
+
+      - name: Verify PINECONE_ENVIRONMENT
+        shell: bash
+        run: |
+          if [[ -z "${{ secrets.PINECONE_ENVIRONMENT }}" ]]; then
+            echo "PINECONE_ENVIRONMENT is not set" >&2
+            exit 1
+          fi
+
+      - name: Check for openai in requirements
+        run: |
+          if ! grep -q "openai" ./requirements.txt; then
+            echo "openai not found in requirements.txt" >&2
+            exit 1
+          fi
+
+      - name: Check for langchain in requirements
+        run: |
+          if ! grep -q "langchain" ./requirements.txt; then
+            echo "langchain not found in requirements.txt" >&2
+            exit 1
+          fi
+
+      - name: Check for langchain-experimental in requirements
+        run: |
+          if ! grep -q "langchain-experimental" ./requirements.txt; then
+            echo "langchain-experimental not found in requirements.txt" >&2
+            exit 1
+          fi
+
+      - name: Check for pinecone-client in requirements
+        run: |
+          if ! grep -q "pinecone-client" ./requirements.txt; then
+            echo "pinecone-client not found in requirements.txt" >&2
+            exit 1
+          fi
+
       - name: Set up Python
-        if: steps.file_changes.outputs.files_changed != '' || steps.file_changes.outputs.requirements_changed != ''
         uses: actions/setup-python@v4
         with:
           python-version: ${{ inputs.python-version }} }}}
 
       - name: Install dependencies
-        if: steps.file_changes.outputs.files_changed != '' || steps.file_changes.outputs.requirements_changed != ''
+        shell: bash
         run: |
           python -m pip install --upgrade pip
           pip install -r ./requirements.txt
@@ -35,7 +94,7 @@ runs:
           cp -R ./api/terraform/python/layer_genai/openai_utils venv/lib/python${{ inputs.python-version }}/site-packages/
 
       - name: Create .env
-        if: steps.file_changes.outputs.files_changed != '' || steps.file_changes.outputs.requirements_changed != ''
+        shell: bash
         run: |
           touch ./.env
           echo "OPENAI_API_ORGANIZATION=${{ secrets.OPENAI_API_ORGANIZATION }}" >> ./.env
@@ -44,13 +103,13 @@ runs:
           echo "PINECONE_ENVIRONMENT=${{ secrets.PINECONE_ENVIRONMENT }}" >> ./.env
 
       - name: Test lambda_openai_v2
-        if: steps.file_changes.outputs.files_changed != '' || steps.file_changes.outputs.requirements_changed != ''
+        shell: bash
         run: |
           cd ./api/terraform/python/lambda_openai_v2
           pytest -v -s tests/
 
       - name: Test lambda_langchain
-        if: steps.file_changes.outputs.files_changed != '' || steps.file_changes.outputs.requirements_changed != ''
+        shell: bash
         run: |
           cd ./api/terraform/python/lambda_langchain
           pytest -v -s tests/

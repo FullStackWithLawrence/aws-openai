@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Provide common functions for testing."""
 import json
 

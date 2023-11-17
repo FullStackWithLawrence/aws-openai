@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Setup for openai_utils package."""
 from setuptools import setup, find_packages
 

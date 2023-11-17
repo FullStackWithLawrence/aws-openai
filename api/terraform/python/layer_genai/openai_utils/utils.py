@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Utility functions for the OpenAI Lambda functions"""
 import base64
 import json  # library for interacting with JSON data https://www.json.org/json-en.html

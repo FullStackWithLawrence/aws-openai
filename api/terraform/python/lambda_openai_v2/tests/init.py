@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Shared code for testing the lambda function"""
 import json
 

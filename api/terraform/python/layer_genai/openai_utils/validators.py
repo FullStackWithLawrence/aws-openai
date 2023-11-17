@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Internal validation functions for requests from API Gateway."""
 import json
 

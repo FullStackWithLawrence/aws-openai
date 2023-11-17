@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 written by: Lawrence McDaniel
             https://lawrencemcdaniel.com/

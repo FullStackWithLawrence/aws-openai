@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # flake8: noqa: F401
 """
 Test requests to the OpenAI API using the Lambda Layer, 'genai'.

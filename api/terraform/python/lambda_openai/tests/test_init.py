@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Shared code for testing the lambda function"""
 from dotenv import load_dotenv, find_dotenv
 import os

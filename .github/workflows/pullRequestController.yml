@@ -16,7 +16,7 @@
 # If a new release is to be published then we want to consider running QA tests
 # to ensure formatting and documentation is correct.
 #------------------------------------------------------------------------------
-name: Evaluate Pull Request
+name: Pull Request Controller
 
 on:
   workflow_dispatch:

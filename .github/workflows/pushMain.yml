@@ -9,7 +9,6 @@ on:
   push:
     branches:
       - main
-
 jobs:
   merge-main-to-dev-branches:
     runs-on: ubuntu-latest
@@ -25,52 +24,32 @@ jobs:
           persist-credentials: false
 
       - name: Merge main into next
-        id: merge_main_to_next
-        shell: bash
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git checkout main
-          git pull
-          git checkout next
-          git merge -Xtheirs main
-          git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:next
+        uses: ./github/actions/merge-branch
+        with:
+          github-token: ${{ env.GITHUB_TOKEN }}
+          source-branch: main
+          target-branch: next
 
       - name: Merge main into next-major
-        id: merge_main_to_next_major
-        shell: bash
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git checkout main
-          git pull
-          git checkout next-major
-          git merge -Xtheirs main
-          git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:next-major
+        uses: ./github/actions/merge-branch
+        with:
+          github-token: ${{ env.GITHUB_TOKEN }}
+          source-branch: main
+          target-branch: next-major
 
       - name: Merge main into alpha
-        id: merge_main_to_alpha
-        shell: bash
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git checkout main
-          git pull
-          git checkout alpha
-          git merge -Xtheirs main
-          git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:alpha
+        uses: ./github/actions/merge-branch
+        with:
+          github-token: ${{ env.GITHUB_TOKEN }}
+          source-branch: main
+          target-branch: alpha
 
       - name: Merge main into beta
-        id: merge_main_to_beta
-        shell: bash
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git checkout main
-          git pull
-          git checkout beta
-          git merge -Xtheirs main
-          git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:beta
+        uses: ./github/actions/merge-branch
+        with:
+          github-token: ${{ env.GITHUB_TOKEN }}
+          source-branch: main
+          target-branch: beta
 
   semantic-release:
     needs: merge-main-to-dev-branches

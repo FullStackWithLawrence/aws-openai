@@ -1,0 +1,45 @@
+#------------------------------------------------------------------------------
+# Run pre-commit
+#------------------------------------------------------------------------------
+name: Merge
+branding:
+  icon: 'git-pull-request'
+  color: 'orange'
+inputs:
+  github-token:
+    description: 'The GitHub token to use for authentication'
+    required: true
+    type: string
+  source-branch:
+    description: 'The branch to merge from'
+    required: false
+    type: string
+    default: 'main'
+  target-branch:
+    description: 'The branch to merge to'
+    required: true
+    type: string
+
+  python-version:
+    description: 'The version of Python to use, such as 3.11.0'
+    required: true
+    type: string
+
+runs:
+  using: "composite"
+  steps:
+      - name: Checkout code
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Merge
+        id: merge
+        shell: bash
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git checkout ${{ inputs.source-branch }}
+          git pull
+          git checkout ${{ inputs.target-branch }}
+          git merge -Xtheirs ${{ inputs.source-branch }}
+          git push https://${{ inputs.github-token }}@github.com/${{ github.repository }}.git HEAD:${{ inputs.target-branch }}

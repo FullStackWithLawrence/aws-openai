@@ -1,13 +1,11 @@
-"""
-Internal validation functions for requests from API Gateway.
-"""
+"""Internal validation functions for requests from API Gateway."""
 import json
 
 from openai_utils.const import OpenAIEndPoint, OpenAIMessageKeys
 
 
 def validate_item(item, valid_items: list, item_type: str) -> None:
-    """ensure that item exists in valid_items"""
+    """Ensure that item exists in valid_items"""
     if item not in valid_items:
         raise ValueError(
             "Item {item} not found in {item_type}: {valid_items}".format(
@@ -18,7 +16,7 @@ def validate_item(item, valid_items: list, item_type: str) -> None:
 
 
 def validate_temperature(temperature: any) -> None:
-    """ensure that temperature is a float between 0 and 1"""
+    """Ensure that temperature is a float between 0 and 1"""
     try:
         float_temperature = float(temperature)
         if float_temperature < 0 or float_temperature > 1:
@@ -28,7 +26,7 @@ def validate_temperature(temperature: any) -> None:
 
 
 def validate_max_tokens(max_tokens: any) -> None:
-    """ensure that max_tokens is an int between 1 and 2048"""
+    """Ensure that max_tokens is an int between 1 and 2048"""
     if type(max_tokens) is not int:
         raise TypeError("max_tokens should be an int")
 
@@ -37,7 +35,7 @@ def validate_max_tokens(max_tokens: any) -> None:
 
 
 def validate_endpoint(end_point: any) -> None:
-    """ensure that end_point is a valid endpoint based on the OpenAIEndPoint enum"""
+    """Ensure that end_point is a valid endpoint based on the OpenAIEndPoint enum"""
     if type(end_point) is not str:
         raise TypeError("end_point should be a string")
 
@@ -50,13 +48,13 @@ def validate_endpoint(end_point: any) -> None:
 
 
 def validate_request_body(request_body) -> None:
-    """see openai.chat.completion.request.json"""
+    """See openai.chat.completion.request.json"""
     if type(request_body) is not dict:
         raise TypeError("request body should be a dict")
 
 
 def validate_messages(request_body):
-    """see openai.chat.completion.request.json"""
+    """See openai.chat.completion.request.json"""
     if "messages" not in request_body:
         raise ValueError("dict key 'messages' not found in request body object")
     messages = request_body["messages"]
@@ -90,7 +88,7 @@ def validate_messages(request_body):
 
 
 def validate_completion_request(request_body) -> None:
-    """see openai.chat.completion.request.json"""
+    """See openai.chat.completion.request.json"""
     validate_request_body(request_body=request_body)
     if "model" not in request_body:
         raise ValueError("dict key 'model' not found in request body object")
@@ -102,7 +100,7 @@ def validate_completion_request(request_body) -> None:
 
 
 def validate_embedding_request(request_body) -> None:
-    """see openai.embedding.request.json"""
+    """See openai.embedding.request.json"""
     validate_request_body(request_body=request_body)
     if "input_text" not in request_body:
         raise ValueError("dict key 'input_text' not found in request body object")

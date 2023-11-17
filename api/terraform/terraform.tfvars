@@ -10,14 +10,14 @@
 ###############################################################################
 # AWS CLI parameters
 ###############################################################################
-aws_account_id = "123456789012"
+aws_account_id = "090511222473"
 tags = {
   "terraform" = "true",
-  "project"   = "OpenAI Code Samples"
-  "contact"   = "YOUR CONTACT INFORMATION GOES HERE."
+  "project"   = "chatGPT microservice"
+  "contact"   = "Lawrence McDaniel - https://lawrencemcdaniel.com/"
 }
 aws_region  = "us-east-1"
-aws_profile = "default"
+aws_profile = "lawrence"
 
 ###############################################################################
 # OpenAI API parameters
@@ -44,8 +44,8 @@ log_retention_days = 3
 ###############################################################################
 # APIGateway parameters
 ###############################################################################
-create_custom_domain       = false
-root_domain                = "example.com"
+create_custom_domain       = true
+root_domain                = "lawrencemcdaniel.com"
 shared_resource_identifier = "openai"
 stage                      = "v1"
 

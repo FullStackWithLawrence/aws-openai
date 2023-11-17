@@ -1,3 +1,4 @@
+"""A module containing constants for the OpenAI API."""
 import os
 import openai
 

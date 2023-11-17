@@ -1,3 +1,4 @@
+"""Utility functions for the OpenAI Lambda functions"""
 import base64
 import json  # library for interacting with JSON data https://www.json.org/json-en.html
 import openai
@@ -63,13 +64,13 @@ def exception_response_factory(exception: Exception) -> dict:
 
 
 def event_log(log_entry):
-    """print to CloudWatch Logs"""
+    """Print to CloudWatch Logs"""
     if DEBUG_MODE:
         print(log_entry)
 
 
 def dump_environment(event):
-    """print to CloudWatch Logs"""
+    """Print to CloudWatch Logs"""
     if DEBUG_MODE:
         cloudwatch_dump = {
             "environment": {
@@ -123,7 +124,7 @@ def get_request_body(event) -> dict:
 
 
 def parse_request(request_body: dict):
-    """parse the request body and return the endpoint, model, messages, and input_text"""
+    """Parse the request body and return the endpoint, model, messages, and input_text"""
     end_point = request_body.get("end_point")
     model = request_body.get("model")
     messages = request_body.get("messages")
@@ -165,6 +166,7 @@ def get_content_for_role(messages: list, role: str) -> str:
 
 
 def get_message_history(messages: list) -> list:
+    """Get the text content from the messages list for a given role"""
     message_history = [
         {"role": d["role"], "content": d.get("content")}
         for d in messages

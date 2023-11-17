@@ -1,3 +1,4 @@
+"""Shared code for testing the lambda function"""
 from dotenv import load_dotenv, find_dotenv
 import os
 import json
@@ -15,12 +16,14 @@ else:
 
 
 def get_event(filespec):
+    """Load a JSON file and return the event"""
     with open(filespec, "r") as f:
         event = json.load(f)
         return event
 
 
 def handle_event(event):
+    """Handle an event"""
     retval = handler(
         event=event,
         context=None,

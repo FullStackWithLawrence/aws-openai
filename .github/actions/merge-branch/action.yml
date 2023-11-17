@@ -25,6 +25,10 @@ inputs:
     required: true
     type: string
 
+env:
+  SOURCE_BRANCH: ${{ inputs.source-branch }}
+  TARGET_BRANCH: ${{ inputs.target-branch }}
+
 runs:
   using: "composite"
   steps:
@@ -38,16 +42,16 @@ runs:
       - name: Verify source-branch
         shell: bash
         run: |
-          if ! git show-ref --verify --quiet refs/heads/${{ inputs.source-branch }}; then
-            echo "source-branch does not exist in git repository" >&2
+          if ! git show-ref --verify --quiet refs/heads/${{ env.SOURCE_BRANCH }}; then
+            echo "source-branch '${{ env.SOURCE_BRANCH }}' does not exist in git repository" >&2
             exit 1
           fi
 
       - name: Verify target-branch
         shell: bash
         run: |
-          if ! git show-ref --verify --quiet refs/heads/${{ inputs.target-branch }}; then
-            echo "target-branch does not exist in git repository" >&2
+          if ! git show-ref --verify --quiet refs/heads/${{ env.TARGET_BRANCH }}; then
+            echo "target-branch '${{ env.TARGET_BRANCH }}' does not exist in git repository" >&2
             exit 1
           fi
 

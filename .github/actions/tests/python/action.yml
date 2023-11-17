@@ -72,7 +72,7 @@ runs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ inputs.python-version }} }}}
+          python-version: ${{ inputs.python-version }}
 
       - name: Install dependencies
         shell: bash

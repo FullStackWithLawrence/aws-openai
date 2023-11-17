@@ -118,6 +118,10 @@ jobs:
         uses: ./.github/actions/tests/python
         with:
           python-version: "${{ env.python-version}}"
+          openai-api-organization: "${{ secrets.OPENAI_API_ORGANIZATION }}"
+          openai-api-key: "${{ secrets.OPENAI_API_KEY }}"
+          pinecone-api-key: "${{ secrets.PINECONE_API_KEY }}"
+          pinecone-environment: "${{ secrets.PINECONE_ENVIRONMENT }}"
 
   terraform_tests:
     needs: check_for_pending_release

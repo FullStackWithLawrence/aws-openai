@@ -10,6 +10,23 @@ inputs:
     description: 'The version of Python to use, such as 3.11.0'
     required: true
     type: string
+openai-api-organization:
+  description: 'The OpenAI API organization'
+  required: true
+  type: string
+openai-api-key:
+  description: 'The OpenAI API key'
+  required: true
+  type: string
+pinecone-api-key:
+  description: 'The Pinecone API key'
+  required: true
+  type: string
+pinecone-environment:
+  description: 'The Pinecone environment'
+  required: true
+  type: string
+
 env:
   REQUIREMENTS_PATH: 'api/terraform/python/layer_genai/requirements.txt'
 
@@ -19,38 +36,6 @@ runs:
       - name: Checkout code
         id: checkout
         uses: actions/checkout@v4
-
-      - name: Verify OPENAI_API_ORGANIZATION
-        shell: bash
-        run: |
-          if [[ -z "${{ secrets.OPENAI_API_ORGANIZATION }}" ]]; then
-            echo "OPENAI_API_ORGANIZATION is not set" >&2
-            exit 1
-          fi
-
-      - name: Verify OPENAI_API_KEY
-        shell: bash
-        run: |
-          if [[ -z "${{ secrets.OPENAI_API_KEY }}" ]]; then
-            echo "OPENAI_API_KEY is not set" >&2
-            exit 1
-          fi
-
-      - name: Verify PINECONE_API_KEY
-        shell: bash
-        run: |
-          if [[ -z "${{ secrets.PINECONE_API_KEY }}" ]]; then
-            echo "PINECONE_API_KEY is not set" >&2
-            exit 1
-          fi
-
-      - name: Verify PINECONE_ENVIRONMENT
-        shell: bash
-        run: |
-          if [[ -z "${{ secrets.PINECONE_ENVIRONMENT }}" ]]; then
-            echo "PINECONE_ENVIRONMENT is not set" >&2
-            exit 1
-          fi
 
       - name: Check for openai in requirements
         run: |
@@ -101,6 +86,11 @@ runs:
           echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> ./.env
           echo "PINECONE_API_KEY=${{ secrets.PINECONE_API_KEY }}" >> ./.env
           echo "PINECONE_ENVIRONMENT=${{ secrets.PINECONE_ENVIRONMENT }}" >> ./.env
+        env:
+          OPENAI_API_ORGANIZATION: ${{ inputs.openai-api-organization }}
+          OPENAI_API_KEY: ${{ inputs.openai-api-key }}
+          PINECONE_API_KEY: ${{ inputs.pinecone-api-key }}
+          PINECONE_ENVIRONMENT: ${{ inputs.pinecone-environment }}
 
       - name: Test lambda_openai_v2
         shell: bash

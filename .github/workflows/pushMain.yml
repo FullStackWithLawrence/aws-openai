@@ -29,6 +29,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          git fetch --all
           git checkout main
           git pull
           git checkout next
@@ -42,6 +43,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          git fetch --all
           git checkout main
           git pull
           git checkout next-major
@@ -55,6 +57,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          git fetch --all
           git checkout main
           git pull
           git checkout alpha
@@ -68,6 +71,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          git fetch --all
           git checkout main
           git pull
           git checkout beta
@@ -76,6 +80,7 @@ jobs:
           git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:beta
 
   semantic-release:
+    needs: merge-main-to-dev-branches
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.PAT }}

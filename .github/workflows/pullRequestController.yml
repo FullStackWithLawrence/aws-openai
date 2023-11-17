@@ -226,4 +226,4 @@ jobs:
       - name: pre-commit ci
         id: pre-commit-ci
         if: always()
-        uses: pre-commit-ci/lite-action@v1.0.0
+        uses: pre-commit-ci/lite-action@v1.0.1

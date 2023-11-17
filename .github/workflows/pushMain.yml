@@ -32,7 +32,7 @@ jobs:
           git checkout main
           git pull
           git checkout next
-          git merge main
+          git merge --allow-unrelated-histories main
           git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:next
 
       - name: Merge main into next-major
@@ -44,7 +44,7 @@ jobs:
           git checkout main
           git pull
           git checkout next-major
-          git merge main
+          git merge --allow-unrelated-histories main
           git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:next-major
 
       - name: Merge main into alpha
@@ -56,7 +56,7 @@ jobs:
           git checkout main
           git pull
           git checkout alpha
-          git merge main
+          git merge --allow-unrelated-histories main
           git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:alpha
 
       - name: Merge main into beta
@@ -68,7 +68,7 @@ jobs:
           git checkout main
           git pull
           git checkout beta
-          git merge main
+          git merge --allow-unrelated-histories main
           git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:beta
 
   semantic-release:

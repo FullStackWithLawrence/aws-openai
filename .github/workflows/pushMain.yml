@@ -32,6 +32,7 @@ jobs:
           git checkout main
           git pull
           git checkout next
+          git pull
           git merge --allow-unrelated-histories main
           git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:next
 
@@ -44,6 +45,7 @@ jobs:
           git checkout main
           git pull
           git checkout next-major
+          git pull
           git merge --allow-unrelated-histories main
           git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:next-major
 
@@ -56,6 +58,7 @@ jobs:
           git checkout main
           git pull
           git checkout alpha
+          git pull
           git merge --allow-unrelated-histories main
           git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:alpha
 
@@ -68,6 +71,7 @@ jobs:
           git checkout main
           git pull
           git checkout beta
+          git pull
           git merge --allow-unrelated-histories main
           git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:beta
 

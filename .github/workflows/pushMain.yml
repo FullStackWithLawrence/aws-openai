@@ -30,13 +30,10 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git fetch --all
           git checkout main
           git pull
           git checkout next
-          git rebase main
-          git checkout main
-          git merge --no-ff next
+          git merge -Xtheirs main
           git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:next
 
       - name: Merge main into next-major
@@ -45,13 +42,10 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git fetch --all
           git checkout main
           git pull
           git checkout next-major
-          git rebase main
-          git checkout main
-          git merge --no-ff next-major
+          git merge -Xtheirs main
           git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:next-major
 
       - name: Merge main into alpha
@@ -60,13 +54,10 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git fetch --all
           git checkout main
           git pull
           git checkout alpha
-          git rebase main
-          git checkout main
-          git merge --no-ff alpha
+          git merge -Xtheirs main
           git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:alpha
 
       - name: Merge main into beta
@@ -75,13 +66,10 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git fetch --all
           git checkout main
           git pull
           git checkout beta
-          git rebase main
-          git checkout main
-          git merge --no-ff beta
+          git merge -Xtheirs main
           git push https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:beta
 
   semantic-release:

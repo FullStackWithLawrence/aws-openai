@@ -1,5 +1,7 @@
-from dotenv import load_dotenv, find_dotenv
 import os
+
+from dotenv import find_dotenv, load_dotenv
+
 
 # Load environment variables from .env file in all folders
 dotenv_path = find_dotenv()

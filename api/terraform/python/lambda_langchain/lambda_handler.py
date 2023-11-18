@@ -15,55 +15,57 @@ usage:      Use langchain to process requests to the OpenAI API.
             https://python.langchain.com/docs/integrations/memory/aws_dynamodb
             https://bobbyhadz.com/blog/react-generate-unique-id
 """
-import os
 import json
-from dotenv import load_dotenv, find_dotenv
+import os
 
 # OpenAI imports
 import openai
+from dotenv import find_dotenv, load_dotenv
+from langchain.chains import LLMChain
 
 # Langchain imports
 from langchain.chat_models import ChatOpenAI
-from langchain.chains import LLMChain
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import (
     ChatPromptTemplate,
+    HumanMessagePromptTemplate,
     MessagesPlaceholder,
     SystemMessagePromptTemplate,
-    HumanMessagePromptTemplate,
 )
+
+# local imports from 'layer_genai' virtual environment or AWS Lambda layer.
+from openai_utils.const import (
+    HTTP_RESPONSE_BAD_REQUEST,
+    HTTP_RESPONSE_INTERNAL_SERVER_ERROR,
+    HTTP_RESPONSE_OK,
+    VALID_CHAT_COMPLETION_MODELS,
+    VALID_EMBEDDING_MODELS,
+    OpenAIEndPoint,
+    OpenAIMessageKeys,
+)
+from openai_utils.utils import (
+    dump_environment,
+    exception_response_factory,
+    get_content_for_role,
+    get_message_history,
+    get_messages_for_role,
+    get_request_body,
+    http_response_factory,
+    parse_request,
+)
+from openai_utils.validators import (
+    validate_completion_request,
+    validate_embedding_request,
+    validate_item,
+    validate_messages,
+    validate_request_body,
+)
+
 
 # from langchain.memory.chat_message_histories.in_memory import ChatMessageHistory
 # from langchain.schema.messages import HumanMessage, SystemMessage, AIMessage
 # from langchain.schema.messages import BaseMessage
 
-# local imports from 'layer_genai' virtual environment or AWS Lambda layer.
-from openai_utils.const import (
-    OpenAIEndPoint,
-    OpenAIMessageKeys,
-    HTTP_RESPONSE_OK,
-    HTTP_RESPONSE_BAD_REQUEST,
-    HTTP_RESPONSE_INTERNAL_SERVER_ERROR,
-    VALID_CHAT_COMPLETION_MODELS,
-    VALID_EMBEDDING_MODELS,
-)
-from openai_utils.utils import (
-    http_response_factory,
-    exception_response_factory,
-    dump_environment,
-    get_request_body,
-    parse_request,
-    get_content_for_role,
-    get_message_history,
-    get_messages_for_role,
-)
-from openai_utils.validators import (
-    validate_item,
-    validate_request_body,
-    validate_messages,
-    validate_completion_request,
-    validate_embedding_request,
-)
 
 ###############################################################################
 # ENVIRONMENT CREDENTIALS
@@ -108,9 +110,7 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
         # ----------------------------------------------------------------------
         request_body = get_request_body(event=event)
         validate_request_body(request_body=request_body)
-        end_point, model, messages, input_text, temperature, max_tokens = parse_request(
-            request_body
-        )
+        end_point, model, messages, input_text, temperature, max_tokens = parse_request(request_body)
         validate_messages(request_body=request_body)
         request_meta_data = {
             "request_meta_data": {
@@ -138,18 +138,12 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
                     item_type="ChatCompletion models",
                 )
                 validate_completion_request(request_body)
-                system_message = get_content_for_role(
-                    messages, OpenAIMessageKeys.OPENAI_SYSTEM_MESSAGE_KEY
-                )
-                user_message = get_content_for_role(
-                    messages, OpenAIMessageKeys.OPENAI_USER_MESSAGE_KEY
-                )
+                system_message = get_content_for_role(messages, OpenAIMessageKeys.OPENAI_SYSTEM_MESSAGE_KEY)
+                user_message = get_content_for_role(messages, OpenAIMessageKeys.OPENAI_USER_MESSAGE_KEY)
 
                 # 2. initialize the LangChain ChatOpenAI model
                 # -------------------------------------------------------------
-                llm = ChatOpenAI(
-                    model=model, temperature=temperature, max_tokens=max_tokens
-                )
+                llm = ChatOpenAI(model=model, temperature=temperature, max_tokens=max_tokens)
                 prompt = ChatPromptTemplate(
                     messages=[
                         SystemMessagePromptTemplate.from_template(system_message),
@@ -165,9 +159,7 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
                     return_messages=True,
                 )
                 message_history = get_message_history(messages)
-                user_messages = get_messages_for_role(
-                    message_history, OpenAIMessageKeys.OPENAI_USER_MESSAGE_KEY
-                )
+                user_messages = get_messages_for_role(message_history, OpenAIMessageKeys.OPENAI_USER_MESSAGE_KEY)
                 assistant_messages = get_messages_for_role(
                     message_history, OpenAIMessageKeys.OPENAI_ASSISTANT_MESSAGE_KEY
                 )
@@ -211,9 +203,7 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
                 openai_results = openai.Moderation.create(input=input_text)
 
             case OpenAIEndPoint.Models:
-                openai_results = (
-                    openai.Model.retrieve(model) if model else openai.Model.list()
-                )
+                openai_results = openai.Model.retrieve(model) if model else openai.Model.list()
 
             case OpenAIEndPoint.Audio:
                 raise NotImplementedError("Audio support is coming soon")
@@ -221,9 +211,7 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
     # handle anything that went wrong
     except (openai.APIError, ValueError, TypeError, NotImplementedError) as e:
         # 400 Bad Request
-        return http_response_factory(
-            status_code=HTTP_RESPONSE_BAD_REQUEST, body=exception_response_factory(e)
-        )
+        return http_response_factory(status_code=HTTP_RESPONSE_BAD_REQUEST, body=exception_response_factory(e))
     except (openai.OpenAIError, Exception) as e:
         # 500 Internal Server Error
         return http_response_factory(
@@ -232,6 +220,4 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
         )
 
     # success!! return the results
-    return http_response_factory(
-        status_code=HTTP_RESPONSE_OK, body={**openai_results, **request_meta_data}
-    )
+    return http_response_factory(status_code=HTTP_RESPONSE_OK, body={**openai_results, **request_meta_data})

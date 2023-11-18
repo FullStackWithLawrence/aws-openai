@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """Setup for openai_utils package."""
-from setuptools import setup, find_packages
-
 from setup_utils import get_semantic_version
+from setuptools import find_packages, setup
+
 
 setup(
     name="openai_utils",

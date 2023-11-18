@@ -2,24 +2,24 @@
 """Utility functions for the OpenAI Lambda functions"""
 import base64
 import json  # library for interacting with JSON data https://www.json.org/json-en.html
-import openai
 import os  # library for interacting with the operating system
 import platform  # library to view informatoin about the server host this Lambda runs on
 import sys  # libraries for error management
 import traceback  # libraries for error management
 
+import openai
 from openai_utils.const import (
-    OpenAIEndPoint,
     DEBUG_MODE,
     LANGCHAIN_MESSAGE_HISTORY_ROLES,
+    OpenAIEndPoint,
 )
 from openai_utils.validators import (
-    validate_item,
-    validate_request_body,
-    validate_messages,
-    validate_temperature,
-    validate_max_tokens,
     validate_endpoint,
+    validate_item,
+    validate_max_tokens,
+    validate_messages,
+    validate_request_body,
+    validate_temperature,
 )
 
 
@@ -33,11 +33,7 @@ def http_response_factory(status_code: int, body) -> dict:
     see https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html
     """
     if status_code < 100 or status_code > 599:
-        raise ValueError(
-            "Invalid HTTP response code received: {status_code}".format(
-                status_code=status_code
-            )
-        )
+        raise ValueError("Invalid HTTP response code received: {status_code}".format(status_code=status_code))
 
     retval = {
         "isBase64Encoded": False,

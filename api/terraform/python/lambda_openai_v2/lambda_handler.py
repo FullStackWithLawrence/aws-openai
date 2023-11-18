@@ -31,25 +31,26 @@ import os  # library for interacting with the operating system
 # -----------------------
 import openai
 from openai_utils.const import (
-    OpenAIEndPoint,
-    HTTP_RESPONSE_OK,
     HTTP_RESPONSE_BAD_REQUEST,
     HTTP_RESPONSE_INTERNAL_SERVER_ERROR,
+    HTTP_RESPONSE_OK,
     VALID_CHAT_COMPLETION_MODELS,
     VALID_EMBEDDING_MODELS,
+    OpenAIEndPoint,
 )
 from openai_utils.utils import (
-    http_response_factory,
-    exception_response_factory,
     dump_environment,
+    exception_response_factory,
     get_request_body,
+    http_response_factory,
     parse_request,
 )
 from openai_utils.validators import (
-    validate_item,
     validate_completion_request,
     validate_embedding_request,
+    validate_item,
 )
+
 
 DEBUG_MODE = os.getenv("DEBUG_MODE", "False").lower() in ("true", "1", "t")
 
@@ -71,9 +72,7 @@ def handler(event, context):
     try:
         openai_results = {}
         request_body = get_request_body(event=event)
-        end_point, model, messages, input_text, temperature, max_tokens = parse_request(
-            request_body
-        )
+        end_point, model, messages, input_text, temperature, max_tokens = parse_request(request_body)
         request_meta_data = {
             "request_meta_data": {
                 "lambda": "lambda_openai_v2",
@@ -121,9 +120,7 @@ def handler(event, context):
                 openai_results = openai.Moderation.create(input=input_text)
 
             case OpenAIEndPoint.Models:
-                openai_results = (
-                    openai.Model.retrieve(model) if model else openai.Model.list()
-                )
+                openai_results = openai.Model.retrieve(model) if model else openai.Model.list()
 
             case OpenAIEndPoint.Audio:
                 raise NotImplementedError("Audio support is coming soon")
@@ -131,9 +128,7 @@ def handler(event, context):
     # handle anything that went wrong
     except (openai.APIError, ValueError, TypeError, NotImplementedError) as e:
         # 400 Bad Request
-        return http_response_factory(
-            status_code=HTTP_RESPONSE_BAD_REQUEST, body=exception_response_factory(e)
-        )
+        return http_response_factory(status_code=HTTP_RESPONSE_BAD_REQUEST, body=exception_response_factory(e))
     except (openai.OpenAIError, Exception) as e:
         # 500 Internal Server Error
         return http_response_factory(

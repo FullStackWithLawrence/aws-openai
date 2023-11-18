@@ -44,11 +44,13 @@ Endpoint request body after transformations: {
 
 import base64
 import json  # library for interacting with JSON data https://www.json.org/json-en.html
-import openai
 import os  # library for interacting with the operating system
 import platform  # library to view informatoin about the server host this Lambda runs on
 import sys  # libraries for error management
 import traceback  # libraries for error management
+
+import openai
+
 
 DEBUG_MODE = os.getenv("DEBUG_MODE", "False").lower() in ("true", "1", "t")
 HTTP_RESPONSE_OK = 200
@@ -108,11 +110,7 @@ def http_response_factory(status_code: int, body) -> dict:
     see https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html
     """
     if status_code < 100 or status_code > 599:
-        raise ValueError(
-            "Invalid HTTP response code received: {status_code}".format(
-                status_code=status_code
-            )
-        )
+        raise ValueError("Invalid HTTP response code received: {status_code}".format(status_code=status_code))
 
     retval = {
         "isBase64Encoded": False,
@@ -165,21 +163,11 @@ def validate_messages(request_body):
         raise ValueError("dict key 'messages' should be a JSON list")
     for message in messages:
         if type(message) is not dict:
-            raise ValueError(
-                "invalid ojbect type {t} found in messages list".format(t=type(message))
-            )
+            raise ValueError("invalid ojbect type {t} found in messages list".format(t=type(message)))
         if "role" not in message:
-            raise ValueError(
-                "dict key 'role' not found in message {m}".format(
-                    m=json.dumps(message, indent=4)
-                )
-            )
+            raise ValueError("dict key 'role' not found in message {m}".format(m=json.dumps(message, indent=4)))
         if "content" not in message:
-            raise ValueError(
-                "dict key 'content' not found in message {m}".format(
-                    m=json.dumps(message, indent=4)
-                )
-            )
+            raise ValueError("dict key 'content' not found in message {m}".format(m=json.dumps(message, indent=4)))
 
 
 def validate_completion_request(request_body) -> None:
@@ -294,9 +282,7 @@ def handler(event, context):
                     item_type="ChatCompletion models",
                 )
                 validate_completion_request(request_body)
-                openai_results = openai.ChatCompletion.create(
-                    model=model, messages=messages
-                )
+                openai_results = openai.ChatCompletion.create(model=model, messages=messages)
 
             case OpenAIEndPoint.Embedding:
                 # https://platform.openai.com/docs/guides/embeddings/embeddings
@@ -319,9 +305,7 @@ def handler(event, context):
                 openai_results = openai.Moderation.create(input=input_text)
 
             case OpenAIEndPoint.Models:
-                openai_results = (
-                    openai.Model.retrieve(model) if model else openai.Model.list()
-                )
+                openai_results = openai.Model.retrieve(model) if model else openai.Model.list()
 
             case OpenAIEndPoint.Audio:
                 raise NotImplementedError("Audio support is coming soon")
@@ -329,9 +313,7 @@ def handler(event, context):
     # handle anything that went wrong
     except (openai.APIError, ValueError, TypeError, NotImplementedError) as e:
         # 400 Bad Request
-        return http_response_factory(
-            status_code=HTTP_RESPONSE_BAD_REQUEST, body=exception_response_factory(e)
-        )
+        return http_response_factory(status_code=HTTP_RESPONSE_BAD_REQUEST, body=exception_response_factory(e))
     except (openai.OpenAIError, Exception) as e:
         # 500 Internal Server Error
         return http_response_factory(

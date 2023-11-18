@@ -2,11 +2,13 @@
 """
 Test requests to the OpenAI API using the Lambda Layer, 'genai'.
 """
-import pytest
 import os
-from dotenv import load_dotenv, find_dotenv
-from lambda_openai_v2.tests.init import get_event
+
+import pytest
+from dotenv import find_dotenv, load_dotenv
 from lambda_openai_v2.lambda_handler import handler
+from lambda_openai_v2.tests.init import get_event
+
 
 # Load environment variables from .env file in all folders
 dotenv_path = find_dotenv()

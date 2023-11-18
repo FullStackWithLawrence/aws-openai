@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 """A module containing constants for the OpenAI API."""
 import os
+
 import openai
+
 
 HTTP_RESPONSE_OK = 200
 HTTP_RESPONSE_BAD_REQUEST = 400

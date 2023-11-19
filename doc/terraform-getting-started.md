@@ -22,8 +22,8 @@ For Linux & macOS operating systems.
 
 Ensure that your environment includes the latest stable releases of the following software packages:
 
-* [aws cli](https://aws.amazon.com/cli/)
-* [terraform](https://www.terraform.io/)
+- [aws cli](https://aws.amazon.com/cli/)
+- [terraform](https://www.terraform.io/)
 
 ### Install required software packages using Homebrew
 
@@ -112,7 +112,7 @@ vim terraform/terraform.tf
     profile        = "default"
     encrypt        = false
   }
-````
+```
 
 ### Step 4. Configure your environment by setting Terraform global variable values
 
@@ -128,13 +128,12 @@ aws_region           = "us-east-1"
 aws_profile          = "default"
 ```
 
-
 ### Step 3. Run the following command to initialize and build the solution
 
 The Terraform modules in this repo rely extensively on calls to other third party Terraform modules published and maintained by [AWS](https://registry.terraform.io/namespaces/terraform-aws-modules). These modules will be downloaded by Terraform so that these can be executed locally from your computer. Noteworth examples of such third party modules include:
 
-* [terraform-aws-modules/s3](https://registry.terraform.io/modules/terraform-aws-modules/s3-bucket/aws/latest)
-* [terraform-aws-modules/dynamodb](https://registry.terraform.io/modules/terraform-aws-modules/dynamodb-table/aws/latest)
+- [terraform-aws-modules/s3](https://registry.terraform.io/modules/terraform-aws-modules/s3-bucket/aws/latest)
+- [terraform-aws-modules/dynamodb](https://registry.terraform.io/modules/terraform-aws-modules/dynamodb-table/aws/latest)
 
 ```console
 cd terraform

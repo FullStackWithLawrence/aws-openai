@@ -5,7 +5,6 @@ Find the time complexity of a function.
 - See [https://platform.openai.com/examples/default-time-complexity](https://platform.openai.com/examples/default-time-complexity)
 - [Open in OpenAI Playground](https://platform.openai.com/playground/p/default-time-complexity)
 
-
 ## Example Usage
 
 ```console
@@ -21,32 +20,32 @@ curl --location --request PUT 'https://api.openai.lawrencemcdaniel.com/examples/
 
 ```json
 {
-    "isBase64Encoded": false,
-    "statusCode": 200,
-    "headers": {
-        "Content-Type": "application/json"
-    },
-    "body": {
-        "id": "chatcmpl-7yUXtcSDMvMWI0eldblWaFa3UGc4d",
-        "object": "chat.completion",
-        "created": 1694651453,
-        "model": "gpt-3.5-turbo-0613",
-        "choices": [
-            {
-                "index": 0,
-                "message": {
-                    "role": "assistant",
-                    "content": "The time complexity of the code is O(n * k), where n and k are the inputs to the function.\n\nThe outer loop runs 'n' times, and the inner loop runs 'k' times for each iteration of the outer loop. Therefore, the total number of iterations of the inner loop is n * k.\n\nInside the loops, we have a constant-time operation 'accum += i', which takes O(1) time.\n\nHence, the overall time complexity of the code is O(n * k)."
-                },
-                "finish_reason": "stop"
-            }
-        ],
-        "usage": {
-            "prompt_tokens": 64,
-            "completion_tokens": 104,
-            "total_tokens": 168
-        }
+  "isBase64Encoded": false,
+  "statusCode": 200,
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "id": "chatcmpl-7yUXtcSDMvMWI0eldblWaFa3UGc4d",
+    "object": "chat.completion",
+    "created": 1694651453,
+    "model": "gpt-3.5-turbo-0613",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "The time complexity of the code is O(n * k), where n and k are the inputs to the function.\n\nThe outer loop runs 'n' times, and the inner loop runs 'k' times for each iteration of the outer loop. Therefore, the total number of iterations of the inner loop is n * k.\n\nInside the loops, we have a constant-time operation 'accum += i', which takes O(1) time.\n\nHence, the overall time complexity of the code is O(n * k)."
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 64,
+      "completion_tokens": 104,
+      "total_tokens": 168
     }
+  }
 }
 ```
 

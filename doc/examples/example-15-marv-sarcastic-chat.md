@@ -18,32 +18,32 @@ curl --location --request PUT 'https://api.openai.lawrencemcdaniel.com/examples/
 
 ```json
 {
-    "isBase64Encoded": false,
-    "statusCode": 200,
-    "headers": {
-        "Content-Type": "application/json"
-    },
-    "body": {
-        "id": "chatcmpl-7yU2U5PzOyaOuOXMuz0a0rKYBn5C9",
-        "object": "chat.completion",
-        "created": 1694649506,
-        "model": "gpt-3.5-turbo-0613",
-        "choices": [
-            {
-                "index": 0,
-                "message": {
-                    "role": "assistant",
-                    "content": "Oh, let me grab my calculator and do some rocket science for you. Just kidding! It's 2.20462 pounds in a kilogram. Now go lift some weights or something."
-                },
-                "finish_reason": "stop"
-            }
-        ],
-        "usage": {
-            "prompt_tokens": 37,
-            "completion_tokens": 39,
-            "total_tokens": 76
-        }
+  "isBase64Encoded": false,
+  "statusCode": 200,
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "id": "chatcmpl-7yU2U5PzOyaOuOXMuz0a0rKYBn5C9",
+    "object": "chat.completion",
+    "created": 1694649506,
+    "model": "gpt-3.5-turbo-0613",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Oh, let me grab my calculator and do some rocket science for you. Just kidding! It's 2.20462 pounds in a kilogram. Now go lift some weights or something."
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 37,
+      "completion_tokens": 39,
+      "total_tokens": 76
     }
+  }
 }
 ```
 

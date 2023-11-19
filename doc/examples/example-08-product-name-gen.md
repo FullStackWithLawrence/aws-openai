@@ -18,32 +18,32 @@ curl --location --request PUT 'https://api.openai.lawrencemcdaniel.com/examples/
 
 ```json
 {
-    "isBase64Encoded": false,
-    "statusCode": 200,
-    "headers": {
-        "Content-Type": "application/json"
-    },
-    "body": {
-        "id": "chatcmpl-7yTweQPrLD9ZTIIV1WU9EaaJmuxe0",
-        "object": "chat.completion",
-        "created": 1694649144,
-        "model": "gpt-3.5-turbo-0613",
-        "choices": [
-            {
-                "index": 0,
-                "message": {
-                    "role": "assistant",
-                    "content": "1. SpeedBlend\n2. FitShake\n3. CompactBlend\n4. QuickMix\n5. HealthyMix\n6. PowerShake\n7. MiniShaker\n8. SlimBlend\n9. SwiftShake\n10. NutriBlend"
-                },
-                "finish_reason": "stop"
-            }
-        ],
-        "usage": {
-            "prompt_tokens": 50,
-            "completion_tokens": 54,
-            "total_tokens": 104
-        }
+  "isBase64Encoded": false,
+  "statusCode": 200,
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "id": "chatcmpl-7yTweQPrLD9ZTIIV1WU9EaaJmuxe0",
+    "object": "chat.completion",
+    "created": 1694649144,
+    "model": "gpt-3.5-turbo-0613",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "1. SpeedBlend\n2. FitShake\n3. CompactBlend\n4. QuickMix\n5. HealthyMix\n6. PowerShake\n7. MiniShaker\n8. SlimBlend\n9. SwiftShake\n10. NutriBlend"
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 50,
+      "completion_tokens": 54,
+      "total_tokens": 104
     }
+  }
 }
 ```
 

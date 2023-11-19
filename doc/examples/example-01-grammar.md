@@ -18,25 +18,25 @@ curl --location --request PUT 'https://YOUR-API-GATEWAY-URL.amazonaws.com/v1/exa
 
 ```json
 {
-    "id": "chatcmpl-7y5TvSLe4m1oU1cxPC5qX7fI4HCL9",
-    "object": "chat.completion",
-    "created": 1694555107,
-    "model": "gpt-3.5-turbo-0613",
-    "choices": [
-        {
-            "index": 0,
-            "message": {
-                "role": "assistant",
-                "content": "The correct way to phrase this sentence would be: \"She did not go to the market.\""
-            },
-            "finish_reason": "stop"
-        }
-    ],
-    "usage": {
-        "prompt_tokens": 14,
-        "completion_tokens": 19,
-        "total_tokens": 33
+  "id": "chatcmpl-7y5TvSLe4m1oU1cxPC5qX7fI4HCL9",
+  "object": "chat.completion",
+  "created": 1694555107,
+  "model": "gpt-3.5-turbo-0613",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "The correct way to phrase this sentence would be: \"She did not go to the market.\""
+      },
+      "finish_reason": "stop"
     }
+  ],
+  "usage": {
+    "prompt_tokens": 14,
+    "completion_tokens": 19,
+    "total_tokens": 33
+  }
 }
 ```
 

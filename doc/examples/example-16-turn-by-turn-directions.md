@@ -18,32 +18,32 @@ curl --location --request PUT 'https://api.openai.lawrencemcdaniel.com/examples/
 
 ```json
 {
-    "isBase64Encoded": false,
-    "statusCode": 200,
-    "headers": {
-        "Content-Type": "application/json"
-    },
-    "body": {
-        "id": "chatcmpl-7yU31Yp12omgjVmZfM4jcyxMbidDp",
-        "object": "chat.completion",
-        "created": 1694649539,
-        "model": "gpt-3.5-turbo-0613",
-        "choices": [
-            {
-                "index": 0,
-                "message": {
-                    "role": "assistant",
-                    "content": "1. Start by going south on 95.\n2. Continue on 95 until you reach Sunrise Boulevard.\n3. Take Sunrise Boulevard and go east.\n4. Follow Sunrise Boulevard until you reach US 1.\n5. Turn left onto US 1 and head south.\n6. Keep driving on US 1 for several miles.\n7. Look for Tom Jenkins BBQ on your left-hand side."
-                },
-                "finish_reason": "stop"
-            }
-        ],
-        "usage": {
-            "prompt_tokens": 72,
-            "completion_tokens": 80,
-            "total_tokens": 152
-        }
+  "isBase64Encoded": false,
+  "statusCode": 200,
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "id": "chatcmpl-7yU31Yp12omgjVmZfM4jcyxMbidDp",
+    "object": "chat.completion",
+    "created": 1694649539,
+    "model": "gpt-3.5-turbo-0613",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "1. Start by going south on 95.\n2. Continue on 95 until you reach Sunrise Boulevard.\n3. Take Sunrise Boulevard and go east.\n4. Follow Sunrise Boulevard until you reach US 1.\n5. Turn left onto US 1 and head south.\n6. Keep driving on US 1 for several miles.\n7. Look for Tom Jenkins BBQ on your left-hand side."
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 72,
+      "completion_tokens": 80,
+      "total_tokens": 152
     }
+  }
 }
 ```
 

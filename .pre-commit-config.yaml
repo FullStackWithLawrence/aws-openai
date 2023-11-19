@@ -2,10 +2,14 @@ default_language_version:
   # default language version for each language
   python: python3.11
 repos:
-  - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v8.54.0
+  - repo: local
     hooks:
       - id: eslint
+        name: eslint
+        entry: bash -c 'cd client && npx eslint'
+        language: node
+        types: [javascript]
+        files: ^client/
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v3.1.0
     hooks:
@@ -23,6 +27,13 @@ repos:
     hooks:
       - id: isort
         args: ["--settings-path=pyproject.toml"]
+  - repo: local
+    hooks:
+      - id: pylint
+        name: pylint
+        entry: ./run_pylint.sh
+        language: script
+        types: [python]
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
     hooks:

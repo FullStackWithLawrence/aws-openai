@@ -2,9 +2,9 @@
 
 This repository contains three distinct projects, respectively, written in
 
-- ReactJS (front-end)
-- Python (AWS Lambda functions)
-- Terraform (AWS infrastructure)
+- [ReactJS](#reactjs-setup)
+- [Python Setup](#python-setup)
+- [Terraform](#terraform-setup)
 
 In each case there are various technology-specific resources that you'll need to initialize in your development environment.
 
@@ -50,8 +50,6 @@ This project includes four distinct Python project, all located in api/terraform
 
 Note that this project leverages Dependabot for managing version numbers of all Python packages that are used in this project, regardless of where and how. Versions should always be up to date at the moment that you clone the repo. It therefore should never be necessary for you to manually bump PyPi package version numbers.
 
-### Python Quickstart
-
 ```console
 git pull
 make api-init
@@ -64,8 +62,6 @@ Please refer to this detailed [ReactJS setup guide](./client/README.md) for how 
 
 Note that this project leverages Dependabot for managing version numbers of all NPM packages that are used in this project, regardless of where and how. Versions should always be up to date at the moment that you clone the repo. It therefore should never be necessary for you to manually bump package.json version numbers.
 
-### React Quickstart
-
 ```console
 git pull
 make client-init
@@ -77,10 +73,7 @@ Please refer to this [Terraform setup guide](./api/README.md) for detailed instr
 
 Note that this project leverages Dependabot for managing version numbers of all Terraform modules that are used in this project. Versions should always be up to date at the moment that you clone the repo. It therefore should never be necessary for you to manually bump module version numbers.
 
-### Terraform Quickstart
-
 ```console
-
 git pull
 cd api/terraform
 terraform init

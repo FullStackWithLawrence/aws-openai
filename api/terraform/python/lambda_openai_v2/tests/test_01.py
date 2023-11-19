@@ -1,5 +1,6 @@
 # flake8: noqa: F401
 # pylint: disable=R0801
+# pylint: disable=duplicate-code
 """
 Test requests to the OpenAI API using the Lambda Layer, 'genai'.
 """

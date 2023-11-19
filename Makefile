@@ -49,8 +49,12 @@ api-activate:
 	pip install -r requirements.txt
 
 api-test:
-	cd ./api/terraform/python/openai_text/openai_text/ && \
-	pytest -v -s tests/
+	cd ./api/terraform/python/lambda_langchain/ && pytest -v -s tests/
+	cd ../../../..
+	cd ./api/terraform/python/lambda_openai_v2/ && pytest -v -s tests/
+	cd ../../../..
+	cd ./api/terraform/python/lambda_openai/ && pytest -v -s tests/
+	cd ../../../..
 
 api-lint:
 	venv/bin/python3 -m pylint api/terraform/python/lambda_langchain/lambda_handler.py && \

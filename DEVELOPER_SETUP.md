@@ -3,7 +3,7 @@
 This repository contains three distinct projects, respectively, written in
 
 - [ReactJS](#reactjs-setup)
-- [Python Setup](#python-setup)
+- [Python](#python-setup)
 - [Terraform](#terraform-setup)
 
 In each case there are various technology-specific resources that you'll need to initialize in your development environment.
@@ -12,12 +12,12 @@ In each case there are various technology-specific resources that you'll need to
 
 ### GitHub Actions
 
-As a 1-person operation this project depends heavily on automation, so that hopefully, the source code is always well documented and easy to read, and everything works perfectly. We automate the following in this project:
+As a 1-person operation this project depends heavily on GitHub Actions to automate routine activities, so that hopefully, the source code is always well-documented and easy to read, and everything works perfectly. We automate the following in this project:
 
 - Code linting checks, during both pre-commit as well as triggered on pushes to the main branch
 - Unit tests for Python, React and Terraform
 - Semantic Version releases
-- minor version bumps from npm, PyPi and Terraform Registry
+- version bumps from npm, PyPi and Terraform Registry
 
 ### pre-commit setup
 

@@ -93,11 +93,7 @@ This repo is referenced by multiple YouTube videos, including various tutorials 
 
 ### Linters and Formatters
 
-Linters and formatters are tools used in programming to analyze and improve the quality of code.
-
-**Linters** are tools that analyze source code to flag programming errors, bugs, stylistic errors, and suspicious constructs. They help to enforce coding standards and styles, and can often catch potential issues before they become problems.
-
-**Formatters**, on the other hand, are tools that automatically format source code in a consistent style. They help to maintain a consistent code style across a project, making the code easier to read and understand.
+Linters and formatters are tools used in programming to analyze and improve the quality of code. This project leverages several, including:
 
 #### Code Formatting
 

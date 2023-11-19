@@ -93,12 +93,16 @@ This repo is referenced by multiple YouTube videos, including various tutorials 
 
 ### Linters and Formatters
 
-Linters are tools that analyze source code to flag programming errors, bugs, stylistic errors, and suspicious constructs. This project leverages several.
+Linters and formatters are tools used in programming to analyze and improve the quality of code.
+
+**Linters** are tools that analyze source code to flag programming errors, bugs, stylistic errors, and suspicious constructs. They help to enforce coding standards and styles, and can often catch potential issues before they become problems.
+
+**Formatters**, on the other hand, are tools that automatically format source code in a consistent style. They help to maintain a consistent code style across a project, making the code easier to read and understand.
 
 ### Code Formatting
 
-- [Black](https://github.com/psf/black): an opinionated code formatter for Python which is compatible with [PEP 8](https://peps.python.org/pep-0008/) and the [Python Style Guide](https://www.python.org/doc/essays/styleguide/).
 - [Prettier](https://prettier.io/): an opinionated code formatter that supports many file formats and languages. This project leverages Prettier to standardize formatting of md, css, json, yml, js, jsx and Typescript files.
+- [Black](https://github.com/psf/black): an opinionated code formatter for Python which is compatible with [PEP 8](https://peps.python.org/pep-0008/) and the [Python Style Guide](https://www.python.org/doc/essays/styleguide/).
 - [isort](https://pycqa.github.io/isort/): a Python utility that sorts imports alphabetically, and automatically, separated into sections and by type.
 
 ### Code Analysis

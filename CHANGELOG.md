@@ -1,9 +1,8 @@
 # [0.6.0](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.5.2...v0.6.0) (2023-11-17)
 
-
 ### Features
 
-* automated pull requests ([aa27530](https://github.com/FullStackWithLawrence/aws-openai/commit/aa275303076943c9da7bdee28af1d9828d3b000c))
+- automated pull requests ([aa27530](https://github.com/FullStackWithLawrence/aws-openai/commit/aa275303076943c9da7bdee28af1d9828d3b000c))
 
 ## [0.5.2](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.5.1...v0.5.2) (2023-11-16)
 

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=duplicate-code
 """Shared code for testing the lambda function"""
 import json
 import os
@@ -20,7 +21,7 @@ else:
 
 def get_event(filespec):
     """Load a JSON file and return the event"""
-    with open(filespec, "r", encoding="utf-8") as f:
+    with open(filespec, "r", encoding="utf-8") as f:  # pylint: disable=invalid-name
         event = json.load(f)
         return event
 

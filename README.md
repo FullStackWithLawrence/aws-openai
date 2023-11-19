@@ -73,7 +73,7 @@ This repo is referenced by multiple YouTube videos, including various tutorials 
 
 ### Automations
 
-- [Automated Pull Requests](https://github.com/FullStackWithLawrence/aws-openai/pulls?q=is%3Apr+is%3Aclosed): See the Github Actions tab of the GitHub Repository. Github Actions are triggered on pull requests to run any of several different kinds of technology-specific unit tests depending on the contents of the commits included in the PR.
+- [Automated Pull Requests](https://github.com/FullStackWithLawrence/aws-openai/pulls?q=is%3Apr+is%3Aclosed): Github Actions are triggered on pull requests to run any of several different kinds of technology-specific unit tests depending on the contents of the commits included in the PR.
 - [python-dotenv](https://pypi.org/project/python-dotenv/) for storing sensitive data for local development
 - [.gitignore](./.gitignore) ensures that no sensitive nor useless data accidentally gets pushed to GitHub.
 - [tox.ini](./tox.ini) file for configuring behaviors of Python testing tools
@@ -101,7 +101,7 @@ Linters are tools that analyze source code to flag programming errors, bugs, sty
 - [Flake8](https://flake8.pycqa.org/en/latest/): overlaps somewhat with Black, but it is highly configurable and also provides syntax checking, Naming style enforcement, code style enforcement including for example, ensuring that comments not only exist where they should but are complete and are consistently formatted and styled. Flake8 also analyzes code [Cyclomatic Complexity](https://en.wikipedia.org/wiki/Cyclomatic_complexity).
 - [isort](https://pycqa.github.io/isort/): a Python utility that sorts imports alphabetically, and automatically, separated into sections and by type.
 - [pylint](https://pypi.org/project/pylint/): a static code analyser for Python. It analyses your code without actually running it. It checks for errors, enforces a coding standard, looks for code smells, and can make suggestions about how the code could be refactored.
-- [pre-commit Hooks](https://pre-commit.com/hooks.html): scripts that run automatically before each commit is made to a repository, checking your code for embedded passwords, errors, issues, and any of a multitude of configurable policies that you can optionally enforce. (See above.) They're part of the git hooks system, which allows you to trigger actions at certain points in git's execution. This project uses many Hooks. See [pre-commit-config.yaml](https://github.com/FullStackWithLawrence/aws-openai/blob/main/.pre-commit-config.yaml#L39).
+- [pre-commit Hooks](https://pre-commit.com/hooks.html): scripts that run automatically before each commit is made to a repository, checking your code for embedded passwords, errors, issues, and any of a multitude of configurable policies that you can optionally enforce. (See above.) They're part of the git hooks system, which allows you to trigger actions at certain points in git's execution. This project uses many Hooks. See [pre-commit-config.yaml](https://github.com/FullStackWithLawrence/aws-openai/blob/main/.pre-commit-config.yaml#L45).
 - [codespell](https://github.com/codespell-project/codespell): fixes common misspellings in text files. It's designed primarily for checking misspelled words in source code, but it can be used with other files as well.
 
 ## Support

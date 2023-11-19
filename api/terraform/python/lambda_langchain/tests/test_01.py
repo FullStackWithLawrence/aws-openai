@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 # flake8: noqa: F401
+# pylint: disable=duplicate-code
 """
 Test requests to the OpenAI API via Langchain using the Lambda Layer, 'genai'.
 """

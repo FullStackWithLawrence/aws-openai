@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # flake8: noqa: F401
 # pylint: disable=R0801
 # pylint: disable=duplicate-code

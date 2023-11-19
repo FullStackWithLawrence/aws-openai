@@ -6,12 +6,12 @@
 //---------------------------------------------------------------------------------
 
 // React stuff
-import React, { useRef } from 'react';
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useRef } from "react";
+import { useState } from "react";
+import PropTypes from "prop-types";
 
 // Chat UI stuff
-import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
+import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {
   MainContainer,
   ChatContainer,
@@ -24,12 +24,12 @@ import {
   InfoButton,
   VoiceCallButton,
   VideoCallButton,
-} from '@chatscope/chat-ui-kit-react';
+} from "@chatscope/chat-ui-kit-react";
 
 // Our stuff
-import './Component.css';
-import { ChatModal } from './Modal.jsx';
-import { processApiRequest } from './ApiRequest.js';
+import "./Component.css";
+import { ChatModal } from "./Modal.jsx";
+import { processApiRequest } from "./ApiRequest.js";
 
 function ChatApp(props) {
   const fileInputRef = useRef(null);
@@ -58,7 +58,7 @@ function ChatApp(props) {
   const [llm, setLLM] = useState("");
 
   function conversationHeaderFactory() {
-    let conversation_header = ""
+    let conversation_header = "";
     if (uses_openai_api) {
       conversation_header = "OpenAI API";
     }
@@ -73,7 +73,6 @@ function ChatApp(props) {
     }
     if (llm != "") {
       conversation_header = conversation_header + " " + llm;
-
     }
     return conversation_header;
   }
@@ -97,32 +96,40 @@ function ChatApp(props) {
     setIsModalOpen(false);
   }
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalMessage, setmodalMessage] = useState('');
-  const [modalTitle, setmodalTitle] = useState('');
+  const [modalMessage, setmodalMessage] = useState("");
+  const [modalTitle, setmodalTitle] = useState("");
 
   // prompt hints
   const examplePrompts = (prompts) => {
     if (prompts.length == 0) {
-      return '';
-    } else return 'Some example prompts to get you started:\r\n\r\n' + prompts.map((prompt) => {return prompt + '\r\n'}).join('');
-  }
+      return "";
+    } else
+      return (
+        "Some example prompts to get you started:\r\n\r\n" +
+        prompts
+          .map((prompt) => {
+            return prompt + "\r\n";
+          })
+          .join("")
+      );
+  };
 
   // message thread content
   const examples = examplePrompts(example_prompts);
-  let message_items = [messageFactory(welcome_message, 'incoming', 'system')];
+  let message_items = [messageFactory(welcome_message, "incoming", "system")];
   if (examples) {
-    message_items.push(messageFactory(examples, 'incoming', 'system'));
+    message_items.push(messageFactory(examples, "incoming", "system"));
   }
   const [messages, setMessages] = useState(message_items);
 
   // UI widget event handlers
   const handleInfoButtonClick = () => {
-    window.open(info_url, '_blank');
+    window.open(info_url, "_blank");
   };
 
   // API request handler
-  async function handleRequest(input_text, base64_encode=true) {
-    const newMessage = messageFactory(input_text, 'outgoing', 'user');
+  async function handleRequest(input_text, base64_encode = true) {
+    const newMessage = messageFactory(input_text, "outgoing", "user");
     setMessages((prevMessages) => [...prevMessages, newMessage]);
     setIsTyping(true);
 
@@ -130,15 +137,31 @@ function ChatApp(props) {
       let response;
       if (base64_encode) {
         // uploaded files need to be base64 encoded.
-        response = await processApiRequest(btoa(input_text), messages, api_url, api_key, openChatModal);
+        response = await processApiRequest(
+          btoa(input_text),
+          messages,
+          api_url,
+          api_key,
+          openChatModal,
+        );
       } else {
         // everything else is passed as plain text
-        response = await processApiRequest(input_text, messages, api_url, api_key, openChatModal);
+        response = await processApiRequest(
+          input_text,
+          messages,
+          api_url,
+          api_key,
+          openChatModal,
+        );
       }
       if (response && "choices" in response) {
         const content = response.choices[0]?.message?.content;
         if (content) {
-          const chatGPTResponse = messageFactory(content, 'incoming', 'assistant');
+          const chatGPTResponse = messageFactory(
+            content,
+            "incoming",
+            "assistant",
+          );
           setMessages((prevMessages) => [...prevMessages, chatGPTResponse]);
         }
         const llm_response = response.request_meta_data.model;
@@ -146,7 +169,7 @@ function ChatApp(props) {
       }
     } catch (error) {
       // FIX NOTE: ADD MODAL HERE
-      console.error('Exception:', error);
+      console.error("Exception:", error);
     } finally {
       setIsTyping(false);
     }
@@ -169,12 +192,11 @@ function ChatApp(props) {
 
   // send button event handler
   const handleSendRequest = (input_text) => {
-
     // remove any HTML tags from the input_text. Pasting text into the
     // input box (from any source) tends to result in HTML span tags being included
     // in the input_text. This is a problem because the API doesn't know how to
     // handle HTML tags. So we remove them here.
-    const sanitized_input_text = input_text.replace(/<[^>]+>/g, '');
+    const sanitized_input_text = input_text.replace(/<[^>]+>/g, "");
 
     // check if the sanitized input text is empty or only contains whitespace
     if (!sanitized_input_text.trim()) {
@@ -184,43 +206,57 @@ function ChatApp(props) {
     handleRequest(sanitized_input_text, false);
   };
 
-
   // UI widget styles
   // note that most styling is intended to be created in Component.css
   // these are outlying cases where inline styles are required in order to override the default styles
   const transparentBackgroundStyle = {
-    backgroundColor: 'rgba(0,0,0,0.10)',
-    color: 'lightgray',
+    backgroundColor: "rgba(0,0,0,0.10)",
+    color: "lightgray",
   };
   const MainContainerStyle = {
-    backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, .75)), url('" + background_image_url + "')",
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    height: '100%',
+    backgroundImage:
+      "linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, .75)), url('" +
+      background_image_url +
+      "')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    height: "100%",
   };
 
   // render the chat app
-  return(
-    <div className='chat-app'>
-      <MainContainer style={MainContainerStyle} >
-        <ChatModal isModalOpen={isModalOpen} title={modalTitle} message={modalMessage} onCloseClick={closeChatModal} />
-        <ChatContainer style={transparentBackgroundStyle} >
+  return (
+    <div className="chat-app">
+      <MainContainer style={MainContainerStyle}>
+        <ChatModal
+          isModalOpen={isModalOpen}
+          title={modalTitle}
+          message={modalMessage}
+          onCloseClick={closeChatModal}
+        />
+        <ChatContainer style={transparentBackgroundStyle}>
           <ConversationHeader>
             <Avatar src={avatar_url} name={app_name} />
-            <ConversationHeader.Content userName={app_name} info={conversationHeaderFactory()} />
+            <ConversationHeader.Content
+              userName={app_name}
+              info={conversationHeaderFactory()}
+            />
             <ConversationHeader.Actions>
               <VoiceCallButton disabled />
               <VideoCallButton disabled />
               <InfoButton onClick={handleInfoButtonClick} title={info_url} />
-          </ConversationHeader.Actions>
+            </ConversationHeader.Actions>
           </ConversationHeader>
           <MessageList
             style={transparentBackgroundStyle}
-            scrollBehavior='smooth'
-            typingIndicator={isTyping ? <TypingIndicator content={assistant_name + ' is typing'} /> : null}
+            scrollBehavior="smooth"
+            typingIndicator={
+              isTyping ? (
+                <TypingIndicator content={assistant_name + " is typing"} />
+              ) : null
+            }
           >
             {messages.map((message, i) => {
-              return <Message key={i} model={message} />
+              return <Message key={i} model={message} />;
             })}
           </MessageList>
           <MessageInput
@@ -229,12 +265,19 @@ function ChatApp(props) {
             onAttachClick={handleAttachClick}
             attachButton={file_attach_button}
             fancyScroll={false}
-            />
+          />
         </ChatContainer>
-        <input type="file" accept=".py" title="Select a Python file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} />
+        <input
+          type="file"
+          accept=".py"
+          title="Select a Python file"
+          ref={fileInputRef}
+          style={{ display: "none" }}
+          onChange={handleFileChange}
+        />
       </MainContainer>
     </div>
-  )
+  );
 }
 
 // define the props that are expected to be passed in and also

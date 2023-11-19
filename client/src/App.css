@@ -1,11 +1,11 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0;;
+  padding: 0;
 }
 
 .App {
-  border:  1px solid #1d5268
+  border: 1px solid #1d5268;
 }
 
 .app-title {
@@ -41,7 +41,7 @@ h5 {
 .footer a {
   text-align: center;
   color: #333;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .footer a:hover {

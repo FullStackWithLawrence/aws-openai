@@ -1,5 +1,5 @@
 // see: https://www.npmjs.com/package/styled-components
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ContainerLayout = styled.div`
   height: 89vh;
@@ -40,6 +40,6 @@ export const Logo = styled.div`
   margin: 0 auto;
   width: 90%;
   height: 125px;
-  background-image: url('/youtube-banner-image.png');
+  background-image: url("/youtube-banner-image.png");
   background-size: cover;
 `;

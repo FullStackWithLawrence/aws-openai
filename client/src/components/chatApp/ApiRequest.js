@@ -31,7 +31,7 @@ function mapResponse(response) {
 
   if (response["request_meta_data"]["lambda"] == "lambda_langchain") {
     const messages = response["chat_memory"]["messages"];
-    let aiMessages = messages.filter(message => message.type === 'ai');
+    let aiMessages = messages.filter((message) => message.type === "ai");
     let ai_response = "";
 
     if (aiMessages.length > 0) {
@@ -39,17 +39,17 @@ function mapResponse(response) {
     }
 
     return {
-      "choices": [
-          {
-              "index": 0,
-              "message": {
-                  "role": "assistant",
-                  "content": ai_response.content
-              },
-              "finish_reason": "stop"
-          }
+      choices: [
+        {
+          index: 0,
+          message: {
+            role: "assistant",
+            content: ai_response.content,
+          },
+          finish_reason: "stop",
+        },
       ],
-      "request_meta_data": response["request_meta_data"]
+      request_meta_data: response["request_meta_data"],
     };
   }
 
@@ -57,32 +57,36 @@ function mapResponse(response) {
   return response;
 }
 
-export async function processApiRequest(chatMessage, chatHistory, apiURL, apiKey, openChatModal) {
-
+export async function processApiRequest(
+  chatMessage,
+  chatHistory,
+  apiURL,
+  apiKey,
+  openChatModal,
+) {
   const init = {
-    method: 'POST',
-    mode: 'cors',
+    method: "POST",
+    mode: "cors",
     headers: {
-      'x-api-key': apiKey,
-      'Accept': '*/*',
-      'Content-Type': 'application/json',
-      'Origin': window.location.origin
+      "x-api-key": apiKey,
+      Accept: "*/*",
+      "Content-Type": "application/json",
+      Origin: window.location.origin,
     },
     body: JSON.stringify({
-      'input_text': chatMessage,
-      'chat_history': chatHistory,
+      input_text: chatMessage,
+      chat_history: chatHistory,
     }),
   };
   try {
     const response = await fetch(apiURL, init);
     const status = await response.status;
-    const response_json = await response.json();    // Convert the ReadableStream to a JSON object
+    const response_json = await response.json(); // Convert the ReadableStream to a JSON object
     const response_body = await response_json.body; // ditto
 
     if (response.ok) {
       return mapResponse(response_body);
-    }
-    else {
+    } else {
       /*
         note:
         - the response_body object is not available when the status is 504, because
@@ -92,23 +96,31 @@ export async function processApiRequest(chatMessage, chatHistory, apiURL, apiKey
         - the response_body object is intended to always be available when the status is 400.
           However, there potentially COULD be a case where the response itself contains message text.
       */
-      let errTitle = 'Error ' + status;
-      let errMessage = 'An unknown error occurred.';
+      let errTitle = "Error " + status;
+      let errMessage = "An unknown error occurred.";
       switch (status) {
         case 400:
-          errMessage = response.statusText || response_body.message || 'The request was invalid.';
+          errMessage =
+            response.statusText ||
+            response_body.message ||
+            "The request was invalid.";
           break;
         case 500:
-          errMessage = response.statusText || response_body.message || 'An internal server error occurred.';
+          errMessage =
+            response.statusText ||
+            response_body.message ||
+            "An internal server error occurred.";
           break;
         case 504:
-          errMessage = response.statusText || 'Gateway timeout error. This is a known consequence of using AWS Lambda for integrations to the OpenAI API. Note that AWS Lambda has a hard 29 second timeout. If OpenAI requests take longer, which is frequently the case with chatgpt-4 then you will receive this error. If the timeout persists then you might try using chatgpt-3.5 instead as it is more performant.';
+          errMessage =
+            response.statusText ||
+            "Gateway timeout error. This is a known consequence of using AWS Lambda for integrations to the OpenAI API. Note that AWS Lambda has a hard 29 second timeout. If OpenAI requests take longer, which is frequently the case with chatgpt-4 then you will receive this error. If the timeout persists then you might try using chatgpt-3.5 instead as it is more performant.";
           break;
       }
       openChatModal(errTitle, errMessage);
     }
   } catch (error) {
-    openChatModal('Error', error);
+    openChatModal("Error", error);
     return;
   }
 }

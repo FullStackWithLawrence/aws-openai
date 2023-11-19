@@ -1,7 +1,11 @@
 // see https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L19
-import { BACKEND_API_URL, AWS_API_GATEWAY_KEY, OPENAI_EXAMPLES_URL } from "../config";
+import {
+  BACKEND_API_URL,
+  AWS_API_GATEWAY_KEY,
+  OPENAI_EXAMPLES_URL,
+} from "../config";
 
-const SLUG = 'default-grammar';
+const SLUG = "default-grammar";
 
 const GrammarGenius = {
   sidebar_title: "Grammar Genius",
@@ -9,8 +13,8 @@ const GrammarGenius = {
   api_key: AWS_API_GATEWAY_KEY,
   app_name: "GrammarGenius",
   assistant_name: "Gertrude",
-  avatar_url: '/applications/GrammarGenius/Gertrude.svg',
-  background_image_url: '/applications/GrammarGenius/GrammarGenius-bg.jpg',
+  avatar_url: "/applications/GrammarGenius/Gertrude.svg",
+  background_image_url: "/applications/GrammarGenius/GrammarGenius-bg.jpg",
   welcome_message: `Hello, I'm Gertrude, an English grammar chatbot powered by ChatGPT. You can practice your English grammar with me!`,
   example_prompts: [
     '"I broked my leg."',

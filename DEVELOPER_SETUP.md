@@ -23,6 +23,10 @@ pre-commit autoupdate
 pre-commit run --all-files
 ```
 
+Output should look similar to the following:
+
+![pre-commit output](./doc/pre-commit.png)
+
 ### Github Secrets
 
 The GitHub Actions automated processes depend on several credentials which are stored inside of Github Secrets. When creating pull requests, the GitHub Actions will use these secrets, [github.com/FullStackWithLawrence/aws-openai/settings/secrets/actions](https://github.com/FullStackWithLawrence/aws-openai/settings/secrets/actions), so there's nothing special for you to do.

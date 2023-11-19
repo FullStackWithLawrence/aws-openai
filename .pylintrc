@@ -1,0 +1,11 @@
+[MASTER]
+init-hook='import sys; print(sys.executable); sys.path.append("/absolute/path/to/api/terraform/python/layer_genai/openai_utils")'
+ignore-paths =
+  api/terraform/python/lambda_openai_v2/lambda_dist_pkg,
+  api/terraform/python/lambda_openai/lambda_dist_pkg,
+  api/terraform/python/lambda_langchain/lambda_dist_pkg
+ignore =
+  __version__.py
+
+[FORMAT]
+max-line-length=120

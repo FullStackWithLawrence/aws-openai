@@ -4,16 +4,16 @@
 pull_request_rules:
   - name: automatic approve dependabot pull requests
     conditions:
-      - 'author~=dependabot[bot]|dependabot-preview[bot]|dependabot'
+      - "author~=dependabot[bot]|dependabot-preview[bot]|dependabot"
     actions:
       review:
         type: APPROVE
 
   - name: automatic merge dependabot pull requests
     conditions:
-      - 'author~=dependabot[bot]|dependabot-preview[bot]|dependabot'
-      - '#approved-reviews-by>=1'
-      - 'base=main'  # replace 'main' with the name of the branch you want to auto-merge into
+      - "author~=dependabot[bot]|dependabot-preview[bot]|dependabot"
+      - "#approved-reviews-by>=1"
+      - "base=main" # replace 'main' with the name of the branch you want to auto-merge into
     actions:
       merge:
         method: merge

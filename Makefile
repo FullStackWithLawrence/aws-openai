@@ -53,6 +53,10 @@ api-test:
 	pytest -v -s tests/
 
 api-lint:
+	venv/bin/python3 -m pylint api/terraform/python/lambda_langchain/lambda_handler.py && \
+	venv/bin/python3 -m pylint api/terraform/python/lambda_openai/lambda_handler.py && \
+	venv/bin/python3 -m pylint api/terraform/python/lambda_openai_v2/lambda_handler.py && \
+	venv/bin/python3 -m pylint api/terraform/python/layer_genai/openai_utils && \
 	terraform fmt -recursive && \
 	pre-commit run --all-files && \
 	black ./api/terraform/python/
@@ -64,7 +68,7 @@ api-clean:
 # React app
 ######################
 client-init:
-	cd ./client && npm install
+	cd ./client && npm install && npm init @eslint/config
 
 client-lint:
 	cd ./client && npm run lint

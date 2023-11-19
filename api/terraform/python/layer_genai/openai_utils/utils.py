@@ -33,7 +33,7 @@ def http_response_factory(status_code: int, body) -> dict:
     see https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html
     """
     if status_code < 100 or status_code > 599:
-        raise ValueError("Invalid HTTP response code received: {status_code}".format(status_code=status_code))
+        raise ValueError(f"Invalid HTTP response code received: {status_code}")
 
     retval = {
         "isBase64Encoded": False,
@@ -95,6 +95,7 @@ def get_request_body(event) -> dict:
         A dictionary representing the request body.
     """
     if hasattr(event, "isBase64Encoded") and bool(event["isBase64Encoded"]):
+        # pylint: disable=line-too-long
         #  https://stackoverflow.com/questions/9942594/unicodeencodeerror-ascii-codec-cant-encode-character-u-xa0-in-position-20
         #  https://stackoverflow.com/questions/53340627/typeerror-expected-bytes-like-object-not-str
         request_body = str(event["body"]).encode("ascii")

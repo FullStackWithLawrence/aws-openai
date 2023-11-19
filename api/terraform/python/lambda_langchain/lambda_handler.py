@@ -78,7 +78,7 @@ if os.path.exists(dotenv_path):
 
 # for production these values are set inside the AWS Lambda function environment
 # see ./env.sh and lambda_langchain.tf
-OPENAI_ENDPOINT_IMAGE_N = int(os.getenv("OPENAI_ENDPOINT_IMAGE_N", 4))
+OPENAI_ENDPOINT_IMAGE_N = int(os.getenv("OPENAI_ENDPOINT_IMAGE_N", "4"))
 OPENAI_ENDPOINT_IMAGE_SIZE = os.getenv("OPENAI_ENDPOINT_IMAGE_SIZE", "1024x768")
 openai.organization = os.getenv("OPENAI_API_ORGANIZATION", "SET-ME-WITH-DOTENV")
 openai.api_key = os.getenv("OPENAI_API_KEY", "SET-ME-WITH-DOTENV")
@@ -89,6 +89,8 @@ openai.api_key = os.getenv("OPENAI_API_KEY", "SET-ME-WITH-DOTENV")
 LANGCHAIN_MEMORY_KEY = "chat_history"
 
 
+# pylint: disable=too-many-locals
+# pylint: disable=unused-argument
 def handler(event, context, api_key=None, organization=None, pinecone_api_key=None):
     """
     Process incoming requests and invoking the appropriate
@@ -124,6 +126,7 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
 
         match end_point:
             case OpenAIEndPoint.ChatCompletion:
+                # pylint: disable=pointless-string-statement
                 """
                 Need to keep in mind that this is a stateless operation. We have to bring
                 along everything needed to run the conversation. This means we need to
@@ -163,9 +166,9 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
                 assistant_messages = get_messages_for_role(
                     message_history, OpenAIMessageKeys.OPENAI_ASSISTANT_MESSAGE_KEY
                 )
-                for i in range(0, len(assistant_messages)):
+                for i, assistant_message in enumerate(assistant_messages):
                     memory.chat_memory.add_user_message(user_messages[i])
-                    memory.chat_memory.add_ai_message(assistant_messages[i])
+                    memory.chat_memory.add_ai_message(assistant_message)  # pylint: disable=no-member
 
                 # 4. run the conversation
                 # -------------------------------------------------------------
@@ -212,6 +215,7 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
     except (openai.APIError, ValueError, TypeError, NotImplementedError) as e:
         # 400 Bad Request
         return http_response_factory(status_code=HTTP_RESPONSE_BAD_REQUEST, body=exception_response_factory(e))
+    # pylint: disable=broad-except
     except (openai.OpenAIError, Exception) as e:
         # 500 Internal Server Error
         return http_response_factory(

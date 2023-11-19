@@ -11,6 +11,7 @@ HTTP_RESPONSE_INTERNAL_SERVER_ERROR = 500
 DEBUG_MODE = os.getenv("DEBUG_MODE", "False").lower() in ("true", "1", "t")
 
 
+# pylint: disable=too-few-public-methods
 class OpenAIEndPoint:
     """
     A class representing an endpoint for the OpenAI API.
@@ -29,6 +30,7 @@ class OpenAIEndPoint:
     all_endpoints = [Embedding, ChatCompletion, Moderation, Image, Audio, Models]
 
 
+# pylint: disable=too-few-public-methods
 class OpenAIMessageKeys:
     """A class representing the keys for a message in the OpenAI API."""
 

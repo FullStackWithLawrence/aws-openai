@@ -55,12 +55,13 @@ from openai_utils.validators import (
 DEBUG_MODE = os.getenv("DEBUG_MODE", "False").lower() in ("true", "1", "t")
 
 # https://platform.openai.com/api_keys
-OPENAI_ENDPOINT_IMAGE_N = int(os.getenv("OPENAI_ENDPOINT_IMAGE_N", 4))
+OPENAI_ENDPOINT_IMAGE_N = int(os.getenv("OPENAI_ENDPOINT_IMAGE_N", "4"))
 OPENAI_ENDPOINT_IMAGE_SIZE = os.getenv("OPENAI_ENDPOINT_IMAGE_SIZE", "1024x768")
 openai.organization = os.getenv("OPENAI_API_ORGANIZATION", "Personal")
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
+# pylint: disable=unused-argument
 def handler(event, context):
     """
     Main Lambda handler function.
@@ -129,7 +130,7 @@ def handler(event, context):
     except (openai.APIError, ValueError, TypeError, NotImplementedError) as e:
         # 400 Bad Request
         return http_response_factory(status_code=HTTP_RESPONSE_BAD_REQUEST, body=exception_response_factory(e))
-    except (openai.OpenAIError, Exception) as e:
+    except (openai.OpenAIError, Exception) as e:  # pylint: disable=broad-except
         # 500 Internal Server Error
         return http_response_factory(
             status_code=HTTP_RESPONSE_INTERNAL_SERVER_ERROR,

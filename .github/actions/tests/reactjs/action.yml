@@ -1,20 +1,21 @@
+---
 #------------------------------------------------------------------------------
 # Run ReactJS unit tests
 #------------------------------------------------------------------------------
 name: Test ReactJS
 branding:
-  icon: 'git-pull-request'
-  color: 'orange'
+  icon: "git-pull-request"
+  color: "orange"
 
 runs:
   using: "composite"
   steps:
-      - name: Checkout code
-        id: checkout
-        uses: actions/checkout@v4
+    - name: Checkout code
+      id: checkout
+      uses: actions/checkout@v4
 
-      - name: Run ReactJS Tests
-        id: reactjs_tests
-        shell: bash
-        run: |
-          echo "Test scaffolding for ReactJS"
+    - name: Run ReactJS Tests
+      id: reactjs_tests
+      shell: bash
+      run: |
+        echo "Test scaffolding for ReactJS"

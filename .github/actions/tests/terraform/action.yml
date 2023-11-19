@@ -1,71 +1,72 @@
+---
 #------------------------------------------------------------------------------
 # Run Terraform tests
 #------------------------------------------------------------------------------
 name: Test Terraform
 branding:
-  icon: 'git-pull-request'
-  color: 'orange'
+  icon: "git-pull-request"
+  color: "orange"
 
 runs:
   using: "composite"
   steps:
-      - name: Checkout code
-        id: checkout
-        uses: actions/checkout@v4
+    - name: Checkout code
+      id: checkout
+      uses: actions/checkout@v4
 
-      - name: Verify AWS_ACCESS_KEY_ID
-        shell: bash
-        run: |
-          if [[ -z "${{ secrets.AWS_ACCESS_KEY_ID }}" ]]; then
-            echo "AWS_ACCESS_KEY_ID is not set" >&2
-            exit 1
-          fi
+    - name: Verify AWS_ACCESS_KEY_ID
+      shell: bash
+      run: |
+        if [[ -z "${{ secrets.AWS_ACCESS_KEY_ID }}" ]]; then
+          echo "AWS_ACCESS_KEY_ID is not set" >&2
+          exit 1
+        fi
 
-      - name: Verify AWS_SECRET_ACCESS_KEY
-        shell: bash
-        run: |
-          if [[ -z "${{ secrets.AWS_SECRET_ACCESS_KEY }}" ]]; then
-            echo "AWS_SECRET_ACCESS_KEY is not set" >&2
-            exit 1
-          fi
+    - name: Verify AWS_SECRET_ACCESS_KEY
+      shell: bash
+      run: |
+        if [[ -z "${{ secrets.AWS_SECRET_ACCESS_KEY }}" ]]; then
+          echo "AWS_SECRET_ACCESS_KEY is not set" >&2
+          exit 1
+        fi
 
-      - name: Verify AWS_REGION
-        shell: bash
-        run: |
-          if [[ -z "${{ secrets.AWS_REGION }}" ]]; then
-            echo "AWS_REGION is not set" >&2
-            exit 1
-          fi
+    - name: Verify AWS_REGION
+      shell: bash
+      run: |
+        if [[ -z "${{ secrets.AWS_REGION }}" ]]; then
+          echo "AWS_REGION is not set" >&2
+          exit 1
+        fi
 
-      - name: Verify Terraform is installed
-        run: |
-          if ! command -v terraform &> /dev/null
-          then
-            echo "Terraform could not be found"
-            exit 1
-          fi
+    - name: Verify Terraform is installed
+      run: |
+        if ! command -v terraform &> /dev/null
+        then
+          echo "Terraform could not be found"
+          exit 1
+        fi
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Terraform Init
-        shell: bash
-        run: |
-          cd api/terraform
-          terraform init
+    - name: Terraform Init
+      shell: bash
+      run: |
+        cd api/terraform
+        terraform init
 
-      - name: Terraform Validate
-        shell: bash
-        run: |
-          cd api/terraform
-          terraform validate
+    - name: Terraform Validate
+      shell: bash
+      run: |
+        cd api/terraform
+        terraform validate
 
-      - name: Terraform Format
-        shell: bash
-        run: |
-          cd api/terraform
-          terraform fmt -check
+    - name: Terraform Format
+      shell: bash
+      run: |
+        cd api/terraform
+        terraform fmt -check

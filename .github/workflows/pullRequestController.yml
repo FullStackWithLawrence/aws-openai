@@ -1,3 +1,4 @@
+---
 #------------------------------------------------------------------------------
 # Pull Request Workflow Controller.
 #
@@ -42,16 +43,25 @@ on:
   # In general, use `pull_request` for workflows that need to access the code in the pull request,
   # and `pull_request_target` for workflows that need to be safe for pull requests from forks.
   pull_request_target:
-    types: [opened, closed, synchronize, edited, ready_for_review, review_requested, assigned]
+    types:
+      [
+        opened,
+        closed,
+        synchronize,
+        edited,
+        ready_for_review,
+        review_requested,
+        assigned,
+      ]
     paths:
-      - '**.py'
-      - '**.tf'
-      - '**.js'
-      - '**.jsx'
-      - '**.requirements.txt'
-      - '**.package.json'
-      - './client/**'
-      - './api/terraform/**'
+      - "**.py"
+      - "**.tf"
+      - "**.js"
+      - "**.jsx"
+      - "**.requirements.txt"
+      - "**.package.json"
+      - "./client/**"
+      - "./api/terraform/**"
 
 env:
   python-version: "3.11"

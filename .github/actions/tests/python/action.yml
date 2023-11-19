@@ -1,119 +1,120 @@
+---
 #------------------------------------------------------------------------------
 # Run Python unit tests
 #------------------------------------------------------------------------------
 name: Test Python
 branding:
-  icon: 'git-pull-request'
-  color: 'orange'
+  icon: "git-pull-request"
+  color: "orange"
 inputs:
   python-version:
-    description: 'The version of Python to use, such as 3.11.0'
+    description: "The version of Python to use, such as 3.11.0"
     required: true
     type: string
 openai-api-organization:
-  description: 'The OpenAI API organization'
+  description: "The OpenAI API organization"
   required: true
   type: string
 openai-api-key:
-  description: 'The OpenAI API key'
+  description: "The OpenAI API key"
   required: true
   type: string
 pinecone-api-key:
-  description: 'The Pinecone API key'
+  description: "The Pinecone API key"
   required: true
   type: string
 pinecone-environment:
-  description: 'The Pinecone environment'
+  description: "The Pinecone environment"
   required: true
   type: string
 
 env:
-  REQUIREMENTS_PATH: 'api/terraform/python/layer_genai/requirements.txt'
+  REQUIREMENTS_PATH: "api/terraform/python/layer_genai/requirements.txt"
 
 runs:
   using: "composite"
   steps:
-      - name: Checkout code
-        id: checkout
-        uses: actions/checkout@v4
+    - name: Checkout code
+      id: checkout
+      uses: actions/checkout@v4
 
-      - name: Check for openai in requirements
-        shell: bash
-        run: |
-          if ! grep -q "openai" ./requirements.txt; then
-            echo "openai not found in requirements.txt" >&2
-            exit 1
-          fi
+    - name: Check for openai in requirements
+      shell: bash
+      run: |
+        if ! grep -q "openai" ./requirements.txt; then
+          echo "openai not found in requirements.txt" >&2
+          exit 1
+        fi
 
-      - name: Check for langchain in requirements
-        shell: bash
-        run: |
-          if ! grep -q "langchain" ./requirements.txt; then
-            echo "langchain not found in requirements.txt" >&2
-            exit 1
-          fi
+    - name: Check for langchain in requirements
+      shell: bash
+      run: |
+        if ! grep -q "langchain" ./requirements.txt; then
+          echo "langchain not found in requirements.txt" >&2
+          exit 1
+        fi
 
-      - name: Check for langchain-experimental in requirements
-        shell: bash
-        run: |
-          if ! grep -q "langchain-experimental" ./requirements.txt; then
-            echo "langchain-experimental not found in requirements.txt" >&2
-            exit 1
-          fi
+    - name: Check for langchain-experimental in requirements
+      shell: bash
+      run: |
+        if ! grep -q "langchain-experimental" ./requirements.txt; then
+          echo "langchain-experimental not found in requirements.txt" >&2
+          exit 1
+        fi
 
-      - name: Check for pinecone-client in requirements
-        shell: bash
-        run: |
-          if ! grep -q "pinecone-client" ./requirements.txt; then
-            echo "pinecone-client not found in requirements.txt" >&2
-            exit 1
-          fi
+    - name: Check for pinecone-client in requirements
+      shell: bash
+      run: |
+        if ! grep -q "pinecone-client" ./requirements.txt; then
+          echo "pinecone-client not found in requirements.txt" >&2
+          exit 1
+        fi
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ inputs.python-version }}
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ inputs.python-version }}
 
-      - name: locate site-packages path
-        shell: bash
-        run: |
-          echo "SITE_PACKAGES_PATH=$(python -c 'import site; print(site.getsitepackages()[0])')" >> $GITHUB_ENV
+    - name: locate site-packages path
+      shell: bash
+      run: |
+        echo "SITE_PACKAGES_PATH=$(python -c 'import site; print(site.getsitepackages()[0])')" >> $GITHUB_ENV
 
-      - name: Install pip
-        shell: bash
-        run: |
-          python -m pip install --upgrade pip
+    - name: Install pip
+      shell: bash
+      run: |
+        python -m pip install --upgrade pip
 
-      - name: Install dependencies
-        shell: bash
-        run: |
-          cp -R ./api/terraform/python/layer_genai/openai_utils ${{ env.SITE_PACKAGES_PATH }}
-          pip install -r ./requirements.txt
-        env:
-          SITE_PACKAGES_PATH: ${{ env.SITE_PACKAGES_PATH }}
+    - name: Install dependencies
+      shell: bash
+      run: |
+        cp -R ./api/terraform/python/layer_genai/openai_utils ${{ env.SITE_PACKAGES_PATH }}
+        pip install -r ./requirements.txt
+      env:
+        SITE_PACKAGES_PATH: ${{ env.SITE_PACKAGES_PATH }}
 
-      - name: Create .env
-        shell: bash
-        run: |
-          touch ./.env
-          echo "OPENAI_API_ORGANIZATION=${{ env.OPENAI_API_ORGANIZATION }}" >> ./.env
-          echo "OPENAI_API_KEY=${{ env.OPENAI_API_KEY }}" >> ./.env
-          echo "PINECONE_API_KEY=${{ env.PINECONE_API_KEY }}" >> ./.env
-          echo "PINECONE_ENVIRONMENT=${{ env.PINECONE_ENVIRONMENT }}" >> ./.env
-        env:
-          OPENAI_API_ORGANIZATION: ${{ inputs.openai-api-organization }}
-          OPENAI_API_KEY: ${{ inputs.openai-api-key }}
-          PINECONE_API_KEY: ${{ inputs.pinecone-api-key }}
-          PINECONE_ENVIRONMENT: ${{ inputs.pinecone-environment }}
+    - name: Create .env
+      shell: bash
+      run: |
+        touch ./.env
+        echo "OPENAI_API_ORGANIZATION=${{ env.OPENAI_API_ORGANIZATION }}" >> ./.env
+        echo "OPENAI_API_KEY=${{ env.OPENAI_API_KEY }}" >> ./.env
+        echo "PINECONE_API_KEY=${{ env.PINECONE_API_KEY }}" >> ./.env
+        echo "PINECONE_ENVIRONMENT=${{ env.PINECONE_ENVIRONMENT }}" >> ./.env
+      env:
+        OPENAI_API_ORGANIZATION: ${{ inputs.openai-api-organization }}
+        OPENAI_API_KEY: ${{ inputs.openai-api-key }}
+        PINECONE_API_KEY: ${{ inputs.pinecone-api-key }}
+        PINECONE_ENVIRONMENT: ${{ inputs.pinecone-environment }}
 
-      - name: Test lambda_openai_v2
-        shell: bash
-        run: |
-          cd ./api/terraform/python/lambda_openai_v2
-          pytest -v -s tests/
+    - name: Test lambda_openai_v2
+      shell: bash
+      run: |
+        cd ./api/terraform/python/lambda_openai_v2
+        pytest -v -s tests/
 
-      - name: Test lambda_langchain
-        shell: bash
-        run: |
-          cd ./api/terraform/python/lambda_langchain
-          pytest -v -s tests/
+    - name: Test lambda_langchain
+      shell: bash
+      run: |
+        cd ./api/terraform/python/lambda_langchain
+        pytest -v -s tests/

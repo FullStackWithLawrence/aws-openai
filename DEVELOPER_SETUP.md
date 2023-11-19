@@ -8,13 +8,22 @@ This repository contains three distinct projects, respectively, written in
 
 In each case there are various technology-specific resources that you'll need to initialize in your development environment.
 
-## Basic repo setup
+## Repository Setup
+
+### GitHub Actions
+
+As a 1-person operation this project depends heavily on automation, so that hopefully, the source code is always well documented and easy to read, and everything works perfectly. We automate the following in this project:
+
+- Code linting checks, during both pre-commit as well as triggered on pushes to the main branch
+- Unit tests for Python, React and Terraform
+- Semantic Version releases
+- minor version bumps from npm, PyPi and Terraform Registry
+
+### pre-commit setup
 
 This project uses pre-commit as a first-pass automated code review / QC process. pre-commit runs a multitude of utilities and checks for code formatting, linting, syntax checking, and ensuring that you don't accidentally push something to GitHub which you'd later regret. Broadly speaking, these checks are aimed at minimizing the extent of commits that contain various kinds of defects and stylistic imperfections that don't belong on the main branch of the project.
 
 Note that many of the pre-commit commands are actually executed by Python which in turn is calling pip-installed packages listed in requirements.txt located in the root of the repo. It therefore is important that you first create the Python virtual environment using `make api-init`. It also is a good idea to do a complete 'dry run' of pre-commit, to ensure that your developer environment is correctly setup:
-
-### pre-commit Quickstart
 
 ```console
 git pull
@@ -27,11 +36,13 @@ Output should look similar to the following:
 
 ![pre-commit output](./doc/pre-commit.png)
 
-### Github Secrets
+### Github Secrets setup
 
 The GitHub Actions automated processes depend on several credentials which are stored inside of Github Secrets. When creating pull requests, the GitHub Actions will use these secrets, [github.com/FullStackWithLawrence/aws-openai/settings/secrets/actions](https://github.com/FullStackWithLawrence/aws-openai/settings/secrets/actions), so there's nothing special for you to do.
 
 On the other hand, if you've forked this repo and are working on your own independent project, then you'll need to initialize each of these yourself.
+
+![Github Secrets](./doc/github-secrets.png)
 
 ## Python Setup
 

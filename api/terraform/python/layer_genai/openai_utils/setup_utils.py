@@ -2,7 +2,7 @@
 # pylint: disable=duplicate-code
 # pylint: disable=duplicate-code
 """Lawrence McDaniel https://lawrencemcdaniel.com."""
-import io
+import importlib.util
 import os
 import re
 from typing import Dict
@@ -15,11 +15,12 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 
 def load_version() -> Dict[str, str]:
-    """Stringify the __about__ module."""
-    version: Dict[str, str] = {}
-    with io.open(os.path.join(HERE, "__version__.py"), "rt", encoding="utf-8") as f:  # pylint: disable=invalid-name
-        exec(f.read(), version)  # pylint: disable=exec-used
-    return version
+    """Stringify the __version__ module."""
+    version_file_path = os.path.join(HERE, "__version__.py")
+    spec = importlib.util.spec_from_file_location("__version__", version_file_path)
+    version_module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(version_module)
+    return version_module.__dict__
 
 
 VERSION = load_version()

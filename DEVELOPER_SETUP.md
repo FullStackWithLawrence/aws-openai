@@ -19,6 +19,10 @@ As a 1-person operation this project depends heavily on GitHub Actions to automa
 - Semantic Version releases
 - version bumps from npm, PyPi and Terraform Registry
 
+A typical pull request will look like the following:
+
+![Automated pull request](./doc/automated-pr.png)
+
 ### pre-commit setup
 
 This project uses pre-commit as a first-pass automated code review / QC process. pre-commit runs a multitude of utilities and checks for code formatting, linting, syntax checking, and ensuring that you don't accidentally push something to GitHub which you'd later regret. Broadly speaking, these checks are aimed at minimizing the extent of commits that contain various kinds of defects and stylistic imperfections that don't belong on the main branch of the project.

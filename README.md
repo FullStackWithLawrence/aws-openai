@@ -103,6 +103,7 @@ Linters are tools that analyze source code to flag programming errors, bugs, sty
 - [pylint](https://pypi.org/project/pylint/): a static code analyser for Python. It analyses your code without actually running it. It checks for errors, enforces a coding standard, looks for code smells, and can make suggestions about how the code could be refactored.
 - [pre-commit Hooks](https://pre-commit.com/hooks.html): scripts that run automatically before each commit is made to a repository, checking your code for embedded passwords, errors, issues, and any of a multitude of configurable policies that you can optionally enforce. (See above.) They're part of the git hooks system, which allows you to trigger actions at certain points in git's execution. This project uses many Hooks. See [pre-commit-config.yaml](https://github.com/FullStackWithLawrence/aws-openai/blob/main/.pre-commit-config.yaml#L45).
 - [codespell](https://github.com/codespell-project/codespell): fixes common misspellings in text files. It's designed primarily for checking misspelled words in source code, but it can be used with other files as well.
+- [bandit](https://github.com/PyCQA/bandit): a tool designed to find common security issues in Python code.
 
 ## Support
 
@@ -112,9 +113,9 @@ To get community support, go to the official [Issues Page](https://github.com/Fu
 
 We welcome contributions! There are a variety of ways for you to get involved, regardless of your background. In addition to Pull requests, this project would benefit from contributors focused on documentation and how-to video content creation, testing, community engagement, and stewards to help us to ensure that we comply with evolving standards for the ethical use of AI.
 
-For developers:
+For developers, please see:
 
-- Please see the [Developer Setup Guide](./DEVELOPER_SETUP.md)
-- And also, please review these [commit comment guidelines](./SEMANTIC_VERSIONING.md) 😬😬😬 for managing CI rules for automated semantic versioning as well as automated comment generation in CHANGELOG.md.
+- the [Developer Setup Guide](./DEVELOPER_SETUP.md)
+- and these [commit comment guidelines](./SEMANTIC_VERSIONING.md) 😬😬😬 for managing CI rules for automated semantic versioning.
 
 You can also contact [Lawrence McDaniel](https://lawrencemcdaniel.com/contact) directly.

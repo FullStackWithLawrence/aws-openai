@@ -49,10 +49,18 @@ api-activate:
 	pip install -r requirements.txt
 
 api-test:
-	cd ./api/terraform/python/openai_text/openai_text/ && \
-	pytest -v -s tests/
+	cd ./api/terraform/python/lambda_langchain/ && pytest -v -s tests/
+	cd ../../../..
+	cd ./api/terraform/python/lambda_openai_v2/ && pytest -v -s tests/
+	cd ../../../..
+	cd ./api/terraform/python/lambda_openai/ && pytest -v -s tests/
+	cd ../../../..
 
 api-lint:
+	venv/bin/python3 -m pylint api/terraform/python/lambda_langchain/lambda_handler.py && \
+	venv/bin/python3 -m pylint api/terraform/python/lambda_openai/lambda_handler.py && \
+	venv/bin/python3 -m pylint api/terraform/python/lambda_openai_v2/lambda_handler.py && \
+	venv/bin/python3 -m pylint api/terraform/python/layer_genai/openai_utils && \
 	terraform fmt -recursive && \
 	pre-commit run --all-files && \
 	black ./api/terraform/python/
@@ -64,7 +72,7 @@ api-clean:
 # React app
 ######################
 client-init:
-	cd ./client && npm install
+	cd ./client && npm install && npm init @eslint/config
 
 client-lint:
 	cd ./client && npm run lint

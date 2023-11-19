@@ -3,11 +3,13 @@
   "object": "chat.completion.chunk",
   "created": 1677652288,
   "model": "gpt-3.5-turbo",
-  "choices": [{
-    "index": 0,
-    "delta": {
-      "content": "Hello"
-    },
-    "finish_reason": "stop"
-  }]
+  "choices": [
+    {
+      "index": 0,
+      "delta": {
+        "content": "Hello"
+      },
+      "finish_reason": "stop"
+    }
+  ]
 }

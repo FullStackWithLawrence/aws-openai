@@ -1,18 +1,18 @@
 {
   "event": {
-      "model": "gpt-3.5-turbo",
-      "end_point": "ChatCompletion",
-      "temperature": 1,
-      "max_tokens": 4096,
-      "messages": [
-          {
-              "role": "system",
-              "content": "You will be provided with statements, and your task is to convert them to standard English."
-          },
-          {
-              "role": "user",
-              "content": "she broked the lamp post"
-          }
-      ]
+    "model": "gpt-3.5-turbo",
+    "end_point": "ChatCompletion",
+    "temperature": 1,
+    "max_tokens": 4096,
+    "messages": [
+      {
+        "role": "system",
+        "content": "You will be provided with statements, and your task is to convert them to standard English."
+      },
+      {
+        "role": "user",
+        "content": "she broked the lamp post"
+      }
+    ]
   }
 }

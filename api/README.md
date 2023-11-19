@@ -25,32 +25,32 @@ return value
 
 ```json
 {
-    "isBase64Encoded": false,
-    "statusCode": 200,
-    "headers": {
-        "Content-Type": "application/json"
-    },
-    "body": {
-        "id": "chatcmpl-7yLxpF7ZsJzF3FTUICyUKDe1Ob9nd",
-        "object": "chat.completion",
-        "created": 1694618465,
-        "model": "gpt-3.5-turbo-0613",
-        "choices": [
-            {
-                "index": 0,
-                "message": {
-                  "role": "assistant",
-                  "content": "The correct way to phrase this sentence would be: \"She did not go to the market.\""
-                },
-                "finish_reason": "stop"
-            }
-        ],
-        "usage": {
-            "prompt_tokens": 36,
-            "completion_tokens": 10,
-            "total_tokens": 46
-        }
+  "isBase64Encoded": false,
+  "statusCode": 200,
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "id": "chatcmpl-7yLxpF7ZsJzF3FTUICyUKDe1Ob9nd",
+    "object": "chat.completion",
+    "created": 1694618465,
+    "model": "gpt-3.5-turbo-0613",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "The correct way to phrase this sentence would be: \"She did not go to the market.\""
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 36,
+      "completion_tokens": 10,
+      "total_tokens": 46
     }
+  }
 }
 ```
 
@@ -69,38 +69,38 @@ An example complete URL for one of the end points described below: https://api.o
 
 Implementations of each example application found in [OpenAI API - Examples](https://platform.openai.com/examples).
 
-| Example | Link |
-|---------|------|
-| default-grammar | [/examples/default-grammar](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L19) |
-| default-summarize | [/examples/default-summarize](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L41) |
-| default-parse-data | [/examples/default-parse-data](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L65) |
-| default-emoji-translation | [/examples/default-emoji-translation](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L90) |
-| default-time-complexity | [/examples/default-time-complexity](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L114) |
-| default-explain-code | [/examples/default-explain-code](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L138) |
-| default-keywords | [/examples/default-keywords](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L162) |
-| default-product-name-gen | [/examples/default-product-name-gen](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L186) |
-| default-fix-python-bugs | [/examples/default-fix-python-bugs](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L210) |
-| default-spreadsheet-gen | [/examples/default-spreadsheet-gen](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L234) |
-| default-tweet-classifier | [/examples/default-tweet-classifier](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L257) |
-| default-airport-codes | [/examples/default-airport-codes](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L281) |
-| default-mood-color | [/examples/default-mood-color](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L305) |
-| default-vr-fitness | [/examples/default-vr-fitness](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L329) |
-| default-marv-sarcastic-chat | [/examples/default-marv-sarcastic-chat](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L352) |
-| default-turn-by-turn-directions | [/examples/default-turn-by-turn-directions](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L376) |
-| default-interview-questions | [/examples/default-interview-questions](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L400) |
-| default-function-from-spec | [/examples/default-function-from-spec](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L423) |
-| default-code-improvement | [/examples/default-code-improvement](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L446) |
-| default-single-page-website | [/examples/default-single-page-website](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L470) |
-| default-rap-battle | [/examples/default-rap-battle](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L493) |
-| default-memo-writer | [/examples/default-memo-writer](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L516) |
-| default-emoji-chatbot | [/examples/default-emoji-chatbot](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L539) |
-| default-translation | [/examples/default-translation](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L563) |
-| default-socratic-tutor | [/examples/default-socratic-tutor](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L587) |
-| default-sql-translate | [/examples/default-sql-translate](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L611) |
+| Example                          | Link                                                                                                                                                   |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| default-grammar                  | [/examples/default-grammar](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L19)                   |
+| default-summarize                | [/examples/default-summarize](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L41)                 |
+| default-parse-data               | [/examples/default-parse-data](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L65)                |
+| default-emoji-translation        | [/examples/default-emoji-translation](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L90)         |
+| default-time-complexity          | [/examples/default-time-complexity](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L114)          |
+| default-explain-code             | [/examples/default-explain-code](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L138)             |
+| default-keywords                 | [/examples/default-keywords](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L162)                 |
+| default-product-name-gen         | [/examples/default-product-name-gen](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L186)         |
+| default-fix-python-bugs          | [/examples/default-fix-python-bugs](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L210)          |
+| default-spreadsheet-gen          | [/examples/default-spreadsheet-gen](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L234)          |
+| default-tweet-classifier         | [/examples/default-tweet-classifier](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L257)         |
+| default-airport-codes            | [/examples/default-airport-codes](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L281)            |
+| default-mood-color               | [/examples/default-mood-color](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L305)               |
+| default-vr-fitness               | [/examples/default-vr-fitness](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L329)               |
+| default-marv-sarcastic-chat      | [/examples/default-marv-sarcastic-chat](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L352)      |
+| default-turn-by-turn-directions  | [/examples/default-turn-by-turn-directions](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L376)  |
+| default-interview-questions      | [/examples/default-interview-questions](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L400)      |
+| default-function-from-spec       | [/examples/default-function-from-spec](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L423)       |
+| default-code-improvement         | [/examples/default-code-improvement](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L446)         |
+| default-single-page-website      | [/examples/default-single-page-website](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L470)      |
+| default-rap-battle               | [/examples/default-rap-battle](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L493)               |
+| default-memo-writer              | [/examples/default-memo-writer](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L516)              |
+| default-emoji-chatbot            | [/examples/default-emoji-chatbot](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L539)            |
+| default-translation              | [/examples/default-translation](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L563)              |
+| default-socratic-tutor           | [/examples/default-socratic-tutor](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L587)           |
+| default-sql-translate            | [/examples/default-sql-translate](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L611)            |
 | default-meeting-notes-summarizer | [/examples/default-meeting-notes-summarizer](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L635) |
-| default-review-classifier | [/examples/default-review-classifier](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L659) |
-| default-pro-con-discusser | [/examples/default-pro-con-discusser](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L683) |
-| default-lesson-plan-writer | [/examples/default-lesson-plan-writer](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L706) |
+| default-review-classifier        | [/examples/default-review-classifier](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L659)        |
+| default-pro-con-discusser        | [/examples/default-pro-con-discusser](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L683)        |
+| default-lesson-plan-writer       | [/examples/default-lesson-plan-writer](https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L706)       |
 
 ### Passthrough
 
@@ -110,28 +110,28 @@ Example valid request body:
 
 ```json
 {
-    "model": "gpt-3.5-turbo",
-    "end_point": "ChatCompletion",
-    "temperature": 0.9,
-    "max_tokens": 1024,
-    "messages": [
-        {
-            "role": "system",
-            "content": "Summarize content you are provided with for a second-grade student."
-        },
-        {
-            "role": "user",
-            "content": "what is quantum computing?"
-        },
-        {
-          "role": "assistant",
-          "content": "Quantum computing involves teeny tiny itsy bitsy atomic stuff"
-        },
-        {
-            "role": "user",
-            "content": "What??? I don't understand. Please provide a better explanation."
-        },
-    ]
+  "model": "gpt-3.5-turbo",
+  "end_point": "ChatCompletion",
+  "temperature": 0.9,
+  "max_tokens": 1024,
+  "messages": [
+    {
+      "role": "system",
+      "content": "Summarize content you are provided with for a second-grade student."
+    },
+    {
+      "role": "user",
+      "content": "what is quantum computing?"
+    },
+    {
+      "role": "assistant",
+      "content": "Quantum computing involves teeny tiny itsy bitsy atomic stuff"
+    },
+    {
+      "role": "user",
+      "content": "What??? I don't understand. Please provide a better explanation."
+    }
+  ]
 }
 ```
 
@@ -144,53 +144,52 @@ Example valid request body:
 - [AWS account](https://aws.amazon.com/)
 - [AWS Command Line Interface](https://aws.amazon.com/cli/)
 - [Terraform](https://www.terraform.io/).
-    *If you're new to Terraform then see [Getting Started With AWS and Terraform](./doc/terraform-getting-started.md)*
+  _If you're new to Terraform then see [Getting Started With AWS and Terraform](./doc/terraform-getting-started.md)_
 - [OpenAI platform API key](https://platform.openai.com/).
-    *If you're new to OpenAI API then see [How to Get an OpenAI API Key](./doc/openai-api-key.md)*
+  _If you're new to OpenAI API then see [How to Get an OpenAI API Key](./doc/openai-api-key.md)_
 
 ## Setup
 
 1. clone this repo and setup a Python virtual environment
 
-    ```console
-    git clone https://github.com/FullStackWithLawrence/aws-openai.git
-    cd aws-openai
-    make init
-    ```
+   ```console
+   git clone https://github.com/FullStackWithLawrence/aws-openai.git
+   cd aws-openai
+   make init
+   ```
 
 2. add your OpenAI API credentials to the [.env](./.env) file in the root folder of this repo. Your organization ID and API Key should appear similar in format to these examples below.
 
-    ```console
-    OPENAI_API_ORGANIZATION=org-YJzABCDEFGHIJESMShcyulf0
-    OPENAI_API_KEY=sk-7doQ4gAITSez7ABCDEFGHIJlbkFJKLOuEbRhAFadzjtnzAV2
-    ```
+   ```console
+   OPENAI_API_ORGANIZATION=org-YJzABCDEFGHIJESMShcyulf0
+   OPENAI_API_KEY=sk-7doQ4gAITSez7ABCDEFGHIJlbkFJKLOuEbRhAFadzjtnzAV2
+   ```
 
-    *Windows/Powershell users: you'll need to modify [./terraform/lambda_openai.tf](./terraform/lambda_openai.tf) data "external" "env" as per instructions in this code block.*
-
+   _Windows/Powershell users: you'll need to modify [./terraform/lambda_openai.tf](./terraform/lambda_openai.tf) data "external" "env" as per instructions in this code block._
 
 3. Add your AWS account number and region to Terraform. Set these three values in [terraform.tfvars](./terraform/terraform.tfvars):
 
-    ```terraform
-    account_id           = "012345678912"   # Required: your 12-digit AWS account number
-    aws_region           = "us-east-1"      # Optional: an AWS data center
-    aws_profile          = "default"        # Optional: for aws cli credentials
-    ```
+   ```terraform
+   account_id           = "012345678912"   # Required: your 12-digit AWS account number
+   aws_region           = "us-east-1"      # Optional: an AWS data center
+   aws_profile          = "default"        # Optional: for aws cli credentials
+   ```
 
-    *see the README section **"Installation Prerequisites"** below for instructions on setting up Terraform for first-time use.*
+   _see the README section **"Installation Prerequisites"** below for instructions on setting up Terraform for first-time use._
 
 4. Build and deploy the microservice..
 
-    ```terraform
-    terraform init
-    terraform apply
-    ```
+   ```terraform
+   terraform init
+   terraform apply
+   ```
 
-    *Note the output variables for your API Gateway root URL and API key.*
-    ![Postman](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/terraform-apply2.png "Postman")
+   _Note the output variables for your API Gateway root URL and API key._
+   ![Postman](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/terraform-apply2.png "Postman")
 
 5. (Optional) use the [preconfigured import files](./postman/) to setup a Postman collection with all 30 URL endpoints.
 
-    ![Postman](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/postman-1.png "Postman")
+   ![Postman](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/postman-1.png "Postman")
 
 ### Custom Domain (Optional)
 
@@ -216,13 +215,13 @@ You'll find a detailed narrative explanation of the design strategy in this arti
 
 ### Services and Technologies Used
 
-* **[OpenAI](https://pypi.org/project/openai/)**: a PyPi package thata provides convenient access to the OpenAI API from applications written in the Python language. It includes a pre-defined set of classes for API resources that initialize themselves dynamically from API responses which makes it compatible with a wide range of versions of the OpenAI API.
-* **[API Gateway](https://aws.amazon.com/api-gateway/)**: an AWS service for creating, publishing, maintaining, monitoring, and securing REST, HTTP, and WebSocket APIs at any scale.
-* **[IAM](https://aws.amazon.com/iam/)**: a web service that helps you securely control access to AWS resources. With IAM, you can centrally manage permissions that control which AWS resources users can access. You use IAM to control who is authenticated (signed in) and authorized (has permissions) to use resources.
-* **[Lambda](https://aws.amazon.com/lambda/)**: an event-driven, serverless computing platform provided by Amazon as a part of Amazon Web Services. It is a computing service that runs code in response to events and automatically manages the computing resources required by that code. It was introduced on November 13, 2014.
-* **[CloudWatch](https://aws.amazon.com/cloudwatch/)**: CloudWatch enables you to monitor your complete stack (applications, infrastructure, network, and services) and use alarms, logs, and events data to take automated actions and reduce mean time to resolution (MTTR).
-* **[Route53](https://aws.amazon.com/route53/)**: (OPTIONAL). a scalable and highly available Domain Name System service. Released on December 5, 2010.
-* **[Certificate Manager](https://aws.amazon.com/certificate-manager/)**: (OPTIONAL). handles the complexity of creating, storing, and renewing public and private SSL/TLS X.509 certificates and keys that protect your AWS websites and applications.
+- **[OpenAI](https://pypi.org/project/openai/)**: a PyPi package thata provides convenient access to the OpenAI API from applications written in the Python language. It includes a pre-defined set of classes for API resources that initialize themselves dynamically from API responses which makes it compatible with a wide range of versions of the OpenAI API.
+- **[API Gateway](https://aws.amazon.com/api-gateway/)**: an AWS service for creating, publishing, maintaining, monitoring, and securing REST, HTTP, and WebSocket APIs at any scale.
+- **[IAM](https://aws.amazon.com/iam/)**: a web service that helps you securely control access to AWS resources. With IAM, you can centrally manage permissions that control which AWS resources users can access. You use IAM to control who is authenticated (signed in) and authorized (has permissions) to use resources.
+- **[Lambda](https://aws.amazon.com/lambda/)**: an event-driven, serverless computing platform provided by Amazon as a part of Amazon Web Services. It is a computing service that runs code in response to events and automatically manages the computing resources required by that code. It was introduced on November 13, 2014.
+- **[CloudWatch](https://aws.amazon.com/cloudwatch/)**: CloudWatch enables you to monitor your complete stack (applications, infrastructure, network, and services) and use alarms, logs, and events data to take automated actions and reduce mean time to resolution (MTTR).
+- **[Route53](https://aws.amazon.com/route53/)**: (OPTIONAL). a scalable and highly available Domain Name System service. Released on December 5, 2010.
+- **[Certificate Manager](https://aws.amazon.com/certificate-manager/)**: (OPTIONAL). handles the complexity of creating, storing, and renewing public and private SSL/TLS X.509 certificates and keys that protect your AWS websites and applications.
 
 ## OpenAI API
 
@@ -264,29 +263,29 @@ a static example response from the OpenAI chatgpt-3.5 API
 
 ```json
 {
-    "body": {
-        "choices": [
-            {
-                "finish_reason": "stop",
-                "index": 0,
-                "message": {
-                    "content": "Oh, hello there! What kind of trouble can I unknowingly get myself into for you today?",
-                    "role": "assistant"
-                }
-            }
-        ],
-        "created": 1697495501,
-        "id": "chatcmpl-8AQPdETlM808Fp0NjEeCOOc3a13Vt",
-        "model": "gpt-3.5-turbo-0613",
-        "object": "chat.completion",
-        "usage": {
-            "completion_tokens": 20,
-            "prompt_tokens": 31,
-            "total_tokens": 51
+  "body": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "content": "Oh, hello there! What kind of trouble can I unknowingly get myself into for you today?",
+          "role": "assistant"
         }
-    },
-    "isBase64Encoded": false,
-    "statusCode": 200
+      }
+    ],
+    "created": 1697495501,
+    "id": "chatcmpl-8AQPdETlM808Fp0NjEeCOOc3a13Vt",
+    "model": "gpt-3.5-turbo-0613",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 20,
+      "prompt_tokens": 31,
+      "total_tokens": 51
+    }
+  },
+  "isBase64Encoded": false,
+  "statusCode": 200
 }
 ```
 
@@ -296,12 +295,12 @@ a static http 400 response
 
 ```json
 {
-    "body": {
-        "error": "Bad Request",
-        "message": "TEST 400 RESPONSE."
-    },
-    "isBase64Encoded": false,
-    "statusCode": 400
+  "body": {
+    "error": "Bad Request",
+    "message": "TEST 400 RESPONSE."
+  },
+  "isBase64Encoded": false,
+  "statusCode": 400
 }
 ```
 
@@ -311,19 +310,18 @@ a static http 500 response
 
 ```json
 {
-    "body": {
-        "error": "Internal Server Error",
-        "message": "TEST 500 RESPONSE."
-    },
-    "isBase64Encoded": false,
-    "statusCode": 500
+  "body": {
+    "error": "Internal Server Error",
+    "message": "TEST 500 RESPONSE."
+  },
+  "isBase64Encoded": false,
+  "statusCode": 500
 }
 ```
 
 ### /tests/test_504
 
 a static http 504 response with an empty body.
-
 
 ## Trouble Shooting and Logging
 

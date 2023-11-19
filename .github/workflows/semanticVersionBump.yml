@@ -1,3 +1,4 @@
+---
 #------------------------------------------------------------------------------
 # Lawrence McDaniel - https://lawrencemcdaniel.com
 # Version Bump Workflow for Python package openai_utils
@@ -31,12 +32,12 @@ jobs:
       - name: Set up Python 3.11
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
-          node-version: '20.9.0'
+          node-version: "20.9.0"
 
       - name: Install npm dev dependencies
         run: npm install
@@ -90,7 +91,6 @@ jobs:
       - name: another null step
         id: null_step3
         run: echo "i ensure that CURRENT_VERSION, NEXT_VERSION and VERSION_CHANGED are set."
-
 
       - name: Update __version__.py
         # step 4

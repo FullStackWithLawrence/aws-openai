@@ -1,0 +1,34 @@
+[build-system]
+requires = ["flake8", "gitlint", "bump2version"]
+
+[tool.isort]
+profile = "black"
+lines_after_imports = 2
+
+[tool.black]
+line-length = 120
+target-version = ['py311']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | venv
+  | build
+  | buck-out
+  | build
+  | dist
+  | lambda_dist_pkg
+)/
+'''
+
+[tool.flake8]
+ignore = "D205,D413,D400,D401"
+max-line-length =120
+max-complexity = 10
+exclude = "api/terraform/python/lambda_openai/venv, api/terraform/python/lambda_openai/lambda_dist_pkg, api/terraform/python/lambda_openai_v2/lambda_dist_pkg, api/terraform/python/lambda_langchain/lambda_dist_pkg"
+extend-exclude = "*__init__.py,*__version__.py,venv,lambda_dist_pkg"
+select = "C101"

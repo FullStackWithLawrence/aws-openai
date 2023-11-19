@@ -18,32 +18,32 @@ curl --location --request PUT 'https://api.openai.lawrencemcdaniel.com/examples/
 
 ```json
 {
-    "isBase64Encoded": false,
-    "statusCode": 200,
-    "headers": {
-        "Content-Type": "application/json"
-    },
-    "body": {
-        "id": "chatcmpl-7yTwFseUXth0Jju4SRdvs9T3r4W8Y",
-        "object": "chat.completion",
-        "created": 1694649119,
-        "model": "gpt-3.5-turbo-0613",
-        "choices": [
-            {
-                "index": 0,
-                "message": {
-                    "role": "assistant",
-                    "content": "- Black-on-black ware\n- 20th-century\n- 21st-century\n- pottery tradition\n- Puebloan Native American\n- ceramic artists\n- Northern New Mexico\n- reduction-fired blackware\n- pueblo artists\n- smooth surface\n- designs\n- selective burnishing\n- refractory slip\n- carving\n- incising designs\n- polishing\n- raised areas\n- generations\n- families\n- Kha'po Owingeh\n- P'ohwhóge Owingeh\n- pueblos\n- techniques\n- matriarch potters\n- contemporary artists\n- ancestors\n- works honoring\n- pottery"
-                },
-                "finish_reason": "stop"
-            }
-        ],
-        "usage": {
-            "prompt_tokens": 200,
-            "completion_tokens": 136,
-            "total_tokens": 336
-        }
+  "isBase64Encoded": false,
+  "statusCode": 200,
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "id": "chatcmpl-7yTwFseUXth0Jju4SRdvs9T3r4W8Y",
+    "object": "chat.completion",
+    "created": 1694649119,
+    "model": "gpt-3.5-turbo-0613",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "- Black-on-black ware\n- 20th-century\n- 21st-century\n- pottery tradition\n- Puebloan Native American\n- ceramic artists\n- Northern New Mexico\n- reduction-fired blackware\n- pueblo artists\n- smooth surface\n- designs\n- selective burnishing\n- refractory slip\n- carving\n- incising designs\n- polishing\n- raised areas\n- generations\n- families\n- Kha'po Owingeh\n- P'ohwhóge Owingeh\n- pueblos\n- techniques\n- matriarch potters\n- contemporary artists\n- ancestors\n- works honoring\n- pottery"
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 200,
+      "completion_tokens": 136,
+      "total_tokens": 336
     }
+  }
 }
 ```
 

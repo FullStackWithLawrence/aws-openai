@@ -59,9 +59,9 @@ A REST API implementing each of the [30 example applications](https://platform.o
 - [AWS account](https://aws.amazon.com/)
 - [AWS Command Line Interface](https://aws.amazon.com/cli/)
 - [Terraform](https://www.terraform.io/).
-    *If you're new to Terraform then see [Getting Started With AWS and Terraform](./doc/terraform-getting-started.md)*
+  _If you're new to Terraform then see [Getting Started With AWS and Terraform](./doc/terraform-getting-started.md)_
 - [OpenAI platform API key](https://platform.openai.com/).
-    *If you're new to OpenAI API then see [How to Get an OpenAI API Key](./doc/openai-api-key.md)*
+  _If you're new to OpenAI API then see [How to Get an OpenAI API Key](./doc/openai-api-key.md)_
 
 ## Documentation
 
@@ -73,7 +73,7 @@ This repo is referenced by multiple YouTube videos, including various tutorials 
 
 - Automated Pull Requests: See the Github Actions tab of the GitHub Repository. Github Actions are triggered on pull requests to run any of several different kinds of technology-specific unit tests depending on the contents of the commits included in the PR.
 - [python-dotenv](https://pypi.org/project/python-dotenv/) for storing sensitive data for local development
-- [.gitignore](./.gitignore)  ensures that no sensitive nor useless data accidentally gets pushed to GitHub.
+- [.gitignore](./.gitignore) ensures that no sensitive nor useless data accidentally gets pushed to GitHub.
 - [tox.ini](./tox.ini) file for configuring behaviors of Python testing tools
 - [GitHub Actions](https://github.com/features/actions) automates unit testing, semantic release rule checking, and dependabot actions.
 - [GitHub Secrets](https://github.com/FullStackWithLawrence/aws-openai/settings/secrets/actions) to provide sensitive data to Github Actions workflows

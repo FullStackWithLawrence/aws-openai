@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=duplicate-code
 """Lambda function for OpenAI API."""
 import os
 

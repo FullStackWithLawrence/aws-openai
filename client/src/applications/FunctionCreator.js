@@ -1,7 +1,11 @@
 // see https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L19
-import { BACKEND_API_URL, AWS_API_GATEWAY_KEY, OPENAI_EXAMPLES_URL } from "../config";
+import {
+  BACKEND_API_URL,
+  AWS_API_GATEWAY_KEY,
+  OPENAI_EXAMPLES_URL,
+} from "../config";
 
-const SLUG = 'default-function-from-spec';
+const SLUG = "default-function-from-spec";
 
 const FunctionCreator = {
   sidebar_title: "Python Function Creator",
@@ -9,8 +13,8 @@ const FunctionCreator = {
   api_key: AWS_API_GATEWAY_KEY,
   app_name: "Python Function Creator",
   assistant_name: "Francine",
-  avatar_url: '/applications/FunctionCreator/Francine.svg',
-  background_image_url: '/applications/FunctionCreator/FunctionCreator-bg.svg',
+  avatar_url: "/applications/FunctionCreator/Francine.svg",
+  background_image_url: "/applications/FunctionCreator/FunctionCreator-bg.svg",
   welcome_message: `Hello, I'm Francine, a Python programmer, and I can help you create a Python function.`,
   example_prompts: [],
   placeholder_text: `give Francine a specification for a Python function`,

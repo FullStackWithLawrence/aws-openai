@@ -18,36 +18,36 @@ curl --location --request PUT 'https://api.openai.lawrencemcdaniel.com/examples/
 
 ## Example results
 
-```json
+````json
 {
-    "isBase64Encoded": false,
-    "statusCode": 200,
-    "headers": {
-        "Content-Type": "application/json"
-    },
-    "body": {
-        "id": "chatcmpl-7yUk2FIKLOQebVHB4tUhQ5ggiee6b",
-        "object": "chat.completion",
-        "created": 1694652206,
-        "model": "gpt-4-0613",
-        "choices": [
-            {
-                "index": 0,
-                "message": {
-                    "role": "assistant",
-                    "content": "1. Leverage `set` for O(1) lookups: Rather than performing a linear scan on the list for each element, which leads to O(n^2) complexity, we can use a set to store the numbers as we process them. Every time when we look at a new number, we can check if there's a number previously stored in the set such that the two numbers sum up to `k`. This approach has O(n) time complexity.\n\n2. Avoid unnecessary typecasting: In this case, Python type hints were used correctly and there's no unnecessary typecasting, but it's worth mentioning as a general efficiency improvement tip. Unnecessary typecasting can be a costly operation, it's better to avoid it where possible.\n\nHere's the proposed improvement:\n\n```python\nfrom typing import List\n\ndef has_sum_k(nums: List[int], k: int) -> bool:\n    seen = set()\n    for num in nums:\n        if k - num in seen:\n            return True\n        seen.add(num)\n    return False\n```\nThis version of the code accomplishes the same goal with better time complexity: it reduces from O(n^2) to O(n). The space complexity is O(n), as in worst case scenario the set will store all unique elements."
-                },
-                "finish_reason": "stop"
-            }
-        ],
-        "usage": {
-            "prompt_tokens": 97,
-            "completion_tokens": 262,
-            "total_tokens": 359
-        }
+  "isBase64Encoded": false,
+  "statusCode": 200,
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "id": "chatcmpl-7yUk2FIKLOQebVHB4tUhQ5ggiee6b",
+    "object": "chat.completion",
+    "created": 1694652206,
+    "model": "gpt-4-0613",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "1. Leverage `set` for O(1) lookups: Rather than performing a linear scan on the list for each element, which leads to O(n^2) complexity, we can use a set to store the numbers as we process them. Every time when we look at a new number, we can check if there's a number previously stored in the set such that the two numbers sum up to `k`. This approach has O(n) time complexity.\n\n2. Avoid unnecessary typecasting: In this case, Python type hints were used correctly and there's no unnecessary typecasting, but it's worth mentioning as a general efficiency improvement tip. Unnecessary typecasting can be a costly operation, it's better to avoid it where possible.\n\nHere's the proposed improvement:\n\n```python\nfrom typing import List\n\ndef has_sum_k(nums: List[int], k: int) -> bool:\n    seen = set()\n    for num in nums:\n        if k - num in seen:\n            return True\n        seen.add(num)\n    return False\n```\nThis version of the code accomplishes the same goal with better time complexity: it reduces from O(n^2) to O(n). The space complexity is O(n), as in worst case scenario the set will store all unique elements."
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 97,
+      "completion_tokens": 262,
+      "total_tokens": 359
     }
+  }
 }
-```
+````
 
 ## Official Documentation
 

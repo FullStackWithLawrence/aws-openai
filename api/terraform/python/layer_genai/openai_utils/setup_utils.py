@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """Lawrence McDaniel https://lawrencemcdaniel.com."""
-# pylint: disable=open-builtin
 import io
 import os
 import re
 from typing import Dict
+
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 

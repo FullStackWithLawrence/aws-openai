@@ -2,24 +2,24 @@
   "isBase64Encoded": false,
   "statusCode": 200,
   "body": {
-      "id": "chatcmpl-8B4RwgebWS8ZdTQ1ppHgElsru0BVW",
-      "object": "chat.completion",
-      "created": 1697649404,
-      "model": "gpt-3.5-turbo-0613",
-      "choices": [
-          {
-              "index": 0,
-              "message": {
-                  "role": "assistant",
-                  "content": "Quantum computing is a type of computing that uses tiny particles called quantum bits, or qubits, to process and store information. It's like regular computers, but instead of using regular bits that can be either 0 or 1, quantum computers use qubits that can be both 0 and 1 at the same time. This allows them to solve certain problems much faster than regular computers. Quantum computers are very advanced and not widely used yet, but scientists are working on developing them to help solve complex problems in areas like science, medicine, and cryptography."
-              },
-              "finish_reason": "stop"
-          }
-      ],
-      "usage": {
-          "prompt_tokens": 30,
-          "completion_tokens": 113,
-          "total_tokens": 143
+    "id": "chatcmpl-8B4RwgebWS8ZdTQ1ppHgElsru0BVW",
+    "object": "chat.completion",
+    "created": 1697649404,
+    "model": "gpt-3.5-turbo-0613",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Quantum computing is a type of computing that uses tiny particles called quantum bits, or qubits, to process and store information. It's like regular computers, but instead of using regular bits that can be either 0 or 1, quantum computers use qubits that can be both 0 and 1 at the same time. This allows them to solve certain problems much faster than regular computers. Quantum computers are very advanced and not widely used yet, but scientists are working on developing them to help solve complex problems in areas like science, medicine, and cryptography."
+        },
+        "finish_reason": "stop"
       }
+    ],
+    "usage": {
+      "prompt_tokens": 30,
+      "completion_tokens": 113,
+      "total_tokens": 143
+    }
   }
 }

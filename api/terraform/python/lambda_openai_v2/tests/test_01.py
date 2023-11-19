@@ -1,12 +1,16 @@
 # flake8: noqa: F401
+# pylint: disable=R0801
+# pylint: disable=duplicate-code
 """
 Test requests to the OpenAI API using the Lambda Layer, 'genai'.
 """
-import pytest
 import os
-from dotenv import load_dotenv, find_dotenv
-from lambda_openai_v2.tests.init import get_event
+
+import pytest  # pylint: disable=unused-import
+from dotenv import find_dotenv, load_dotenv
 from lambda_openai_v2.lambda_handler import handler
+from lambda_openai_v2.tests.init import get_event
+
 
 # Load environment variables from .env file in all folders
 dotenv_path = find_dotenv()
@@ -16,15 +20,19 @@ if os.path.exists(dotenv_path):
     OPENAI_API_ORGANIZATION = os.environ["OPENAI_API_ORGANIZATION"]
     PINECONE_API_KEY = os.environ["PINECONE_API_KEY"]
 else:
-    raise Exception("No .env file found in root directory of repository")
+    raise FileNotFoundError("No .env file found in root directory of repository")
 
 
 def handle_event_wrapper(event):
+    """Wrapper for the Lambda handler function."""
     retval = handler(event=event, context=None)
     return retval
 
 
+# pylint: disable=too-few-public-methods
 class TestOpenAIText:
+    """Test the OpenAI API using the Lambda Layer, 'genai'."""
+
     def test_basic_request(self):
         """Test a basic request"""
         event = get_event("tests/events/test_01.request.json")

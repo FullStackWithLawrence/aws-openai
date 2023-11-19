@@ -1,7 +1,11 @@
 // see https://github.com/FullStackWithLawrence/aws-openai/blob/main/api/terraform/apigateway_endpoints.tf#L19
-import { BACKEND_API_URL, AWS_API_GATEWAY_KEY, OPENAI_EXAMPLES_URL } from "../config";
+import {
+  BACKEND_API_URL,
+  AWS_API_GATEWAY_KEY,
+  OPENAI_EXAMPLES_URL,
+} from "../config";
 
-const SLUG = 'default-mood-color';
+const SLUG = "default-mood-color";
 
 const Mood2CSSColor = {
   sidebar_title: "Mood To CSS Color",
@@ -9,8 +13,8 @@ const Mood2CSSColor = {
   api_key: AWS_API_GATEWAY_KEY,
   app_name: "Mood2CSSColor",
   assistant_name: "Marlene",
-  avatar_url: '/applications/Mood2CSSColor/Marlene.svg',
-  background_image_url: '/applications/Mood2CSSColor/Mood2CSSColor-bg.jpg',
+  avatar_url: "/applications/Mood2CSSColor/Marlene.svg",
+  background_image_url: "/applications/Mood2CSSColor/Mood2CSSColor-bg.jpg",
   welcome_message: `Hello, I'm Marlene, and I convert your mood into a CSS hex color code.`,
   example_prompts: [
     '"I am happy as a clam"',

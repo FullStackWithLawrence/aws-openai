@@ -1,3 +1,4 @@
+---
 #------------------------------------------------------------------------------
 # Lawrence McDaniel - https://lawrencemcdaniel.com
 # Version Bump and Merge Workflow
@@ -24,7 +25,7 @@ jobs:
       - name: Set up Python 3.11
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Get current version
         #  step 1
@@ -68,7 +69,6 @@ jobs:
       - name: another null step
         id: another_null_step
         run: echo "i ensure that CURRENT_VERSION, NEXT_VERSION and VERSION_CHANGED are set."
-
 
       - name: Update __version__.py
         # step 4

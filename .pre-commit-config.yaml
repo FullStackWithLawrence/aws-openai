@@ -57,7 +57,6 @@ repos:
       - id: destroyed-symlinks
       - id: detect-aws-credentials
       - id: detect-private-key
-      - id: detect-private-key
       - id: end-of-file-fixer
       - id: forbid-new-submodules
       - id: trailing-whitespace
@@ -71,9 +70,6 @@ repos:
       - id: helmlint
       - id: terraform-validate
       - id: tflint
-    #  - id: shellcheck
-    #  - id: yapf
-    #  - id: markdown-link-check
   - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
     rev: v9.9.0
     hooks:

@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=E1101
+# pylint: disable=duplicate-code
 """
 written by: Lawrence McDaniel
             https://lawrencemcdaniel.com/
@@ -112,7 +114,7 @@ def handler(event, context):
 
             case OpenAIEndPoint.Image:
                 # https://platform.openai.com/docs/guides/images
-                n = request_body.get("n", OPENAI_ENDPOINT_IMAGE_N)
+                n = request_body.get("n", OPENAI_ENDPOINT_IMAGE_N)  # pylint: disable=invalid-name
                 size = request_body.get("size", OPENAI_ENDPOINT_IMAGE_SIZE)
                 return openai.Image.create(prompt=input_text, n=n, size=size)
 
@@ -127,10 +129,10 @@ def handler(event, context):
                 raise NotImplementedError("Audio support is coming soon")
 
     # handle anything that went wrong
-    except (openai.APIError, ValueError, TypeError, NotImplementedError) as e:
+    except (openai.APIError, ValueError, TypeError, NotImplementedError) as e:  # pylint: disable=invalid-name
         # 400 Bad Request
         return http_response_factory(status_code=HTTP_RESPONSE_BAD_REQUEST, body=exception_response_factory(e))
-    except (openai.OpenAIError, Exception) as e:  # pylint: disable=broad-except
+    except (openai.OpenAIError, Exception) as e:  # pylint: disable=broad-except,invalid-name
         # 500 Internal Server Error
         return http_response_factory(
             status_code=HTTP_RESPONSE_INTERNAL_SERVER_ERROR,

@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=duplicate-code
+# pylint: disable=duplicate-code
 """Lawrence McDaniel https://lawrencemcdaniel.com."""
 import io
 import os
@@ -15,7 +17,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 def load_version() -> Dict[str, str]:
     """Stringify the __about__ module."""
     version: Dict[str, str] = {}
-    with io.open(os.path.join(HERE, "__version__.py"), "rt", encoding="utf-8") as f:
+    with io.open(os.path.join(HERE, "__version__.py"), "rt", encoding="utf-8") as f:  # pylint: disable=invalid-name
         exec(f.read(), version)  # pylint: disable=exec-used
     return version
 

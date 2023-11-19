@@ -46,19 +46,24 @@ repos:
       # See https://pre-commit.com/hooks.html for more hooks
       #- id: check-added-large-files
       - id: fix-byte-order-marker
+      - id: fix-encoding-pragma
       - id: check-case-conflict
       - id: check-json
       - id: check-merge-conflict
       - id: check-symlinks
       - id: check-toml
       - id: check-xml
+      - id: check-yaml
       - id: destroyed-symlinks
       - id: detect-aws-credentials
+      - id: detect-private-key
       - id: detect-private-key
       - id: end-of-file-fixer
       - id: forbid-new-submodules
       - id: trailing-whitespace
-      - id: check-yaml
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: debug-statements
   - repo: https://github.com/gruntwork-io/pre-commit
     rev: v0.1.23 # Get the latest from: https://github.com/gruntwork-io/pre-commit/releases
     hooks:

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=E1101
 """A module containing constants for the OpenAI API."""
 import os
 

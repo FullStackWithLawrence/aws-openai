@@ -19,7 +19,7 @@ const RapBattle = {
   example_prompts: [
     "Linus Torvalds vs Bill Gates",
     "Dave Grohl vs Barack Obama",
-    "Ghandi vs Martin Luther King Jr.",
+    "Gandhi vs Martin Luther King Jr.",
     "Wayne Gretzky vs Ronaldo",
   ],
   placeholder_text: `tell Rhea who will battle...`,

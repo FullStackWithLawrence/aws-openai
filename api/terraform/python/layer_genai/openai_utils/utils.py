@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=duplicate-code
+# pylint: disable=E1101
 """Utility functions for the OpenAI Lambda functions"""
 import base64
 import json  # library for interacting with JSON data https://www.json.org/json-en.html
 import os  # library for interacting with the operating system
-import platform  # library to view informatoin about the server host this Lambda runs on
+import platform  # library to view information about the server host this Lambda runs on
 import sys  # libraries for error management
 import traceback  # libraries for error management
 

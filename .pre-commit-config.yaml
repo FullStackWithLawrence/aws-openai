@@ -2,6 +2,12 @@ default_language_version:
   # default language version for each language
   python: python3.11
 repos:
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.2.6
+    hooks:
+      - id: codespell
+        args: ["--ignore-words=codespell.txt"]
+        exclude: '\.svg$'
   - repo: local
     hooks:
       - id: eslint

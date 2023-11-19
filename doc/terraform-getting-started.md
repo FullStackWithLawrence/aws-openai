@@ -18,7 +18,7 @@ Terraform depends on the following resources:
 
 For Linux & macOS operating systems.
 
-**Prerequisite:** An [AWS IAM User](https://aws.amazon.com/iam/) with administrator priviledges, access key and secret key.
+**Prerequisite:** An [AWS IAM User](https://aws.amazon.com/iam/) with administrator privileges, access key and secret key.
 
 Ensure that your environment includes the latest stable releases of the following software packages:
 

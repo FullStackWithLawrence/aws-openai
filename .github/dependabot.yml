@@ -24,10 +24,6 @@ updates:
       - "lpm0073"
     reviewers:
       - "lpm0073"
-    ignore:
-      - dependency-name: "openai"
-      - dependency-name: "langchain"
-      - dependency-name: "langchain-experimental"
   - package-ecosystem: "pip"
     directory: "/"
     schedule:

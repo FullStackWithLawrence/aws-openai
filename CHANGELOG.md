@@ -1,3 +1,10 @@
+## [0.6.1](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.6.0...v0.6.1) (2023-11-19)
+
+
+### Bug Fixes
+
+* enable automated openai and langchain version bumps ([f3487ab](https://github.com/FullStackWithLawrence/aws-openai/commit/f3487ab1be0e343f787b373a4918eddefe3eb0d5))
+
 # [0.6.0](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.5.2...v0.6.0) (2023-11-17)
 
 ### Features

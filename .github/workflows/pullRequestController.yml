@@ -3,7 +3,7 @@
 # Pull Request Workflow Controller.
 #
 # Triggers:
-# - Called automatically on relavant actions performed on pull requests.
+# - Called automatically on relevant actions performed on pull requests.
 # - Can also be run manually by clicking the "Run workflow" button.
 #
 # Actions:

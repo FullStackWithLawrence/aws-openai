@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=E1101
+# pylint: disable=duplicate-code
 """
 written by: Lawrence McDaniel
             https://lawrencemcdaniel.com/
@@ -45,7 +47,7 @@ Endpoint request body after transformations: {
 import base64
 import json  # library for interacting with JSON data https://www.json.org/json-en.html
 import os  # library for interacting with the operating system
-import platform  # library to view informatoin about the server host this Lambda runs on
+import platform  # library to view information about the server host this Lambda runs on
 import sys  # libraries for error management
 import traceback  # libraries for error management
 
@@ -294,7 +296,7 @@ def handler(event, context):
 
             case OpenAIEndPoint.Image:
                 # https://platform.openai.com/docs/guides/images
-                n = request_body.get("n", OPENAI_ENDPOINT_IMAGE_N)
+                n = request_body.get("n", OPENAI_ENDPOINT_IMAGE_N)  # pylint: disable=C0103
                 size = request_body.get("size", OPENAI_ENDPOINT_IMAGE_SIZE)
                 return openai.Image.create(prompt=input_text, n=n, size=size)
 
@@ -309,10 +311,10 @@ def handler(event, context):
                 raise NotImplementedError("Audio support is coming soon")
 
     # handle anything that went wrong
-    except (openai.APIError, ValueError, TypeError, NotImplementedError) as e:
+    except (openai.APIError, ValueError, TypeError, NotImplementedError) as e:  # pylint: disable=invalid-name
         # 400 Bad Request
         return http_response_factory(status_code=HTTP_RESPONSE_BAD_REQUEST, body=exception_response_factory(e))
-    except (openai.OpenAIError, Exception) as e:  # pylint: disable=broad-except
+    except (openai.OpenAIError, Exception) as e:  # pylint: disable=invalid-name, broad-except
         # 500 Internal Server Error
         return http_response_factory(
             status_code=HTTP_RESPONSE_INTERNAL_SERVER_ERROR,

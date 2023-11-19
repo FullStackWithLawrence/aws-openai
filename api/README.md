@@ -193,7 +193,7 @@ Example valid request body:
 
 ### Custom Domain (Optional)
 
-If you manage a domain name using AWS Route53 then you can optionally deploy this API using your own custom domain name. Modify the following variables in [terraform/terraform.tfvars](./terraform/terraform.tfvars) and Terraform wil take care of the rest.
+If you manage a domain name using AWS Route53 then you can optionally deploy this API using your own custom domain name. Modify the following variables in [terraform/terraform.tfvars](./terraform/terraform.tfvars) and Terraform will take care of the rest.
 
 ```terraform
 create_custom_domain       = true
@@ -227,7 +227,7 @@ You'll find a detailed narrative explanation of the design strategy in this arti
 
 This project leverages the official [OpenAI PyPi](https://pypi.org/project/openai/) Python library. The openai library is added to the AWS Lambda installation package. You can review [terraform/lambda_openai_text.tf](./terraform/lambda_openai_text.tf) to see how this actually happens from a technical perspective.
 
-Other reference materials on how to use this libary:
+Other reference materials on how to use this library:
 
 - [How to Get an OpenAI API Key](./doc/openai-api-key.md)
 - [OpenAI Official Example Applications](https://platform.openai.com/examples)
@@ -236,7 +236,7 @@ Other reference materials on how to use this libary:
 - [OpenAI Python Source](https://github.com/openai/openai-python)
 - [OpenAI Official Cookbook](https://github.com/openai/openai-cookbook/)
 
-Be aware that the OpenAI platform API is not free. Moreover, the costing models vary signficantly across the family of OpenAI models. GPT-4 for example cost significantly more to use than GPT-3.5. Having said that, for development purposes, the cost likely will be negligible. I spent a total of around $0.025 USD while developing and testing the initial release of this project, whereupon I invoked the openai api around 200 times (rough guess).
+Be aware that the OpenAI platform API is not free. Moreover, the costing models vary significantly across the family of OpenAI models. GPT-4 for example cost significantly more to use than GPT-3.5. Having said that, for development purposes, the cost likely will be negligible. I spent a total of around $0.025 USD while developing and testing the initial release of this project, whereupon I invoked the openai api around 200 times (rough guess).
 
 ## CORS
 

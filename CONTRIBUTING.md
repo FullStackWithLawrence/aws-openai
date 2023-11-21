@@ -1,4 +1,4 @@
-# Developer Setup Guide
+# Contributing - Developer Setup Guide
 
 This repository contains three distinct projects, respectively, written in
 

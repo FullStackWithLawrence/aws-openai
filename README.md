@@ -123,7 +123,7 @@ We welcome contributions! There are a variety of ways for you to get involved, r
 
 For developers, please see:
 
-- the [Developer Setup Guide](./DEVELOPER_SETUP.md)
+- the [Developer Setup Guide](./CONTRIBUTING.md)
 - and these [commit comment guidelines](./SEMANTIC_VERSIONING.md) 😬😬😬 for managing CI rules for automated semantic versioning.
 
 You can also contact [Lawrence McDaniel](https://lawrencemcdaniel.com/contact) directly.

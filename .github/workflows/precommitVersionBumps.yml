@@ -26,6 +26,7 @@ jobs:
 
       - name: Checkout next branch
         run: |
+          git fetch
           git checkout next
           git pull origin next
 

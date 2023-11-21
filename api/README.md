@@ -155,14 +155,17 @@ Example valid request body:
    ```console
    git clone https://github.com/FullStackWithLawrence/aws-openai.git
    cd aws-openai
-   make init
+   make api-init
    ```
 
-2. add your OpenAI API credentials to the [.env](./.env) file in the root folder of this repo. Your organization ID and API Key should appear similar in format to these examples below.
+2. add your OpenAI API and Pinecone credentials to the [.env](./.env) file in the root folder of this repo. The formats of these credentials should appear similar in format to these examples below.
 
    ```console
    OPENAI_API_ORGANIZATION=org-YJzABCDEFGHIJESMShcyulf0
    OPENAI_API_KEY=sk-7doQ4gAITSez7ABCDEFGHIJlbkFJKLOuEbRhAFadzjtnzAV2
+   PINECONE_API_KEY=6abbcedf-fhijk-55d0-lmnop-94123344abcd
+   PINECONE_ENVIRONMENT=gcp-myorg
+   DEBUG_MODE=True
    ```
 
    _Windows/Powershell users: you'll need to modify [./terraform/lambda_openai.tf](./terraform/lambda_openai.tf) data "external" "env" as per instructions in this code block._

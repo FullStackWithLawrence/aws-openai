@@ -88,22 +88,30 @@ This repo is referenced by multiple YouTube videos, including various tutorials 
   - manually from GitHub Actions
   - automatically by Dependabot.
 - [Mergify](https://mergify.com/) automates processing of bot-created pull requests
-- [Semantic Release](https://github.com/semantic-release/semantic-release) automates version releases as well as maintains the [CHANGELOG](./CHANGELOG.md) for the repo.
+- [Semantic Release](https://github.com/semantic-release/semantic-release) automates version releases as well as maintains the change log for the repo.
 - [Change Log](http://keepachangelog.com/)
 
 ### Linters and Formatters
 
-Linters are tools that analyze source code to flag programming errors, bugs, stylistic errors, and suspicious constructs. This project leverages several.
+Linters and formatters are tools used in programming to analyze and improve the quality of code. This project leverages several, including:
 
-- [ESLint](https://eslint.org/): an open source project that helps you find and fix problems with your JavaScript and JSX code.
+#### Code Formatting
+
 - [Prettier](https://prettier.io/): an opinionated code formatter that supports many file formats and languages. This project leverages Prettier to standardize formatting of md, css, json, yml, js, jsx and Typescript files.
 - [Black](https://github.com/psf/black): an opinionated code formatter for Python which is compatible with [PEP 8](https://peps.python.org/pep-0008/) and the [Python Style Guide](https://www.python.org/doc/essays/styleguide/).
-- [Flake8](https://flake8.pycqa.org/en/latest/): overlaps somewhat with Black, but it is highly configurable and also provides syntax checking, Naming style enforcement, code style enforcement including for example, ensuring that comments not only exist where they should but are complete and are consistently formatted and styled. Flake8 also analyzes code [Cyclomatic Complexity](https://en.wikipedia.org/wiki/Cyclomatic_complexity).
 - [isort](https://pycqa.github.io/isort/): a Python utility that sorts imports alphabetically, and automatically, separated into sections and by type.
+
+#### Code Analysis
+
+- [ESLint](https://eslint.org/): an open source project that helps you find and fix problems with your JavaScript and JSX code.
+- [Flake8](https://flake8.pycqa.org/en/latest/): provides Python syntax checking, naming style enforcement, code style enforcement, and [cyclomatic complexity](https://en.wikipedia.org/wiki/Cyclomatic_complexity) analysis.
 - [pylint](https://pypi.org/project/pylint/): a static code analyser for Python. It analyses your code without actually running it. It checks for errors, enforces a coding standard, looks for code smells, and can make suggestions about how the code could be refactored.
-- [pre-commit Hooks](https://pre-commit.com/hooks.html): scripts that run automatically before each commit is made to a repository, checking your code for embedded passwords, errors, issues, and any of a multitude of configurable policies that you can optionally enforce. (See above.) They're part of the git hooks system, which allows you to trigger actions at certain points in git's execution. This project uses many Hooks. See [pre-commit-config.yaml](https://github.com/FullStackWithLawrence/aws-openai/blob/main/.pre-commit-config.yaml#L45).
-- [codespell](https://github.com/codespell-project/codespell): fixes common misspellings in text files. It's designed primarily for checking misspelled words in source code, but it can be used with other files as well.
 - [bandit](https://github.com/PyCQA/bandit): a tool designed to find common security issues in Python code.
+
+#### Pre-commit hooks
+
+- [pre-commit Hooks](https://pre-commit.com/hooks.html): scripts that run automatically before each commit is made to a repository, checking your code for embedded passwords, errors, issues, and any of a multitude of configurable policies that you can optionally enforce. They're part of the git hooks system, which allows you to trigger actions at certain points in git's execution. This project uses many Hooks. See [pre-commit-config.yaml](https://github.com/FullStackWithLawrence/aws-openai/blob/main/.pre-commit-config.yaml#L45).
+- [codespell](https://github.com/codespell-project/codespell): fixes common misspellings in text files. It's designed primarily for checking misspelled words in source code, but it can be used with other files as well.
 
 ## Support
 

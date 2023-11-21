@@ -1,12 +1,14 @@
 ---
 #------------------------------------------------------------------------------
 # Lawrence McDaniel - https://lawrencemcdaniel.com
-# Version Bump Workflow for Python package openai_utils
+# Version Bump Workflow for .pre-commit-config.yaml
 #
-# Calculate the version of the 'next' branch based on semantic-release rules.
-# Compares the existing value of __version__.py to the calculated value.
-# If they are different, it will update __version__.py and push the changes
-# to the main branch.
+# This workflow runs on a cron schedule and checks for updates to the
+# .pre-commit-config.yaml file. If updates are found, the workflow
+# commits the changes to the next branch and pushes the changes to GitHub.
+#
+# This is a workaround for the fact that the pre-commit autoupdate command
+# is not supported by Dependabot.
 #------------------------------------------------------------------------------
 name: pre-commit Version Bumps
 
@@ -16,7 +18,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  bump-version-next:
+  evaluate_precommit_config:
     runs-on: ubuntu-latest
 
     steps:
@@ -73,9 +75,6 @@ jobs:
             echo "::set-output name=changes::false"
           fi
 
-      - name: null step
-        run: echo "i ensure that PRECOMMIT_UPDATED is set."
-
       - name: Commit and push changes
         if: steps.check_changes.outputs.changes == 'true'
         shell: bash
@@ -83,5 +82,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .pre-commit-config.yaml
-          git commit -m "chore: [gh] .pre-commit-config.yaml [skip ci]"
+          git commit -m "chore: [gh] version bumps in .pre-commit-config.yaml [skip ci]"
           git push https://${{ secrets.PAT }}@github.com/${{ github.repository }}.git HEAD:next

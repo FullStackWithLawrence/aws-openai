@@ -24,7 +24,7 @@
     "@chatscope/chat-ui-kit-react": "^1.10.1",
     "@types/react": "^18.2.38",
     "@types/react-dom": "^18.2.16",
-    "@typescript-eslint/eslint-plugin": "^6.11.0",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@typescript-eslint/parser": "^6.12.0",
     "@vitejs/plugin-react": "^4.2.0",
     "eslint": "^8.54.0",

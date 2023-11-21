@@ -18,7 +18,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  bump-version-next:
+  evaluate_precommit_config:
     runs-on: ubuntu-latest
 
     steps:
@@ -75,9 +75,6 @@ jobs:
             echo "::set-output name=changes::false"
           fi
 
-      - name: null step
-        run: echo "i ensure that PRECOMMIT_UPDATED is set."
-
       - name: Commit and push changes
         if: steps.check_changes.outputs.changes == 'true'
         shell: bash
@@ -85,5 +82,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .pre-commit-config.yaml
-          git commit -m "chore: [gh] .pre-commit-config.yaml [skip ci]"
+          git commit -m "chore: [gh] version bumps in .pre-commit-config.yaml [skip ci]"
           git push https://${{ secrets.PAT }}@github.com/${{ github.repository }}.git HEAD:next

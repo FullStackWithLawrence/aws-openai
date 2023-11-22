@@ -3,9 +3,9 @@ S3_BUCKET = openai.lawrencemcdaniel.com
 CLOUDFRONT_DISTRIBUTION_ID = E3AIBM1KMSJOP1
 
 ifneq ("$(wildcard .env)","")
-	include .env
+    include .env
 else
-	echo -e "OPENAI_API_ORGANIZATION=PLEASE-ADD-ME\nOPENAI_API_KEY=PLEASE-ADD-ME\nPINECONE_API_KEY=PLEASE-ADD-ME\nPINECONE_ENVIRONMENT=gcp-starter\nDEBUG_MODE=True\n" >> .env
+    $(shell echo -e "OPENAI_API_ORGANIZATION=PLEASE-ADD-ME\nOPENAI_API_KEY=PLEASE-ADD-ME\nPINECONE_API_KEY=PLEASE-ADD-ME\nPINECONE_ENVIRONMENT=gcp-starter\nDEBUG_MODE=True\n" >> .env)
 endif
 
 .PHONY: analyze api-init api-activate api-lint api-clean api-test client-init client-lint client-update client-run client-build client-release

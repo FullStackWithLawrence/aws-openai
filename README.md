@@ -62,6 +62,9 @@ A REST API implementing each of the [30 example applications](https://platform.o
   _If you're new to Terraform then see [Getting Started With AWS and Terraform](./doc/terraform-getting-started.md)_
 - [OpenAI platform API key](https://platform.openai.com/).
   _If you're new to OpenAI API then see [How to Get an OpenAI API Key](./doc/openai-api-key.md)_
+- [Python 3.11](https://www.python.org/downloads/): for creating virtual environment.
+- [NodeJS](https://nodejs.org/en/download): used with NPM for configuring Semantic Release
+- [Docker Compose](https://docs.docker.com/compose/install/): used for creating the AWS Lambda Layer.
 
 ## Documentation
 

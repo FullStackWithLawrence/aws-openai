@@ -1,9 +1,8 @@
 ## [0.6.3](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.6.2...v0.6.3) (2023-11-21)
 
-
 ### Bug Fixes
 
-* Makefile evaluation of .env file ([9e068a3](https://github.com/FullStackWithLawrence/aws-openai/commit/9e068a37a0101e851ecbe619974ac0ba5ae597da))
+- Makefile evaluation of .env file ([9e068a3](https://github.com/FullStackWithLawrence/aws-openai/commit/9e068a37a0101e851ecbe619974ac0ba5ae597da))
 
 ## [0.6.2](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.6.1...v0.6.2) (2023-11-19)
 

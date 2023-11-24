@@ -48,7 +48,7 @@ def validate_request_body(request_body) -> None:
 def validate_messages(request_body):
     """See openai.chat.completion.request.json"""
     if "messages" not in request_body:
-        raise ValueError("dict key 'messages' not found in request body object")
+        raise ValueError("dict key 'messages' was not found in request body object")
     messages = request_body["messages"]
     if not isinstance(messages, list):
         raise ValueError("dict key 'messages' should be a JSON list")

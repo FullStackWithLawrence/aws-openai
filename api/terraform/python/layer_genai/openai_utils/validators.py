@@ -33,10 +33,10 @@ def validate_max_tokens(max_tokens: any) -> None:
 def validate_endpoint(end_point: any) -> None:
     """Ensure that end_point is a valid endpoint based on the OpenAIEndPoint enum"""
     if not isinstance(end_point, str):
-        raise TypeError("end_point should be a string")
+        raise TypeError(f"Invalid end_point '{end_point}'. end_point should be a string.")
 
     if end_point not in OpenAIEndPoint.all_endpoints:
-        raise ValueError(f"end_point should be one of {OpenAIEndPoint.all_endpoints}")
+        raise ValueError(f"Invalid end_point {end_point}. Should be one of {OpenAIEndPoint.all_endpoints}")
 
 
 def validate_request_body(request_body) -> None:
@@ -48,7 +48,7 @@ def validate_request_body(request_body) -> None:
 def validate_messages(request_body):
     """See openai.chat.completion.request.json"""
     if "messages" not in request_body:
-        raise ValueError("dict key 'messages' not found in request body object")
+        raise ValueError("dict key 'messages' was not found in request body object")
     messages = request_body["messages"]
     if not isinstance(messages, list):
         raise ValueError("dict key 'messages' should be a JSON list")

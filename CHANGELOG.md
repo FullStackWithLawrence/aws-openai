@@ -1,3 +1,10 @@
+## [0.6.4](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.6.3...v0.6.4) (2023-11-24)
+
+
+### Bug Fixes
+
+* simulated bug to trigger new release ([f373039](https://github.com/FullStackWithLawrence/aws-openai/commit/f37303924693b4ffeae424476d9fdf3595efb311))
+
 ## [0.6.3](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.6.2...v0.6.3) (2023-11-21)
 
 ### Bug Fixes

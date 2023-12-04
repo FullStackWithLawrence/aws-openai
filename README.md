@@ -2,6 +2,8 @@
 [![LangChain](https://a11ybadges.com/badge?text=LangChain&badgeColor=0834ac)](https://www.langchain.com/)
 [![Amazon AWS](https://a11ybadges.com/badge?logo=amazonaws)](https://aws.amazon.com/)
 [![ReactJS](https://a11ybadges.com/badge?logo=react)](https://react.dev/)
+[![Python](https://a11ybadges.com/badge?logo=python)](https://www.python.org/)
+[![Terraform](https://a11ybadges.com/badge?logo=terraform)](https://www.terraform.io/)
 [![FullStackWithLawrence](https://a11ybadges.com/badge?text=FullStackWithLawrence&badgeColor=orange&logo=youtube&logoColor=282828)](https://www.youtube.com/@FullStackWithLawrence)
 
 ![GHA pushMain Status](https://img.shields.io/github/actions/workflow/status/FullStackWithLawrence/aws-openai/pushMain.yml?branch=main)

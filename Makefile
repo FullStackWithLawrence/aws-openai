@@ -16,6 +16,9 @@ all: help
 analyze:
 	cloc . --exclude-ext=svg,json,zip --vcs=git
 
+release:
+	git commit -m "fix: force a new release" --allow-empty && git push
+
 ######################
 # AWS API Gateway + Lambda + OpenAI
 ######################
@@ -120,6 +123,7 @@ client-release:
 help:
 	@echo '===================================================================='
 	@echo 'analyze             - generate code analysis report'
+	@echo 'relase              - force a new release'
 	@echo '-- AWS API Gateway + Lambda --'
 	@echo 'api-init            - create a Python virtual environment and install dependencies'
 	@echo 'api-activate        - activate the Python virtual environment'

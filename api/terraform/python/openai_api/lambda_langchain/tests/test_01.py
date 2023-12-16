@@ -1,16 +1,25 @@
 # -*- coding: utf-8 -*-
 # flake8: noqa: F401
-# pylint: disable=R0801
 # pylint: disable=duplicate-code
 """
-Test requests to the OpenAI API using the Lambda Layer, 'genai'.
+Test requests to the OpenAI API via Langchain using the Lambda Layer, 'genai'.
 """
 import os
+import sys
 
 import pytest  # pylint: disable=unused-import
 from dotenv import find_dotenv, load_dotenv
-from lambda_openai_v2.lambda_handler import handler
-from lambda_openai_v2.tests.init import get_event
+
+
+PYTHON_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+sys.path.append(PYTHON_ROOT)  # noqa: E402
+
+
+# pylint: disable=wrong-import-position
+from openai_api.lambda_langchain.lambda_handler import handler
+
+# pylint: disable=wrong-import-position
+from openai_api.lambda_langchain.tests.init import get_event
 
 
 # Load environment variables from .env file in all folders
@@ -31,8 +40,8 @@ def handle_event_wrapper(event):
 
 
 # pylint: disable=too-few-public-methods
-class TestOpenAIText:
-    """Test the OpenAI API using the Lambda Layer, 'genai'."""
+class TestLangchain:
+    """Test the OpenAI API via Langchain using the Lambda Layer, 'genai'."""
 
     def test_basic_request(self):
         """Test a basic request"""
@@ -40,16 +49,10 @@ class TestOpenAIText:
         retval = handle_event_wrapper(event=event)
         print(retval)
 
+        assert "statusCode" in retval, "statusCode key not found in retval"
+        assert "isBase64Encoded" in retval, "isBase64Encoded key not found in retval"
+        assert "body" in retval, "body key not found in retval"
+
         assert retval["statusCode"] == 200
-        assert retval["body"]["object"] == "chat.completion"
-        assert isinstance(retval["body"]["created"], int)
-        assert retval["body"]["model"] == "gpt-3.5-turbo-0613"
-
-        choice = retval["body"]["choices"][0]
-        assert choice["index"] == 0
-        assert choice["message"]["role"] == "assistant"
-        assert choice["finish_reason"] == "stop"
-
-        assert isinstance(retval["body"]["usage"]["prompt_tokens"], int)
-        assert isinstance(retval["body"]["usage"]["completion_tokens"], int)
-        assert isinstance(retval["body"]["usage"]["total_tokens"], int)
+        assert not retval["isBase64Encoded"]
+        assert isinstance(retval["body"], dict)

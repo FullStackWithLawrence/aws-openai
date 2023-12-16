@@ -1,16 +1,14 @@
 ## [0.6.5](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.6.4...v0.6.5) (2023-12-05)
 
-
 ### Bug Fixes
 
-* force a new release ([b5f8ee6](https://github.com/FullStackWithLawrence/aws-openai/commit/b5f8ee6541befb08c7e7f6b3a13bd841bc44680f))
+- force a new release ([b5f8ee6](https://github.com/FullStackWithLawrence/aws-openai/commit/b5f8ee6541befb08c7e7f6b3a13bd841bc44680f))
 
 ## [0.6.4](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.6.3...v0.6.4) (2023-11-24)
 
-
 ### Bug Fixes
 
-* simulated bug to trigger new release ([f373039](https://github.com/FullStackWithLawrence/aws-openai/commit/f37303924693b4ffeae424476d9fdf3595efb311))
+- simulated bug to trigger new release ([f373039](https://github.com/FullStackWithLawrence/aws-openai/commit/f37303924693b4ffeae424476d9fdf3595efb311))
 
 ## [0.6.3](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.6.2...v0.6.3) (2023-11-21)
 

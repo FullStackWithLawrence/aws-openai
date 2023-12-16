@@ -36,7 +36,7 @@ from langchain.prompts import (
 )
 
 # local imports from 'layer_genai' virtual environment or AWS Lambda layer.
-from openai_utils.const import (
+from openai_api.common.const import (
     HTTP_RESPONSE_BAD_REQUEST,
     HTTP_RESPONSE_INTERNAL_SERVER_ERROR,
     HTTP_RESPONSE_OK,
@@ -45,7 +45,7 @@ from openai_utils.const import (
     OpenAIEndPoint,
     OpenAIMessageKeys,
 )
-from openai_utils.utils import (
+from openai_api.common.utils import (
     dump_environment,
     exception_response_factory,
     get_content_for_role,
@@ -55,7 +55,7 @@ from openai_utils.utils import (
     http_response_factory,
     parse_request,
 )
-from openai_utils.validators import (
+from openai_api.common.validators import (
     validate_completion_request,
     validate_embedding_request,
     validate_item,

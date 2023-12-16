@@ -1,3 +1,3 @@
-# OpenAI Utils
+# OpenAI API shared code
 
 Common constants, validations and misc utility functions that are called by both the openai and langchain lambdas.

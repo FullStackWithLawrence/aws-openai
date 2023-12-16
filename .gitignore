@@ -1,5 +1,7 @@
 # Jupyter Notebook
 .ipynb_checkpoints
+build
+dist
 
 .DS_Store
 #  Local .terraform directories

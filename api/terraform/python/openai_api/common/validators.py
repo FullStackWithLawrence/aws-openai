@@ -2,7 +2,7 @@
 """Internal validation functions for requests from API Gateway."""
 import json
 
-from openai_utils.const import OpenAIEndPoint, OpenAIMessageKeys
+from openai_api.common.const import OpenAIEndPoint, OpenAIMessageKeys
 
 
 def validate_item(item, valid_items: list, item_type: str) -> None:

@@ -14,25 +14,12 @@
 # see https://github.com/ruzin/terraform_aws_lambda_langchain/
 #------------------------------------------------------------------------------
 
-echo SOURCE_CODE_PATH ${SOURCE_CODE_PATH}
-echo PACKAGE_FOLDER ${PACKAGE_FOLDER}
-echo RUNTIME ${RUNTIME}
-
-cd $SOURCE_CODE_PATH
-
-# triggers a complete rebuild of the package
-if [ -d $PACKAGE_FOLDER ]; then
-  rm -rf $PACKAGE_FOLDER
-fi
-
-# force a Terraform state change in the package
-# by deleting any existing zip archive that might exist.
-if [ -f "${PACKAGE_FOLDER}.zip" ]; then
-  rm "${PACKAGE_FOLDER}.zip"
-fi
-
-mkdir -p $PACKAGE_FOLDER
-
+# delete and recreate the package folder to remove any existing build artifacts
+DEST_PATH=$BUILD_PATH/$PACKAGE_FOLDER
+rm -rf $DEST_PATH
+mkdir -p $DEST_PATH
 
 # copy the python module(s) to the package folder
-cp lambda_handler.py $PACKAGE_FOLDER/
+cp $SOURCE_CODE_PATH/*.py $PACKAGE_FOLDER/
+cp -R $PARENT_DIRECTORY/common/ $PACKAGE_FOLDER/
+cp -R $PARENT_DIRECTORY/*.py $PACKAGE_FOLDER/

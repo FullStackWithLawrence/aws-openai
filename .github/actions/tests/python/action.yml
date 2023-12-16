@@ -96,7 +96,6 @@ runs:
     - name: Install dependencies
       shell: bash
       run: |
-        cp -R ./api/terraform/python/layer_genai/openai_utils ${{ env.SITE_PACKAGES_PATH }}
         pip install -r ./requirements.txt
       env:
         SITE_PACKAGES_PATH: ${{ env.SITE_PACKAGES_PATH }}

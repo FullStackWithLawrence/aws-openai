@@ -13,18 +13,19 @@
 #           that call this Lambda, rather than here.
 #------------------------------------------------------------------------------
 locals {
-  openai_v2_function_name     = "lambda_openai_v2"
-  openai_v2_source_directory  = "${path.module}/python/${local.openai_v2_function_name}"
-  openai_v2_packaging_script  = "${local.openai_v2_source_directory}/create_pkg.sh"
-  openai_v2_package_folder    = "lambda_dist_pkg"
-  openai_v2_dist_package_name = "lambda_dist_pkg"
+  openai_v2_function_name        = "lambda_openai_v2"
+  openai_v2_build_path           = "${path.module}/build/"
+  openai_v2_openai_api_directory = "${path.module}/python/openai_api"
+  openai_v2_source_directory     = "${local.openai_v2_openai_api_directory}/${local.openai_v2_function_name}"
+  openai_v2_packaging_script     = "${local.openai_v2_source_directory}/create_pkg.sh"
+  openai_v2_dist_package_name    = "${local.openai_v2_function_name}_dist_pkg.zip"
 }
 
 ###############################################################################
 # Python package
 # https://alek-cora-glez.medium.com/deploying-aws-lambda-function-with-terraform-custom-dependencies-7874407cd4fc
 ###############################################################################
-resource "null_resource" "package_lambda_openai_v2_" {
+resource "null_resource" "package_lambda_openai_v2" {
   triggers = {
     redeployment = sha1(jsonencode([
       file("${local.openai_v2_source_directory}/lambda_handler.py"),
@@ -37,26 +38,26 @@ resource "null_resource" "package_lambda_openai_v2_" {
     command     = local.openai_v2_packaging_script
 
     environment = {
-      PACKAGE_NAME     = local.openai_v2_function_name
+      PARENT_DIRECTORY = local.openai_v2_openai_api_directory
       SOURCE_CODE_PATH = local.openai_v2_source_directory
-      PACKAGE_FOLDER   = local.openai_v2_package_folder
-      RUNTIME          = var.lambda_python_runtime
+      BUILD_PATH       = local.openai_v2_build_path
+      PACKAGE_FOLDER   = local.openai_v2_function_name
     }
   }
 }
 
-data "archive_file" "lambda_openai_v2_" {
+data "archive_file" "lambda_openai_v2" {
   # see https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file
-  source_dir  = "${local.openai_v2_source_directory}/${local.openai_v2_package_folder}/"
-  output_path = "${local.openai_v2_source_directory}/${local.openai_v2_dist_package_name}.zip"
+  source_dir  = "${local.openai_v2_source_directory}/${local.openai_v2_function_name}/"
+  output_path = "${local.openai_v2_build_path}/${local.openai_v2_dist_package_name}"
   type        = "zip"
-  depends_on  = [null_resource.package_lambda_openai_v2_]
+  depends_on  = [null_resource.package_lambda_openai_v2]
 }
 
 ###############################################################################
 # OpenAI API key and organization
 ###############################################################################
-data "external" "env_lambda_openai_v2_" {
+data "external" "env_lambda_openai_v2" {
   # kluge to read and map the openai api key and org data contained in .env
   program = ["${local.openai_v2_source_directory}/env.sh"]
 
@@ -68,7 +69,7 @@ data "external" "env_lambda_openai_v2_" {
 ###############################################################################
 # AWS Lambda function
 ###############################################################################
-resource "aws_lambda_function" "lambda_openai_v2_" {
+resource "aws_lambda_function" "lambda_openai_v2" {
   # see https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function.html
   # see https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
   function_name    = local.openai_v2_function_name
@@ -80,16 +81,16 @@ resource "aws_lambda_function" "lambda_openai_v2_" {
   timeout          = var.lambda_timeout
   handler          = "lambda_handler.handler"
   architectures    = var.compatible_architectures
-  filename         = data.archive_file.lambda_openai_v2_.output_path
-  source_code_hash = data.archive_file.lambda_openai_v2_.output_base64sha256
+  filename         = data.archive_file.lambda_openai_v2.output_path
+  source_code_hash = data.archive_file.lambda_openai_v2.output_base64sha256
   layers           = [aws_lambda_layer_version.genai.arn]
   tags             = var.tags
 
   environment {
     variables = {
       DEBUG_MODE                 = var.debug_mode
-      OPENAI_API_ORGANIZATION    = data.external.env_lambda_openai_v2_.result["OPENAI_API_ORGANIZATION"]
-      OPENAI_API_KEY             = data.external.env_lambda_openai_v2_.result["OPENAI_API_KEY"]
+      OPENAI_API_ORGANIZATION    = data.external.env_lambda_openai_v2.result["OPENAI_API_ORGANIZATION"]
+      OPENAI_API_KEY             = data.external.env_lambda_openai_v2.result["OPENAI_API_KEY"]
       OPENAI_ENDPOINT_IMAGE_N    = var.openai_endpoint_image_n
       OPENAI_ENDPOINT_IMAGE_SIZE = var.openai_endpoint_image_size
     }
@@ -99,7 +100,7 @@ resource "aws_lambda_function" "lambda_openai_v2_" {
 ###############################################################################
 # Cloudwatch logging
 ###############################################################################
-resource "aws_cloudwatch_log_group" "lambda_openai_v2_" {
+resource "aws_cloudwatch_log_group" "lambda_openai_v2" {
   name              = "/aws/lambda/${local.openai_v2_function_name}"
   retention_in_days = var.log_retention_days
   tags              = var.tags

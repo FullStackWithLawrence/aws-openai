@@ -10,12 +10,12 @@ import sys  # libraries for error management
 import traceback  # libraries for error management
 
 import openai
-from openai_utils.const import (
+from openai_api.common.const import (
     DEBUG_MODE,
     LANGCHAIN_MESSAGE_HISTORY_ROLES,
     OpenAIEndPoint,
 )
-from openai_utils.validators import (
+from openai_api.common.validators import (
     validate_endpoint,
     validate_item,
     validate_max_tokens,

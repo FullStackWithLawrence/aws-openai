@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=E1101
-# pylint: disable=duplicate-code
+# pylint: disable=no-member
+# FIX NOTE: pylint is not recognizing the 'openai' module.
 """
 written by: Lawrence McDaniel
             https://lawrencemcdaniel.com/
@@ -32,7 +32,7 @@ import os  # library for interacting with the operating system
 # All of these imports are sourced from genai Lambda Layer
 # -----------------------
 import openai
-from openai_utils.const import (
+from openai_api.common.const import (
     HTTP_RESPONSE_BAD_REQUEST,
     HTTP_RESPONSE_INTERNAL_SERVER_ERROR,
     HTTP_RESPONSE_OK,
@@ -40,14 +40,14 @@ from openai_utils.const import (
     VALID_EMBEDDING_MODELS,
     OpenAIEndPoint,
 )
-from openai_utils.utils import (
+from openai_api.common.utils import (
     dump_environment,
     exception_response_factory,
     get_request_body,
     http_response_factory,
     parse_request,
 )
-from openai_utils.validators import (
+from openai_api.common.validators import (
     validate_completion_request,
     validate_embedding_request,
     validate_item,

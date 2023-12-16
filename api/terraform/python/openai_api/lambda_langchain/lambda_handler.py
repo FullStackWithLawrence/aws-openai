@@ -20,11 +20,8 @@ usage:      Use langchain to process requests to the OpenAI API.
 """
 import json
 
-# OpenAI imports
 import openai
 from langchain.chains import LLMChain
-
-# Langchain imports
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import (

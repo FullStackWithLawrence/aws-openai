@@ -17,11 +17,8 @@ import platform  # library to view information about the server host this Lambda
 import re
 from typing import Dict, List, Optional
 
-# 3rd party stuff
 import boto3  # AWS SDK for Python https://boto3.amazonaws.com/v1/documentation/api/latest/index.html
 from openai_api.common.const import PROJECT_ROOT
-
-# our stuff
 from openai_api.common.exceptions import (
     OpenAIAPIConfigurationError,
     OpenAIAPIValueError,

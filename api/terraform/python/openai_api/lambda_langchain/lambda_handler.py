@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=E1101,E0401
 # pylint: disable=duplicate-code
+# pylint: disable=R0911,R0912,W0718,R0801
 """
 written by: Lawrence McDaniel
             https://lawrencemcdaniel.com/
@@ -18,11 +19,9 @@ usage:      Use langchain to process requests to the OpenAI API.
             https://bobbyhadz.com/blog/react-generate-unique-id
 """
 import json
-import os
 
 # OpenAI imports
 import openai
-from dotenv import find_dotenv, load_dotenv
 from langchain.chains import LLMChain
 
 # Langchain imports
@@ -34,19 +33,19 @@ from langchain.prompts import (
     MessagesPlaceholder,
     SystemMessagePromptTemplate,
 )
-
-# local imports from 'layer_genai' virtual environment or AWS Lambda layer.
+from openai_api.common.conf import settings
 from openai_api.common.const import (
-    HTTP_RESPONSE_BAD_REQUEST,
-    HTTP_RESPONSE_INTERNAL_SERVER_ERROR,
-    HTTP_RESPONSE_OK,
     VALID_CHAT_COMPLETION_MODELS,
     VALID_EMBEDDING_MODELS,
     OpenAIEndPoint,
     OpenAIMessageKeys,
+    OpenAIResponseCodes,
 )
+
+# local imports from 'layer_genai' virtual environment or AWS Lambda layer.
+from openai_api.common.exceptions import EXCEPTION_MAP
 from openai_api.common.utils import (
-    dump_environment,
+    cloudwatch_handler,
     exception_response_factory,
     get_content_for_role,
     get_message_history,
@@ -72,41 +71,19 @@ from openai_api.common.validators import (
 ###############################################################################
 # ENVIRONMENT CREDENTIALS
 ###############################################################################
-
-# for local development and unit testing
-dotenv_path = find_dotenv()
-if os.path.exists(dotenv_path):
-    load_dotenv(dotenv_path=dotenv_path, verbose=True)
-
-# for production these values are set inside the AWS Lambda function environment
-# see ./env.sh and lambda_langchain.tf
-OPENAI_ENDPOINT_IMAGE_N = int(os.getenv("OPENAI_ENDPOINT_IMAGE_N", "4"))
-OPENAI_ENDPOINT_IMAGE_SIZE = os.getenv("OPENAI_ENDPOINT_IMAGE_SIZE", "1024x768")
-openai.organization = os.getenv("OPENAI_API_ORGANIZATION", "SET-ME-WITH-DOTENV")
-openai.api_key = os.getenv("OPENAI_API_KEY", "SET-ME-WITH-DOTENV")
-
-###############################################################################
-# Transformations for the LangChain API for OpenAI
-###############################################################################
-LANGCHAIN_MEMORY_KEY = "chat_history"
+openai.organization = settings.openai_api_organization
+openai.api_key = settings.openai_api_key
 
 
 # pylint: disable=too-many-locals
 # pylint: disable=unused-argument
-def handler(event, context, api_key=None, organization=None, pinecone_api_key=None):
+def handler(event, context):
     """
     Process incoming requests and invoking the appropriate
     OpenAI API endpoint based on the contents of the request.
     """
-    # set api key if not already set
-    if api_key and not openai.api_key:
-        openai.api_key = api_key
-    if organization and not openai.organization:
-        openai.organization = organization
-    if pinecone_api_key:
-        pass
 
-    dump_environment(event)
+    cloudwatch_handler(event)
     try:
         openai_results = {}
         # ----------------------------------------------------------------------
@@ -152,7 +129,7 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
                 prompt = ChatPromptTemplate(
                     messages=[
                         SystemMessagePromptTemplate.from_template(system_message),
-                        MessagesPlaceholder(variable_name=LANGCHAIN_MEMORY_KEY),
+                        MessagesPlaceholder(variable_name=settings.langchain_memory_key),
                         HumanMessagePromptTemplate.from_template("{question}"),
                     ]
                 )
@@ -160,7 +137,7 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
                 # 3. extract message history and initialize memory
                 # -------------------------------------------------------------
                 memory = ConversationBufferMemory(
-                    memory_key=LANGCHAIN_MEMORY_KEY,
+                    memory_key=settings.langchain_memory_key,
                     return_messages=True,
                 )
                 message_history = get_message_history(messages)
@@ -199,8 +176,8 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
 
             case OpenAIEndPoint.Image:
                 # https://platform.openai.com/docs/guides/images
-                n = request_body.get("n", OPENAI_ENDPOINT_IMAGE_N)  # pylint: disable=invalid-name
-                size = request_body.get("size", OPENAI_ENDPOINT_IMAGE_SIZE)
+                n = request_body.get("n", settings.openai_endpoint_image_n)  # pylint: disable=invalid-name
+                size = request_body.get("size", settings.openai_endpoint_image_size)
                 return openai.Image.create(prompt=input_text, n=n, size=size)
 
             case OpenAIEndPoint.Moderation:
@@ -214,16 +191,11 @@ def handler(event, context, api_key=None, organization=None, pinecone_api_key=No
                 raise NotImplementedError("Audio support is coming soon")
 
     # handle anything that went wrong
-    except (openai.APIError, ValueError, TypeError, NotImplementedError) as e:  # pylint: disable=invalid-name
-        # 400 Bad Request
-        return http_response_factory(status_code=HTTP_RESPONSE_BAD_REQUEST, body=exception_response_factory(e))
-    # pylint: disable=broad-except
-    except (openai.OpenAIError, Exception) as e:  # pylint: disable=broad-except,invalid-name
-        # 500 Internal Server Error
-        return http_response_factory(
-            status_code=HTTP_RESPONSE_INTERNAL_SERVER_ERROR,
-            body=exception_response_factory(e),
-        )
+    except Exception as e:
+        status_code, _message = EXCEPTION_MAP.get(type(e), (500, "Internal server error"))
+        return http_response_factory(status_code=status_code, body=exception_response_factory(e))
 
     # success!! return the results
-    return http_response_factory(status_code=HTTP_RESPONSE_OK, body={**openai_results, **request_meta_data})
+    return http_response_factory(
+        status_code=OpenAIResponseCodes.HTTP_RESPONSE_OK, body={**openai_results, **request_meta_data}
+    )

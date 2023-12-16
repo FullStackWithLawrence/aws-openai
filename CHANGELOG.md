@@ -1,3 +1,19 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
+
+## [0.7.0]
+
+- replace Terraform template_file() with templatefile()
+- restructure Python modules. Place original lambda source code under openai_api and refactor common module so that it no longer needs to be pip installed. remove legacy lambda_openai.
+- refactor layer_genai to remove pip-installed common code.
+- refactor makefile and Github Actions so that these no longer have any special handling of Python source code.
+- switch from pytest to built-in python unittest
+- add Pydantic-based Settings class
+- add unit testing of both lambdas + common code
+
 ## [0.6.5](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.6.4...v0.6.5) (2023-12-05)
 
 ### Bug Fixes

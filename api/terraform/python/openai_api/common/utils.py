@@ -4,17 +4,11 @@
 """Utility functions for the OpenAI Lambda functions"""
 import base64
 import json  # library for interacting with JSON data https://www.json.org/json-en.html
-import os  # library for interacting with the operating system
-import platform  # library to view information about the server host this Lambda runs on
 import sys  # libraries for error management
 import traceback  # libraries for error management
 
-import openai
-from openai_api.common.const import (
-    DEBUG_MODE,
-    LANGCHAIN_MESSAGE_HISTORY_ROLES,
-    OpenAIEndPoint,
-)
+from openai_api.common.conf import settings
+from openai_api.common.const import LANGCHAIN_MESSAGE_HISTORY_ROLES, OpenAIEndPoint
 from openai_api.common.validators import (
     validate_endpoint,
     validate_item,
@@ -25,28 +19,47 @@ from openai_api.common.validators import (
 )
 
 
-def http_response_factory(status_code: int, body) -> dict:
+def cloudwatch_handler(event, quiet: bool = False):
+    """Create a CloudWatch log entry for the event and dump the event to stdout."""
+    if settings.debug_mode and not quiet:
+        print(json.dumps(settings.cloudwatch_dump))
+        print(json.dumps({"event": event}))
+
+
+def http_response_factory(status_code: int, body: json) -> json:
     """
     Generate a standardized JSON return dictionary for all possible response scenarios.
 
     status_code: an HTTP response code. see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
-    body: a JSON dict of openai results for status 200, an error dict otherwise.
+    body: a JSON dict of Rekognition results for status 200, an error dict otherwise.
 
     see https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html
     """
     if status_code < 100 or status_code > 599:
         raise ValueError(f"Invalid HTTP response code received: {status_code}")
 
+    if settings.debug_mode:
+        retval = {
+            "isBase64Encoded": False,
+            "statusCode": status_code,
+            "headers": {"Content-Type": "application/json"},
+            "body": body,
+        }
+        # log our output to the CloudWatch log for this Lambda
+        print(json.dumps({"retval": retval}))
+
+    # see https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
     retval = {
         "isBase64Encoded": False,
         "statusCode": status_code,
-        "body": body,
+        "headers": {"Content-Type": "application/json"},
+        "body": json.dumps(body),
     }
-    event_log(json.dumps({"retval": retval}))
+
     return retval
 
 
-def exception_response_factory(exception: Exception) -> dict:
+def exception_response_factory(exception) -> json:
     """
     Generate a standardized error response dictionary that includes
     the Python exception type and stack trace.
@@ -60,30 +73,6 @@ def exception_response_factory(exception: Exception) -> dict:
     }
 
     return retval
-
-
-def event_log(log_entry):
-    """Print to CloudWatch Logs"""
-    if DEBUG_MODE:
-        print(log_entry)
-
-
-def dump_environment(event):
-    """Print to CloudWatch Logs"""
-    if DEBUG_MODE:
-        cloudwatch_dump = {
-            "environment": {
-                "os": os.name,
-                "system": platform.system(),
-                "release": platform.release(),
-                "openai": openai.__version__,
-                "openai_app_info": openai.app_info,
-                "openai_end_points": OpenAIEndPoint.all_endpoints,
-                "DEBUG_MODE": DEBUG_MODE,
-            }
-        }
-        print(json.dumps(cloudwatch_dump))
-        print(json.dumps({"event": event}))
 
 
 def get_request_body(event) -> dict:

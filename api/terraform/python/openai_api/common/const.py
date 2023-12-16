@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=E1101
 """A module containing constants for the OpenAI API."""
-import os
-
 import openai
 
 
-HTTP_RESPONSE_OK = 200
-HTTP_RESPONSE_BAD_REQUEST = 400
-HTTP_RESPONSE_INTERNAL_SERVER_ERROR = 500
-DEBUG_MODE = os.getenv("DEBUG_MODE", "False").lower() in ("true", "1", "t")
+# pylint: disable=too-few-public-methods
+class OpenAIResponseCodes:
+    """Http response codes from openai API"""
+
+    HTTP_RESPONSE_OK = 200
+    HTTP_RESPONSE_BAD_REQUEST = 400
+    HTTP_RESPONSE_INTERNAL_SERVER_ERROR = 500
 
 
 # pylint: disable=too-few-public-methods

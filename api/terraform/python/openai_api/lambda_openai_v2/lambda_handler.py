@@ -27,21 +27,19 @@ usage:
     /v1/moderations	            text-moderation-stable, text-moderation-latest
 
 """
-import os  # library for interacting with the operating system
-
 # All of these imports are sourced from genai Lambda Layer
 # -----------------------
 import openai
+from openai_api.common.conf import settings
 from openai_api.common.const import (
-    HTTP_RESPONSE_BAD_REQUEST,
-    HTTP_RESPONSE_INTERNAL_SERVER_ERROR,
-    HTTP_RESPONSE_OK,
     VALID_CHAT_COMPLETION_MODELS,
     VALID_EMBEDDING_MODELS,
     OpenAIEndPoint,
+    OpenAIResponseCodes,
 )
+from openai_api.common.exceptions import EXCEPTION_MAP
 from openai_api.common.utils import (
-    dump_environment,
+    cloudwatch_handler,
     exception_response_factory,
     get_request_body,
     http_response_factory,
@@ -54,16 +52,12 @@ from openai_api.common.validators import (
 )
 
 
-DEBUG_MODE = os.getenv("DEBUG_MODE", "False").lower() in ("true", "1", "t")
-
-# https://platform.openai.com/api_keys
-OPENAI_ENDPOINT_IMAGE_N = int(os.getenv("OPENAI_ENDPOINT_IMAGE_N", "4"))
-OPENAI_ENDPOINT_IMAGE_SIZE = os.getenv("OPENAI_ENDPOINT_IMAGE_SIZE", "1024x768")
-openai.organization = os.getenv("OPENAI_API_ORGANIZATION", "Personal")
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.organization = settings.openai_api_organization
+openai.api_key = settings.openai_api_key
 
 
 # pylint: disable=unused-argument
+# pylint: disable=too-many-locals
 def handler(event, context):
     """
     Main Lambda handler function.
@@ -71,7 +65,7 @@ def handler(event, context):
     Responsible for processing incoming requests and invoking the appropriate
     OpenAI API endpoint based on the contents of the request.
     """
-    dump_environment(event)
+    cloudwatch_handler(event)
     try:
         openai_results = {}
         request_body = get_request_body(event=event)
@@ -114,8 +108,8 @@ def handler(event, context):
 
             case OpenAIEndPoint.Image:
                 # https://platform.openai.com/docs/guides/images
-                n = request_body.get("n", OPENAI_ENDPOINT_IMAGE_N)  # pylint: disable=invalid-name
-                size = request_body.get("size", OPENAI_ENDPOINT_IMAGE_SIZE)
+                n = request_body.get("n", settings.openai_endpoint_image_n)  # pylint: disable=invalid-name
+                size = request_body.get("size", settings.openai_endpoint_image_size)
                 return openai.Image.create(prompt=input_text, n=n, size=size)
 
             case OpenAIEndPoint.Moderation:
@@ -129,18 +123,13 @@ def handler(event, context):
                 raise NotImplementedError("Audio support is coming soon")
 
     # handle anything that went wrong
-    except (openai.APIError, ValueError, TypeError, NotImplementedError) as e:  # pylint: disable=invalid-name
-        # 400 Bad Request
-        return http_response_factory(status_code=HTTP_RESPONSE_BAD_REQUEST, body=exception_response_factory(e))
-    except (openai.OpenAIError, Exception) as e:  # pylint: disable=broad-except,invalid-name
-        # 500 Internal Server Error
-        return http_response_factory(
-            status_code=HTTP_RESPONSE_INTERNAL_SERVER_ERROR,
-            body=exception_response_factory(e),
-        )
+    # pylint: disable=broad-exception-caught
+    except Exception as e:
+        status_code, _message = EXCEPTION_MAP.get(type(e), (500, "Internal server error"))
+        return http_response_factory(status_code=status_code, body=exception_response_factory(e))
 
     # success!! return the results
     return http_response_factory(
-        status_code=HTTP_RESPONSE_OK,
+        status_code=OpenAIResponseCodes.HTTP_RESPONSE_OK,
         body={**openai_results, **request_meta_data},
     )

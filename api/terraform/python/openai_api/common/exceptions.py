@@ -8,15 +8,6 @@ from openai_api.common.const import OpenAIResponseCodes
 
 rekognition_client = boto3.client("rekognition")
 
-EXCEPTION_MAP = {
-    openai.APIError: (OpenAIResponseCodes.HTTP_RESPONSE_BAD_REQUEST, "BadRequest"),
-    ValueError: (OpenAIResponseCodes.HTTP_RESPONSE_BAD_REQUEST, "BadRequest"),
-    TypeError: (OpenAIResponseCodes.HTTP_RESPONSE_BAD_REQUEST, "BadRequest"),
-    NotImplementedError: (OpenAIResponseCodes.HTTP_RESPONSE_BAD_REQUEST, "BadRequest"),
-    openai.OpenAIError: (OpenAIResponseCodes.HTTP_RESPONSE_INTERNAL_SERVER_ERROR, "InternalServerError"),
-    Exception: (OpenAIResponseCodes.HTTP_RESPONSE_INTERNAL_SERVER_ERROR, "InternalServerError"),
-}
-
 
 class OpenAIAPIConfigurationError(Exception):
     """Exception raised for errors in the configuration."""
@@ -40,3 +31,16 @@ class OpenAIAPIIlligalInvocationError(Exception):
     def __init__(self, message):
         self.message = message
         super().__init__(self.message)
+
+
+EXCEPTION_MAP = {
+    OpenAIAPIValueError: (OpenAIResponseCodes.HTTP_RESPONSE_BAD_REQUEST, "BadRequest"),
+    OpenAIAPIConfigurationError: (OpenAIResponseCodes.HTTP_RESPONSE_INTERNAL_SERVER_ERROR, "InternalServerError"),
+    OpenAIAPIIlligalInvocationError: (OpenAIResponseCodes.HTTP_RESPONSE_INTERNAL_SERVER_ERROR, "InternalServerError"),
+    openai.APIError: (OpenAIResponseCodes.HTTP_RESPONSE_BAD_REQUEST, "BadRequest"),
+    ValueError: (OpenAIResponseCodes.HTTP_RESPONSE_BAD_REQUEST, "BadRequest"),
+    TypeError: (OpenAIResponseCodes.HTTP_RESPONSE_BAD_REQUEST, "BadRequest"),
+    NotImplementedError: (OpenAIResponseCodes.HTTP_RESPONSE_BAD_REQUEST, "BadRequest"),
+    openai.OpenAIError: (OpenAIResponseCodes.HTTP_RESPONSE_INTERNAL_SERVER_ERROR, "InternalServerError"),
+    Exception: (OpenAIResponseCodes.HTTP_RESPONSE_INTERNAL_SERVER_ERROR, "InternalServerError"),
+}

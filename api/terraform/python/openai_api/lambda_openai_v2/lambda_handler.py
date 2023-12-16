@@ -27,8 +27,6 @@ usage:
     /v1/moderations	            text-moderation-stable, text-moderation-latest
 
 """
-# All of these imports are sourced from genai Lambda Layer
-# -----------------------
 import openai
 from openai_api.common.conf import settings
 from openai_api.common.const import (

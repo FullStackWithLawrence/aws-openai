@@ -7,14 +7,6 @@ Configuration for Lambda functions.
 This module is used to configure the Lambda functions. It uses the pydantic_settings
 library to validate the configuration values. The configuration values are read from
 environment variables, or alternatively these can be set when instantiating Settings().
-
-OPENAI_ENDPOINT_IMAGE_N = int(os.getenv("OPENAI_ENDPOINT_IMAGE_N", "4"))
-OPENAI_ENDPOINT_IMAGE_SIZE = os.getenv("OPENAI_ENDPOINT_IMAGE_SIZE", "1024x768")
-openai.organization = os.getenv("OPENAI_API_ORGANIZATION", "SET-ME-WITH-DOTENV")
-openai.api_key = os.getenv("OPENAI_API_KEY", "SET-ME-WITH-DOTENV")
-LANGCHAIN_MEMORY_KEY = "chat_history"
-
-
 """
 
 import logging

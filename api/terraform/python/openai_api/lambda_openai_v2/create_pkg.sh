@@ -10,8 +10,6 @@
 #         module(s) plus any requirements to a dedicated folder so that
 #         it can be archived to a zip file for upload to
 #         AWS Lambda by Terraform.
-#
-# see https://github.com/ruzin/terraform_aws_lambda_langchain/
 #------------------------------------------------------------------------------
 
 # delete and recreate the package folder to remove any existing build artifacts

@@ -41,8 +41,6 @@ from openai_api.common.const import (
     OpenAIMessageKeys,
     OpenAIResponseCodes,
 )
-
-# local imports from 'layer_genai' virtual environment or AWS Lambda layer.
 from openai_api.common.exceptions import EXCEPTION_MAP
 from openai_api.common.utils import (
     cloudwatch_handler,

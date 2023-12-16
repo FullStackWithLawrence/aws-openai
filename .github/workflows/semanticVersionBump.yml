@@ -110,8 +110,8 @@ jobs:
         id: update_version
         run: |
           echo "# -*- coding: utf-8 -*-" > ${{ env.VERSION_FILE }}
-          echo "# DO NOT EDIT." > ${{ env.VERSION_FILE }}
-          echo "# Managed via automated CI/CD in .github/workflows/semanticVersionBump.yml." > ${{ env.VERSION_FILE }}
+          echo "# DO NOT EDIT." >> ${{ env.VERSION_FILE }}
+          echo "# Managed via automated CI/CD in .github/workflows/semanticVersionBump.yml." >> ${{ env.VERSION_FILE }}
           echo "__version__ = \"${{ env.NEXT_VERSION }}\"" >>  ${{ env.VERSION_FILE }}
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"

@@ -1,7 +1,14 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=E1101
 """A module containing constants for the OpenAI API."""
+import os
+
 import openai
+
+
+MODULE_NAME = "openai_api"
+HERE = os.path.abspath(os.path.dirname(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.join(HERE, MODULE_NAME))
 
 
 # pylint: disable=too-few-public-methods

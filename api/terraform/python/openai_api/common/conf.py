@@ -9,15 +9,17 @@ library to validate the configuration values. The configuration values are read 
 environment variables, or alternatively these can be set when instantiating Settings().
 """
 
-import logging
-
 # python stuff
+import importlib.util
+import logging
 import os  # library for interacting with the operating system
 import platform  # library to view information about the server host this Lambda runs on
-from typing import List, Optional
+import re
+from typing import Dict, List, Optional
 
 # 3rd party stuff
 import boto3  # AWS SDK for Python https://boto3.amazonaws.com/v1/documentation/api/latest/index.html
+from openai_api.common.const import PROJECT_ROOT
 
 # our stuff
 from openai_api.common.exceptions import (
@@ -26,6 +28,41 @@ from openai_api.common.exceptions import (
 )
 from pydantic import Field, ValidationError, validator
 from pydantic_settings import BaseSettings
+
+
+def load_version() -> Dict[str, str]:
+    """Stringify the __version__ module."""
+    version_file_path = os.path.join(PROJECT_ROOT, "__version__.py")
+    spec = importlib.util.spec_from_file_location("__version__", version_file_path)
+    version_module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(version_module)
+    return version_module.__dict__
+
+
+VERSION = load_version()
+
+
+def get_semantic_version() -> str:
+    """
+    Return the semantic version number.
+
+    Example valid values of __version__.py are:
+    0.1.17
+    0.1.17-next.1
+    0.1.17-next.2
+    0.1.17-next.123456
+    0.1.17-next-major.1
+    0.1.17-next-major.2
+    0.1.17-next-major.123456
+
+    Note:
+    - pypi does not allow semantic version numbers to contain a dash.
+    - pypi does not allow semantic version numbers to contain a 'v' prefix.
+    - pypi does not allow semantic version numbers to contain a 'next' suffix.
+    """
+    version = VERSION["__version__"]
+    version = re.sub(r"-next\.\d+", "", version)
+    return re.sub(r"-next-major\.\d+", "", version)
 
 
 # Default values
@@ -73,6 +110,7 @@ def empty_str_to_int_default(v: str, default: int) -> int:
         return default
 
 
+# pylint: disable=too-many-public-methods
 class Settings(BaseSettings):
     """Settings for Lambda functions"""
 
@@ -138,6 +176,11 @@ class Settings(BaseSettings):
     pinecone_api_key: Optional[str] = Field(SettingsDefaults.PINECONE_API_KEY, env="PINECONE_API_KEY")
 
     @property
+    def openai_api_version(self) -> str:
+        """OpenAI API version"""
+        return get_semantic_version()
+
+    @property
     def aws_session(self):
         """AWS session"""
         if not self._aws_session:
@@ -173,15 +216,16 @@ class Settings(BaseSettings):
         """Dump settings to CloudWatch"""
         return {
             "environment": {
+                "openai_api_version": self.openai_api_version,
                 "os": os.name,
                 "system": platform.system(),
                 "release": platform.release(),
                 "boto3": boto3.__version__,
                 "AWS_REKOGNITION_COLLECTION_ID": self.aws_rekognition_collection_id,
                 "AWS_DYNAMODB_TABLE_ID": self.aws_dynamodb_table_id,
-                "MAX_FACES": self.aws_rekognition_face_detect_attributes,
+                "AWS_REKOGNITION_MAX_FACES": self.aws_rekognition_face_detect_attributes,
                 "AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES": self.aws_rekognition_face_detect_attributes,
-                "QUALITY_FILTER": self.aws_rekognition_face_detect_attributes,
+                "AWS_REKOGNITION_QUALITY_FILTER": self.aws_rekognition_face_detect_attributes,
                 "DEBUG_MODE": self.debug_mode,
             }
         }

@@ -113,6 +113,10 @@ class Settings(BaseSettings):
     """Settings for Lambda functions"""
 
     _aws_session: boto3.Session = None
+    _s3_client: boto3.client = None
+    _dynamodb_client: boto3.client = None
+    _rekognition_client: boto3.client = None
+    _dynamodb_table: boto3.resource = None
 
     debug_mode: Optional[bool] = Field(
         SettingsDefaults.DEBUG_MODE,
@@ -207,22 +211,30 @@ class Settings(BaseSettings):
     @property
     def s3_client(self):
         """S3 client"""
-        return self.aws_session.resource("s3")
+        if not self._s3_client:
+            self._s3_client = self.aws_session.client("s3")
+        return self._s3_client
 
     @property
     def dynamodb_client(self):
         """DynamoDB client"""
-        return self.aws_session.resource("dynamodb")
+        if not self._dynamodb_client:
+            self._dynamodb_client = self.aws_session.client("dynamodb")
+        return self._dynamodb_client
 
     @property
     def rekognition_client(self):
         """Rekognition client"""
-        return self.aws_session.client("rekognition")
+        if not self._rekognition_client:
+            self._rekognition_client = self.aws_session.client("rekognition")
+        return self._rekognition_client
 
     @property
     def dynamodb_table(self):
         """DynamoDB table"""
-        return self.dynamodb_client.Table(self.aws_dynamodb_table_id)
+        if not self._dynamodb_table:
+            self._dynamodb_table = self.dynamodb_client.Table(self.aws_dynamodb_table_id)
+        return self._dynamodb_table
 
     # use the boto3 library to initialize clients for the AWS services which we'll interact
     @property

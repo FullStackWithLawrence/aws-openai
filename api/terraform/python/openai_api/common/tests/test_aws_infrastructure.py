@@ -6,7 +6,6 @@
 # python stuff
 import json
 import os
-import socket
 import sys
 import unittest
 from pathlib import Path
@@ -14,11 +13,7 @@ from pathlib import Path
 # 3rd party stuff
 import boto3
 import hcl2
-from botocore.exceptions import ClientError
 from dotenv import load_dotenv
-
-
-# from unittest.mock import patch
 
 
 HERE = os.path.abspath(os.path.dirname(__file__))
@@ -29,6 +24,8 @@ TERRAFORM_TFVARS = os.path.join(TERRAFORM_ROOT, "terraform.tfvars")
 if PYTHON_ROOT not in sys.path:
     sys.path.append(PYTHON_ROOT)  # noqa: E402
 
+from openai_api.common.conf import settings  # noqa: E402
+
 # our stuff
 from openai_api.common.exceptions import OpenAIAPIConfigurationError  # noqa: E402
 
@@ -38,21 +35,20 @@ with open(TERRAFORM_TFVARS, "r", encoding="utf-8") as f:
 
 
 # pylint: disable=too-many-instance-attributes,too-many-public-methods
-class TestAWSInfrastructture(unittest.TestCase):
-    """Test AWS infrastructure."""
+class TestAWSInfrastructureBase(unittest.TestCase):
+    """Base class for AWS infrastructure tests."""
 
     _aws_session: boto3.Session = None
     _s3_client = None
     _dynamodb = None
     _api_client = None
     _domain = None
-
-    # Get the working directory of this script
-    here = os.path.dirname(os.path.abspath(__file__))
+    _domain_exists: bool = False
+    _create_custom_domain: bool = False
 
     def env_path(self, filename):
         """Return the path to the .env file."""
-        return os.path.join(self.here, filename)
+        return os.path.join(HERE, filename)
 
     def setUp(self):
         """Set up test fixtures."""
@@ -60,13 +56,8 @@ class TestAWSInfrastructture(unittest.TestCase):
         load_dotenv(env_path)
 
         # environment variables
-        self.aws_account_id = os.getenv(key="AWS_ACCOUNT_ID", default=TFVARS["aws_account_id"])
-        self.aws_region = os.getenv(key="AWS_REGION", default=TFVARS["aws_region"])
-        self.aws_profile = os.getenv(key="AWS_PROFILE", default=None)
-        self.create_custom_domain = self.get_create_custom_domain()
-        self.s3_bucket_name = (
-            os.getenv(key="S3_BUCKET_NAME") or self.aws_account_id + "-" + self.shared_resource_identifier
-        )
+        self.aws_region = TFVARS["aws_region"] if TFVARS["aws_region"] else settings.aws_region
+        self.aws_profile = TFVARS["aws_profile"] if TFVARS["aws_profile"] else settings.aws_profile
 
     @property
     def domain(self):
@@ -76,6 +67,7 @@ class TestAWSInfrastructture(unittest.TestCase):
                 self._domain = (
                     os.getenv(key="DOMAIN") or "api." + self.shared_resource_identifier + "." + self.root_domain
                 )
+                return self._domain
 
             response = self.api_client.get_rest_apis()
             for item in response["items"]:
@@ -132,14 +124,20 @@ class TestAWSInfrastructture(unittest.TestCase):
             self._api_client = self.aws_session.client("apigateway")
         return self._api_client
 
-    def get_create_custom_domain(self) -> bool:
+    @property
+    def create_custom_domain(self) -> bool:
         """Return the CREATE_CUSTOM_DOMAIN_NAME value."""
-        create_custom_domain = os.getenv(key="CREATE_CUSTOM_DOMAIN_NAME", default=TFVARS["create_custom_domain"])
-        if isinstance(create_custom_domain, bool):
-            return create_custom_domain
+        if self._create_custom_domain:
+            return self._create_custom_domain
 
-        if isinstance(create_custom_domain, str):
-            return create_custom_domain.lower() in ["true", "1", "yes"]
+        retval = os.getenv(key="CREATE_CUSTOM_DOMAIN_NAME", default=TFVARS["create_custom_domain"])
+        if isinstance(retval, bool):
+            self._create_custom_domain = retval
+            return self._create_custom_domain
+
+        if isinstance(retval, str):
+            self._create_custom_domain = retval.lower() in ["true", "1", "yes"]
+            return self._create_custom_domain
 
         return False
 
@@ -158,22 +156,28 @@ class TestAWSInfrastructture(unittest.TestCase):
 
     def domain_exists(self):
         """Test that the domain exists."""
-        try:
-            socket.gethostbyname(self.domain)
+        if self._domain_exists:
             return True
-        except socket.gaierror:
-            return False
+        if self.create_custom_domain:
+            response = self.api_client.get_domain_names()
+            for item in response["items"]:
+                if item.get("domainName") == self.domain:
+                    self._domain_exists = True
+                    break
+                if item.get("regionalDomainName") == self.domain:
+                    self._domain_exists = True
+                    break
+                if item.get("distributionDomainName") == self.domain:
+                    self._domain_exists = True
+                    break
+        else:
+            response = self.api_client.get_rest_apis()
+            for item in response["items"]:
+                constructed_url = f"{item['id']}.execute-api.{self.api_client.meta.region_name}.amazonaws.com"
+                if constructed_url in self.domain:
+                    self._domain_exists = True
 
-    def bucket_exists(self):
-        """Test that the S3 bucket exists."""
-        bucket_prefix = self.s3_bucket_name
-        try:
-            for bucket in self.s3_client.list_buckets()["Buckets"]:
-                if bucket["Name"].startswith(bucket_prefix):
-                    return True
-            return False
-        except ClientError:
-            return False
+        return self._domain_exists
 
     def dynamodb_table_exists(self, table_name):
         """Test that the DynamoDB table exists."""
@@ -226,6 +230,10 @@ class TestAWSInfrastructture(unittest.TestCase):
                 return item["value"]
         return False
 
+
+class TestAWSInfrastructure(TestAWSInfrastructureBase):
+    """Test AWS infrastructure."""
+
     # -------------------------------------------------------------------------
     # Tests
     # -------------------------------------------------------------------------
@@ -234,7 +242,7 @@ class TestAWSInfrastructture(unittest.TestCase):
         self.assertTrue(self.aws_connection_works(), "AWS connection failed.")
 
     def test_domain_exists(self):
-        """Test that settings handles missing .env values."""
+        """Test that domain name exists in API Gateway."""
         self.assertTrue(self.domain_exists(), f"Domain {self.domain} does not exist.")
 
     def test_api_exists(self):
@@ -243,7 +251,7 @@ class TestAWSInfrastructture(unittest.TestCase):
         self.assertIsInstance(api, dict, "API Gateway does not exist.")
 
     def test_api_resource_example_airportcodes_exists(self):
-        """Test that the API Gateway index resource exists."""
+        """Test that the API Gateway examples/default-airport-codes end point exists."""
         self.assertTrue(
             self.api_resource_and_method_exists("/examples/default-airport-codes", "POST"),
             "API Gateway /examples/default-airport-codes (POST) resource does not exist.",

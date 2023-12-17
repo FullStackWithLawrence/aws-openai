@@ -1,12 +1,8 @@
 # -*- coding: utf-8 -*-
 """Module exceptions.py"""
 
-import boto3
 import openai
 from openai_api.common.const import OpenAIResponseCodes
-
-
-rekognition_client = boto3.client("rekognition")
 
 
 class OpenAIAPIConfigurationError(Exception):

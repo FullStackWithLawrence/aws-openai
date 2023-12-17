@@ -1,0 +1,88 @@
+{
+  "retval": {
+    "isBase64Encoded": false,
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "FaceRecords": [
+        {
+          "Face": {
+            "FaceId": "5380e304-6277-4917-b142-28ea5b9fda92",
+            "BoundingBox": {
+              "Width": 0.3042494058609009,
+              "Height": 0.3667292892932892,
+              "Left": 0.3554891049861908,
+              "Top": 0.14954745769500732
+            },
+            "ImageId": "f43dcb18-d986-3bf0-9ad7-9594a0d2b0b1",
+            "ExternalImageId": "Keanu-Reeves.jpg",
+            "Confidence": 99.99665069580078,
+            "bucket": "090511222473-rekognition-f799c26b853b1d12e9092e66413f4492",
+            "key": "Keanu-Reeves.jpg",
+            "metadata": {}
+          },
+          "FaceDetail": {
+            "BoundingBox": {
+              "Width": 0.3042494058609009,
+              "Height": 0.3667292892932892,
+              "Left": 0.3554891049861908,
+              "Top": 0.14954745769500732
+            },
+            "Landmarks": [
+              {
+                "Type": "eyeLeft",
+                "X": 0.42929181456565857,
+                "Y": 0.2952737510204315
+              },
+              {
+                "Type": "eyeRight",
+                "X": 0.5751728415489197,
+                "Y": 0.2979973554611206
+              },
+              {
+                "Type": "mouthLeft",
+                "X": 0.43884900212287903,
+                "Y": 0.42845121026039124
+              },
+              {
+                "Type": "mouthRight",
+                "X": 0.5604308843612671,
+                "Y": 0.4306934177875519
+              },
+              {
+                "Type": "nose",
+                "X": 0.49955883622169495,
+                "Y": 0.3723195791244507
+              }
+            ],
+            "Pose": {
+              "Roll": 1.2589112520217896,
+              "Yaw": -0.8731585741043091,
+              "Pitch": -3.334439277648926
+            },
+            "Quality": {
+              "Brightness": 84.57774353027344,
+              "Sharpness": 98.9244613647461
+            },
+            "Confidence": 99.99665069580078
+          }
+        }
+      ],
+      "FaceModelVersion": "7.0",
+      "UnindexedFaces": [],
+      "ResponseMetadata": {
+        "RequestId": "a6f9231f-ad11-4f35-8adf-45bf7ae2c9c6",
+        "HTTPStatusCode": 200,
+        "HTTPHeaders": {
+          "x-amzn-requestid": "a6f9231f-ad11-4f35-8adf-45bf7ae2c9c6",
+          "content-type": "application/x-amz-json-1.1",
+          "content-length": "1036",
+          "date": "Wed, 13 Dec 2023 21:51:09 GMT"
+        },
+        "RetryAttempts": 0
+      }
+    }
+  }
+}

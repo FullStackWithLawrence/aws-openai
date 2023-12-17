@@ -1,0 +1,22 @@
+{
+  "environment": {
+    "openai_api_version": "0.7.0",
+    "os": "posix",
+    "system": "Darwin",
+    "release": "23.2.0",
+    "boto3": "1.34.0",
+    "AWS_APIGATEWAY_ROOT_DOMAIN_NAME": "lawrencemcdaniel.com",
+    "AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE": true,
+    "AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME": "api.openai.lawrencemcdaniel.com",
+    "AWS_REKOGNITION_COLLECTION_ID": "rekognition-collection",
+    "AWS_DYNAMODB_TABLE_ID": "rekognition",
+    "AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT": 10,
+    "AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES": "DEFAULT",
+    "AWS_REKOGNITION_QUALITY_FILTER": "AUTO",
+    "DEBUG_MODE": true,
+    "LANGCHAIN_MEMORY_KEY": "chat_history",
+    "OPENAI_ENDPOINT_IMAGE_N": 4,
+    "OPENAI_ENDPOINT_IMAGE_SIZE": "1024x768",
+    "SHARED_RESOURCE_IDENTIFIER": "openai"
+  }
+}

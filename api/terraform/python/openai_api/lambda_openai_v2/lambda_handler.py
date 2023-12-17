@@ -29,9 +29,8 @@ usage:
 """
 import openai
 from openai_api.common.conf import settings
-from openai_api.common.const import (
+from openai_api.common.const import (  # VALID_EMBEDDING_MODELS,
     VALID_CHAT_COMPLETION_MODELS,
-    VALID_EMBEDDING_MODELS,
     OpenAIObjectTypes,
     OpenAIResponseCodes,
 )
@@ -43,9 +42,8 @@ from openai_api.common.utils import (
     http_response_factory,
     parse_request,
 )
-from openai_api.common.validators import (
+from openai_api.common.validators import (  # validate_embedding_request,
     validate_completion_request,
-    validate_embedding_request,
     validate_item,
 )
 
@@ -67,6 +65,8 @@ def handler(event, context):
     try:
         openai_results = {}
         request_body = get_request_body(event=event)
+
+        # pylint: disable=unused-variable
         object_type, model, messages, input_text, temperature, max_tokens = parse_request(request_body)
         request_meta_data = {
             "request_meta_data": {
@@ -97,26 +97,30 @@ def handler(event, context):
 
             case OpenAIObjectTypes.Embedding:
                 # https://platform.openai.com/docs/guides/embeddings/embeddings
-                validate_item(
-                    item=model,
-                    valid_items=VALID_EMBEDDING_MODELS,
-                    item_type="Embedding models",
-                )
-                validate_embedding_request(request_body)
-                openai_results = openai.Embedding.create(input=input_text, model=model)
+                raise NotImplementedError("Refactoring of Embedding API v1 is in progress.")
+                # validate_item(
+                #     item=model,
+                #     valid_items=VALID_EMBEDDING_MODELS,
+                #     item_type="Embedding models",
+                # )
+                # validate_embedding_request(request_body)
+                # openai_results = openai.Embedding.create(input=input_text, model=model)
 
             case OpenAIObjectTypes.Image:
                 # https://platform.openai.com/docs/guides/images
-                n = request_body.get("n", settings.openai_endpoint_image_n)  # pylint: disable=invalid-name
-                size = request_body.get("size", settings.openai_endpoint_image_size)
-                return openai.Image.create(prompt=input_text, n=n, size=size)
+                raise NotImplementedError("Refactoring of Image API v1 is in progress.")
+                # n = request_body.get("n", settings.openai_endpoint_image_n)  # pylint: disable=invalid-name
+                # size = request_body.get("size", settings.openai_endpoint_image_size)
+                # return openai.Image.create(prompt=input_text, n=n, size=size)
 
             case OpenAIObjectTypes.Moderation:
                 # https://platform.openai.com/docs/guides/moderation
-                openai_results = openai.Moderation.create(input=input_text)
+                raise NotImplementedError("Refactoring of Moderation API v1 is in progress.")
+                # openai_results = openai.Moderation.create(input=input_text)
 
             case OpenAIObjectTypes.Models:
-                openai_results = openai.Model.retrieve(model) if model else openai.Model.list()
+                raise NotImplementedError("Refactoring of Models API v1 is in progress.")
+                # openai_results = openai.Model.retrieve(model) if model else openai.Model.list()
 
             case OpenAIObjectTypes.Audio:
                 raise NotImplementedError("Audio support is coming soon")

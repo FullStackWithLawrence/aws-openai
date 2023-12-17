@@ -118,6 +118,7 @@ class Settings(BaseSettings):
 
     _aws_session: boto3.Session = None
     _s3_client: boto3.client = None
+    _api_client: boto3.client = None
     _dynamodb_client: boto3.client = None
     _rekognition_client: boto3.client = None
     _dynamodb_table: boto3.resource = None
@@ -211,6 +212,13 @@ class Settings(BaseSettings):
             else:
                 self._aws_session = boto3.Session(region_name=self.aws_region)
         return self._aws_session
+
+    @property
+    def api_client(self):
+        """API Gateway client"""
+        if not self._api_client:
+            self._api_client = self.aws_session.client("apigateway")
+        return self._api_client
 
     @property
     def s3_client(self):

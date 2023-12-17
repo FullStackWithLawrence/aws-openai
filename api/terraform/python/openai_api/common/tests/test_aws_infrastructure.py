@@ -23,18 +23,12 @@ if PYTHON_ROOT not in sys.path:
 
 from openai_api.common.conf import settings  # noqa: E402
 
-# our stuff
-from openai_api.common.exceptions import OpenAIAPIConfigurationError  # noqa: E402
-
 
 # pylint: disable=too-many-instance-attributes,too-many-public-methods
 class TestAWSInfrastructureBase(unittest.TestCase):
     """Base class for AWS infrastructure tests."""
 
     _aws_session: boto3.Session = None
-    _s3_client = None
-    _dynamodb = None
-    _api_client = None
     _domain = None
     _domain_exists: bool = False
 
@@ -86,35 +80,22 @@ class TestAWSInfrastructureBase(unittest.TestCase):
     @property
     def aws_session(self) -> boto3.Session:
         """Return a new AWS session."""
-        if not self._aws_session:
-            if self.aws_profile:
-                self._aws_session = boto3.Session(profile_name=self.aws_profile, region_name=self.aws_region)
-            else:
-                self._aws_session = boto3.Session(region_name=self.aws_region)
-        if not self._aws_session:
-            raise OpenAIAPIConfigurationError("Could not create AWS session.")
-        return self._aws_session
+        return settings.aws_session
 
     @property
     def s3_client(self):
         """Return the S3 client."""
-        if not self._s3_client:
-            self._s3_client = self.aws_session.client("s3")
-        return self._s3_client
+        return settings.s3_client
 
     @property
     def dynamodb(self):
         """Return the DynamoDB client."""
-        if not self._dynamodb:
-            self._dynamodb = self.aws_session.client("dynamodb")
-        return self._dynamodb
+        return settings.dynamodb_client
 
     @property
     def api_client(self):
         """Return the API Gateway client."""
-        if not self._api_client:
-            self._api_client = self.aws_session.client("apigateway")
-        return self._api_client
+        return settings.api_client
 
     @property
     def create_custom_domain(self) -> bool:

@@ -232,9 +232,13 @@ class TestConfiguration(unittest.TestCase):
         self.assertIn("AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT", environment)
         self.assertIn("AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES", environment)
         self.assertIn("AWS_REKOGNITION_QUALITY_FILTER", environment)
+        self.assertIn("AWS_APIGATEWAY_ROOT_DOMAIN_NAME", environment)
+        self.assertIn("AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME", environment)
+        self.assertIn("AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE", environment)
         self.assertIn("LANGCHAIN_MEMORY_KEY", environment)
         self.assertIn("OPENAI_ENDPOINT_IMAGE_N", environment)
         self.assertIn("OPENAI_ENDPOINT_IMAGE_SIZE", environment)
+        self.assertIn("SHARED_RESOURCE_IDENTIFIER", environment)
 
     def test_cloudwatch_values(self):
         """Test that cloudwatch_dump contains the expected default values."""
@@ -243,6 +247,13 @@ class TestConfiguration(unittest.TestCase):
         environment = mock_settings.cloudwatch_dump["environment"]
 
         self.assertEqual(environment["DEBUG_MODE"], mock_settings.debug_mode)
+        self.assertEqual(
+            environment["AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE"],
+            mock_settings.aws_apigateway_custom_domain_name_create,
+        )
+        self.assertEqual(
+            environment["AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME"], mock_settings.aws_apigateway_custom_domain_name
+        )
         self.assertEqual(environment["AWS_REKOGNITION_COLLECTION_ID"], mock_settings.aws_rekognition_collection_id)
         self.assertEqual(environment["AWS_DYNAMODB_TABLE_ID"], mock_settings.aws_dynamodb_table_id)
         self.assertEqual(

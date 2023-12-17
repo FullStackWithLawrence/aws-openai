@@ -155,7 +155,7 @@ class TestAWSInfrastructureBase(unittest.TestCase):
             return False
 
     def domain_exists(self):
-        """Test that the domain exists."""
+        """Test that the domain exists in API Gateway."""
         if self._domain_exists:
             return True
         if self.create_custom_domain:

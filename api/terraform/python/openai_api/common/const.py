@@ -4,6 +4,7 @@
 import os
 from pathlib import Path
 
+import hcl2
 import openai
 
 
@@ -13,6 +14,9 @@ PROJECT_ROOT = str(Path(HERE).parent)
 PYTHON_ROOT = str(Path(PROJECT_ROOT).parent)
 TERRAFORM_ROOT = str(Path(PROJECT_ROOT).parent.parent)
 TERRAFORM_TFVARS = os.path.join(TERRAFORM_ROOT, "terraform.tfvars")
+
+with open(TERRAFORM_TFVARS, "r", encoding="utf-8") as f:
+    TFVARS = hcl2.load(f)
 
 
 # pylint: disable=too-few-public-methods

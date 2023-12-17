@@ -17,7 +17,7 @@ import re
 from typing import Dict, List, Optional
 
 import boto3  # AWS SDK for Python https://boto3.amazonaws.com/v1/documentation/api/latest/index.html
-from openai_api.common.const import PROJECT_ROOT
+from openai_api.common.const import PROJECT_ROOT, TFVARS
 from openai_api.common.exceptions import (
     OpenAIAPIConfigurationError,
     OpenAIAPIValueError,
@@ -67,21 +67,24 @@ def get_semantic_version() -> str:
 class SettingsDefaults:
     """Default values for Settings"""
 
-    DEBUG_MODE = False
-    AWS_PROFILE = None
-    AWS_REGION = "us-east-1"
+    DEBUG_MODE = TFVARS["debug_mode"]
+    AWS_PROFILE = TFVARS["aws_profile"]
+    AWS_REGION = TFVARS["aws_region"]
     AWS_DYNAMODB_TABLE_ID = "rekognition"
     AWS_REKOGNITION_COLLECTION_ID = AWS_DYNAMODB_TABLE_ID + "-collection"
     AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT = 10
     AWS_REKOGNITION_FACE_DETECT_THRESHOLD = 10
     AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES = "DEFAULT"
     AWS_REKOGNITION_FACE_DETECT_QUALITY_FILTER = "AUTO"
+    AWS_APIGATEWAY_ROOT_DOMAIN_NAME = TFVARS["root_domain"]
+    AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE: bool = TFVARS["create_custom_domain"]
     LANGCHAIN_MEMORY_KEY = "chat_history"
     OPENAI_API_ORGANIZATION = None
     OPENAI_API_KEY = None
     OPENAI_ENDPOINT_IMAGE_N = 4
     OPENAI_ENDPOINT_IMAGE_SIZE = "1024x768"
     PINECONE_API_KEY = None
+    SHARED_RESOURCE_IDENTIFIER = TFVARS["shared_resource_identifier"]
 
 
 ec2 = boto3.Session().client("ec2")
@@ -127,6 +130,19 @@ class Settings(BaseSettings):
         SettingsDefaults.AWS_REGION,
         env="AWS_REGION",
     )
+    aws_apigateway_custom_domain_name_create: Optional[bool] = Field(
+        SettingsDefaults.AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE,
+        env="AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE",
+        pre=True,
+        getter=lambda v: empty_str_to_bool_default(v, SettingsDefaults.AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE),
+    )
+    aws_apigateway_root_domain: Optional[str] = Field(
+        SettingsDefaults.AWS_APIGATEWAY_ROOT_DOMAIN_NAME, env="AWS_APIGATEWAY_ROOT_DOMAIN_NAME"
+    )
+    aws_apigateway_custom_domain_name: Optional[str] = Field(
+        "api." + SettingsDefaults.SHARED_RESOURCE_IDENTIFIER + "." + SettingsDefaults.AWS_APIGATEWAY_ROOT_DOMAIN_NAME,
+        env="AWS_APIGATEWAY_ROOT_DOMAIN_NAME",
+    )
     aws_dynamodb_table_id: Optional[str] = Field(
         SettingsDefaults.AWS_DYNAMODB_TABLE_ID,
         env="AWS_DYNAMODB_TABLE_ID",
@@ -170,6 +186,9 @@ class Settings(BaseSettings):
         SettingsDefaults.OPENAI_ENDPOINT_IMAGE_SIZE, env="OPENAI_ENDPOINT_IMAGE_SIZE"
     )
     pinecone_api_key: Optional[str] = Field(SettingsDefaults.PINECONE_API_KEY, env="PINECONE_API_KEY")
+    shared_resource_identifier: Optional[str] = Field(
+        SettingsDefaults.SHARED_RESOURCE_IDENTIFIER, env="SHARED_RESOURCE_IDENTIFIER"
+    )
 
     @property
     def openai_api_version(self) -> str:
@@ -217,6 +236,9 @@ class Settings(BaseSettings):
                 "system": platform.system(),
                 "release": platform.release(),
                 "boto3": boto3.__version__,
+                "AWS_APIGATEWAY_ROOT_DOMAIN_NAME": self.aws_apigateway_root_domain,
+                "AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE": self.aws_apigateway_custom_domain_name_create,
+                "AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME": self.aws_apigateway_custom_domain_name,
                 "AWS_REKOGNITION_COLLECTION_ID": self.aws_rekognition_collection_id,
                 "AWS_DYNAMODB_TABLE_ID": self.aws_dynamodb_table_id,
                 "AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT": self.aws_rekognition_face_detect_max_faces_count,
@@ -226,6 +248,7 @@ class Settings(BaseSettings):
                 "LANGCHAIN_MEMORY_KEY": self.langchain_memory_key,
                 "OPENAI_ENDPOINT_IMAGE_N": self.openai_endpoint_image_n,
                 "OPENAI_ENDPOINT_IMAGE_SIZE": self.openai_endpoint_image_size,
+                "SHARED_RESOURCE_IDENTIFIER": self.shared_resource_identifier,
             }
         }
 
@@ -251,6 +274,37 @@ class Settings(BaseSettings):
             return SettingsDefaults.AWS_REGION
         if "aws_regions" in values and v not in values["aws_regions"]:
             raise OpenAIAPIValueError(f"aws_region {v} not in aws_regions")
+        return v
+
+    @validator("aws_apigateway_root_domain", pre=True)
+    def validate_aws_apigateway_root_domain(cls, v):
+        """Validate aws_apigateway_root_domain"""
+        if v in [None, ""]:
+            return SettingsDefaults.AWS_APIGATEWAY_ROOT_DOMAIN_NAME
+        return v
+
+    @validator("aws_apigateway_custom_domain_name", pre=True)
+    def validate_aws_apigateway_custom_domain_name(cls, v):
+        """Validate aws_apigateway_custom_domain_name"""
+        if v in [None, ""]:
+            return SettingsDefaults.AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE
+        pattern = r"^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$"
+        if not re.match(pattern, v):
+            raise ValueError("Invalid domain name")
+        return v
+
+    @validator("aws_apigateway_custom_domain_name", pre=True)
+    def validate_aws_apigateway_custom_domain_name_create(cls, v):
+        """Validate aws_apigateway_custom_domain_name_create"""
+        if v in [None, ""]:
+            return SettingsDefaults.AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE
+        return v
+
+    @validator("shared_resource_identifier", pre=True)
+    def validate_shared_resource_identifier(cls, v):
+        """Validate shared_resource_identifier"""
+        if v in [None, ""]:
+            return SettingsDefaults.SHARED_RESOURCE_IDENTIFIER
         return v
 
     @validator("aws_dynamodb_table_id", pre=True)
@@ -362,6 +416,9 @@ except ValidationError as e:
 logger = logging.getLogger(__name__)
 logger.debug("DEBUG_MODE: %s", settings.debug_mode)
 logger.debug("AWS_REGION: %s", settings.aws_region)
+logger.debug("AWS_APIGATEWAY_ROOT_DOMAIN_NAME: %s", settings.aws_apigateway_root_domain)
+logger.debug("AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE: %s", settings.aws_apigateway_custom_domain_name_create)
+logger.debug("AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME: %s", settings.aws_apigateway_custom_domain_name)
 logger.debug("AWS_DYNAMODB_TABLE_ID: %s", settings.aws_dynamodb_table_id)
 logger.debug("AWS_REKOGNITION_COLLECTION_ID: %s", settings.aws_rekognition_collection_id)
 logger.debug("AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT: %s", settings.aws_rekognition_face_detect_max_faces_count)
@@ -371,3 +428,4 @@ logger.debug("AWS_REKOGNITION_FACE_DETECT_THRESHOLD: %s", settings.aws_rekogniti
 logger.debug("LANGCHAIN_MEMORY_KEY: %s", settings.langchain_memory_key)
 logger.debug("OPENAI_ENDPOINT_IMAGE_N: %s", settings.openai_endpoint_image_n)
 logger.debug("OPENAI_ENDPOINT_IMAGE_SIZE: %s", settings.openai_endpoint_image_size)
+logger.debug("SHARED_RESOURCE_IDENTIFIER: %s", settings.shared_resource_identifier)

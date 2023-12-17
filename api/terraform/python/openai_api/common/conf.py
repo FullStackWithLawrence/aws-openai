@@ -26,6 +26,10 @@ from pydantic import Field, ValidationError, validator
 from pydantic_settings import BaseSettings
 
 
+ec2 = boto3.Session().client("ec2")
+regions = ec2.describe_regions()
+
+
 def load_version() -> Dict[str, str]:
     """Stringify the __version__ module."""
     version_file_path = os.path.join(PROJECT_ROOT, "__version__.py")
@@ -61,8 +65,6 @@ def get_semantic_version() -> str:
     return re.sub(r"-next-major\.\d+", "", version)
 
 
-# Default values
-# -----------------------------------------------------------------------------
 # pylint: disable=too-few-public-methods
 class SettingsDefaults:
     """Default values for Settings"""
@@ -85,11 +87,8 @@ class SettingsDefaults:
     OPENAI_ENDPOINT_IMAGE_SIZE = "1024x768"
     PINECONE_API_KEY = None
     SHARED_RESOURCE_IDENTIFIER = TFVARS["shared_resource_identifier"]
-
-
-ec2 = boto3.Session().client("ec2")
-regions = ec2.describe_regions()
-AWS_REGIONS = [region["RegionName"] for region in regions["Regions"]]
+    VALID_DOMAIN_PATTERN = r"^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$"
+    VALID_AWS_REGIONS = [region["RegionName"] for region in regions["Regions"]]
 
 
 def empty_str_to_bool_default(v: str, default: bool) -> bool:
@@ -125,7 +124,7 @@ class Settings(BaseSettings):
         SettingsDefaults.AWS_PROFILE,
         env="AWS_PROFILE",
     )
-    aws_regions: Optional[List[str]] = Field(AWS_REGIONS, description="The list of AWS regions")
+    aws_regions: Optional[List[str]] = Field(SettingsDefaults.VALID_AWS_REGIONS, description="The list of AWS regions")
     aws_region: Optional[str] = Field(
         SettingsDefaults.AWS_REGION,
         env="AWS_REGION",
@@ -141,7 +140,7 @@ class Settings(BaseSettings):
     )
     aws_apigateway_custom_domain_name: Optional[str] = Field(
         "api." + SettingsDefaults.SHARED_RESOURCE_IDENTIFIER + "." + SettingsDefaults.AWS_APIGATEWAY_ROOT_DOMAIN_NAME,
-        env="AWS_APIGATEWAY_ROOT_DOMAIN_NAME",
+        env="AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME",
     )
     aws_dynamodb_table_id: Optional[str] = Field(
         SettingsDefaults.AWS_DYNAMODB_TABLE_ID,
@@ -280,17 +279,18 @@ class Settings(BaseSettings):
     def validate_aws_apigateway_root_domain(cls, v):
         """Validate aws_apigateway_root_domain"""
         if v in [None, ""]:
-            return SettingsDefaults.AWS_APIGATEWAY_ROOT_DOMAIN_NAME
+            v = SettingsDefaults.AWS_APIGATEWAY_ROOT_DOMAIN_NAME
+        if not re.match(SettingsDefaults.VALID_DOMAIN_PATTERN, v):
+            raise OpenAIAPIValueError("Invalid root domain name")
         return v
 
     @validator("aws_apigateway_custom_domain_name", pre=True)
     def validate_aws_apigateway_custom_domain_name(cls, v):
         """Validate aws_apigateway_custom_domain_name"""
         if v in [None, ""]:
-            return SettingsDefaults.AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE
-        pattern = r"^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$"
-        if not re.match(pattern, v):
-            raise ValueError("Invalid domain name")
+            v = SettingsDefaults.AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE
+        if not re.match(SettingsDefaults.VALID_DOMAIN_PATTERN, v):
+            raise OpenAIAPIValueError("Invalid custom domain name")
         return v
 
     @validator("aws_apigateway_custom_domain_name", pre=True)

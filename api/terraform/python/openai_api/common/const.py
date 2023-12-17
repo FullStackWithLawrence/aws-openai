@@ -2,13 +2,17 @@
 # pylint: disable=E1101
 """A module containing constants for the OpenAI API."""
 import os
+from pathlib import Path
 
 import openai
 
 
 MODULE_NAME = "openai_api"
 HERE = os.path.abspath(os.path.dirname(__file__))
-PROJECT_ROOT = os.path.abspath(os.path.join(HERE, MODULE_NAME))
+PROJECT_ROOT = str(Path(HERE).parent)
+PYTHON_ROOT = str(Path(PROJECT_ROOT).parent)
+TERRAFORM_ROOT = str(Path(PROJECT_ROOT).parent.parent)
+TERRAFORM_TFVARS = os.path.join(TERRAFORM_ROOT, "terraform.tfvars")
 
 
 # pylint: disable=too-few-public-methods

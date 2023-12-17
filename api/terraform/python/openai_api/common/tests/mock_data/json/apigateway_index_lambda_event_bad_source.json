@@ -1,0 +1,40 @@
+{
+  "event": {
+    "Records": [
+      {
+        "eventVersion": "2.1",
+        "eventSource": "WRONG-SOURCE",
+        "awsRegion": "us-east-1",
+        "eventTime": "2023-12-13T20:52:38.891Z",
+        "eventName": "ObjectCreated:Put",
+        "userIdentity": {
+          "principalId": "AWS:AROARKEXDU3E64TIYPAYH:BackplaneAssumeRoleSession"
+        },
+        "requestParameters": {
+          "sourceIPAddress": "44.210.64.80"
+        },
+        "responseElements": {
+          "x-amz-request-id": "16JS14Q4XNDTHWK4",
+          "x-amz-id-2": "bXS5u99NXOxDsV5FouyQWv1QKWbYI2rb3pMyDTnXDYla00IT8jxPK7+VDKDu1bkbxC+XoW4kbMMjAPIxQmMnmR37+Tvh3D/9"
+        },
+        "s3": {
+          "s3SchemaVersion": "1.0",
+          "configurationId": "tf-s3-lambda-20231213140006617000000009",
+          "bucket": {
+            "name": "090511222473-rekognition-f799c26b853b1d12e9092e66413f4492",
+            "ownerIdentity": {
+              "principalId": "A3NTRY8BU6N8RZ"
+            },
+            "arn": "arn:aws:s3:::090511222473-rekognition-f799c26b853b1d12e9092e66413f4492"
+          },
+          "object": {
+            "key": "Keanu-Reeves.jpg",
+            "size": 879589,
+            "eTag": "c9230f7b3889b61da34a4e0057ccb6d8",
+            "sequencer": "00657A1996C279C087"
+          }
+        }
+      }
+    ]
+  }
+}

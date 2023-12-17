@@ -1,0 +1,162 @@
+{
+  "FaceRecords": [
+    {
+      "Face": {
+        "FaceId": "string",
+        "BoundingBox": {
+          "Width": "some data",
+          "Height": "some data",
+          "Left": "some data",
+          "Top": "some data"
+        },
+        "ImageId": "string",
+        "ExternalImageId": "string",
+        "Confidence": "some data",
+        "IndexFacesModelVersion": "string"
+      },
+      "FaceDetail": {
+        "BoundingBox": {
+          "Width": "some data",
+          "Height": "some data",
+          "Left": "some data",
+          "Top": "some data"
+        },
+        "AgeRange": {
+          "Low": 123,
+          "High": 123
+        },
+        "Smile": {
+          "Value": true,
+          "Confidence": "some data"
+        },
+        "Eyeglasses": {
+          "Value": true,
+          "Confidence": "some data"
+        },
+        "Sunglasses": {
+          "Value": true,
+          "Confidence": "some data"
+        },
+        "Gender": {
+          "Value": "Male|Female",
+          "Confidence": "some data"
+        },
+        "Beard": {
+          "Value": true,
+          "Confidence": "some data"
+        },
+        "Mustache": {
+          "Value": true,
+          "Confidence": "some data"
+        },
+        "EyesOpen": {
+          "Value": true,
+          "Confidence": "some data"
+        },
+        "MouthOpen": {
+          "Value": true,
+          "Confidence": "some data"
+        },
+        "Emotions": [
+          {
+            "Type": "HAPPY, SAD, ANGRY, CONFUSED, DISGUSTED, SURPRISED, CALM, UNKNOWN, FEAR",
+            "Confidence": "some data"
+          }
+        ],
+        "Landmarks": [
+          {
+            "Type": "eyeLeft, eyeRight, nose, mouthLeft, mouthRight, leftEyeBrowLeft, leftEyeBrowRight, leftEyeBrowUp, rightEyeBrowLeft, rightEyeBrowRight, rightEyeBrowUp, leftEyeLeft, leftEyeRight, leftEyeUp, leftEyeDown, rightEyeLeft, rightEyeRight, rightEyeUp, rightEyeDown, noseLeft, noseRight, mouthUp, mouthDown, leftPupil, rightPupil, upperJawlineLeft, midJawlineLeft, chinBottom, midJawlineRight, upperJawlineRight",
+            "X": "some data",
+            "Y": "some data"
+          }
+        ],
+        "Pose": {
+          "Roll": "some data",
+          "Yaw": "some data",
+          "Pitch": "some data"
+        },
+        "Quality": {
+          "Brightness": "some data",
+          "Sharpness": "some data"
+        },
+        "Confidence": "some data"
+      }
+    }
+  ],
+  "OrientationCorrection": "ROTATE_0, ROTATE_90, ROTATE_180, ROTATE_270",
+  "FaceModelVersion": "string",
+  "UnindexedFaces": [
+    {
+      "Reasons": [
+        "EXCEEDS_MAX_FACES, EXTREME_POSE, LOW_BRIGHTNESS, LOW_SHARPNESS, LOW_CONFIDENCE, SMALL_BOUNDING_BOX, LOW_FACE_QUALITY"
+      ],
+      "FaceDetail": {
+        "BoundingBox": {
+          "Width": "some data",
+          "Height": "some data",
+          "Left": "some data",
+          "Top": "some data"
+        },
+        "AgeRange": {
+          "Low": 123,
+          "High": 123
+        },
+        "Smile": {
+          "Value": true,
+          "Confidence": "some data"
+        },
+        "Eyeglasses": {
+          "Value": true,
+          "Confidence": "some data"
+        },
+        "Sunglasses": {
+          "Value": true,
+          "Confidence": "some data"
+        },
+        "Gender": {
+          "Value": "Male, Female",
+          "Confidence": "some data"
+        },
+        "Beard": {
+          "Value": true,
+          "Confidence": "some data"
+        },
+        "Mustache": {
+          "Value": true,
+          "Confidence": "some data"
+        },
+        "EyesOpen": {
+          "Value": true,
+          "Confidence": "some data"
+        },
+        "MouthOpen": {
+          "Value": true,
+          "Confidence": "some data"
+        },
+        "Emotions": [
+          {
+            "Type": "HAPPY, SAD, ANGRY, CONFUSED, DISGUSTED, SURPRISED, CALM, UNKNOWN, FEAR",
+            "Confidence": "some data"
+          }
+        ],
+        "Landmarks": [
+          {
+            "Type": "eyeLeft, eyeRight, nose, mouthLeft, mouthRight, leftEyeBrowLeft, leftEyeBrowRight, leftEyeBrowUp, rightEyeBrowLeft, rightEyeBrowRight, rightEyeBrowUp, leftEyeLeft, leftEyeRight, leftEyeUp, leftEyeDown, rightEyeLeft, rightEyeRight, rightEyeUp, rightEyeDown, noseLeft, noseRight, mouthUp, mouthDown, leftPupil, rightPupil, upperJawlineLeft, midJawlineLeft, chinBottom, midJawlineRight, upperJawlineRight",
+            "X": "some data",
+            "Y": "some data"
+          }
+        ],
+        "Pose": {
+          "Roll": "some data",
+          "Yaw": "some data",
+          "Pitch": "some data"
+        },
+        "Quality": {
+          "Brightness": "some data",
+          "Sharpness": "some data"
+        },
+        "Confidence": "some data"
+      }
+    }
+  ]
+}

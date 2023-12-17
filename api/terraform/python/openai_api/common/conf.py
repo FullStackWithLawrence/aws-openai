@@ -9,7 +9,6 @@ library to validate the configuration values. The configuration values are read 
 environment variables, or alternatively these can be set when instantiating Settings().
 """
 
-# python stuff
 import importlib.util
 import logging
 import os  # library for interacting with the operating system
@@ -141,18 +140,18 @@ class Settings(BaseSettings):
         SettingsDefaults.AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES,
         env="AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES",
     )
-    aws_rekognition_face_detect_attributes: Optional[str] = Field(
+    aws_rekognition_face_detect_quality_filter: Optional[str] = Field(
         SettingsDefaults.AWS_REKOGNITION_FACE_DETECT_QUALITY_FILTER,
         env="AWS_REKOGNITION_FACE_DETECT_QUALITY_FILTER",
     )
-    aws_rekognition_face_detect_attributes: Optional[int] = Field(
+    aws_rekognition_face_detect_max_faces_count: Optional[int] = Field(
         SettingsDefaults.AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT,
         gt=0,
         env="AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT",
         pre=True,
         getter=lambda v: empty_str_to_int_default(v, SettingsDefaults.AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT),
     )
-    aws_rekognition_face_detect_attributes: Optional[int] = Field(
+    aws_rekognition_face_detect_threshold: Optional[int] = Field(
         SettingsDefaults.AWS_REKOGNITION_FACE_DETECT_THRESHOLD,
         gt=0,
         env="AWS_REKOGNITION_FACE_DETECT_THRESHOLD",
@@ -164,7 +163,7 @@ class Settings(BaseSettings):
         SettingsDefaults.OPENAI_API_ORGANIZATION, env="OPENAI_API_ORGANIZATION"
     )
     openai_api_key: Optional[str] = Field(SettingsDefaults.OPENAI_API_KEY, env="OPENAI_API_KEY")
-    openai_endpoint_image_n: Optional[str] = Field(
+    openai_endpoint_image_n: Optional[int] = Field(
         SettingsDefaults.OPENAI_ENDPOINT_IMAGE_N, env="OPENAI_ENDPOINT_IMAGE_N"
     )
     openai_endpoint_image_size: Optional[str] = Field(
@@ -220,9 +219,9 @@ class Settings(BaseSettings):
                 "boto3": boto3.__version__,
                 "AWS_REKOGNITION_COLLECTION_ID": self.aws_rekognition_collection_id,
                 "AWS_DYNAMODB_TABLE_ID": self.aws_dynamodb_table_id,
-                "AWS_REKOGNITION_MAX_FACES": self.aws_rekognition_face_detect_attributes,
+                "AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT": self.aws_rekognition_face_detect_max_faces_count,
                 "AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES": self.aws_rekognition_face_detect_attributes,
-                "AWS_REKOGNITION_QUALITY_FILTER": self.aws_rekognition_face_detect_attributes,
+                "AWS_REKOGNITION_QUALITY_FILTER": self.aws_rekognition_face_detect_quality_filter,
                 "DEBUG_MODE": self.debug_mode,
             }
         }
@@ -281,21 +280,28 @@ class Settings(BaseSettings):
             return SettingsDefaults.DEBUG_MODE
         return v.lower() in ["true", "1", "t", "y", "yes"]
 
-    @validator("aws_rekognition_face_detect_attributes", pre=True)
+    @validator("aws_rekognition_face_detect_max_faces_count", pre=True)
     def check_face_detect_max_faces_count(cls, v):
-        """Check aws_rekognition_face_detect_attributes"""
+        """Check aws_rekognition_face_detect_max_faces_count"""
         if v in [None, ""]:
             return SettingsDefaults.AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT
         return int(v)
 
-    @validator("aws_rekognition_face_detect_attributes", pre=True)
+    @validator("aws_rekognition_face_detect_threshold", pre=True)
     def check_face_detect_threshold(cls, v):
-        """Check aws_rekognition_face_detect_attributes"""
+        """Check aws_rekognition_face_detect_threshold"""
         if isinstance(v, int):
             return v
         if v in [None, ""]:
             return SettingsDefaults.AWS_REKOGNITION_FACE_DETECT_THRESHOLD
         return int(v)
+
+    @validator("aws_rekognition_face_detect_quality_filter", pre=True)
+    def check_face_detect_quality_filter(cls, v):
+        """Check aws_rekognition_face_detect_quality_filter"""
+        if v in [None, ""]:
+            return SettingsDefaults.AWS_REKOGNITION_FACE_DETECT_QUALITY_FILTER
+        return v
 
     @validator("langchain_memory_key", pre=True)
     def check_langchain_memory_key(cls, v):
@@ -304,25 +310,21 @@ class Settings(BaseSettings):
             return v
         if v in [None, ""]:
             return SettingsDefaults.LANGCHAIN_MEMORY_KEY
-        return int(v)
+        return v
 
     @validator("openai_api_organization", pre=True)
     def check_openai_api_organization(cls, v):
         """Check openai_api_organization"""
-        if isinstance(v, int):
-            return v
         if v in [None, ""]:
             return SettingsDefaults.OPENAI_API_ORGANIZATION
-        return int(v)
+        return v
 
     @validator("openai_api_key", pre=True)
     def check_openai_api_key(cls, v):
         """Check openai_api_key"""
-        if isinstance(v, int):
-            return v
         if v in [None, ""]:
             return SettingsDefaults.OPENAI_API_KEY
-        return int(v)
+        return v
 
     @validator("openai_endpoint_image_n", pre=True)
     def check_openai_endpoint_image_n(cls, v):
@@ -336,20 +338,16 @@ class Settings(BaseSettings):
     @validator("openai_endpoint_image_size", pre=True)
     def check_openai_endpoint_image_size(cls, v):
         """Check openai_endpoint_image_size"""
-        if isinstance(v, int):
-            return v
         if v in [None, ""]:
             return SettingsDefaults.OPENAI_ENDPOINT_IMAGE_SIZE
-        return int(v)
+        return v
 
     @validator("pinecone_api_key", pre=True)
     def check_pinecone_api_key(cls, v):
         """Check pinecone_api_key"""
-        if isinstance(v, int):
-            return v
         if v in [None, ""]:
             return SettingsDefaults.PINECONE_API_KEY
-        return int(v)
+        return v
 
 
 settings = None
@@ -363,10 +361,10 @@ logger.debug("DEBUG_MODE: %s", settings.debug_mode)
 logger.debug("AWS_REGION: %s", settings.aws_region)
 logger.debug("AWS_DYNAMODB_TABLE_ID: %s", settings.aws_dynamodb_table_id)
 logger.debug("AWS_REKOGNITION_COLLECTION_ID: %s", settings.aws_rekognition_collection_id)
-logger.debug("AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT: %s", settings.aws_rekognition_face_detect_attributes)
+logger.debug("AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT: %s", settings.aws_rekognition_face_detect_max_faces_count)
 logger.debug("AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES: %s", settings.aws_rekognition_face_detect_attributes)
-logger.debug("AWS_REKOGNITION_FACE_DETECT_QUALITY_FILTER: %s", settings.aws_rekognition_face_detect_attributes)
-logger.debug("AWS_REKOGNITION_FACE_DETECT_THRESHOLD: %s", settings.aws_rekognition_face_detect_attributes)
+logger.debug("AWS_REKOGNITION_FACE_DETECT_QUALITY_FILTER: %s", settings.aws_rekognition_face_detect_quality_filter)
+logger.debug("AWS_REKOGNITION_FACE_DETECT_THRESHOLD: %s", settings.aws_rekognition_face_detect_threshold)
 logger.debug("LANGCHAIN_MEMORY_KEY: %s", settings.langchain_memory_key)
 logger.debug("OPENAI_API_ORGANIZATION: %s", settings.openai_api_organization)
 logger.debug("OPENAI_API_KEY: %s", settings.openai_api_key)

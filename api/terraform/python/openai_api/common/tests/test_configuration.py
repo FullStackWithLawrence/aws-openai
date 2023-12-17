@@ -220,52 +220,73 @@ class TestConfiguration(unittest.TestCase):
     def test_cloudwatch_dump_keys(self):
         """Test that cloudwatch_dump contains the expected keys."""
 
-        environment = Settings().cloudwatch_dump["environment"]
-        self.assertIn("DEBUG_MODE", environment)
-        self.assertIn("openai_api_version", environment)
+        mock_settings = Settings()
+        environment = mock_settings.cloudwatch_dump["environment"]
+        self.assertIn("DEBUG_MODE".lower(), environment)
         self.assertIn("os", environment)
         self.assertIn("system", environment)
         self.assertIn("release", environment)
         self.assertIn("boto3", environment)
-        self.assertIn("AWS_REKOGNITION_COLLECTION_ID", environment)
-        self.assertIn("AWS_DYNAMODB_TABLE_ID", environment)
-        self.assertIn("AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT", environment)
-        self.assertIn("AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES", environment)
-        self.assertIn("AWS_REKOGNITION_QUALITY_FILTER", environment)
-        self.assertIn("AWS_APIGATEWAY_ROOT_DOMAIN_NAME", environment)
-        self.assertIn("AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME", environment)
-        self.assertIn("AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE", environment)
-        self.assertIn("LANGCHAIN_MEMORY_KEY", environment)
-        self.assertIn("OPENAI_ENDPOINT_IMAGE_N", environment)
-        self.assertIn("OPENAI_ENDPOINT_IMAGE_SIZE", environment)
-        self.assertIn("SHARED_RESOURCE_IDENTIFIER", environment)
+        self.assertIn("SHARED_RESOURCE_IDENTIFIER".lower(), environment)
+        self.assertIn("openai_api_version", environment)
+
+        aws_api_gateway = mock_settings.cloudwatch_dump["aws_api_gateway"]
+        self.assertIn("AWS_APIGATEWAY_ROOT_DOMAIN".lower(), aws_api_gateway)
+        self.assertIn("AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME".lower(), aws_api_gateway)
+        self.assertIn("AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE".lower(), aws_api_gateway)
+
+        openai_api = mock_settings.cloudwatch_dump["openai_api"]
+        self.assertIn("LANGCHAIN_MEMORY_KEY".lower(), openai_api)
+        self.assertIn("OPENAI_ENDPOINT_IMAGE_N".lower(), openai_api)
+        self.assertIn("OPENAI_ENDPOINT_IMAGE_SIZE".lower(), openai_api)
+
+        if mock_settings.is_using_aws_rekognition:
+            aws_rekognition = mock_settings.cloudwatch_dump["aws_rekognition"]
+            self.assertIn("AWS_REKOGNITION_COLLECTION_ID".lower(), aws_rekognition)
+            self.assertIn("AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT".lower(), aws_rekognition)
+            self.assertIn("AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES".lower(), aws_rekognition)
+            self.assertIn("AWS_REKOGNITION_QUALITY_FILTER".lower(), aws_rekognition)
+
+        if mock_settings.is_using_aws_dynamodb:
+            aws_dynamodb = mock_settings.cloudwatch_dump["aws_dynamodb"]
+            self.assertIn("AWS_DYNAMODB_TABLE_ID".lower(), aws_dynamodb)
 
     def test_cloudwatch_values(self):
         """Test that cloudwatch_dump contains the expected default values."""
 
         mock_settings = Settings()
         environment = mock_settings.cloudwatch_dump["environment"]
+        aws_api_gateway = mock_settings.cloudwatch_dump["aws_api_gateway"]
+        openai_api = mock_settings.cloudwatch_dump["openai_api"]
 
-        self.assertEqual(environment["DEBUG_MODE"], mock_settings.debug_mode)
+        self.assertEqual(environment["DEBUG_MODE".lower()], mock_settings.debug_mode)
         self.assertEqual(
-            environment["AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE"],
+            aws_api_gateway["AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE".lower()],
             mock_settings.aws_apigateway_custom_domain_name_create,
         )
         self.assertEqual(
-            environment["AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME"], mock_settings.aws_apigateway_custom_domain_name
+            aws_api_gateway["AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME".lower()],
+            mock_settings.aws_apigateway_custom_domain_name,
         )
-        self.assertEqual(environment["AWS_REKOGNITION_COLLECTION_ID"], mock_settings.aws_rekognition_collection_id)
-        self.assertEqual(environment["AWS_DYNAMODB_TABLE_ID"], mock_settings.aws_dynamodb_table_id)
-        self.assertEqual(
-            environment["AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT"],
-            mock_settings.aws_rekognition_face_detect_max_faces_count,
-        )
-        self.assertEqual(
-            environment["AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES"], mock_settings.aws_rekognition_face_detect_attributes
-        )
-        self.assertEqual(
-            environment["AWS_REKOGNITION_QUALITY_FILTER"], mock_settings.aws_rekognition_face_detect_quality_filter
-        )
-        self.assertEqual(environment["LANGCHAIN_MEMORY_KEY"], mock_settings.langchain_memory_key)
-        self.assertEqual(environment["OPENAI_ENDPOINT_IMAGE_N"], mock_settings.openai_endpoint_image_n)
-        self.assertEqual(environment["OPENAI_ENDPOINT_IMAGE_SIZE"], mock_settings.openai_endpoint_image_size)
+        self.assertEqual(openai_api["LANGCHAIN_MEMORY_KEY".lower()], mock_settings.langchain_memory_key)
+        self.assertEqual(openai_api["OPENAI_ENDPOINT_IMAGE_N".lower()], mock_settings.openai_endpoint_image_n)
+        self.assertEqual(openai_api["OPENAI_ENDPOINT_IMAGE_SIZE".lower()], mock_settings.openai_endpoint_image_size)
+
+        if mock_settings.is_using_aws_rekognition:
+            aws_rekognition = mock_settings.cloudwatch_dump["aws_rekognition"]
+            self.assertEqual(
+                aws_rekognition["AWS_REKOGNITION_COLLECTION_ID".lower()], mock_settings.aws_rekognition_collection_id
+            )
+            self.assertEqual(aws_rekognition["AWS_DYNAMODB_TABLE_ID".lower()], mock_settings.aws_dynamodb_table_id)
+            self.assertEqual(
+                aws_rekognition["AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT".lower()],
+                mock_settings.aws_rekognition_face_detect_max_faces_count,
+            )
+            self.assertEqual(
+                aws_rekognition["AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES".lower()],
+                mock_settings.aws_rekognition_face_detect_attributes,
+            )
+            self.assertEqual(
+                aws_rekognition["AWS_REKOGNITION_QUALITY_FILTER".lower()],
+                mock_settings.aws_rekognition_face_detect_quality_filter,
+            )

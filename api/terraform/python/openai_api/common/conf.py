@@ -124,6 +124,7 @@ class Settings(BaseSettings):
     _dynamodb_client: boto3.client = None
     _rekognition_client: boto3.client = None
     _dynamodb_table: boto3.resource = None
+    _cloudwatch_dump: Dict[str, str] = None
 
     debug_mode: Optional[bool] = Field(
         SettingsDefaults.DEBUG_MODE,
@@ -211,6 +212,16 @@ class Settings(BaseSettings):
         return IS_USING_TFVARS
 
     @property
+    def is_using_aws_rekognition(self) -> bool:
+        """Future: Is the AWS Rekognition service being used?"""
+        return False
+
+    @property
+    def is_using_aws_dynamodb(self) -> bool:
+        """Future: Is the AWS DynamoDB service being used?"""
+        return False
+
+    @property
     def openai_api_version(self) -> str:
         """OpenAI API version"""
         return get_semantic_version()
@@ -264,30 +275,47 @@ class Settings(BaseSettings):
     @property
     def cloudwatch_dump(self):
         """Dump settings to CloudWatch"""
-        return {
+        if self._cloudwatch_dump:
+            return self._cloudwatch_dump
+
+        self._cloudwatch_dump = {
             "environment": {
                 "is_using_tfvars_file": self.is_using_tfvars_file,
                 "is_using_dotenv_file": self.is_using_dotenv_file,
-                "openai_api_version": self.openai_api_version,
                 "os": os.name,
                 "system": platform.system(),
                 "release": platform.release(),
                 "boto3": boto3.__version__,
-                "AWS_APIGATEWAY_ROOT_DOMAIN_NAME": self.aws_apigateway_root_domain,
-                "AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE": self.aws_apigateway_custom_domain_name_create,
-                "AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME": self.aws_apigateway_custom_domain_name,
-                "AWS_REKOGNITION_COLLECTION_ID": self.aws_rekognition_collection_id,
-                "AWS_DYNAMODB_TABLE_ID": self.aws_dynamodb_table_id,
-                "AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT": self.aws_rekognition_face_detect_max_faces_count,
-                "AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES": self.aws_rekognition_face_detect_attributes,
-                "AWS_REKOGNITION_QUALITY_FILTER": self.aws_rekognition_face_detect_quality_filter,
-                "DEBUG_MODE": self.debug_mode,
-                "LANGCHAIN_MEMORY_KEY": self.langchain_memory_key,
-                "OPENAI_ENDPOINT_IMAGE_N": self.openai_endpoint_image_n,
-                "OPENAI_ENDPOINT_IMAGE_SIZE": self.openai_endpoint_image_size,
-                "SHARED_RESOURCE_IDENTIFIER": self.shared_resource_identifier,
-            }
+                "shared_resource_identifier": self.shared_resource_identifier,
+                "debug_mode": self.debug_mode,
+                "openai_api_version": self.openai_api_version,
+            },
+            "aws_api_gateway": {
+                "aws_apigateway_root_domain": self.aws_apigateway_root_domain,
+                "aws_apigateway_custom_domain_name_create": self.aws_apigateway_custom_domain_name_create,
+                "aws_apigateway_custom_domain_name": self.aws_apigateway_custom_domain_name,
+            },
+            "openai_api": {
+                "langchain_memory_key": self.langchain_memory_key,
+                "openai_endpoint_image_n": self.openai_endpoint_image_n,
+                "openai_endpoint_image_size": self.openai_endpoint_image_size,
+            },
         }
+        if self.is_using_aws_rekognition:
+            aws_rekognition = {
+                "aws_rekognition_collection_id": self.aws_rekognition_collection_id,
+                "aws_rekognition_face_detect_max_faces_count": self.aws_rekognition_face_detect_max_faces_count,
+                "aws_rekognition_face_detect_attributes": self.aws_rekognition_face_detect_attributes,
+                "aws_rekognition_face_detect_quality_filter": self.aws_rekognition_face_detect_quality_filter,
+            }
+            self._cloudwatch_dump["aws_rekognition"] = aws_rekognition
+
+        if self.is_using_aws_dynamodb:
+            aws_dynamodb = {
+                "aws_dynamodb_table_id": self.aws_dynamodb_table_id,
+            }
+            self._cloudwatch_dump["aws_dynamodb"] = aws_dynamodb
+        return self._cloudwatch_dump
 
     # pylint: disable=too-few-public-methods
     class Config:

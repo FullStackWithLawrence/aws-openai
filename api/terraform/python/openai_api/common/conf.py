@@ -476,7 +476,7 @@ class Settings(BaseSettings):
 settings = None
 try:
     settings = Settings()
-except ValidationError as e:
+except (ValidationError, ValueError, OpenAIAPIConfigurationError, OpenAIAPIValueError) as e:
     raise OpenAIAPIConfigurationError("Invalid configuration: " + str(e)) from e
 
 logger = logging.getLogger(__name__)

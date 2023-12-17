@@ -223,6 +223,9 @@ class Settings(BaseSettings):
                 "AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES": self.aws_rekognition_face_detect_attributes,
                 "AWS_REKOGNITION_QUALITY_FILTER": self.aws_rekognition_face_detect_quality_filter,
                 "DEBUG_MODE": self.debug_mode,
+                "LANGCHAIN_MEMORY_KEY": self.langchain_memory_key,
+                "OPENAI_ENDPOINT_IMAGE_N": self.openai_endpoint_image_n,
+                "OPENAI_ENDPOINT_IMAGE_SIZE": self.openai_endpoint_image_size,
             }
         }
 
@@ -366,7 +369,5 @@ logger.debug("AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES: %s", settings.aws_rekognit
 logger.debug("AWS_REKOGNITION_FACE_DETECT_QUALITY_FILTER: %s", settings.aws_rekognition_face_detect_quality_filter)
 logger.debug("AWS_REKOGNITION_FACE_DETECT_THRESHOLD: %s", settings.aws_rekognition_face_detect_threshold)
 logger.debug("LANGCHAIN_MEMORY_KEY: %s", settings.langchain_memory_key)
-logger.debug("OPENAI_API_ORGANIZATION: %s", settings.openai_api_organization)
-logger.debug("OPENAI_API_KEY: %s", settings.openai_api_key)
 logger.debug("OPENAI_ENDPOINT_IMAGE_N: %s", settings.openai_endpoint_image_n)
 logger.debug("OPENAI_ENDPOINT_IMAGE_SIZE: %s", settings.openai_endpoint_image_size)

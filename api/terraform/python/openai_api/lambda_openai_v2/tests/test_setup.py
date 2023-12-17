@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=wrong-import-position
+# pylint: disable=duplicate-code
 """Test Search Lambda function."""
 
 import base64

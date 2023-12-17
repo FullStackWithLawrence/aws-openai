@@ -61,6 +61,13 @@ class TestConfiguration(unittest.TestCase):
         self.assertEqual(
             mock_settings.aws_rekognition_face_detect_threshold, SettingsDefaults.AWS_REKOGNITION_FACE_DETECT_THRESHOLD
         )
+        self.assertEqual(mock_settings.debug_mode, SettingsDefaults.DEBUG_MODE)
+        self.assertEqual(mock_settings.langchain_memory_key, SettingsDefaults.LANGCHAIN_MEMORY_KEY)
+        self.assertEqual(mock_settings.openai_endpoint_image_n, SettingsDefaults.OPENAI_ENDPOINT_IMAGE_N)
+        self.assertEqual(mock_settings.openai_endpoint_image_size, SettingsDefaults.OPENAI_ENDPOINT_IMAGE_SIZE)
+        self.assertEqual(mock_settings.openai_api_key, SettingsDefaults.OPENAI_API_KEY)
+        self.assertEqual(mock_settings.openai_api_organization, SettingsDefaults.OPENAI_API_ORGANIZATION)
+        self.assertEqual(mock_settings.pinecone_api_key, SettingsDefaults.PINECONE_API_KEY)
 
     def test_conf_defaults_secrets(self):
         """Test that settings == SettingsDefaults when no .env is in use."""
@@ -98,6 +105,9 @@ class TestConfiguration(unittest.TestCase):
         self.assertEqual(
             mock_settings.aws_rekognition_face_detect_threshold, SettingsDefaults.AWS_REKOGNITION_FACE_DETECT_THRESHOLD
         )
+        self.assertEqual(mock_settings.langchain_memory_key, SettingsDefaults.LANGCHAIN_MEMORY_KEY)
+        self.assertEqual(mock_settings.openai_endpoint_image_n, SettingsDefaults.OPENAI_ENDPOINT_IMAGE_N)
+        self.assertEqual(mock_settings.openai_endpoint_image_size, SettingsDefaults.OPENAI_ENDPOINT_IMAGE_SIZE)
 
     def test_env_overrides(self):
         """Test that settings takes custom .env values."""
@@ -116,6 +126,9 @@ class TestConfiguration(unittest.TestCase):
         self.assertEqual(mock_settings.aws_rekognition_face_detect_quality_filter, "TEST_AUTO")
         self.assertEqual(mock_settings.aws_rekognition_face_detect_threshold, 100)
         self.assertEqual(mock_settings.debug_mode, True)
+        self.assertEqual(mock_settings.langchain_memory_key, "TEST_langchain_memory_key")
+        self.assertEqual(mock_settings.openai_endpoint_image_n, 100)
+        self.assertEqual(mock_settings.openai_endpoint_image_size, "TEST_image_size")
 
     @patch.dict(os.environ, {"AWS_REGION": "invalid-region"})
     def test_invalid_aws_region_code(self):
@@ -208,6 +221,7 @@ class TestConfiguration(unittest.TestCase):
         """Test that cloudwatch_dump contains the expected keys."""
 
         environment = Settings().cloudwatch_dump["environment"]
+        self.assertIn("DEBUG_MODE", environment)
         self.assertIn("openai_api_version", environment)
         self.assertIn("os", environment)
         self.assertIn("system", environment)
@@ -218,19 +232,29 @@ class TestConfiguration(unittest.TestCase):
         self.assertIn("AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT", environment)
         self.assertIn("AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES", environment)
         self.assertIn("AWS_REKOGNITION_QUALITY_FILTER", environment)
-        self.assertIn("DEBUG_MODE", environment)
+        self.assertIn("LANGCHAIN_MEMORY_KEY", environment)
+        self.assertIn("OPENAI_ENDPOINT_IMAGE_N", environment)
+        self.assertIn("OPENAI_ENDPOINT_IMAGE_SIZE", environment)
 
     def test_cloudwatch_values(self):
-        """Test that cloudwatch_dump contains the expected values."""
+        """Test that cloudwatch_dump contains the expected default values."""
 
         mock_settings = Settings()
         environment = mock_settings.cloudwatch_dump["environment"]
 
+        self.assertEqual(environment["DEBUG_MODE"], mock_settings.debug_mode)
         self.assertEqual(environment["AWS_REKOGNITION_COLLECTION_ID"], mock_settings.aws_rekognition_collection_id)
         self.assertEqual(environment["AWS_DYNAMODB_TABLE_ID"], mock_settings.aws_dynamodb_table_id)
-        # self.assertEqual(environment["MAX_FACES"], mock_settings.aws_rekognition_face_detect_max_faces_count)
+        self.assertEqual(
+            environment["AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT"],
+            mock_settings.aws_rekognition_face_detect_max_faces_count,
+        )
         self.assertEqual(
             environment["AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES"], mock_settings.aws_rekognition_face_detect_attributes
         )
-        # self.assertEqual(environment["QUALITY_FILTER"], mock_settings.)
-        self.assertEqual(environment["DEBUG_MODE"], mock_settings.debug_mode)
+        self.assertEqual(
+            environment["AWS_REKOGNITION_QUALITY_FILTER"], mock_settings.aws_rekognition_face_detect_quality_filter
+        )
+        self.assertEqual(environment["LANGCHAIN_MEMORY_KEY"], mock_settings.langchain_memory_key)
+        self.assertEqual(environment["OPENAI_ENDPOINT_IMAGE_N"], mock_settings.openai_endpoint_image_n)
+        self.assertEqual(environment["OPENAI_ENDPOINT_IMAGE_SIZE"], mock_settings.openai_endpoint_image_size)

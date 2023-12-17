@@ -54,12 +54,7 @@ api-activate:
 	pip install -r requirements.txt
 
 api-test:
-	cd ./api/terraform/python/lambda_langchain/ && pytest -v -s tests/
-	cd ../../../..
-	cd ./api/terraform/python/lambda_openai_v2/ && pytest -v -s tests/
-	cd ../../../..
-	cd ./api/terraform/python/lambda_openai/ && pytest -v -s tests/
-	cd ../../../..
+	python -m unittest discover -s api/terraform/python/openai_api/
 
 api-lint:
 	terraform fmt -recursive

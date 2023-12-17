@@ -32,7 +32,7 @@ from openai_api.common.conf import settings
 from openai_api.common.const import (
     VALID_CHAT_COMPLETION_MODELS,
     VALID_EMBEDDING_MODELS,
-    OpenAIEndPoint,
+    OpenAIObjectTypes,
     OpenAIResponseCodes,
 )
 from openai_api.common.exceptions import EXCEPTION_MAP
@@ -67,19 +67,19 @@ def handler(event, context):
     try:
         openai_results = {}
         request_body = get_request_body(event=event)
-        end_point, model, messages, input_text, temperature, max_tokens = parse_request(request_body)
+        object_type, model, messages, input_text, temperature, max_tokens = parse_request(request_body)
         request_meta_data = {
             "request_meta_data": {
                 "lambda": "lambda_openai_v2",
                 "model": model,
-                "end_point": end_point,
+                "object_type": object_type,
                 "temperature": temperature,
                 "max_tokens": max_tokens,
             }
         }
 
-        match end_point:
-            case OpenAIEndPoint.ChatCompletion:
+        match object_type:
+            case OpenAIObjectTypes.ChatCompletion:
                 # https://platform.openai.com/docs/guides/gpt/chat-completions-api
                 validate_item(
                     item=model,
@@ -87,14 +87,15 @@ def handler(event, context):
                     item_type="ChatCompletion models",
                 )
                 validate_completion_request(request_body)
-                openai_results = openai.ChatCompletion.create(
+                openai_results = openai.chat.completions.create(
                     model=model,
                     messages=messages,
                     temperature=temperature,
                     max_tokens=max_tokens,
                 )
+                openai_results = openai_results.model_dump()
 
-            case OpenAIEndPoint.Embedding:
+            case OpenAIObjectTypes.Embedding:
                 # https://platform.openai.com/docs/guides/embeddings/embeddings
                 validate_item(
                     item=model,
@@ -104,20 +105,20 @@ def handler(event, context):
                 validate_embedding_request(request_body)
                 openai_results = openai.Embedding.create(input=input_text, model=model)
 
-            case OpenAIEndPoint.Image:
+            case OpenAIObjectTypes.Image:
                 # https://platform.openai.com/docs/guides/images
                 n = request_body.get("n", settings.openai_endpoint_image_n)  # pylint: disable=invalid-name
                 size = request_body.get("size", settings.openai_endpoint_image_size)
                 return openai.Image.create(prompt=input_text, n=n, size=size)
 
-            case OpenAIEndPoint.Moderation:
+            case OpenAIObjectTypes.Moderation:
                 # https://platform.openai.com/docs/guides/moderation
                 openai_results = openai.Moderation.create(input=input_text)
 
-            case OpenAIEndPoint.Models:
+            case OpenAIObjectTypes.Models:
                 openai_results = openai.Model.retrieve(model) if model else openai.Model.list()
 
-            case OpenAIEndPoint.Audio:
+            case OpenAIObjectTypes.Audio:
                 raise NotImplementedError("Audio support is coming soon")
 
     # handle anything that went wrong

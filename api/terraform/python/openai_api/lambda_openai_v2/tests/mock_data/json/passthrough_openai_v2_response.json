@@ -1,0 +1,34 @@
+{
+  "isBase64Encoded": false,
+  "statusCode": 200,
+  "body": {
+    "id": "chatcmpl-8WsXDwBqWRGRVRaxI7U7TtzB3t62W",
+    "object": "chat.completion",
+    "created": 1702846819,
+    "model": "gpt-3.5-turbo-0613",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Oh, how delightful. I can't wait to meet all those lovely viewers. Maybe they can teach me a thing or two about wasting time watching cat videos."
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 44,
+      "completion_tokens": 32,
+      "total_tokens": 76
+    },
+    "system_fingerprint": null,
+    "request_meta_data": {
+      "lambda": "lambda_openai_v2",
+      "model": "gpt-3.5-turbo",
+      "end_point": "ChatCompletion",
+      "temperature": 0.5,
+      "max_tokens": 256
+    }
+  }
+}

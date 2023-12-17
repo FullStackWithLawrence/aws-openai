@@ -28,6 +28,18 @@ class OpenAIResponseCodes:
     HTTP_RESPONSE_INTERNAL_SERVER_ERROR = 500
 
 
+class OpenAIObjectTypes:
+    """V1 API Object Types (replace OpeanAIEndPoint)"""
+
+    Embedding = "embedding"
+    ChatCompletion = "chat.completion"
+    Moderation = "moderation"
+    Image = "image"
+    Audio = "audio"
+    Models = "models"
+    all_object_types = [Embedding, ChatCompletion, Moderation, Image, Audio, Models]
+
+
 # pylint: disable=too-few-public-methods
 class OpenAIEndPoint:
     """

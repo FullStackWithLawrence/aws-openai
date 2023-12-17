@@ -21,6 +21,7 @@ import re
 from typing import Dict, List, Optional
 
 import boto3  # AWS SDK for Python https://boto3.amazonaws.com/v1/documentation/api/latest/index.html
+from dotenv import load_dotenv
 from openai_api.common.const import PROJECT_ROOT, TFVARS
 from openai_api.common.exceptions import (
     OpenAIAPIConfigurationError,
@@ -30,6 +31,7 @@ from pydantic import Field, ValidationError, validator
 from pydantic_settings import BaseSettings
 
 
+load_dotenv()
 ec2 = boto3.Session().client("ec2")
 regions = ec2.describe_regions()
 

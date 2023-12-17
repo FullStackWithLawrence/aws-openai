@@ -2,7 +2,7 @@
 """Internal validation functions for requests from API Gateway."""
 import json
 
-from openai_api.common.const import OpenAIEndPoint, OpenAIMessageKeys
+from openai_api.common.const import OpenAIEndPoint, OpenAIMessageKeys, OpenAIObjectTypes
 from openai_api.common.exceptions import OpenAIAPIValueError
 
 
@@ -38,6 +38,17 @@ def validate_endpoint(end_point: any) -> None:
 
     if end_point not in OpenAIEndPoint.all_endpoints:
         raise OpenAIAPIValueError(f"Invalid end_point {end_point}. Should be one of {OpenAIEndPoint.all_endpoints}")
+
+
+def validate_object_types(object_type: any) -> None:
+    """Ensure that object_type is a valid object type based on the OpenAIObjectTypes enum"""
+    if not isinstance(object_type, str):
+        raise TypeError(f"Invalid object_type '{object_type}'. object_type should be a string.")
+
+    if object_type not in OpenAIObjectTypes.all_object_types:
+        raise OpenAIAPIValueError(
+            f"Invalid object_type {object_type}. Should be one of {OpenAIObjectTypes.all_object_types}"
+        )
 
 
 def validate_request_body(request_body) -> None:

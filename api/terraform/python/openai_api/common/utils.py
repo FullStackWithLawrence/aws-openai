@@ -8,12 +8,14 @@ import sys  # libraries for error management
 import traceback  # libraries for error management
 
 from openai_api.common.conf import settings
-from openai_api.common.const import LANGCHAIN_MESSAGE_HISTORY_ROLES, OpenAIEndPoint
+from openai_api.common.const import LANGCHAIN_MESSAGE_HISTORY_ROLES, OpenAIObjectTypes
+from openai_api.common.exceptions import OpenAIAPIValueError
 from openai_api.common.validators import (
     validate_endpoint,
     validate_item,
     validate_max_tokens,
     validate_messages,
+    validate_object_types,
     validate_request_body,
     validate_temperature,
 )
@@ -36,7 +38,7 @@ def http_response_factory(status_code: int, body: json) -> json:
     see https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html
     """
     if status_code < 100 or status_code > 599:
-        raise ValueError(f"Invalid HTTP response code received: {status_code}")
+        raise OpenAIAPIValueError(f"Invalid HTTP response code received: {status_code}")
 
     if settings.debug_mode:
         retval = {
@@ -108,13 +110,17 @@ def get_request_body(event) -> dict:
         end_point = request_body["end_point"]
         validate_endpoint(end_point=end_point)
 
+    if hasattr(request_body, "object_type"):
+        object_type = request_body["object"]
+        validate_object_types(object_type=object_type)
+
     validate_messages(request_body=request_body)
     return request_body
 
 
 def parse_request(request_body: dict):
     """Parse the request body and return the endpoint, model, messages, and input_text"""
-    end_point = request_body.get("end_point")
+    object_type = request_body.get("object")
     model = request_body.get("model")
     messages = request_body.get("messages")
     input_text = request_body.get("input_text")
@@ -122,17 +128,17 @@ def parse_request(request_body: dict):
     max_tokens = request_body.get("max_tokens")
     chat_history = request_body.get("chat_history")
 
-    if not end_point:
-        raise ValueError("end_point key not found in request body")
+    if not object_type:
+        raise OpenAIAPIValueError("object key not found in request body")
 
     validate_item(
-        item=end_point,
-        valid_items=OpenAIEndPoint.all_endpoints,
-        item_type="OpenAI Endpoints",
+        item=object_type,
+        valid_items=OpenAIObjectTypes.all_object_types,
+        item_type="OpenAI ObjectTypes",
     )
 
     if not messages and not input_text:
-        raise ValueError("A value for either messages or input_text is required")
+        raise OpenAIAPIValueError("A value for either messages or input_text is required")
 
     if chat_history and input_text:
         # memory-enabled request assumed to be destined for lambda_langchain
@@ -142,7 +148,7 @@ def parse_request(request_body: dict):
             messages.append({"role": chat["sender"], "content": chat["message"]})
         messages.append({"role": "user", "content": input_text})
 
-    return end_point, model, messages, input_text, temperature, max_tokens
+    return object_type, model, messages, input_text, temperature, max_tokens
 
 
 def get_content_for_role(messages: list, role: str) -> str:

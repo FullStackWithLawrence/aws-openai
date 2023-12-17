@@ -12,15 +12,12 @@ from pathlib import Path
 
 # 3rd party stuff
 import boto3
-import hcl2
 from dotenv import load_dotenv
 
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 PROJECT_ROOT = str(Path(HERE).parent.parent)
 PYTHON_ROOT = str(Path(PROJECT_ROOT).parent)
-TERRAFORM_ROOT = str(Path(PROJECT_ROOT).parent.parent)
-TERRAFORM_TFVARS = os.path.join(TERRAFORM_ROOT, "terraform.tfvars")
 if PYTHON_ROOT not in sys.path:
     sys.path.append(PYTHON_ROOT)  # noqa: E402
 
@@ -28,10 +25,6 @@ from openai_api.common.conf import settings  # noqa: E402
 
 # our stuff
 from openai_api.common.exceptions import OpenAIAPIConfigurationError  # noqa: E402
-
-
-with open(TERRAFORM_TFVARS, "r", encoding="utf-8") as f:
-    TFVARS = hcl2.load(f)
 
 
 # pylint: disable=too-many-instance-attributes,too-many-public-methods
@@ -44,7 +37,6 @@ class TestAWSInfrastructureBase(unittest.TestCase):
     _api_client = None
     _domain = None
     _domain_exists: bool = False
-    _create_custom_domain: bool = False
 
     def env_path(self, filename):
         """Return the path to the .env file."""
@@ -56,8 +48,8 @@ class TestAWSInfrastructureBase(unittest.TestCase):
         load_dotenv(env_path)
 
         # environment variables
-        self.aws_region = TFVARS["aws_region"] if TFVARS["aws_region"] else settings.aws_region
-        self.aws_profile = TFVARS["aws_profile"] if TFVARS["aws_profile"] else settings.aws_profile
+        self.aws_region = settings.aws_region
+        self.aws_profile = settings.aws_profile
 
     @property
     def domain(self):
@@ -84,12 +76,12 @@ class TestAWSInfrastructureBase(unittest.TestCase):
     @property
     def shared_resource_identifier(self):
         """Return the shared resource identifier."""
-        return os.getenv(key="SHARED_RESOURCE_IDENTIFIER", default=TFVARS["shared_resource_identifier"])
+        return settings.shared_resource_identifier
 
     @property
     def root_domain(self):
         """Return the root domain."""
-        return os.getenv(key="ROOT_DOMAIN", default=TFVARS["root_domain"])
+        return settings.aws_apigateway_root_domain
 
     @property
     def aws_session(self) -> boto3.Session:
@@ -127,19 +119,7 @@ class TestAWSInfrastructureBase(unittest.TestCase):
     @property
     def create_custom_domain(self) -> bool:
         """Return the CREATE_CUSTOM_DOMAIN_NAME value."""
-        if self._create_custom_domain:
-            return self._create_custom_domain
-
-        retval = os.getenv(key="CREATE_CUSTOM_DOMAIN_NAME", default=TFVARS["create_custom_domain"])
-        if isinstance(retval, bool):
-            self._create_custom_domain = retval
-            return self._create_custom_domain
-
-        if isinstance(retval, str):
-            self._create_custom_domain = retval.lower() in ["true", "1", "yes"]
-            return self._create_custom_domain
-
-        return False
+        return settings.aws_apigateway_custom_domain_name_create
 
     def get_url(self, path):
         """Return the url for the given path."""

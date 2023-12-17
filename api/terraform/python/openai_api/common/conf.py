@@ -6,7 +6,11 @@ Configuration for Lambda functions.
 
 This module is used to configure the Lambda functions. It uses the pydantic_settings
 library to validate the configuration values. The configuration values are read from
-environment variables, or alternatively these can be set when instantiating Settings().
+any of the following sources:
+    - constructor arguments
+    - environment variables
+    - terraform.tfvars
+    - default values
 """
 
 import importlib.util

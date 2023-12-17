@@ -22,7 +22,7 @@ from typing import Dict, List, Optional
 
 import boto3  # AWS SDK for Python https://boto3.amazonaws.com/v1/documentation/api/latest/index.html
 from dotenv import load_dotenv
-from openai_api.common.const import PROJECT_ROOT, TFVARS
+from openai_api.common.const import IS_USING_TFVARS, PROJECT_ROOT, TFVARS
 from openai_api.common.exceptions import (
     OpenAIAPIConfigurationError,
     OpenAIAPIValueError,
@@ -31,7 +31,7 @@ from pydantic import Field, ValidationError, validator
 from pydantic_settings import BaseSettings
 
 
-load_dotenv()
+DOT_ENV_LOADED = load_dotenv()
 ec2 = boto3.Session().client("ec2")
 regions = ec2.describe_regions()
 
@@ -201,6 +201,16 @@ class Settings(BaseSettings):
     )
 
     @property
+    def is_using_dotenv_file(self) -> bool:
+        """Is the dotenv file being used?"""
+        return DOT_ENV_LOADED
+
+    @property
+    def is_using_tfvars_file(self) -> bool:
+        """Is the tfvars file being used?"""
+        return IS_USING_TFVARS
+
+    @property
     def openai_api_version(self) -> str:
         """OpenAI API version"""
         return get_semantic_version()
@@ -256,6 +266,8 @@ class Settings(BaseSettings):
         """Dump settings to CloudWatch"""
         return {
             "environment": {
+                "is_using_tfvars_file": self.is_using_tfvars_file,
+                "is_using_dotenv_file": self.is_using_dotenv_file,
                 "openai_api_version": self.openai_api_version,
                 "os": os.name,
                 "system": platform.system(),
@@ -440,6 +452,8 @@ except ValidationError as e:
     raise OpenAIAPIConfigurationError("Invalid configuration: " + str(e)) from e
 
 logger = logging.getLogger(__name__)
+logger.debug("is_using_dotenv_file: %s", settings.is_using_dotenv_file)
+logger.debug("is_using_tfvars_file: %s", settings.is_using_tfvars_file)
 logger.debug("DEBUG_MODE: %s", settings.debug_mode)
 logger.debug("AWS_REGION: %s", settings.aws_region)
 logger.debug("AWS_APIGATEWAY_ROOT_DOMAIN_NAME: %s", settings.aws_apigateway_root_domain)

@@ -16,7 +16,7 @@ tags = {
   "project"   = "OpenAI Code Samples"
   "contact"   = "YOUR CONTACT INFORMATION GOES HERE."
 }
-aws_region  = "us-east-1"
+aws_region = "us-east-1"
 # aws_profile = "default"
 
 ###############################################################################

@@ -17,7 +17,7 @@ tags = {
   "contact"   = "YOUR CONTACT INFORMATION GOES HERE."
 }
 aws_region  = "us-east-1"
-aws_profile = "default"
+# aws_profile = "default"
 
 ###############################################################################
 # OpenAI API parameters

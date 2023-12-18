@@ -13,6 +13,7 @@ HERE = os.path.abspath(os.path.dirname(__file__))
 PROJECT_ROOT = str(Path(HERE).parent)
 PYTHON_ROOT = str(Path(PROJECT_ROOT).parent)
 TERRAFORM_ROOT = str(Path(PROJECT_ROOT).parent.parent)
+REPO_ROOT = str(Path(TERRAFORM_ROOT).parent.parent)
 TERRAFORM_TFVARS = os.path.join(TERRAFORM_ROOT, "terraform.tfvars")
 TFVARS = {}
 IS_USING_TFVARS = False

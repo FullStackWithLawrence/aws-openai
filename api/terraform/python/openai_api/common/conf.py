@@ -207,9 +207,19 @@ class Settings(BaseSettings):
         return DOT_ENV_LOADED
 
     @property
+    def environment_variables(self) -> List[str]:
+        """Environment variables"""
+        return list(os.environ.keys())
+
+    @property
     def is_using_tfvars_file(self) -> bool:
         """Is the tfvars file being used?"""
         return IS_USING_TFVARS
+
+    @property
+    def tfvars_variables(self) -> List[str]:
+        """Terraform variables"""
+        return list(TFVARS.keys())
 
     @property
     def is_using_aws_rekognition(self) -> bool:
@@ -315,6 +325,13 @@ class Settings(BaseSettings):
                 "aws_dynamodb_table_id": self.aws_dynamodb_table_id,
             }
             self._cloudwatch_dump["aws_dynamodb"] = aws_dynamodb
+
+        if self.is_using_dotenv_file:
+            self._cloudwatch_dump["environment"]["dotenv"] = self.environment_variables
+
+        if self.is_using_tfvars_file:
+            self._cloudwatch_dump["environment"]["tfvars"] = self.tfvars_variables
+
         return self._cloudwatch_dump
 
     # pylint: disable=too-few-public-methods

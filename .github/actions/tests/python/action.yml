@@ -105,6 +105,7 @@ runs:
         echo "OPENAI_API_KEY=${{ env.OPENAI_API_KEY }}" >> ./.env
         echo "PINECONE_API_KEY=${{ env.PINECONE_API_KEY }}" >> ./.env
         echo "PINECONE_ENVIRONMENT=${{ env.PINECONE_ENVIRONMENT }}" >> ./.env
+        echo "DEBUG_MODE=False" >> ./.env
       env:
         OPENAI_API_ORGANIZATION: ${{ inputs.openai-api-organization }}
         OPENAI_API_KEY: ${{ inputs.openai-api-key }}

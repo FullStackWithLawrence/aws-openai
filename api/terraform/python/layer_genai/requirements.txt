@@ -8,7 +8,7 @@
 #             requirements in the zip package for this layer.
 # -----------------------------------------------------------------------------
 python-dotenv==1.0.0
-openai==1.4.0
+openai==1.5.0
 langchain==0.0.348
-langchain-experimental
+langchain-experimental==0.0.47
 pinecone-client==2.2.4

@@ -75,20 +75,12 @@ A REST API implementing each of the [30 example applications](https://platform.o
 
 - [OpenAI API Python Library](https://pypi.org/project/openai/)
 - [LangChain](https://www.langchain.com/) enabled API endpoints where designated.
-- Pydantic-based strongly-typed CI-CD friendly [Settings](./api/terraform/python/openai_api/common/README.md) configuration class that consistently manages Python initializations from multiple sources including bash environment variables, `.env` and `terraform.tfvars` files.
-- Customizable: [modularized endpoints](./terraform/apigateway_endpoints.tf) that only take a few lines of code each.
-- Secure: your OpenAI API key is stored in a local .env file, and is kept safe during development, build and deployment to production.
-- [CloudWatch](https://aws.amazon.com/cloudwatch/) logs for Lambda as well as API Gateway
-- Fully automated and [parameterized](./api/terraform/terraform.tfvars) Terraform build
-- well documented code plus supplemental [documentation resources](./doc/) as well as detailed documentation on each [URL endpoint](./doc/examples/README.md).
-- Low-cost [AWS serverless](https://aws.amazon.com/serverless/) implementation using [AWS API Gateway](https://aws.amazon.com/api-gateway/) and [AWS Lambda](https://aws.amazon.com/lambda/); free or nearly free in most cases
-- Robust, performant and infinitely scalable
-- Fast build time; usually less than 60 seconds to fully implement
-- Python and Node.js Lambda examples
-- Deploy https to a custom domain
-- Preconfigured [Postman](https://www.postman.com/) files for testing
-- AWS API Gateway usage policy and api key
-- CORS enabled
+- [Pydantic](https://docs.pydantic.dev/latest/) based CI-CD friendly [Settings](./api/terraform/python/openai_api/common/README.md) configuration class that consistently manages Python initializations from multiple sources including bash environment variables, `.env` and `terraform.tfvars` files.
+- [CloudWatch](https://aws.amazon.com/cloudwatch/) logging
+- [Terraform](https://www.terraform.io/) fully automated and [parameterized](./api/terraform/terraform.tfvars) build. Fast build time; usually less than 60 seconds to fully implement.
+- Excellent [documentation](./doc/)
+- [AWS serverless](https://aws.amazon.com/serverless/) implementation. Free or nearly free in most cases
+- Deploy to a custom domain name
 
 ## Requirements
 

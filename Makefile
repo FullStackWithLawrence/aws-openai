@@ -27,14 +27,11 @@ pre-commit:
 	pre-commit autoupdate
 	pre-commit run --all-files
 
-######################
-# AWS API Gateway + Lambda + OpenAI
-######################
+# ---------------------------------------------------------
+# create python virtual environments for dev as well
+# as for the Lambda layer.
+# ---------------------------------------------------------
 api-init:
-	# ---------------------------------------------------------
-	# create python virtual environments for dev as well
-	# as for the Lambda layer.
-	# ---------------------------------------------------------
 	make api-clean
 	npm install && \
 	python3.11 -m venv venv && \
@@ -49,10 +46,6 @@ api-init:
 	pip install -r requirements.txt && \
 	deactivate && \
 	pre-commit install
-
-api-activate:
-	. venv/bin/activate && \
-	pip install -r requirements.txt
 
 api-test:
 	python -m unittest discover -s api/terraform/python/openai_api/
@@ -130,7 +123,6 @@ help:
 	@echo 'release             - force a new release'
 	@echo '-- AWS API Gateway + Lambda --'
 	@echo 'api-init            - create a Python virtual environment and install dependencies'
-	@echo 'api-activate        - activate the Python virtual environment'
 	@echo 'api-test            - run Python unit tests'
 	@echo 'api-lint            - run Python linting'
 	@echo 'api-clean           - destroy the Python virtual environment'

@@ -75,24 +75,24 @@ def get_semantic_version() -> str:
 class SettingsDefaults:
     """Default values for Settings"""
 
-    DEBUG_MODE = TFVARS["debug_mode"]
-    AWS_PROFILE = TFVARS["aws_profile"]
-    AWS_REGION = TFVARS["aws_region"]
+    DEBUG_MODE = TFVARS.get("debug_mode", False)
+    AWS_PROFILE = TFVARS.get("aws_profile", None)
+    AWS_REGION = TFVARS.get("aws_region", "us-east-1")
     AWS_DYNAMODB_TABLE_ID = "rekognition"
     AWS_REKOGNITION_COLLECTION_ID = AWS_DYNAMODB_TABLE_ID + "-collection"
     AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT = 10
     AWS_REKOGNITION_FACE_DETECT_THRESHOLD = 10
     AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES = "DEFAULT"
     AWS_REKOGNITION_FACE_DETECT_QUALITY_FILTER = "AUTO"
-    AWS_APIGATEWAY_ROOT_DOMAIN_NAME = TFVARS["root_domain"]
-    AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE: bool = TFVARS["create_custom_domain"]
+    AWS_APIGATEWAY_ROOT_DOMAIN_NAME = TFVARS.get("root_domain", None)
+    AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE: bool = TFVARS.get("create_custom_domain", False)
     LANGCHAIN_MEMORY_KEY = "chat_history"
     OPENAI_API_ORGANIZATION = None
     OPENAI_API_KEY = None
     OPENAI_ENDPOINT_IMAGE_N = 4
     OPENAI_ENDPOINT_IMAGE_SIZE = "1024x768"
     PINECONE_API_KEY = None
-    SHARED_RESOURCE_IDENTIFIER = TFVARS["shared_resource_identifier"]
+    SHARED_RESOURCE_IDENTIFIER = TFVARS.get("shared_resource_identifier", "openai")
     VALID_DOMAIN_PATTERN = r"^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$"
     VALID_AWS_REGIONS = [region["RegionName"] for region in regions["Regions"]]
 

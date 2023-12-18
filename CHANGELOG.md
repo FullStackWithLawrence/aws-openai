@@ -1,3 +1,24 @@
+# [0.7.0](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.6.5...v0.7.0) (2023-12-18)
+
+
+### Bug Fixes
+
+* version writer was skipping first two lines ([5be9cf2](https://github.com/FullStackWithLawrence/aws-openai/commit/5be9cf2f313de60b4d5dfd64fcbd080194cff03c))
+
+
+### Features
+
+* add lists of .env and terraform.tfvars variables in use for settings ([ed64c74](https://github.com/FullStackWithLawrence/aws-openai/commit/ed64c74bfd7fdd7a99f684b5a22c65c1c1fc7a58))
+* add openai and langchain parameters to unit tests ([d19af9f](https://github.com/FullStackWithLawrence/aws-openai/commit/d19af9fa108df885f091e23057f38e15f1df9552))
+* add properties to report whether .env and/or terraform.tfvars files are in use ([5e3bea6](https://github.com/FullStackWithLawrence/aws-openai/commit/5e3bea603af3a9e96bb35ec601924edbe8e7d305))
+* add Settings class and refactor ([b9f0286](https://github.com/FullStackWithLawrence/aws-openai/commit/b9f028632622c5a81eeee7bc8b5fe920d72a5bed))
+* add unit test for langchain ([9a2b00d](https://github.com/FullStackWithLawrence/aws-openai/commit/9a2b00d903a8a6b097b52364b3fe4dd449cb165c))
+* add unit tests for common ([cf3ac81](https://github.com/FullStackWithLawrence/aws-openai/commit/cf3ac81e2c2db889f2bcaaa43365af92e0437ca6))
+* add unit tests for lambda_langchain ([4d94a87](https://github.com/FullStackWithLawrence/aws-openai/commit/4d94a875ea968dff85c48f6316fcd6ace5b31033))
+* add unit tests for lambda_openai_v2 ([1b1a2c9](https://github.com/FullStackWithLawrence/aws-openai/commit/1b1a2c9d24d834e06d2d747845d1562b826437e5))
+* refactor for OpenAI API v1 ([7fb6809](https://github.com/FullStackWithLawrence/aws-openai/commit/7fb6809a627eb8451af0054f24bd51bf3b52e07f))
+* run Python unit tests on all pushes ([4957f63](https://github.com/FullStackWithLawrence/aws-openai/commit/4957f63028058504c11249b1c01a6ca28dd2bce1))
+
 # Change Log
 
 All notable changes to this project will be documented in this file.

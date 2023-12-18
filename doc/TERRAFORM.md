@@ -1,24 +1,27 @@
-# Getting Started With AWS and Terraform
+# Getting Started With Terraform For AWS
+
+This document describes how to deploy a [AWS Rekognition Service](https://aws.amazon.com/rekognition/) using a combination of AWS resources.
 
 This is a [Terraform](https://www.terraform.io/) based installation methodology that reliably automates the complete build, management and destruction processes of all resources. [Terraform](https://www.terraform.io/) is an [infrastructure-as-code](https://en.wikipedia.org/wiki/Infrastructure_as_code) command line tool that will create and configure all of the approximately two dozen software and cloud infrastructure resources that are needed for running the service on AWS infrastructure. These Terraform scripts will install and configure all cloud infrastructure resources and system software on which the service depends. This process will take around 2 minutes to complete and will generate copious amounts of console output.
 
-Terraform depends on the following resources:
+The service stack consists of the following:
 
-- [AWS S3 bucket](https://aws.amazon.com/s3/) for managing Terraform state
-- [DynamoDB Table](https://aws.amazon.com/dynamodb/) for managing Terraform locks
+- a AWS S3 bucket and DynamoDB table for managing Terraform state
+- [AWS S3 bucket](https://aws.amazon.com/s3/) for storing train and test image sets.
+- [DynamoDB Table](https://aws.amazon.com/dynamodb/) for persisting Rekognition service results
 - [AWS IAM Role](https://aws.amazon.com/iam/) for managing service-level role-based security for this service
 
 **WARNINGS**:
 
-**1. Terraform will create many AWS resources in other parts of your AWS account including API Gateway, IAM, DynamoDB, CloudWatch and Lambda. You should not directly modify any of these resources, as this could lead to unintended consequences in the safe operation of your microservice.**
+**1. This Terraform project will create many AWS resources in other parts of your AWS account including S3, API Gateway, IAM, Rekognition, DynamoDB, CloudWatch and Lambda. You should not directly modify any of these resources, as this could lead to unintended consequences in the safe operation of your Kubernetes cluster up to and including permanent loss of access to the cluster itself.**
 
 **2. Terraform is a memory intensive application. For best results you should run this on a computer with at least 4Gib of free memory.**
 
 ## I. Installation Prerequisites
 
-For Linux & macOS operating systems.
+Quickstart for Linux & macOS operating systems.
 
-**Prerequisite:** An [AWS IAM User](https://aws.amazon.com/iam/) with administrator privileges, access key and secret key.
+**Prerequisite:** Obtain an [AWS IAM User](https://aws.amazon.com/iam/) with administrator privileges, access key and secret key.
 
 Ensure that your environment includes the latest stable releases of the following software packages:
 
@@ -61,8 +64,9 @@ Use these three environment variables for creating the uniquely named resources 
 
 ```console
 AWS_ACCOUNT=012345678912      # add your 12-digit AWS account number here
+$
 AWS_REGION=us-east-1          # any valid AWS region code.
-AWS_ENVIRONMENT=openai        # any valid string. Keep it short -- 3 characters is ideal.
+AWS_ENVIRONMENT=rekognition   # any valid string. Keep it short -- 3 characters is ideal.
 ```
 
 First create an AWS S3 Bucket
@@ -92,7 +96,7 @@ aws dynamodb create-table --region $AWS_REGION --table-name $AWS_DYNAMODB_TABLE 
 ### Step 1. Checkout the repository
 
 ```console
-git clone https://github.com/FullStackWithLawrence/aws-openai.git
+git clone https://github.com/lpm0073/aws-openai.git
 ```
 
 ### Step 2. Configure your Terraform backend
@@ -105,10 +109,10 @@ vim terraform/terraform.tf
 
 ```terraform
   backend "s3" {
-    bucket         = "012345678912-tfstate-openai"
-    key            = "openai/terraform.tfstate"
+    bucket         = "012345678912-tfstate-rekognition"
+    key            = "rekognition/terraform.tfstate"
     region         = "us-east-1"
-    dynamodb_table = "012345678912-tfstate-lock-openai"
+    dynamodb_table = "012345678912-tfstate-lock-rekognition"
     profile        = "default"
     encrypt        = false
   }
@@ -141,14 +145,14 @@ terraform init
 ```
 
 Screen output should resemble the following:
-![Terraform init](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/img/terraform-init.png "Terraform init")
+![Terraform init](https://raw.githubusercontent.com/lpm0073/aws-openai/main/doc/img/terraform-init.png "Terraform init")
 
 ```console
 terraform plan
 ```
 
 Screen output should resemble the following:
-![Terraform Plan](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/img/terraform-apply1.png "Terraform Plan")
+![Terraform plan](https://raw.githubusercontent.com/lpm0073/aws-openai/main/doc/img/terraform-plan.png "Terraform plan")
 
 To deploy the service run the following
 
@@ -156,7 +160,7 @@ To deploy the service run the following
 terraform apply
 ```
 
-![Terraform Apply](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/img/terraform-apply2.png "Terraform Apply")
+![Terraform apply](https://raw.githubusercontent.com/lpm0073/aws-openai/main/doc/img/terraform-apply2.png "Terraform apply")
 
 ## III. Uninstall
 
@@ -173,7 +177,7 @@ Delete Terraform state management resources
 ```console
 AWS_ACCOUNT=012345678912      # add your 12-digit AWS account number here
 AWS_REGION=us-east-1
-AWS_ENVIRONMENT=openai   # any valid string. Keep it short
+AWS_ENVIRONMENT=rekognition   # any valid string. Keep it short
 AWS_S3_BUCKET="${AWS_ACCOUNT}-tfstate-${AWS_ENVIRONMENT}"
 AWS_DYNAMODB_TABLE="${AWS_ACCOUNT}-tfstate-lock-${AWS_ENVIRONMENT}"
 ```
@@ -190,3 +194,17 @@ To delete the AWS S3 bucket
 aws s3 rm s3://$AWS_S3_BUCKET --recursive
 aws s3 rb s3://$AWS_S3_BUCKET --force
 ```
+
+## If You're New To Postman
+
+For your convenience there's a preconfigured ['postman_collection'](./aws-openai.postman_collection.json) file added to the root directly of this repo. Regardless of whether you use this template, you'll need to provide the following three pieces of information from the Terraform output:
+
+![Postman Configuration](https://raw.githubusercontent.com/lpm0073/aws-openai/main/doc/img/postman-config.png "Postman Configuration")
+
+Upload images
+
+![Postman Index](https://raw.githubusercontent.com/lpm0073/aws-openai/main/doc/img/postman-index.png "Postman Index")
+
+Search images
+
+![Postman Search](https://raw.githubusercontent.com/lpm0073/aws-openai/main/doc/img/postman-search.png "Postman Search")

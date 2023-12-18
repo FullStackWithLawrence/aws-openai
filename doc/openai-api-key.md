@@ -6,4 +6,4 @@ Once you've created an account or have logged into an existing account, you'll s
 
 To get an API Key, click on your name in the top-right corner to bring up a dropdown menu. Then, click the "[View API keys](https://platform.openai.com/account/api-keys)" option.
 
-![OpenAI Settings](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/openai-settings.png "OpenAI Settings")
+![OpenAI Settings](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/img/openai-settings.png "OpenAI Settings")

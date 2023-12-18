@@ -188,11 +188,11 @@ Example valid request body:
    ```
 
    _Note the output variables for your API Gateway root URL and API key._
-   ![Postman](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/terraform-apply2.png "Postman")
+   ![Postman](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/img/terraform-apply2.png "Postman")
 
 5. (Optional) use the [preconfigured import files](./postman/) to setup a Postman collection with all 30 URL endpoints.
 
-   ![Postman](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/postman-1.png "Postman")
+   ![Postman](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/img/postman-1.png "Postman")
 
 ### Custom Domain (Optional)
 
@@ -205,7 +205,7 @@ root_domain                = "yourdomain.com"
 
 ## How It Works
 
-![API Workflow](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/api-workflow.png "API Workflow")
+![API Workflow](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/img/api-workflow.png "API Workflow")
 
 1. a JSON object and custom headers are added to an HTTP request and sent to the API as a 'PUT' method.
 2. API Gateway uses a [Request Mapping Template](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html) in a non-proxy Lambda integration request to combine user request text with your OpenAPI application definition, and then forward the combined data as a custom JSON object to a Lambda function.
@@ -332,8 +332,8 @@ The terraform scripts will automatically create a collection of CloudWatch Log G
 
 I refined the contents and formatting of each log group to suit my own needs while building this solution, and in particular while coding the Python Lambda functions.
 
-![CloudWatch Logs](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/cloudwatch-1.png "CloudWatch Logs")
-![CloudWatch Logs](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/cloudwatch-2.png "CloudWatch Logs")
+![CloudWatch Logs](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/img/cloudwatch-1.png "CloudWatch Logs")
+![CloudWatch Logs](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/img/cloudwatch-2.png "CloudWatch Logs")
 
 ## Documentation
 

@@ -29,4 +29,4 @@ Another negative point is that the Inflatotron 2000 is quite heavy and bulky, wh
 
 ## Official Documentation
 
-![OpenAI Playground](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/examples/example-28-review-classifier.png "OpenAI Playground")
+![OpenAI Playground](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/img/examples/example-28-review-classifier.png "OpenAI Playground")

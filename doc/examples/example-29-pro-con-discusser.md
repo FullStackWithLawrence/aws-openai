@@ -49,4 +49,4 @@ curl --location --request PUT 'https://api.openai.lawrencemcdaniel.com/examples/
 
 ## Official Documentation
 
-![OpenAI Playground](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/examples/example-29-pro-con-discusser.png "OpenAI Playground")
+![OpenAI Playground](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/img/examples/example-29-pro-con-discusser.png "OpenAI Playground")

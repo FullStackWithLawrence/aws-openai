@@ -65,8 +65,6 @@ def handler(event, context):
     try:
         openai_results = {}
         request_body = get_request_body(event=event)
-
-        # pylint: disable=unused-variable
         object_type, model, messages, input_text, temperature, max_tokens = parse_request(request_body)
         request_meta_data = {
             "request_meta_data": {
@@ -75,6 +73,7 @@ def handler(event, context):
                 "object_type": object_type,
                 "temperature": temperature,
                 "max_tokens": max_tokens,
+                "input_text": input_text,
             }
         }
 

@@ -20,7 +20,6 @@ usage:      Use langchain to process requests to the OpenAI API.
 """
 import json
 
-import openai
 from langchain.chains import LLMChain
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
@@ -31,11 +30,10 @@ from langchain.prompts import (
     SystemMessagePromptTemplate,
 )
 from openai_api.common.conf import settings
-from openai_api.common.const import (
+from openai_api.common.const import (  # VALID_EMBEDDING_MODELS,
     VALID_CHAT_COMPLETION_MODELS,
-    VALID_EMBEDDING_MODELS,
-    OpenAIEndPoint,
     OpenAIMessageKeys,
+    OpenAIObjectTypes,
     OpenAIResponseCodes,
 )
 from openai_api.common.exceptions import EXCEPTION_MAP
@@ -49,9 +47,8 @@ from openai_api.common.utils import (
     http_response_factory,
     parse_request,
 )
-from openai_api.common.validators import (
+from openai_api.common.validators import (  # validate_embedding_request,
     validate_completion_request,
-    validate_embedding_request,
     validate_item,
     validate_messages,
     validate_request_body,
@@ -61,13 +58,6 @@ from openai_api.common.validators import (
 # from langchain.memory.chat_message_histories.in_memory import ChatMessageHistory
 # from langchain.schema.messages import HumanMessage, SystemMessage, AIMessage
 # from langchain.schema.messages import BaseMessage
-
-
-###############################################################################
-# ENVIRONMENT CREDENTIALS
-###############################################################################
-openai.organization = settings.openai_api_organization
-openai.api_key = settings.openai_api_key
 
 
 # pylint: disable=too-many-locals
@@ -86,20 +76,22 @@ def handler(event, context):
         # ----------------------------------------------------------------------
         request_body = get_request_body(event=event)
         validate_request_body(request_body=request_body)
-        end_point, model, messages, input_text, temperature, max_tokens = parse_request(request_body)
-        validate_messages(request_body=request_body)
+        object_type, model, messages, input_text, temperature, max_tokens = parse_request(request_body)
         request_meta_data = {
             "request_meta_data": {
-                "lambda": "lambda_langchain",
+                "lambda": "lambda_openai_v2",
                 "model": model,
-                "end_point": end_point,
+                "object_type": object_type,
                 "temperature": temperature,
                 "max_tokens": max_tokens,
+                "input_text": input_text,
             }
         }
 
-        match end_point:
-            case OpenAIEndPoint.ChatCompletion:
+        validate_messages(request_body=request_body)
+
+        match object_type:
+            case OpenAIObjectTypes.ChatCompletion:
                 # pylint: disable=pointless-string-statement
                 """
                 Need to keep in mind that this is a stateless operation. We have to bring
@@ -120,7 +112,9 @@ def handler(event, context):
 
                 # 2. initialize the LangChain ChatOpenAI model
                 # -------------------------------------------------------------
-                llm = ChatOpenAI(model=model, temperature=temperature, max_tokens=max_tokens)
+                llm = ChatOpenAI(
+                    model=model, temperature=temperature, max_tokens=max_tokens, api_key=settings.openai_api_key
+                )
                 prompt = ChatPromptTemplate(
                     messages=[
                         SystemMessagePromptTemplate.from_template(system_message),
@@ -159,30 +153,34 @@ def handler(event, context):
                 conversation_response = json.loads(conversation.memory.json())
                 openai_results = conversation_response
 
-            case OpenAIEndPoint.Embedding:
+            case OpenAIObjectTypes.Embedding:
                 # https://platform.openai.com/docs/guides/embeddings/embeddings
-                validate_item(
-                    item=model,
-                    valid_items=VALID_EMBEDDING_MODELS,
-                    item_type="Embedding models",
-                )
-                validate_embedding_request(request_body)
-                openai_results = openai.Embedding.create(input=input_text, model=model)
+                raise NotImplementedError("Refactoring of Embedding API v1 is in progress.")
+                # validate_item(
+                #     item=model,
+                #     valid_items=VALID_EMBEDDING_MODELS,
+                #     item_type="Embedding models",
+                # )
+                # validate_embedding_request(request_body)
+                # openai_results = openai.Embedding.create(input=input_text, model=model)
 
-            case OpenAIEndPoint.Image:
+            case OpenAIObjectTypes.Image:
                 # https://platform.openai.com/docs/guides/images
-                n = request_body.get("n", settings.openai_endpoint_image_n)  # pylint: disable=invalid-name
-                size = request_body.get("size", settings.openai_endpoint_image_size)
-                return openai.Image.create(prompt=input_text, n=n, size=size)
+                raise NotImplementedError("Refactoring of Image API v1 is in progress.")
+                # n = request_body.get("n", settings.openai_endpoint_image_n)  # pylint: disable=invalid-name
+                # size = request_body.get("size", settings.openai_endpoint_image_size)
+                # return openai.Image.create(prompt=input_text, n=n, size=size)
 
-            case OpenAIEndPoint.Moderation:
+            case OpenAIObjectTypes.Moderation:
                 # https://platform.openai.com/docs/guides/moderation
-                openai_results = openai.Moderation.create(input=input_text)
+                raise NotImplementedError("Refactoring of Moderation API v1 is in progress.")
+                # openai_results = openai.Moderation.create(input=input_text)
 
-            case OpenAIEndPoint.Models:
-                openai_results = openai.Model.retrieve(model) if model else openai.Model.list()
+            case OpenAIObjectTypes.Models:
+                raise NotImplementedError("Refactoring of Models API v1 is in progress.")
+                # openai_results = openai.Model.retrieve(model) if model else openai.Model.list()
 
-            case OpenAIEndPoint.Audio:
+            case OpenAIObjectTypes.Audio:
                 raise NotImplementedError("Audio support is coming soon")
 
     # handle anything that went wrong

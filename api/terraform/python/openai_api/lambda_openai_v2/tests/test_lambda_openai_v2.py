@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=wrong-import-position
 # pylint: disable=R0801
-"""Test Index Lambda function."""
+"""Test lambda_openai_v2 function."""
 
 # python stuff
 import os
@@ -23,7 +23,7 @@ from openai_api.lambda_openai_v2.lambda_handler import handler  # noqa: E402
 from openai_api.lambda_openai_v2.tests.test_setup import get_test_file  # noqa: E402
 
 
-class TestLambdaIndex(unittest.TestCase):
+class TestLambdaOpenai(unittest.TestCase):
     """Test Index Lambda function."""
 
     # load a mock lambda_index event

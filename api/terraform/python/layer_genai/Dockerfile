@@ -8,8 +8,6 @@ FROM --platform=linux/amd64 public.ecr.aws/lambda/python:3.11
 WORKDIR /var/task
 
 COPY requirements.txt .
-COPY openai_utils ./openai_utils
 
 RUN yum install -y zip
 RUN pip install -r requirements.txt --target python/lib/python3.11/site-packages
-RUN cp -R openai_utils python/lib/python3.11/site-packages

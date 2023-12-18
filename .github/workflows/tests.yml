@@ -2,7 +2,11 @@ name: Python Unit Tests
 
 on:
   pull_request:
+    paths:
+      - "**.py"
   push:
+    paths:
+      - "**.py"
 
 jobs:
   tests:

@@ -13,11 +13,12 @@
 #           that call this Lambda, rather than here.
 #------------------------------------------------------------------------------
 locals {
-  langchain_function_name     = "lambda_langchain"
-  langchain_source_directory  = "${path.module}/python/${local.langchain_function_name}"
-  langchain_packaging_script  = "${local.langchain_source_directory}/create_pkg.sh"
-  langchain_package_folder    = "lambda_dist_pkg"
-  langchain_dist_package_name = "lambda_dist_pkg"
+  langchain_function_name        = "lambda_langchain"
+  langchain_build_path           = "${path.module}/build/"
+  langchain_openai_api_directory = "${path.module}/python/openai_api"
+  langchain_source_directory     = "${local.langchain_openai_api_directory}/${local.langchain_function_name}"
+  langchain_packaging_script     = "${local.langchain_source_directory}/create_pkg.sh"
+  langchain_dist_package_name    = "${local.langchain_function_name}_dist_pkg.zip"
 }
 
 ###############################################################################
@@ -37,18 +38,18 @@ resource "null_resource" "package_lambda_langchain" {
     command     = local.langchain_packaging_script
 
     environment = {
-      PACKAGE_NAME     = local.langchain_function_name
+      PARENT_DIRECTORY = local.langchain_openai_api_directory
       SOURCE_CODE_PATH = local.langchain_source_directory
-      PACKAGE_FOLDER   = local.langchain_package_folder
-      RUNTIME          = var.lambda_python_runtime
+      BUILD_PATH       = local.langchain_build_path
+      PACKAGE_FOLDER   = local.langchain_function_name
     }
   }
 }
 
 data "archive_file" "lambda_langchain" {
   # see https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file
-  source_dir  = "${local.langchain_source_directory}/${local.langchain_package_folder}/"
-  output_path = "${local.langchain_source_directory}/${local.langchain_dist_package_name}.zip"
+  source_dir  = local.langchain_build_path
+  output_path = "${local.langchain_build_path}/${local.langchain_dist_package_name}"
   type        = "zip"
   depends_on  = [null_resource.package_lambda_langchain]
 }

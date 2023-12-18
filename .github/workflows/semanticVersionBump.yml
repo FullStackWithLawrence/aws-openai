@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       VERSION_FILE: __version__.py
-      PACKAGE_PATH: ${{ github.workspace }}/api/terraform/python/layer_genai/openai_utils/
+      PACKAGE_PATH: ${{ github.workspace }}/api/terraform/python/openai_api/
 
     steps:
       - uses: actions/checkout@v4
@@ -110,8 +110,9 @@ jobs:
         id: update_version
         run: |
           echo "# -*- coding: utf-8 -*-" > ${{ env.VERSION_FILE }}
-          echo "__version__ = '${{ env.NEXT_VERSION }}'" >>  ${{ env.VERSION_FILE }}
-          echo "" >>  ${{ env.VERSION_FILE }}
+          echo "# DO NOT EDIT." >> ${{ env.VERSION_FILE }}
+          echo "# Managed via automated CI/CD in .github/workflows/semanticVersionBump.yml." >> ${{ env.VERSION_FILE }}
+          echo "__version__ = \"${{ env.NEXT_VERSION }}\"" >>  ${{ env.VERSION_FILE }}
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add ${{ env.VERSION_FILE }}

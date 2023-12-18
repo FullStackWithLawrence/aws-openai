@@ -13,6 +13,8 @@
 boto3==1.34.2
 pytest==7.4.3
 pytest_mock==3.12.0
+requests==2.31.0
+python-hcl2==4.3.2
 
 # Code linters, formatters, and security scanners
 # ------------
@@ -35,6 +37,6 @@ openai==1.5.0
 langchain
 langchain-experimental
 pinecone-client==2.2.4
-
-# local packages
--e ./api/terraform/python/layer_genai/openai_utils
+pydantic==2.5.2
+pydantic-settings==2.1.0
+python-dotenv==1.0.0

@@ -42,4 +42,4 @@
 
 ## more
 
-![OpenAI Examples](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/openai-examples.png "OpenAI Examples")
+![OpenAI Examples](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/img/openai-examples.png "OpenAI Examples")

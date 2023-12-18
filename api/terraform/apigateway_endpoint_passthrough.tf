@@ -44,7 +44,7 @@ resource "aws_api_gateway_integration" "passthrough_post" {
   http_method             = aws_api_gateway_method.passthrough_post.http_method
   integration_http_method = "POST"
   type                    = "AWS"
-  uri                     = aws_lambda_function.lambda_openai.invoke_arn
+  uri                     = aws_lambda_function.lambda_openai_v2.invoke_arn
   credentials             = aws_iam_role.apigateway.arn
   passthrough_behavior    = "WHEN_NO_TEMPLATES"
   depends_on              = [aws_api_gateway_method.passthrough_post]

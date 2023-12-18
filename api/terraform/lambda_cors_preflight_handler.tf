@@ -14,6 +14,7 @@
 #------------------------------------------------------------------------------
 locals {
   preflight_slug             = "cors_preflight_handler"
+  preflight_build_path       = "${path.module}/build/"
   preflight_function_name    = "${var.shared_resource_identifier}_${local.preflight_slug}"
   preflight_source_directory = "${path.module}/nodejs/${local.preflight_function_name}"
   preflight_package_file     = "lambda_${local.preflight_slug}_dist_pkg"
@@ -43,7 +44,7 @@ resource "aws_lambda_function" "cors_preflight_handler" {
 data "archive_file" "cors_preflight_handler" {
   # see https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file
   source_dir  = "${local.preflight_source_directory}/"
-  output_path = "${local.preflight_source_directory}/${local.preflight_package_file}.zip"
+  output_path = "${local.preflight_build_path}/${local.preflight_package_file}.zip"
   type        = "zip"
 }
 

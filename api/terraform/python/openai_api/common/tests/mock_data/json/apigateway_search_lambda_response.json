@@ -1,0 +1,95 @@
+{
+  "faces": {
+    "SearchedFaceBoundingBox": {
+      "Width": 0.6901723742485046,
+      "Height": 0.6782776713371277,
+      "Left": 0.17868295311927795,
+      "Top": 0.14326806366443634
+    },
+    "SearchedFaceConfidence": 99.99970245361328,
+    "FaceMatches": [
+      {
+        "Similarity": 99.99993896484375,
+        "Face": {
+          "FaceId": "b91d4fc3-7df7-4719-9c29-adf902d464ff",
+          "BoundingBox": {
+            "Width": 0.3834420144557953,
+            "Height": 0.5404369831085205,
+            "Left": 0.3352310061454773,
+            "Top": 0.133883997797966
+          },
+          "ImageId": "da1e624b-1a19-3159-8054-ece4afc3afc4",
+          "ExternalImageId": "Keanu-Reeves.jpg",
+          "Confidence": 99.9979019165039,
+          "IndexFacesModelVersion": "7.0"
+        }
+      },
+      {
+        "Similarity": 99.99993896484375,
+        "Face": {
+          "FaceId": "9c5d2c88-3263-44fa-9bb1-3439f3c49e98",
+          "BoundingBox": {
+            "Width": 0.6752679944038391,
+            "Height": 0.6300020217895508,
+            "Left": 0.14113099873065948,
+            "Top": 0.14488999545574188
+          },
+          "ImageId": "81eb33df-9c9c-3391-b180-4b26329a8d5c",
+          "ExternalImageId": "Keanu-Reeves.jpg",
+          "Confidence": 99.99970245361328,
+          "IndexFacesModelVersion": "7.0"
+        }
+      },
+      {
+        "Similarity": 99.9993667602539,
+        "Face": {
+          "FaceId": "ab6b3ce1-b8f7-4324-9921-b0e42ca4a5b3",
+          "BoundingBox": {
+            "Width": 0.12419100105762482,
+            "Height": 0.11222200095653534,
+            "Left": 0.40661299228668213,
+            "Top": 0.052646201103925705
+          },
+          "ImageId": "447872eb-dafe-3035-a62c-40c9ca588e79",
+          "ExternalImageId": "Keanu-Reeves.jpg",
+          "Confidence": 99.9114990234375,
+          "IndexFacesModelVersion": "7.0"
+        }
+      },
+      {
+        "Similarity": 99.99935913085938,
+        "Face": {
+          "FaceId": "f89abeef-c997-487c-bf75-a6f6676fe122",
+          "BoundingBox": {
+            "Width": 0.057725198566913605,
+            "Height": 0.05725089833140373,
+            "Left": 0.3871830105781555,
+            "Top": 0.38436999917030334
+          },
+          "ImageId": "363d2613-a3bd-3b84-95a2-6915e56db236",
+          "ExternalImageId": "Keanu-Reeves.jpg",
+          "Confidence": 99.89849853515625,
+          "IndexFacesModelVersion": "7.0"
+        }
+      }
+    ],
+    "FaceModelVersion": "7.0",
+    "ResponseMetadata": {
+      "RequestId": "0d541920-d778-4ed5-8ca0-521c99625576",
+      "HTTPStatusCode": 200,
+      "HTTPHeaders": {
+        "x-amzn-requestid": "0d541920-d778-4ed5-8ca0-521c99625576",
+        "content-type": "application/x-amz-json-1.1",
+        "content-length": "1668",
+        "date": "Wed, 13 Dec 2023 21:39:56 GMT"
+      },
+      "RetryAttempts": 0
+    }
+  },
+  "matchedFaces": [
+    "Keanu reeves",
+    "Keanu reeves",
+    "Keanu reeves",
+    "Keanu reeves"
+  ]
+}

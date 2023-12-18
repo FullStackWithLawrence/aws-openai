@@ -28,9 +28,6 @@ pinecone-environment:
   required: true
   type: string
 
-env:
-  REQUIREMENTS_PATH: "api/terraform/python/layer_genai/requirements.txt"
-
 runs:
   using: "composite"
   steps:
@@ -96,7 +93,6 @@ runs:
     - name: Install dependencies
       shell: bash
       run: |
-        cp -R ./api/terraform/python/layer_genai/openai_utils ${{ env.SITE_PACKAGES_PATH }}
         pip install -r ./requirements.txt
       env:
         SITE_PACKAGES_PATH: ${{ env.SITE_PACKAGES_PATH }}
@@ -109,20 +105,14 @@ runs:
         echo "OPENAI_API_KEY=${{ env.OPENAI_API_KEY }}" >> ./.env
         echo "PINECONE_API_KEY=${{ env.PINECONE_API_KEY }}" >> ./.env
         echo "PINECONE_ENVIRONMENT=${{ env.PINECONE_ENVIRONMENT }}" >> ./.env
+        echo "DEBUG_MODE=False" >> ./.env
       env:
         OPENAI_API_ORGANIZATION: ${{ inputs.openai-api-organization }}
         OPENAI_API_KEY: ${{ inputs.openai-api-key }}
         PINECONE_API_KEY: ${{ inputs.pinecone-api-key }}
         PINECONE_ENVIRONMENT: ${{ inputs.pinecone-environment }}
 
-    - name: Test lambda_openai_v2
+    - name: Run Python unit tests
       shell: bash
       run: |
-        cd ./api/terraform/python/lambda_openai_v2
-        pytest -v -s tests/
-
-    - name: Test lambda_langchain
-      shell: bash
-      run: |
-        cd ./api/terraform/python/lambda_langchain
-        pytest -v -s tests/
+        make api-test

@@ -8,18 +8,44 @@
 [![Python](https://a11ybadges.com/badge?logo=python)](https://www.python.org/)
 [![Terraform](https://a11ybadges.com/badge?logo=terraform)](https://www.terraform.io/)<br>
 [![12-Factor](https://img.shields.io/badge/12--Factor-Compliant-green.svg)](./doc/Twelve_Factor_Methodology.md)
-[![Unit Tests](https://github.com/FullStackWithLawrence/aws-openai/actions/workflows/tests.yml/badge.svg)](https://github.com/FullStackWithLawrence/aws-openai/actions)
+![Unit Tests](https://github.com/FullStackWithLawrence/aws-openai/actions/workflows/tests.yml/badge.svg?branch=main)
 ![GHA pushMain Status](https://img.shields.io/github/actions/workflow/status/FullStackWithLawrence/aws-openai/pushMain.yml?branch=main)
 ![Auto Assign](https://github.com/FullStackwithLawrence/aws-openai/actions/workflows/auto-assign.yml/badge.svg)
 [![Release Notes](https://img.shields.io/github/release/FullStackWithLawrence/aws-openai)](https://github.com/FullStackWithLawrence/aws-openai/releases)
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![hack.d Lawrence McDaniel](https://img.shields.io/badge/hack.d-Lawrence%20McDaniel-orange.svg)](https://lawrencemcdaniel.com)
 
-A [React](https://react.dev/) + [AWS Serverless](https://aws.amazon.com/serverless/) full stack implementation of the [30 example applications](https://platform.openai.com/examples) found in the official OpenAI API documentation. Now with [LangChain](https://www.langchain.com/)!
+A [React](https://react.dev/) + [AWS Serverless](https://aws.amazon.com/serverless/) full stack implementation of the [30 example applications](https://platform.openai.com/examples) found in the official OpenAI API documentation. This repository is used as an instructional tool for the YouTube channel "Full Stack With Lawrence" as well as for select University of British Columbia courses taught by Lawrence McDaniel.
 
 ![Marv](https://cdn.lawrencemcdaniel.com/marv.gif)
 
 **IMPORTANT DISCLAIMER: AWS' Lambda service has a hard 29-second timeout. OpenAI API calls often take longer than this, in which case the AWS API Gateway endpoint will return a 504 "Gateway timeout error" response to the React client. This happens frequently with apps created using chatgpt-4. Each of the 30 OpenAI API example applications are nonetheless implemented exactly as they are specified in the official documentation.**
+
+Code composition as of Dec-2023:
+
+```console
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+Markdown                        50            739              6           2357
+HCL                             23            296            574           1948
+Python                          14            352            369           1306
+YAML                            19            109            101           1077
+JavaScript                      39            112            126           1074
+JSX                              5             37             41            771
+CSS                              5             31             14            172
+make                             1             22             32             82
+INI                              2             15              0             69
+HTML                             2              1              0             65
+Text                             3              3              0             56
+Jupyter Notebook                 1              0            186             48
+Bourne Shell                     4             10             44             32
+TOML                             1              3              0             32
+Dockerfile                       1              4              4              7
+-------------------------------------------------------------------------------
+SUM:                           170           1734           1497           9096
+-------------------------------------------------------------------------------
+```
 
 ## ReactJS chat application
 

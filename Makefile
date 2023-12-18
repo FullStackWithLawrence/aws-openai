@@ -60,6 +60,8 @@ api-lint:
 	terraform fmt -recursive
 	pre-commit run --all-files
 	black ./api/terraform/python/
+	flake8 api/terraform/python/
+	pylint api/terraform/python/openai_api/**/*.py
 
 api-clean:
 	rm -rf venv

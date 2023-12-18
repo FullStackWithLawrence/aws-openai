@@ -73,7 +73,7 @@ make client-init
 
 ## Terraform Setup
 
-Please refer to this [Terraform setup guide](./api/README.md) for detailed instructions.
+Please refer to this [Terraform setup guide](../api/README.md) for detailed instructions.
 
 Note that this project leverages Dependabot for managing version numbers of all Terraform modules that are used in this project. Versions should always be up to date at the moment that you clone the repo. It therefore should never be necessary for you to manually bump module version numbers.
 

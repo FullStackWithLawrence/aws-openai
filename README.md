@@ -8,7 +8,7 @@
 [![Python](https://a11ybadges.com/badge?logo=python)](https://www.python.org/)
 [![Terraform](https://a11ybadges.com/badge?logo=terraform)](https://www.terraform.io/)<br>
 [![12-Factor](https://img.shields.io/badge/12--Factor-Compliant-green.svg)](./doc/Twelve_Factor_Methodology.md)
-![Unit Tests](https://github.com/FullStackWithLawrence/aws-openai/actions/workflows/tests.yml/badge.svg?branch=main)
+![Unit Tests](https://github.com/FullStackWithLawrence/aws-openai/actions/workflows/testsPython.yml/badge.svg?branch=main)
 ![GHA pushMain Status](https://img.shields.io/github/actions/workflow/status/FullStackWithLawrence/aws-openai/pushMain.yml?branch=main)
 ![Auto Assign](https://github.com/FullStackwithLawrence/aws-openai/actions/workflows/auto-assign.yml/badge.svg)
 [![Release Notes](https://img.shields.io/github/release/FullStackWithLawrence/aws-openai)](https://github.com/FullStackWithLawrence/aws-openai/releases)

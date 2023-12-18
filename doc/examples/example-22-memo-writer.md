@@ -36,4 +36,4 @@ Training Opportunities: Inform employees about the upcoming training workshops t
 
 ## Official Documentation
 
-![OpenAI Playground](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/examples/example-22-memo-writer.png "OpenAI Playground")
+![OpenAI Playground](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/img/examples/example-22-memo-writer.png "OpenAI Playground")

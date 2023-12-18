@@ -68,4 +68,4 @@ Meeting adjourned at 3:15 PM. Next meeting scheduled for March 19th, 2050 at 2:0
 
 ## Official Documentation
 
-![OpenAI Playground](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/examples/example-27-notes-summarizer.png "OpenAI Playground")
+![OpenAI Playground](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/img/examples/example-27-notes-summarizer.png "OpenAI Playground")

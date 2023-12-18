@@ -1,0 +1,95 @@
+{
+  "event": {
+    "resource": "/search/{filename}",
+    "path": "/search/Lawrence4a.jpg",
+    "httpMethod": "PUT",
+    "headers": {
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate, br",
+      "CloudFront-Forwarded-Proto": "https",
+      "CloudFront-Is-Desktop-Viewer": "true",
+      "CloudFront-Is-Mobile-Viewer": "false",
+      "CloudFront-Is-SmartTV-Viewer": "false",
+      "CloudFront-Is-Tablet-Viewer": "false",
+      "CloudFront-Viewer-ASN": "17072",
+      "CloudFront-Viewer-Country": "MX",
+      "Content-Type": "text/plain",
+      "Host": "44478mmtkg.execute-api.us-east-1.amazonaws.com",
+      "Postman-Token": "12784428-f519-48c2-9d27-83c74af1df23",
+      "User-Agent": "PostmanRuntime/7.32.3",
+      "Via": "1.1 ca31d0bb7c95405e2a3f70f912def572.cloudfront.net (CloudFront)",
+      "X-Amz-Cf-Id": "jqTZWdobBH3DK2NX9YaHLh3t41TJCjeAeKHqR-ujdPhO9dS8JMWiJw==",
+      "X-Amzn-Trace-Id": "Root=1-64f8d3c6-0e89b922326159fc139d1778",
+      "x-api-key": "NZPnpK6OedanfqZW9bz801QHniYKUTaB8yGeRa4t",
+      "X-Forwarded-For": "187.190.198.47, 18.68.19.23",
+      "X-Forwarded-Port": "443",
+      "X-Forwarded-Proto": "https"
+    },
+    "multiValueHeaders": {
+      "Accept": ["*/*"],
+      "Accept-Encoding": ["gzip, deflate, br"],
+      "CloudFront-Forwarded-Proto": ["https"],
+      "CloudFront-Is-Desktop-Viewer": ["true"],
+      "CloudFront-Is-Mobile-Viewer": ["false"],
+      "CloudFront-Is-SmartTV-Viewer": ["false"],
+      "CloudFront-Is-Tablet-Viewer": ["false"],
+      "CloudFront-Viewer-ASN": ["17072"],
+      "CloudFront-Viewer-Country": ["MX"],
+      "Content-Type": ["text/plain"],
+      "Host": ["44478mmtkg.execute-api.us-east-1.amazonaws.com"],
+      "Postman-Token": ["12784428-f519-48c2-9d27-83c74af1df23"],
+      "User-Agent": ["PostmanRuntime/7.32.3"],
+      "Via": [
+        "1.1 ca31d0bb7c95405e2a3f70f912def572.cloudfront.net (CloudFront)"
+      ],
+      "X-Amz-Cf-Id": [
+        "jqTZWdobBH3DK2NX9YaHLh3t41TJCjeAeKHqR-ujdPhO9dS8JMWiJw=="
+      ],
+      "X-Amzn-Trace-Id": ["Root=1-64f8d3c6-0e89b922326159fc139d1778"],
+      "x-api-key": ["NZPnpK6OedanfqZW9bz801QHniYKUTaB8yGeRa4t"],
+      "X-Forwarded-For": ["187.190.198.47, 18.68.19.23"],
+      "X-Forwarded-Port": ["443"],
+      "X-Forwarded-Proto": ["https"]
+    },
+    "queryStringParameters": null,
+    "multiValueQueryStringParameters": null,
+    "pathParameters": {
+      "filename": "Lawrence4a.jpg"
+    },
+    "stageVariables": null,
+    "requestContext": {
+      "resourceId": "ugz9kd",
+      "resourcePath": "/search/{filename}",
+      "httpMethod": "PUT",
+      "extendedRequestId": "K2YHIHWpoAMF4gQ=",
+      "requestTime": "06/Sep/2023:19:32:22 +0000",
+      "path": "/v1/search/Lawrence4a.jpg",
+      "accountId": "090511222473",
+      "protocol": "HTTP/1.1",
+      "stage": "v1",
+      "domainPrefix": "44478mmtkg",
+      "requestTimeEpoch": 1694028742970,
+      "requestId": "e69153a2-2e58-48a0-8e4b-8c6980923db0",
+      "identity": {
+        "cognitoIdentityPoolId": null,
+        "cognitoIdentityId": null,
+        "apiKey": "NZPnpK6OedanfqZW9bz801QHniYKUTaB8yGeRa4t",
+        "principalOrgId": null,
+        "cognitoAuthenticationType": null,
+        "userArn": null,
+        "apiKeyId": "25c7kjkc33",
+        "userAgent": "PostmanRuntime/7.32.3",
+        "accountId": null,
+        "caller": null,
+        "sourceIp": "187.190.198.47",
+        "accessKey": null,
+        "cognitoAuthenticationProvider": null,
+        "user": null
+      },
+      "domainName": "44478mmtkg.execute-api.us-east-1.amazonaws.com",
+      "apiId": "44478mmtkg"
+    },
+    "body": null,
+    "isBase64Encoded": false
+  }
+}

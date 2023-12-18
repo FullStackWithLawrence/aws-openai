@@ -1,0 +1,129 @@
+{
+  "faces": {
+    "SearchedFaceBoundingBox": {
+      "Width": 0.6752675771713257,
+      "Height": 0.6300017833709717,
+      "Left": 0.14113087952136993,
+      "Top": 0.1448897272348404
+    },
+    "SearchedFaceConfidence": 99.99968719482422,
+    "FaceMatches": [
+      {
+        "Similarity": 100.0,
+        "Face": {
+          "FaceId": "df1faf37-6aa7-4636-89d7-579f16d0e13f",
+          "BoundingBox": {
+            "Width": 0.6752679944038391,
+            "Height": 0.6300020217895508,
+            "Left": 0.14113099873065948,
+            "Top": 0.14488999545574188
+          },
+          "ImageId": "d1d0410d-01b8-322a-b79b-974b70eae5a5",
+          "ExternalImageId": "Lawrence4.jpg",
+          "Confidence": 99.99970245361328,
+          "IndexFacesModelVersion": "6.0"
+        }
+      },
+      {
+        "Similarity": 99.99995422363281,
+        "Face": {
+          "FaceId": "a2f560af-be60-44b8-9cca-2cd280aca18a",
+          "BoundingBox": {
+            "Width": 0.3834420144557953,
+            "Height": 0.5404369831085205,
+            "Left": 0.3352310061454773,
+            "Top": 0.133883997797966
+          },
+          "ImageId": "8d44141e-cfce-3f8a-b5b5-c11db1a67fb3",
+          "ExternalImageId": "Lawrence2.jpg",
+          "Confidence": 99.9979019165039,
+          "IndexFacesModelVersion": "6.0"
+        }
+      },
+      {
+        "Similarity": 99.99993133544922,
+        "Face": {
+          "FaceId": "601497ff-3b28-4962-aeab-5b4b47261f4a",
+          "BoundingBox": {
+            "Width": 0.690172016620636,
+            "Height": 0.6782780289649963,
+            "Left": 0.17868299782276154,
+            "Top": 0.14326800405979156
+          },
+          "ImageId": "708b44a6-bd78-3071-a7b2-c3b2566d6aab",
+          "ExternalImageId": "Lawrence19.jpg",
+          "Confidence": 99.99970245361328,
+          "IndexFacesModelVersion": "6.0"
+        }
+      },
+      {
+        "Similarity": 99.99992370605469,
+        "Face": {
+          "FaceId": "f3799c95-29fa-4d30-88da-606222932bf4",
+          "BoundingBox": {
+            "Width": 0.1601639986038208,
+            "Height": 0.3523370027542114,
+            "Left": 0.8077139854431152,
+            "Top": 0.09413400292396545
+          },
+          "ImageId": "30dca1a3-309c-3c2e-bd52-94dcc53d4981",
+          "ExternalImageId": "Keanu-Avril-Lawrence.jpg",
+          "Confidence": 99.9999008178711,
+          "IndexFacesModelVersion": "6.0"
+        }
+      },
+      {
+        "Similarity": 99.99968719482422,
+        "Face": {
+          "FaceId": "77a75f21-8079-428a-94a4-64f850b4d093",
+          "BoundingBox": {
+            "Width": 0.12419100105762482,
+            "Height": 0.11222200095653534,
+            "Left": 0.40661299228668213,
+            "Top": 0.052646201103925705
+          },
+          "ImageId": "f293e331-9b5e-3447-9bde-c5b0eb179bab",
+          "ExternalImageId": "Lawrence3.jpg",
+          "Confidence": 99.9114990234375,
+          "IndexFacesModelVersion": "6.0"
+        }
+      },
+      {
+        "Similarity": 99.99951171875,
+        "Face": {
+          "FaceId": "7d9ae71a-ba6a-44b4-911b-a7edacc8dd5f",
+          "BoundingBox": {
+            "Width": 0.057725198566913605,
+            "Height": 0.05725089833140373,
+            "Left": 0.3871830105781555,
+            "Top": 0.38436999917030334
+          },
+          "ImageId": "fb881647-55e3-3471-affc-1c496c78a830",
+          "ExternalImageId": "Justin-Trudeau-Barack-Obama-Lawrence.jpg",
+          "Confidence": 99.89849853515625,
+          "IndexFacesModelVersion": "6.0"
+        }
+      }
+    ],
+    "FaceModelVersion": "6.0",
+    "ResponseMetadata": {
+      "RequestId": "6750e387-56bc-4ca7-8e7a-1f13e44135d3",
+      "HTTPStatusCode": 200,
+      "HTTPHeaders": {
+        "x-amzn-requestid": "6750e387-56bc-4ca7-8e7a-1f13e44135d3",
+        "content-type": "application/x-amz-json-1.1",
+        "content-length": "2395",
+        "date": "Thu, 07 Sep 2023 16:49:03 GMT"
+      },
+      "RetryAttempts": 0
+    }
+  },
+  "matchedFaces": [
+    "Lawrence4.jpg",
+    "Lawrence2.jpg",
+    "Lawrence19.jpg",
+    "Keanu avril lawrence.jpg",
+    "Lawrence3.jpg",
+    "Justin trudeau barack obama lawrence.jpg"
+  ]
+}

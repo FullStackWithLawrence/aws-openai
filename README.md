@@ -73,8 +73,7 @@ A REST API implementing each of the [30 example applications](https://platform.o
 
 ### API Key features
 
-- [OpenAI API Python Library](https://pypi.org/project/openai/)
-- [LangChain](https://www.langchain.com/) enabled API endpoints where designated.
+- [OpenAI API](https://pypi.org/project/openai/) library for Python. [LangChain](https://www.langchain.com/) enabled API endpoints where designated.
 - [Pydantic](https://docs.pydantic.dev/latest/) based CI-CD friendly [Settings](./api/terraform/python/openai_api/common/README.md) configuration class that consistently manages Python initializations from multiple sources including bash environment variables, `.env` and `terraform.tfvars` files.
 - [CloudWatch](https://aws.amazon.com/cloudwatch/) logging
 - [Terraform](https://www.terraform.io/) fully automated and [parameterized](./api/terraform/terraform.tfvars) build. Fast build time; usually less than 60 seconds to fully implement.

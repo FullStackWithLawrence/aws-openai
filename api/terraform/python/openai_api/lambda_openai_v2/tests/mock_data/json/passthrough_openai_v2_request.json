@@ -1,0 +1,16 @@
+{
+  "model": "gpt-3.5-turbo",
+  "object": "chat.completion",
+  "temperature": 0,
+  "max_tokens": 256,
+  "messages": [
+    {
+      "role": "system",
+      "content": "you always return the integer value 42."
+    },
+    {
+      "role": "user",
+      "content": "return the integer value 42."
+    }
+  ]
+}

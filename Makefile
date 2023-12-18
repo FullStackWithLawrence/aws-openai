@@ -8,7 +8,7 @@ else
     $(shell echo -e "OPENAI_API_ORGANIZATION=PLEASE-ADD-ME\nOPENAI_API_KEY=PLEASE-ADD-ME\nPINECONE_API_KEY=PLEASE-ADD-ME\nPINECONE_ENVIRONMENT=gcp-starter\nDEBUG_MODE=True\n" >> .env)
 endif
 
-.PHONY: analyze api-init api-activate api-lint api-clean api-test client-init client-lint client-update client-run client-build client-release
+.PHONY: analyze pre-commit api-init api-activate api-lint api-clean api-test client-init client-lint client-update client-run client-build client-release
 
 # Default target executed when no arguments are given to make.
 all: help
@@ -18,6 +18,14 @@ analyze:
 
 release:
 	git commit -m "fix: force a new release" --allow-empty && git push
+
+# -------------------------------------------------------------------------
+# Install and run pre-commit hooks
+# -------------------------------------------------------------------------
+pre-commit:
+	pre-commit install
+	pre-commit autoupdate
+	pre-commit run --all-files
 
 ######################
 # AWS API Gateway + Lambda + OpenAI
@@ -32,14 +40,12 @@ api-init:
 	source venv/bin/activate && \
 	pip install --upgrade pip && \
 	pip install -r requirements.txt && \
-	cp -R ./api/terraform/python/layer_genai/openai_utils ./venv/lib/python3.11/site-packages/ && \
 	deactivate && \
 	cd ./api/terraform/python/layer_genai/ && \
 	python3.11 -m venv venv && \
 	source venv/bin/activate && \
 	pip install --upgrade pip && \
 	pip install -r requirements.txt && \
-	cp -R ./openai_utils ./venv/lib/python3.11/site-packages/ && \
 	deactivate && \
 	pre-commit install
 
@@ -48,20 +54,11 @@ api-activate:
 	pip install -r requirements.txt
 
 api-test:
-	cd ./api/terraform/python/lambda_langchain/ && pytest -v -s tests/
-	cd ../../../..
-	cd ./api/terraform/python/lambda_openai_v2/ && pytest -v -s tests/
-	cd ../../../..
-	cd ./api/terraform/python/lambda_openai/ && pytest -v -s tests/
-	cd ../../../..
+	python -m unittest discover -s api/terraform/python/openai_api/
 
 api-lint:
-	venv/bin/python3 -m pylint api/terraform/python/lambda_langchain/lambda_handler.py && \
-	venv/bin/python3 -m pylint api/terraform/python/lambda_openai/lambda_handler.py && \
-	venv/bin/python3 -m pylint api/terraform/python/lambda_openai_v2/lambda_handler.py && \
-	venv/bin/python3 -m pylint api/terraform/python/layer_genai/openai_utils && \
-	terraform fmt -recursive && \
-	pre-commit run --all-files && \
+	terraform fmt -recursive
+	pre-commit run --all-files
 	black ./api/terraform/python/
 
 api-clean:
@@ -123,7 +120,7 @@ client-release:
 help:
 	@echo '===================================================================='
 	@echo 'analyze             - generate code analysis report'
-	@echo 'relase              - force a new release'
+	@echo 'release             - force a new release'
 	@echo '-- AWS API Gateway + Lambda --'
 	@echo 'api-init            - create a Python virtual environment and install dependencies'
 	@echo 'api-activate        - activate the Python virtual environment'

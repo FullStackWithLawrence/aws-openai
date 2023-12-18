@@ -1,8 +1,14 @@
 # Jupyter Notebook
 .ipynb_checkpoints
+build
+dist
 
 .DS_Store
+
 #  Local .terraform directories
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
 .terraform/
 .env
 lambda_dist_pkg

@@ -1,0 +1,38 @@
+{
+  "isBase64Encoded": false,
+  "statusCode": 200,
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "chat_memory": {
+      "messages": [
+        {
+          "content": "return the integer number 42",
+          "additional_kwargs": {},
+          "type": "human",
+          "example": false
+        },
+        {
+          "content": "42",
+          "additional_kwargs": {},
+          "type": "ai",
+          "example": false
+        }
+      ]
+    },
+    "output_key": null,
+    "input_key": null,
+    "return_messages": true,
+    "human_prefix": "Human",
+    "ai_prefix": "AI",
+    "memory_key": "chat_history",
+    "request_meta_data": {
+      "lambda": "lambda_openai_v2",
+      "model": "gpt-3.5-turbo",
+      "object_type": "chat.completion",
+      "temperature": 0,
+      "max_tokens": 256
+    }
+  }
+}

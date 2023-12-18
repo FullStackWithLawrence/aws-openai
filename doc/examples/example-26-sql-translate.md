@@ -22,4 +22,4 @@ curl --location --request PUT 'https://api.openai.lawrencemcdaniel.com/examples/
 
 ## Official Documentation
 
-![OpenAI Playground](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/examples/example-26-sql-translate.png "OpenAI Playground")
+![OpenAI Playground](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/img/examples/example-26-sql-translate.png "OpenAI Playground")

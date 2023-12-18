@@ -42,4 +42,4 @@ curl --location --request PUT 'https://YOUR-API-GATEWAY-URL.amazonaws.com/v1/exa
 
 ## Official Documentation
 
-![OpenAI Playground](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/examples/example-01-grammar.png "OpenAI Playground")
+![OpenAI Playground](https://raw.githubusercontent.com/FullStackWithLawrence/aws-openai/main/doc/img/examples/example-01-grammar.png "OpenAI Playground")

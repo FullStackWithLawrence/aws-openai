@@ -7,16 +7,45 @@
 [![ReactJS](https://a11ybadges.com/badge?logo=react)](https://react.dev/)
 [![Python](https://a11ybadges.com/badge?logo=python)](https://www.python.org/)
 [![Terraform](https://a11ybadges.com/badge?logo=terraform)](https://www.terraform.io/)<br>
-[![Release Notes](https://img.shields.io/github/release/FullStackWithLawrence/aws-openai)](https://github.com/FullStackWithLawrence/aws-openai/releases)
+[![12-Factor](https://img.shields.io/badge/12--Factor-Compliant-green.svg)](./doc/Twelve_Factor_Methodology.md)
+![Unit Tests](https://github.com/FullStackWithLawrence/aws-openai/actions/workflows/tests.yml/badge.svg?branch=main)
 ![GHA pushMain Status](https://img.shields.io/github/actions/workflow/status/FullStackWithLawrence/aws-openai/pushMain.yml?branch=main)
-[![AGPL License](https://img.shields.io/github/license/overhangio/tutor.svg?style=flat-square)](https://www.gnu.org/licenses/agpl-3.0.en.html)
+![Auto Assign](https://github.com/FullStackwithLawrence/aws-openai/actions/workflows/auto-assign.yml/badge.svg)
+[![Release Notes](https://img.shields.io/github/release/FullStackWithLawrence/aws-openai)](https://github.com/FullStackWithLawrence/aws-openai/releases)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![hack.d Lawrence McDaniel](https://img.shields.io/badge/hack.d-Lawrence%20McDaniel-orange.svg)](https://lawrencemcdaniel.com)
 
-A [React](https://react.dev/) + [AWS Serverless](https://aws.amazon.com/serverless/) full stack implementation of the [30 example applications](https://platform.openai.com/examples) found in the official OpenAI API documentation. Now with [LangChain](https://www.langchain.com/)!
+A [React](https://react.dev/) + [AWS Serverless](https://aws.amazon.com/serverless/) full stack implementation of the [30 example applications](https://platform.openai.com/examples) found in the official OpenAI API documentation. This repository is used as an instructional tool for the YouTube channel "[Full Stack With Lawrence](https://youtube.com/@FullStackWithLawrence)" as well as for University of British Columbia course, "[Artificial Intelligence Cloud Technology Implementation](https://extendedlearning.ubc.ca/courses/artificial-intelligence-cloud-technology-implementation/mg202)" taught by Lawrence McDaniel.
 
 ![Marv](https://cdn.lawrencemcdaniel.com/marv.gif)
 
 **IMPORTANT DISCLAIMER: AWS' Lambda service has a hard 29-second timeout. OpenAI API calls often take longer than this, in which case the AWS API Gateway endpoint will return a 504 "Gateway timeout error" response to the React client. This happens frequently with apps created using chatgpt-4. Each of the 30 OpenAI API example applications are nonetheless implemented exactly as they are specified in the official documentation.**
+
+Code composition as of Dec-2023:
+
+```console
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+Markdown                        50            739              6           2357
+HCL                             23            296            574           1948
+Python                          14            352            369           1306
+YAML                            19            109            101           1077
+JavaScript                      39            112            126           1074
+JSX                              5             37             41            771
+CSS                              5             31             14            172
+make                             1             22             32             82
+INI                              2             15              0             69
+HTML                             2              1              0             65
+Text                             3              3              0             56
+Jupyter Notebook                 1              0            186             48
+Bourne Shell                     4             10             44             32
+TOML                             1              3              0             32
+Dockerfile                       1              4              4              7
+-------------------------------------------------------------------------------
+SUM:                           170           1734           1497           9096
+-------------------------------------------------------------------------------
+```
 
 ## ReactJS chat application
 
@@ -44,30 +73,23 @@ A REST API implementing each of the [30 example applications](https://platform.o
 
 ### API Key features
 
-- Built on the [OpenAI API Python Library](https://pypi.org/project/openai/)
-- [LangChain](https://www.langchain.com/) enabled API endpoints where designated.
-- Customizable. [Modularized endpoints](./terraform/apigateway_endpoints.tf) that only take a few lines of code each.
-- Highly secure. Your OpenAI API key is stored in a local .env file, and is kept safe during development, build and deployment to production.
-- Implements excellent [CloudWatch](https://aws.amazon.com/cloudwatch/) logs for Lambda as well as API Gateway
-- Fully automated and [parameterized](./api/terraform/terraform.tfvars) Terraform build
-- well documented code plus supplemental [documentation resources](./doc/) as well as detailed documentation on each [URL endpoint](./doc/examples/README.md).
-- Low-cost [AWS serverless](https://aws.amazon.com/serverless/) implementation using [AWS API Gateway](https://aws.amazon.com/api-gateway/) and [AWS Lambda](https://aws.amazon.com/lambda/); free or nearly free in most cases
-- Robust, performant and infinitely scalable
-- Fast build time; usually less than 60 seconds to fully implement
-- Includes both Python and Node.js Lambda examples
-- Deploy https to a custom domain
-- Preconfigured [Postman](https://www.postman.com/) files for testing
-- includes AWS API Gateway usage policy and api key
-- Full CORS configuration
+- [OpenAI API](https://pypi.org/project/openai/) library for Python. [LangChain](https://www.langchain.com/) enabled API endpoints where designated.
+- [Pydantic](https://docs.pydantic.dev/latest/) based CI-CD friendly [Settings](./api/terraform/python/openai_api/common/README.md) configuration class that consistently and automatically manages Python Lambda initializations from multiple sources including bash environment variables, `.env` and `terraform.tfvars` files.
+- [CloudWatch](https://aws.amazon.com/cloudwatch/) logging
+- [Terraform](https://www.terraform.io/) fully automated and [parameterized](./api/terraform/terraform.tfvars) build. Usually builds your infrastructure in less than a minute.
+- Secure: uses AWS role-based security and custom IAM policies. Best practice handling of secrets and sensitive data in all environments (dev, test, CI-CD, prod). Proxy-based API that hides your OpenAI API calls and credentials. Runs on https with AWS-managed SSL/TLS certificate.
+- Excellent [documentation](./doc/)
+- [AWS serverless](https://aws.amazon.com/serverless/) implementation. Free or nearly free in most cases
+- Deploy to a custom domain name
 
 ## Requirements
 
 - [AWS account](https://aws.amazon.com/)
 - [AWS Command Line Interface](https://aws.amazon.com/cli/)
 - [Terraform](https://www.terraform.io/).
-  _If you're new to Terraform then see [Getting Started With AWS and Terraform](./doc/terraform-getting-started.md)_
+  _If you're new to Terraform then see [Getting Started With AWS and Terraform](./doc/TERRAFORM_GETTING_STARTED_GUIDE.md)_
 - [OpenAI platform API key](https://platform.openai.com/).
-  _If you're new to OpenAI API then see [How to Get an OpenAI API Key](./doc/openai-api-key.md)_
+  _If you're new to OpenAI API then see [How to Get an OpenAI API Key](./doc/OPENAI_API_GETTING_STARTED_GUIDE.md)_
 - [Python 3.11](https://www.python.org/downloads/): for creating virtual environment used for building AWS Lambda Layer, and locally by pre-commit linters and code formatters.
 - [NodeJS](https://nodejs.org/en/download): used with NPM for local ReactJS developer environment, and for configuring/testing Semantic Release.
 - [Docker Compose](https://docs.docker.com/compose/install/): used by an automated Terraform process to create the AWS Lambda Layer for OpenAI and LangChain.
@@ -76,55 +98,15 @@ A REST API implementing each of the [30 example applications](https://platform.o
 
 Detailed documentation for each endpoint is available here: [Documentation](./doc/examples/)
 
-## Examples of Code Management Best Practices
-
-This repo is referenced by multiple YouTube videos, including various tutorials about good coding practices and good code management. Of note:
-
-### Automations
-
-- [Automated Pull Requests](https://github.com/FullStackWithLawrence/aws-openai/pulls?q=is%3Apr+is%3Aclosed): Github Actions are triggered on pull requests to run any of several different kinds of technology-specific unit tests depending on the contents of the commits included in the PR.
-- [python-dotenv](https://pypi.org/project/python-dotenv/) for storing sensitive data for local development
-- [.gitignore](./.gitignore) ensures that no sensitive nor useless data accidentally gets pushed to GitHub.
-- [tox.ini](./tox.ini) file for configuring behaviors of Python testing tools
-- [GitHub Actions](https://github.com/features/actions) automates unit testing, semantic release rule checking, and dependabot actions.
-- [GitHub Secrets](https://github.com/FullStackWithLawrence/aws-openai/settings/secrets/actions) to provide sensitive data to Github Actions workflows
-- [GitHub Issues](https://github.com/features/issues)
-- [Makefile](./Makefile) automates procedures like init, build, test, release and linting for Python, ReactJS and Terraform.
-- [pre-commit](https://pre-commit.com/) automatically enforces a multitude of code quality, coding style and security policies.
-- [Dependabot](https://github.com/dependabot) automatically updates the version pins of code library dependencies for Python, ReactJS and Terraform.
-- [Unit Tests](https://docs.pytest.org/) are automated and can be invoked
-  - manually from the command line
-  - manually from GitHub Actions
-  - automatically by Dependabot.
-- [Mergify](https://mergify.com/) automates processing of bot-created pull requests
-- [Semantic Release](https://github.com/semantic-release/semantic-release) automates version releases as well as maintains the change log for the repo.
-- [Change Log](http://keepachangelog.com/)
-
-### Linters and Formatters
-
-Linters and formatters are tools used in programming to analyze and improve the quality of code. This project leverages several, including:
-
-#### Code Formatting
-
-- [Prettier](https://prettier.io/): an opinionated code formatter that supports many file formats and languages. This project leverages Prettier to standardize formatting of md, css, json, yml, js, jsx and Typescript files.
-- [Black](https://github.com/psf/black): an opinionated code formatter for Python which is compatible with [PEP 8](https://peps.python.org/pep-0008/) and the [Python Style Guide](https://www.python.org/doc/essays/styleguide/).
-- [isort](https://pycqa.github.io/isort/): a Python utility that sorts imports alphabetically, and automatically, separated into sections and by type.
-
-#### Code Analysis
-
-- [ESLint](https://eslint.org/): an open source project that helps you find and fix problems with your JavaScript and JSX code.
-- [Flake8](https://flake8.pycqa.org/en/latest/): provides Python syntax checking, naming style enforcement, code style enforcement, and [cyclomatic complexity](https://en.wikipedia.org/wiki/Cyclomatic_complexity) analysis.
-- [pylint](https://pypi.org/project/pylint/): a static code analyser for Python. It analyses your code without actually running it. It checks for errors, enforces a coding standard, looks for code smells, and can make suggestions about how the code could be refactored.
-- [bandit](https://github.com/PyCQA/bandit): a tool designed to find common security issues in Python code.
-
-#### Pre-commit hooks
-
-- [pre-commit Hooks](https://pre-commit.com/hooks.html): scripts that run automatically before each commit is made to a repository, checking your code for embedded passwords, errors, issues, and any of a multitude of configurable policies that you can optionally enforce. They're part of the git hooks system, which allows you to trigger actions at certain points in git's execution. This project uses many Hooks. See [pre-commit-config.yaml](https://github.com/FullStackWithLawrence/aws-openai/blob/main/.pre-commit-config.yaml#L45).
-- [codespell](https://github.com/codespell-project/codespell): fixes common misspellings in text files. It's designed primarily for checking misspelled words in source code, but it can be used with other files as well.
-
 ## Support
 
-To get community support, go to the official [Issues Page](https://github.com/FullStackWithLawrence/aws-openai/issues) for this project.
+To get community support, go to the official [Issues Page](https://github.com/FullStackWithLawrence/aws-rekognition/issues) for this project.
+
+## Good Coding Best Practices
+
+This project demonstrates a wide variety of good coding best practices for managing mission-critical cloud-based micro services in a team environment, namely its adherence to [12-Factor Methodology](./doc/Twelve_Factor_Methodology.md). Please see this [Code Management Best Practices](./doc/GOOD_CODING_PRACTICE.md) for additional details.
+
+We want to make this project more accessible to students and learners as an instructional tool while not adding undue code review workloads to anyone with merge authority for the project. To this end we've also added several pre-commit code linting and code style enforcement tools, as well as automated procedures for version maintenance of package dependencies, pull request evaluations, and semantic releases.
 
 ## Contributing
 
@@ -132,7 +114,7 @@ We welcome contributions! There are a variety of ways for you to get involved, r
 
 For developers, please see:
 
-- the [Developer Setup Guide](./CONTRIBUTING.md)
-- and these [commit comment guidelines](./SEMANTIC_VERSIONING.md) 😬😬😬 for managing CI rules for automated semantic versioning.
+- the [Developer Setup Guide](./doc/CONTRIBUTING.md)
+- and these [commit comment guidelines](./doc/SEMANTIC_VERSIONING.md) 😬😬😬 for managing CI rules for automated semantic releases.
 
 You can also contact [Lawrence McDaniel](https://lawrencemcdaniel.com/contact) directly.

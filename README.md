@@ -74,9 +74,10 @@ A REST API implementing each of the [30 example applications](https://platform.o
 ### API Key features
 
 - [OpenAI API](https://pypi.org/project/openai/) library for Python. [LangChain](https://www.langchain.com/) enabled API endpoints where designated.
-- [Pydantic](https://docs.pydantic.dev/latest/) based CI-CD friendly [Settings](./api/terraform/python/openai_api/common/README.md) configuration class that consistently manages Python initializations from multiple sources including bash environment variables, `.env` and `terraform.tfvars` files.
+- [Pydantic](https://docs.pydantic.dev/latest/) based CI-CD friendly [Settings](./api/terraform/python/openai_api/common/README.md) configuration class that consistently and automatically manages Python Lambda initializations from multiple sources including bash environment variables, `.env` and `terraform.tfvars` files.
 - [CloudWatch](https://aws.amazon.com/cloudwatch/) logging
-- [Terraform](https://www.terraform.io/) fully automated and [parameterized](./api/terraform/terraform.tfvars) build. Fast build time; usually less than 60 seconds to fully implement.
+- [Terraform](https://www.terraform.io/) fully automated and [parameterized](./api/terraform/terraform.tfvars) build. Usually builds your infrastructure in less than a minute.
+- Secure: uses AWS role-based security and custom IAM policies. Best practice handling of secrets and sensitive data in all environments (dev, test, CI-CD, prod). Proxy-based API that hides your OpenAI API calls and credentials. Runs on https with AWS-managed SSL/TLS certificate.
 - Excellent [documentation](./doc/)
 - [AWS serverless](https://aws.amazon.com/serverless/) implementation. Free or nearly free in most cases
 - Deploy to a custom domain name

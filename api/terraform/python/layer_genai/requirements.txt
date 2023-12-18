@@ -9,6 +9,9 @@
 # -----------------------------------------------------------------------------
 python-dotenv==1.0.0
 openai==1.5.0
-langchain==0.0.350
-langchain-experimental==0.0.47
+langchain
+langchain-experimental
 pinecone-client==2.2.4
+pydantic==2.5.2
+pydantic-settings==2.1.0
+python-dotenv==1.0.0

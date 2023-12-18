@@ -27,14 +27,12 @@ pre-commit:
 	pre-commit autoupdate
 	pre-commit run --all-files
 
-######################
-# AWS API Gateway + Lambda + OpenAI
-######################
+# ---------------------------------------------------------
+# create python virtual environments for dev as well
+# as for the Lambda layer.
+# ---------------------------------------------------------
 api-init:
-	# ---------------------------------------------------------
-	# create python virtual environments for dev as well
-	# as for the Lambda layer.
-	# ---------------------------------------------------------
+	make api-clean
 	npm install && \
 	python3.11 -m venv venv && \
 	source venv/bin/activate && \
@@ -49,10 +47,6 @@ api-init:
 	deactivate && \
 	pre-commit install
 
-api-activate:
-	. venv/bin/activate && \
-	pip install -r requirements.txt
-
 api-test:
 	python -m unittest discover -s api/terraform/python/openai_api/
 
@@ -60,9 +54,15 @@ api-lint:
 	terraform fmt -recursive
 	pre-commit run --all-files
 	black ./api/terraform/python/
+	flake8 api/terraform/python/
+	pylint api/terraform/python/openai_api/**/*.py
 
 api-clean:
 	rm -rf venv
+	rm -rf ./api/terraform/python/layer_genai/venv
+	rm -rf ./api/terraform/build/
+	mkdir -p ./api/terraform/build/
+	find ./api/terraform/python/ -name __pycache__ -type d -exec rm -rf {} +
 
 ######################
 # React app
@@ -123,7 +123,6 @@ help:
 	@echo 'release             - force a new release'
 	@echo '-- AWS API Gateway + Lambda --'
 	@echo 'api-init            - create a Python virtual environment and install dependencies'
-	@echo 'api-activate        - activate the Python virtual environment'
 	@echo 'api-test            - run Python unit tests'
 	@echo 'api-lint            - run Python linting'
 	@echo 'api-clean           - destroy the Python virtual environment'

@@ -35,6 +35,7 @@ api-init:
 	# create python virtual environments for dev as well
 	# as for the Lambda layer.
 	# ---------------------------------------------------------
+	make api-clean
 	npm install && \
 	python3.11 -m venv venv && \
 	source venv/bin/activate && \
@@ -65,6 +66,10 @@ api-lint:
 
 api-clean:
 	rm -rf venv
+	rm -rf ./api/terraform/python/layer_genai/venv
+	rm -rf ./api/terraform/build/
+	mkdir -p ./api/terraform/build/
+	find ./api/terraform/python/ -name __pycache__ -type d -exec rm -rf {} +
 
 ######################
 # React app

@@ -14,11 +14,10 @@ any of the following sources:
 """
 
 import importlib.util
-import logging
 import os  # library for interacting with the operating system
 import platform  # library to view information about the server host this Lambda runs on
 import re
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 import boto3  # AWS SDK for Python https://boto3.amazonaws.com/v1/documentation/api/latest/index.html
 from dotenv import load_dotenv
@@ -31,6 +30,7 @@ from pydantic import Field, ValidationError, validator
 from pydantic_settings import BaseSettings
 
 
+TFVARS = TFVARS or {}
 DOT_ENV_LOADED = load_dotenv()
 ec2 = boto3.Session().client("ec2")
 regions = ec2.describe_regions()
@@ -76,6 +76,7 @@ class SettingsDefaults:
     """Default values for Settings"""
 
     DEBUG_MODE = TFVARS.get("debug_mode", False)
+    DUMP_DEFAULTS = TFVARS.get("dump_defaults", False)
     AWS_PROFILE = TFVARS.get("aws_profile", None)
     AWS_REGION = TFVARS.get("aws_region", "us-east-1")
     AWS_DYNAMODB_TABLE_ID = "rekognition"
@@ -96,6 +97,15 @@ class SettingsDefaults:
     VALID_DOMAIN_PATTERN = r"^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$"
     VALID_AWS_REGIONS = [region["RegionName"] for region in regions["Regions"]]
 
+    @classmethod
+    def to_dict(cls):
+        """Convert SettingsDefaults to dict"""
+        return {
+            key: value
+            for key, value in SettingsDefaults.__dict__.items()
+            if not key.startswith("__") and not callable(key) and key != "to_dict"
+        }
+
 
 def empty_str_to_bool_default(v: str, default: bool) -> bool:
     """Convert empty string to default boolean value"""
@@ -115,6 +125,7 @@ def empty_str_to_int_default(v: str, default: int) -> int:
 
 
 # pylint: disable=too-many-public-methods
+# pylint: disable=too-many-instance-attributes
 class Settings(BaseSettings):
     """Settings for Lambda functions"""
 
@@ -125,12 +136,31 @@ class Settings(BaseSettings):
     _rekognition_client: boto3.client = None
     _dynamodb_table: boto3.resource = None
     _cloudwatch_dump: Dict[str, str] = None
+    _pinecone_api_key_source: str = "unset"
+    _openai_api_key_source: str = "unset"
+
+    def __init__(self, **data: Any):
+        super().__init__(**data)
+        if "PINECONE_API_KEY" in os.environ:
+            self._pinecone_api_key_source = "environment variable"
+        elif data.get("pinecone_api_key"):
+            self._pinecone_api_key_source = "init argument"
+        if "OPENAI_API_KEY" in os.environ:
+            self._openai_api_key_source = "environment variable"
+        elif data.get("openai_api_key"):
+            self._openai_api_key_source = "init argument"
 
     debug_mode: Optional[bool] = Field(
         SettingsDefaults.DEBUG_MODE,
         env="DEBUG_MODE",
         pre=True,
         getter=lambda v: empty_str_to_bool_default(v, SettingsDefaults.DEBUG_MODE),
+    )
+    dump_defaults: Optional[bool] = Field(
+        SettingsDefaults.DUMP_DEFAULTS,
+        env="DUMP_DEFAULTS",
+        pre=True,
+        getter=lambda v: empty_str_to_bool_default(v, SettingsDefaults.DUMP_DEFAULTS),
     )
     aws_profile: Optional[str] = Field(
         SettingsDefaults.AWS_PROFILE,
@@ -202,6 +232,16 @@ class Settings(BaseSettings):
     )
 
     @property
+    def pinecone_api_key_source(self) -> str:
+        """Pinecone API key source"""
+        return self._pinecone_api_key_source
+
+    @property
+    def openai_api_key_source(self) -> str:
+        """OpenAI API key source"""
+        return self._openai_api_key_source
+
+    @property
     def is_using_dotenv_file(self) -> bool:
         """Is the dotenv file being used?"""
         return DOT_ENV_LOADED
@@ -232,7 +272,7 @@ class Settings(BaseSettings):
         return False
 
     @property
-    def openai_api_version(self) -> str:
+    def version(self) -> str:
         """OpenAI API version"""
         return get_semantic_version()
 
@@ -285,10 +325,18 @@ class Settings(BaseSettings):
     @property
     def cloudwatch_dump(self):
         """Dump settings to CloudWatch"""
+
+        def recursive_sort_dict(d):
+            return {k: recursive_sort_dict(v) if isinstance(v, dict) else v for k, v in sorted(d.items())}
+
         if self._cloudwatch_dump:
             return self._cloudwatch_dump
 
         self._cloudwatch_dump = {
+            "secrets": {
+                "openai_api_source": self.openai_api_key_source,
+                "pinecone_api_source": self.pinecone_api_key_source,
+            },
             "environment": {
                 "is_using_tfvars_file": self.is_using_tfvars_file,
                 "is_using_dotenv_file": self.is_using_dotenv_file,
@@ -298,7 +346,12 @@ class Settings(BaseSettings):
                 "boto3": boto3.__version__,
                 "shared_resource_identifier": self.shared_resource_identifier,
                 "debug_mode": self.debug_mode,
-                "openai_api_version": self.openai_api_version,
+                "dump_defaults": self.dump_defaults,
+                "version": self.version,
+            },
+            "aws": {
+                "aws_profile": self.aws_profile,
+                "aws_region": self.aws_region,
             },
             "aws_api_gateway": {
                 "aws_apigateway_root_domain": self.aws_apigateway_root_domain,
@@ -311,6 +364,10 @@ class Settings(BaseSettings):
                 "openai_endpoint_image_size": self.openai_endpoint_image_size,
             },
         }
+        if self.dump_defaults:
+            settings_defaults = SettingsDefaults.to_dict()
+            self._cloudwatch_dump["settings_defaults"] = settings_defaults
+
         if self.is_using_aws_rekognition:
             aws_rekognition = {
                 "aws_rekognition_collection_id": self.aws_rekognition_collection_id,
@@ -332,6 +389,7 @@ class Settings(BaseSettings):
         if self.is_using_tfvars_file:
             self._cloudwatch_dump["environment"]["tfvars"] = self.tfvars_variables
 
+        self._cloudwatch_dump = recursive_sort_dict(self._cloudwatch_dump)
         return self._cloudwatch_dump
 
     # pylint: disable=too-few-public-methods
@@ -420,6 +478,15 @@ class Settings(BaseSettings):
             return SettingsDefaults.DEBUG_MODE
         return v.lower() in ["true", "1", "t", "y", "yes"]
 
+    @validator("dump_defaults", pre=True)
+    def parse_dump_defaults(cls, v):
+        """Parse dump_defaults"""
+        if isinstance(v, bool):
+            return v
+        if v in [None, ""]:
+            return SettingsDefaults.DUMP_DEFAULTS
+        return v.lower() in ["true", "1", "t", "y", "yes"]
+
     @validator("aws_rekognition_face_detect_max_faces_count", pre=True)
     def check_face_detect_max_faces_count(cls, v):
         """Check aws_rekognition_face_detect_max_faces_count"""
@@ -495,22 +562,3 @@ try:
     settings = Settings()
 except (ValidationError, ValueError, OpenAIAPIConfigurationError, OpenAIAPIValueError) as e:
     raise OpenAIAPIConfigurationError("Invalid configuration: " + str(e)) from e
-
-logger = logging.getLogger(__name__)
-logger.debug("is_using_dotenv_file: %s", settings.is_using_dotenv_file)
-logger.debug("is_using_tfvars_file: %s", settings.is_using_tfvars_file)
-logger.debug("debug_mode: %s", settings.debug_mode)
-logger.debug("aws_region: %s", settings.aws_region)
-logger.debug("aws_apigateway_root_domain: %s", settings.aws_apigateway_root_domain)
-logger.debug("aws_apigateway_custom_domain_name_create: %s", settings.aws_apigateway_custom_domain_name_create)
-logger.debug("aws_apigateway_custom_domain_name: %s", settings.aws_apigateway_custom_domain_name)
-logger.debug("aws_dynamodb_table_id: %s", settings.aws_dynamodb_table_id)
-logger.debug("aws_rekognition_collection_id: %s", settings.aws_rekognition_collection_id)
-logger.debug("aws_rekognition_face_detect_max_faces_count: %s", settings.aws_rekognition_face_detect_max_faces_count)
-logger.debug("aws_rekognition_face_detect_attributes: %s", settings.aws_rekognition_face_detect_attributes)
-logger.debug("aws_rekognition_face_detect_quality_filter: %s", settings.aws_rekognition_face_detect_quality_filter)
-logger.debug("aws_rekognition_face_detect_threshold: %s", settings.aws_rekognition_face_detect_threshold)
-logger.debug("langchain_memory_key: %s", settings.langchain_memory_key)
-logger.debug("openai_endpoint_image_n: %s", settings.openai_endpoint_image_n)
-logger.debug("openai_endpoint_image_size: %s", settings.openai_endpoint_image_size)
-logger.debug("shared_resource_identifier: %s", settings.shared_resource_identifier)

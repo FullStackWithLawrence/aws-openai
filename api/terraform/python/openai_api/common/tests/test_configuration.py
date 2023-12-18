@@ -228,7 +228,7 @@ class TestConfiguration(unittest.TestCase):
         self.assertIn("release", environment)
         self.assertIn("boto3", environment)
         self.assertIn("SHARED_RESOURCE_IDENTIFIER".lower(), environment)
-        self.assertIn("openai_api_version", environment)
+        self.assertIn("version", environment)
 
         aws_api_gateway = mock_settings.cloudwatch_dump["aws_api_gateway"]
         self.assertIn("AWS_APIGATEWAY_ROOT_DOMAIN".lower(), aws_api_gateway)

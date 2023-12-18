@@ -49,6 +49,7 @@ A REST API implementing each of the [30 example applications](https://platform.o
 
 - Built on the [OpenAI API Python Library](https://pypi.org/project/openai/)
 - [LangChain](https://www.langchain.com/) enabled API endpoints where designated.
+- Pydantic-based strongly-typed [Settings](./api/terraform/python/openai_api/common/conf.py) configuration class that consistently manages Python initializations from multiple sources including bash environment variables, `.env` and `terraform.tfvars` files.
 - Customizable. [Modularized endpoints](./terraform/apigateway_endpoints.tf) that only take a few lines of code each.
 - Highly secure. Your OpenAI API key is stored in a local .env file, and is kept safe during development, build and deployment to production.
 - Implements excellent [CloudWatch](https://aws.amazon.com/cloudwatch/) logs for Lambda as well as API Gateway

@@ -9,16 +9,15 @@ on:
     paths:
       - "**.py"
 
+env:
+  python-version: "3.11"
+
 jobs:
-  tests:
-    name: tests
+  python-unit-tests:
     runs-on: ubuntu-latest
-    env:
-      AWS_REGION: ${{ secrets.AWS_REGION }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
-      - name: Checkout
+      - name: Checkout code
+        id: checkout
         uses: actions/checkout@v4
 
       - name: Configure AWS credentials
@@ -26,26 +25,13 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: "us-east-1"
+          aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Set up Python 3.x
-        uses: actions/setup-python@v5
+      - name: Run Python tests
+        uses: ./.github/actions/tests/python
         with:
-          python-version: "3.11"
-
-      - name: Cache Python dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip
-
-      - name: Install requirements
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r ./requirements.txt
-
-      - name: terraform/python Unit tests
-        run: |
-          make api-test
+          python-version: "${{ env.python-version}}"
+          openai-api-organization: "${{ secrets.OPENAI_API_ORGANIZATION }}"
+          openai-api-key: "${{ secrets.OPENAI_API_KEY }}"
+          pinecone-api-key: "${{ secrets.PINECONE_API_KEY }}"
+          pinecone-environment: "${{ secrets.PINECONE_ENVIRONMENT }}"

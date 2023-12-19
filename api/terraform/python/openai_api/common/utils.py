@@ -174,9 +174,3 @@ def get_messages_for_role(messages: list, role: str) -> list:
     """Get the text content from the messages list for a given role"""
     retval = [d.get("content") for d in messages if d["role"] == role]
     return retval
-
-
-def get_messages_for_type(messages: list, message_type: str) -> list:
-    """Get the text content from the messages list for a given role"""
-    retval = [d.get("content") for d in messages if d["type"] == message_type]
-    return retval

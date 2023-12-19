@@ -1,0 +1,41 @@
+{
+  "retval": {
+    "isBase64Encoded": false,
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "id": "chatcmpl-8WtM7gZIqvLQKPlNi9ALm7Im6CdXa",
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "content": "42",
+            "role": "assistant",
+            "function_call": null,
+            "tool_calls": null
+          },
+          "logprobs": null
+        }
+      ],
+      "created": 1702849975,
+      "model": "gpt-3.5-turbo-0613",
+      "object": "chat.completion",
+      "system_fingerprint": null,
+      "usage": {
+        "completion_tokens": 1,
+        "prompt_tokens": 23,
+        "total_tokens": 24
+      },
+      "request_meta_data": {
+        "lambda": "lambda_openai_v2",
+        "model": "gpt-3.5-turbo",
+        "object_type": "chat.completion",
+        "temperature": 0,
+        "max_tokens": 256
+      }
+    }
+  }
+}

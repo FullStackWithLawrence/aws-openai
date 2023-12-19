@@ -26,7 +26,7 @@ from openai_api.common.exceptions import (
     OpenAIAPIConfigurationError,
     OpenAIAPIValueError,
 )
-from pydantic import Field, ValidationError, validator
+from pydantic import Field, SecretStr, ValidationError, validator
 from pydantic_settings import BaseSettings
 
 
@@ -219,14 +219,14 @@ class Settings(BaseSettings):
     openai_api_organization: Optional[str] = Field(
         SettingsDefaults.OPENAI_API_ORGANIZATION, env="OPENAI_API_ORGANIZATION"
     )
-    openai_api_key: Optional[str] = Field(SettingsDefaults.OPENAI_API_KEY, env="OPENAI_API_KEY")
+    openai_api_key: Optional[SecretStr] = Field(SettingsDefaults.OPENAI_API_KEY, env="OPENAI_API_KEY")
     openai_endpoint_image_n: Optional[int] = Field(
         SettingsDefaults.OPENAI_ENDPOINT_IMAGE_N, env="OPENAI_ENDPOINT_IMAGE_N"
     )
     openai_endpoint_image_size: Optional[str] = Field(
         SettingsDefaults.OPENAI_ENDPOINT_IMAGE_SIZE, env="OPENAI_ENDPOINT_IMAGE_SIZE"
     )
-    pinecone_api_key: Optional[str] = Field(SettingsDefaults.PINECONE_API_KEY, env="PINECONE_API_KEY")
+    pinecone_api_key: Optional[SecretStr] = Field(SettingsDefaults.PINECONE_API_KEY, env="PINECONE_API_KEY")
     shared_resource_identifier: Optional[str] = Field(
         SettingsDefaults.SHARED_RESOURCE_IDENTIFIER, env="SHARED_RESOURCE_IDENTIFIER"
     )

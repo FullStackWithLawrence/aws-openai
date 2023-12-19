@@ -49,7 +49,7 @@ from openai_api.common.validators import (  # validate_embedding_request,
 
 
 openai.organization = settings.openai_api_organization
-openai.api_key = settings.openai_api_key
+openai.api_key = settings.openai_api_key.get_secret_value()
 
 
 # pylint: disable=unused-argument

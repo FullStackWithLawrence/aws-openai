@@ -31,10 +31,6 @@ class TestLambdaLangchain(unittest.TestCase):
     def setUp(self):
         """Set up test fixtures."""
 
-    def get_event(self, event):
-        """Get the event json from the mock file."""
-        return event["event"]
-
     def test_lambda_handler(self):
         """Test lambda_handler."""
         response = handler(self.event, None)

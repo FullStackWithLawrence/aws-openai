@@ -2,6 +2,15 @@ SHELL := /bin/bash
 S3_BUCKET = openai.lawrencemcdaniel.com
 CLOUDFRONT_DISTRIBUTION_ID = E3AIBM1KMSJOP1
 
+ifeq ($(OS),Windows_NT)
+    PYTHON = python.exe
+    ACTIVATE_VENV = venv\Scripts\activate
+else
+    PYTHON = python3.11
+    ACTIVATE_VENV = source venv/bin/activate
+endif
+PIP = $(PYTHON) -m pip
+
 ifneq ("$(wildcard .env)","")
     include .env
 else
@@ -34,16 +43,16 @@ pre-commit:
 api-init:
 	make api-clean
 	npm install && \
-	python3.11 -m venv venv && \
-	source venv/bin/activate && \
-	pip install --upgrade pip && \
-	pip install -r requirements.txt && \
+	$(PYTHON) -m venv venv && \
+	$(ACTIVATE_VENV) && \
+	$(PIP) install --upgrade pip && \
+	$(PIP) install -r requirements.txt && \
 	deactivate && \
 	cd ./api/terraform/python/layer_genai/ && \
-	python3.11 -m venv venv && \
-	source venv/bin/activate && \
-	pip install --upgrade pip && \
-	pip install -r requirements.txt && \
+	$(PYTHON) -m venv venv && \
+	$(ACTIVATE_VENV) && \
+	$(PIP) install --upgrade pip && \
+	$(PIP) install -r requirements.txt && \
 	deactivate && \
 	pre-commit install
 

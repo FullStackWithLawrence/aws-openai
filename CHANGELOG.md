@@ -1,9 +1,15 @@
-## [0.7.1](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.7.0...v0.7.1) (2023-12-18)
+## [0.7.2](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.7.1...v0.7.2) (2023-12-19)
 
 
 ### Bug Fixes
 
-* refactor and update Layer build resources ([626034c](https://github.com/FullStackWithLawrence/aws-openai/commit/626034c06b7049d5a3638da017da66cddba72244))
+* add unit tests for common ([ef7123f](https://github.com/FullStackWithLawrence/aws-openai/commit/ef7123f4adcd2fe3038ad6da8403a6ea73213cc5))
+
+## [0.7.1](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.7.0...v0.7.1) (2023-12-18)
+
+### Bug Fixes
+
+- refactor and update Layer build resources ([626034c](https://github.com/FullStackWithLawrence/aws-openai/commit/626034c06b7049d5a3638da017da66cddba72244))
 
 # [0.7.0](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.6.5...v0.7.0) (2023-12-18)
 

@@ -113,7 +113,10 @@ def handler(event, context):
                 # 2. initialize the LangChain ChatOpenAI model
                 # -------------------------------------------------------------
                 llm = ChatOpenAI(
-                    model=model, temperature=temperature, max_tokens=max_tokens, api_key=settings.openai_api_key
+                    model=model,
+                    temperature=temperature,
+                    max_tokens=max_tokens,
+                    api_key=settings.openai_api_key.get_secret_value(),
                 )
                 prompt = ChatPromptTemplate(
                     messages=[

@@ -40,7 +40,7 @@ The Settings class contains an instance variable for `pinecone_api_key` which wi
 
 ### CloudWatch logging
 
-The Settings class is also a provider to CloudWatch when both `DEBUG_MODE` and `DUMP_DEFAULTS` environment variables are set to `True`. The Settings property `cloudwatch_dump` generates a context sensitive JSON dict of the state data for all settings as well as class instance meta data that can be helpful during development trouble shooting.
+The Settings class is also a provider to CloudWatch when both `DEBUG_MODE` and `DUMP_DEFAULTS` environment variables are set to `True`. The Settings property `dump` generates a context sensitive JSON dict of the state data for all settings as well as class instance meta data that can be helpful during development trouble shooting.
 
 An example CloudWatch dump:
 

@@ -24,7 +24,7 @@ from openai_api.common.validators import (
 def cloudwatch_handler(event, quiet: bool = False):
     """Create a CloudWatch log entry for the event and dump the event to stdout."""
     if settings.debug_mode and not quiet:
-        print(json.dumps(settings.cloudwatch_dump))
+        print(json.dumps(settings.dump))
         print(json.dumps({"event": event}))
 
 

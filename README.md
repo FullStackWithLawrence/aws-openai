@@ -84,6 +84,8 @@ A REST API implementing each of the [30 example applications](https://platform.o
 
 ## Requirements
 
+- [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). _pre-installed on Linux and macOS_
+- [make](https://gnuwin32.sourceforge.net/packages/make.htm). _pre-installed on Linux and macOS._
 - [AWS account](https://aws.amazon.com/)
 - [AWS Command Line Interface](https://aws.amazon.com/cli/)
 - [Terraform](https://www.terraform.io/).

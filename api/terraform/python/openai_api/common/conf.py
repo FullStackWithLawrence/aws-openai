@@ -135,7 +135,7 @@ class Settings(BaseSettings):
     _dynamodb_client: boto3.client = None
     _rekognition_client: boto3.client = None
     _dynamodb_table: boto3.resource = None
-    _cloudwatch_dump: Dict[str, str] = None
+    _dump: Dict[str, str] = None
     _pinecone_api_key_source: str = "unset"
     _openai_api_key_source: str = "unset"
     _initialized: bool = False
@@ -325,16 +325,16 @@ class Settings(BaseSettings):
 
     # use the boto3 library to initialize clients for the AWS services which we'll interact
     @property
-    def cloudwatch_dump(self) -> dict:
+    def dump(self) -> dict:
         """Dump settings to CloudWatch"""
 
         def recursive_sort_dict(d):
             return {k: recursive_sort_dict(v) if isinstance(v, dict) else v for k, v in sorted(d.items())}
 
-        if self._cloudwatch_dump and self._initialized:
-            return self._cloudwatch_dump
+        if self._dump and self._initialized:
+            return self._dump
 
-        self._cloudwatch_dump = {
+        self._dump = {
             "secrets": {
                 "openai_api_source": self.openai_api_key_source,
                 "pinecone_api_source": self.pinecone_api_key_source,
@@ -368,7 +368,7 @@ class Settings(BaseSettings):
         }
         if self.dump_defaults:
             settings_defaults = SettingsDefaults.to_dict()
-            self._cloudwatch_dump["settings_defaults"] = settings_defaults
+            self._dump["settings_defaults"] = settings_defaults
 
         if self.is_using_aws_rekognition:
             aws_rekognition = {
@@ -377,22 +377,22 @@ class Settings(BaseSettings):
                 "aws_rekognition_face_detect_attributes": self.aws_rekognition_face_detect_attributes,
                 "aws_rekognition_face_detect_quality_filter": self.aws_rekognition_face_detect_quality_filter,
             }
-            self._cloudwatch_dump["aws_rekognition"] = aws_rekognition
+            self._dump["aws_rekognition"] = aws_rekognition
 
         if self.is_using_aws_dynamodb:
             aws_dynamodb = {
                 "aws_dynamodb_table_id": self.aws_dynamodb_table_id,
             }
-            self._cloudwatch_dump["aws_dynamodb"] = aws_dynamodb
+            self._dump["aws_dynamodb"] = aws_dynamodb
 
         if self.is_using_dotenv_file:
-            self._cloudwatch_dump["environment"]["dotenv"] = self.environment_variables
+            self._dump["environment"]["dotenv"] = self.environment_variables
 
         if self.is_using_tfvars_file:
-            self._cloudwatch_dump["environment"]["tfvars"] = self.tfvars_variables
+            self._dump["environment"]["tfvars"] = self.tfvars_variables
 
-        self._cloudwatch_dump = recursive_sort_dict(self._cloudwatch_dump)
-        return self._cloudwatch_dump
+        self._dump = recursive_sort_dict(self._dump)
+        return self._dump
 
     # pylint: disable=too-few-public-methods
     class Config:

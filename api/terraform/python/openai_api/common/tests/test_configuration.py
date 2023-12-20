@@ -86,10 +86,10 @@ class TestConfiguration(unittest.TestCase):
         # pylint: disable=no-member
         self.assertEqual(mock_settings.pinecone_api_key.get_secret_value(), None)
 
-    def test_env_nulls(self):
+    def test_env_legal_nulls(self):
         """Test that settings handles missing .env values."""
         os.environ.clear()
-        env_path = self.env_path(".env.test_nulls")
+        env_path = self.env_path(".env.test_legal_nulls")
         loaded = load_dotenv(env_path)
         self.assertTrue(loaded)
 
@@ -99,10 +99,6 @@ class TestConfiguration(unittest.TestCase):
         self.assertEqual(mock_settings.aws_dynamodb_table_id, SettingsDefaults.AWS_DYNAMODB_TABLE_ID)
         self.assertEqual(mock_settings.aws_rekognition_collection_id, SettingsDefaults.AWS_REKOGNITION_COLLECTION_ID)
         self.assertEqual(
-            mock_settings.aws_rekognition_face_detect_max_faces_count,
-            SettingsDefaults.AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT,
-        )
-        self.assertEqual(
             mock_settings.aws_rekognition_face_detect_attributes,
             SettingsDefaults.AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES,
         )
@@ -110,12 +106,19 @@ class TestConfiguration(unittest.TestCase):
             mock_settings.aws_rekognition_face_detect_quality_filter,
             SettingsDefaults.AWS_REKOGNITION_FACE_DETECT_QUALITY_FILTER,
         )
-        self.assertEqual(
-            mock_settings.aws_rekognition_face_detect_threshold, SettingsDefaults.AWS_REKOGNITION_FACE_DETECT_THRESHOLD
-        )
         self.assertEqual(mock_settings.langchain_memory_key, SettingsDefaults.LANGCHAIN_MEMORY_KEY)
         self.assertEqual(mock_settings.openai_endpoint_image_n, SettingsDefaults.OPENAI_ENDPOINT_IMAGE_N)
         self.assertEqual(mock_settings.openai_endpoint_image_size, SettingsDefaults.OPENAI_ENDPOINT_IMAGE_SIZE)
+
+    def test_env_illegal_nulls(self):
+        """Test that settings handles missing .env values."""
+        os.environ.clear()
+        env_path = self.env_path(".env.test_illegal_nulls")
+        loaded = load_dotenv(env_path)
+        self.assertTrue(loaded)
+
+        with self.assertRaises(PydanticValidationError):
+            Settings()
 
     def test_env_overrides(self):
         """Test that settings takes custom .env values."""

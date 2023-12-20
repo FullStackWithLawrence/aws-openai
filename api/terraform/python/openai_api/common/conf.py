@@ -331,7 +331,7 @@ class Settings(BaseSettings):
         def recursive_sort_dict(d):
             return {k: recursive_sort_dict(v) if isinstance(v, dict) else v for k, v in sorted(d.items())}
 
-        if self._cloudwatch_dump:
+        if self._cloudwatch_dump and self._initialized:
             return self._cloudwatch_dump
 
         self._cloudwatch_dump = {

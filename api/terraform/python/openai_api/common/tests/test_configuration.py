@@ -66,12 +66,14 @@ class TestConfiguration(unittest.TestCase):
         self.assertEqual(mock_settings.openai_endpoint_image_n, SettingsDefaults.OPENAI_ENDPOINT_IMAGE_N)
         self.assertEqual(mock_settings.openai_endpoint_image_size, SettingsDefaults.OPENAI_ENDPOINT_IMAGE_SIZE)
         # pylint: disable=no-member
-        openai_api_key = mock_settings.openai_api_key.get_secret_value() if mock_settings.openai_api_key else None
-        self.assertEqual(openai_api_key, SettingsDefaults.OPENAI_API_KEY)
+        self.assertEqual(
+            mock_settings.openai_api_key.get_secret_value(), SettingsDefaults.OPENAI_API_KEY.get_secret_value()
+        )
         self.assertEqual(mock_settings.openai_api_organization, SettingsDefaults.OPENAI_API_ORGANIZATION)
         # pylint: disable=no-member
-        pinecone_api_key = mock_settings.pinecone_api_key.get_secret_value() if mock_settings.pinecone_api_key else None
-        self.assertEqual(pinecone_api_key, SettingsDefaults.PINECONE_API_KEY)
+        self.assertEqual(
+            mock_settings.pinecone_api_key.get_secret_value(), SettingsDefaults.PINECONE_API_KEY.get_secret_value()
+        )
 
     def test_conf_defaults_secrets(self):
         """Test that settings == SettingsDefaults when no .env is in use."""
@@ -79,12 +81,10 @@ class TestConfiguration(unittest.TestCase):
         mock_settings = Settings()
 
         # pylint: disable=no-member
-        openai_api_key = mock_settings.openai_api_key.get_secret_value() if mock_settings.openai_api_key else None
-        self.assertEqual(openai_api_key, None)
+        self.assertEqual(mock_settings.openai_api_key.get_secret_value(), None)
         self.assertEqual(mock_settings.openai_api_organization, None)
         # pylint: disable=no-member
-        pinecone_api_key = mock_settings.pinecone_api_key.get_secret_value() if mock_settings.pinecone_api_key else None
-        self.assertEqual(pinecone_api_key, None)
+        self.assertEqual(mock_settings.pinecone_api_key.get_secret_value(), None)
 
     def test_env_nulls(self):
         """Test that settings handles missing .env values."""

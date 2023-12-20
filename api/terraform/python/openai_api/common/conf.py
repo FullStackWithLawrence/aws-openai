@@ -88,11 +88,11 @@ class SettingsDefaults:
     AWS_APIGATEWAY_ROOT_DOMAIN_NAME = TFVARS.get("root_domain", None)
     AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE: bool = TFVARS.get("create_custom_domain", False)
     LANGCHAIN_MEMORY_KEY = "chat_history"
-    OPENAI_API_ORGANIZATION = None
-    OPENAI_API_KEY = None
+    OPENAI_API_ORGANIZATION: str = None
+    OPENAI_API_KEY = SecretStr(None)
     OPENAI_ENDPOINT_IMAGE_N = 4
     OPENAI_ENDPOINT_IMAGE_SIZE = "1024x768"
-    PINECONE_API_KEY = None
+    PINECONE_API_KEY = SecretStr(None)
     SHARED_RESOURCE_IDENTIFIER = TFVARS.get("shared_resource_identifier", "openai")
     VALID_DOMAIN_PATTERN = r"^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$"
     VALID_AWS_REGIONS = [region["RegionName"] for region in regions["Regions"]]
@@ -138,6 +138,7 @@ class Settings(BaseSettings):
     _cloudwatch_dump: Dict[str, str] = None
     _pinecone_api_key_source: str = "unset"
     _openai_api_key_source: str = "unset"
+    _initialized: bool = False
 
     def __init__(self, **data: Any):
         super().__init__(**data)
@@ -149,6 +150,7 @@ class Settings(BaseSettings):
             self._openai_api_key_source = "environment variable"
         elif data.get("openai_api_key"):
             self._openai_api_key_source = "init argument"
+        self._initialized = True
 
     debug_mode: Optional[bool] = Field(
         SettingsDefaults.DEBUG_MODE,
@@ -323,7 +325,7 @@ class Settings(BaseSettings):
 
     # use the boto3 library to initialize clients for the AWS services which we'll interact
     @property
-    def cloudwatch_dump(self):
+    def cloudwatch_dump(self) -> dict:
         """Dump settings to CloudWatch"""
 
         def recursive_sort_dict(d):
@@ -400,7 +402,7 @@ class Settings(BaseSettings):
 
     @validator("aws_profile", pre=True)
     # pylint: disable=no-self-argument,unused-argument
-    def validate_aws_profile(cls, v, values, **kwargs):
+    def validate_aws_profile(cls, v, values, **kwargs) -> str:
         """Validate aws_profile"""
         if v in [None, ""]:
             return SettingsDefaults.AWS_PROFILE
@@ -408,7 +410,7 @@ class Settings(BaseSettings):
 
     @validator("aws_region", pre=True)
     # pylint: disable=no-self-argument,unused-argument
-    def validate_aws_region(cls, v, values, **kwargs):
+    def validate_aws_region(cls, v, values, **kwargs) -> str:
         """Validate aws_region"""
         if v in [None, ""]:
             return SettingsDefaults.AWS_REGION
@@ -417,7 +419,7 @@ class Settings(BaseSettings):
         return v
 
     @validator("aws_apigateway_root_domain", pre=True)
-    def validate_aws_apigateway_root_domain(cls, v):
+    def validate_aws_apigateway_root_domain(cls, v) -> str:
         """Validate aws_apigateway_root_domain"""
         if v in [None, ""]:
             v = SettingsDefaults.AWS_APIGATEWAY_ROOT_DOMAIN_NAME
@@ -426,7 +428,7 @@ class Settings(BaseSettings):
         return v
 
     @validator("aws_apigateway_custom_domain_name", pre=True)
-    def validate_aws_apigateway_custom_domain_name(cls, v):
+    def validate_aws_apigateway_custom_domain_name(cls, v) -> str:
         """Validate aws_apigateway_custom_domain_name"""
         if v in [None, ""]:
             v = SettingsDefaults.AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE
@@ -435,42 +437,42 @@ class Settings(BaseSettings):
         return v
 
     @validator("aws_apigateway_custom_domain_name", pre=True)
-    def validate_aws_apigateway_custom_domain_name_create(cls, v):
+    def validate_aws_apigateway_custom_domain_name_create(cls, v) -> bool:
         """Validate aws_apigateway_custom_domain_name_create"""
         if v in [None, ""]:
             return SettingsDefaults.AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE
         return v
 
     @validator("shared_resource_identifier", pre=True)
-    def validate_shared_resource_identifier(cls, v):
+    def validate_shared_resource_identifier(cls, v) -> str:
         """Validate shared_resource_identifier"""
         if v in [None, ""]:
             return SettingsDefaults.SHARED_RESOURCE_IDENTIFIER
         return v
 
     @validator("aws_dynamodb_table_id", pre=True)
-    def validate_table_id(cls, v):
+    def validate_table_id(cls, v) -> str:
         """Validate aws_dynamodb_table_id"""
         if v in [None, ""]:
             return SettingsDefaults.AWS_DYNAMODB_TABLE_ID
         return v
 
     @validator("aws_rekognition_collection_id", pre=True)
-    def validate_collection_id(cls, v):
+    def validate_collection_id(cls, v) -> str:
         """Validate aws_rekognition_collection_id"""
         if v in [None, ""]:
             return SettingsDefaults.AWS_REKOGNITION_COLLECTION_ID
         return v
 
     @validator("aws_rekognition_face_detect_attributes", pre=True)
-    def validate_face_detect_attributes(cls, v):
+    def validate_face_detect_attributes(cls, v) -> str:
         """Validate aws_rekognition_face_detect_attributes"""
         if v in [None, ""]:
             return SettingsDefaults.AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES
         return v
 
     @validator("debug_mode", pre=True)
-    def parse_debug_mode(cls, v):
+    def parse_debug_mode(cls, v) -> bool:
         """Parse debug_mode"""
         if isinstance(v, bool):
             return v
@@ -479,7 +481,7 @@ class Settings(BaseSettings):
         return v.lower() in ["true", "1", "t", "y", "yes"]
 
     @validator("dump_defaults", pre=True)
-    def parse_dump_defaults(cls, v):
+    def parse_dump_defaults(cls, v) -> bool:
         """Parse dump_defaults"""
         if isinstance(v, bool):
             return v
@@ -488,14 +490,14 @@ class Settings(BaseSettings):
         return v.lower() in ["true", "1", "t", "y", "yes"]
 
     @validator("aws_rekognition_face_detect_max_faces_count", pre=True)
-    def check_face_detect_max_faces_count(cls, v):
+    def check_face_detect_max_faces_count(cls, v) -> int:
         """Check aws_rekognition_face_detect_max_faces_count"""
         if v in [None, ""]:
             return SettingsDefaults.AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT
         return int(v)
 
     @validator("aws_rekognition_face_detect_threshold", pre=True)
-    def check_face_detect_threshold(cls, v):
+    def check_face_detect_threshold(cls, v) -> int:
         """Check aws_rekognition_face_detect_threshold"""
         if isinstance(v, int):
             return v
@@ -504,14 +506,14 @@ class Settings(BaseSettings):
         return int(v)
 
     @validator("aws_rekognition_face_detect_quality_filter", pre=True)
-    def check_face_detect_quality_filter(cls, v):
+    def check_face_detect_quality_filter(cls, v) -> str:
         """Check aws_rekognition_face_detect_quality_filter"""
         if v in [None, ""]:
             return SettingsDefaults.AWS_REKOGNITION_FACE_DETECT_QUALITY_FILTER
         return v
 
     @validator("langchain_memory_key", pre=True)
-    def check_langchain_memory_key(cls, v):
+    def check_langchain_memory_key(cls, v) -> str:
         """Check langchain_memory_key"""
         if isinstance(v, int):
             return v
@@ -520,21 +522,21 @@ class Settings(BaseSettings):
         return v
 
     @validator("openai_api_organization", pre=True)
-    def check_openai_api_organization(cls, v):
+    def check_openai_api_organization(cls, v) -> str:
         """Check openai_api_organization"""
         if v in [None, ""]:
             return SettingsDefaults.OPENAI_API_ORGANIZATION
         return v
 
     @validator("openai_api_key", pre=True)
-    def check_openai_api_key(cls, v):
+    def check_openai_api_key(cls, v) -> SecretStr:
         """Check openai_api_key"""
         if v in [None, ""]:
             return SettingsDefaults.OPENAI_API_KEY
         return v
 
     @validator("openai_endpoint_image_n", pre=True)
-    def check_openai_endpoint_image_n(cls, v):
+    def check_openai_endpoint_image_n(cls, v) -> int:
         """Check openai_endpoint_image_n"""
         if isinstance(v, int):
             return v
@@ -543,14 +545,14 @@ class Settings(BaseSettings):
         return int(v)
 
     @validator("openai_endpoint_image_size", pre=True)
-    def check_openai_endpoint_image_size(cls, v):
+    def check_openai_endpoint_image_size(cls, v) -> str:
         """Check openai_endpoint_image_size"""
         if v in [None, ""]:
             return SettingsDefaults.OPENAI_ENDPOINT_IMAGE_SIZE
         return v
 
     @validator("pinecone_api_key", pre=True)
-    def check_pinecone_api_key(cls, v):
+    def check_pinecone_api_key(cls, v) -> SecretStr:
         """Check pinecone_api_key"""
         if v in [None, ""]:
             return SettingsDefaults.PINECONE_API_KEY

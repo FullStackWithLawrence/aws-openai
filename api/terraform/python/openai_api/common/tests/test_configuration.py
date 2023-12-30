@@ -196,7 +196,7 @@ class TestConfiguration(unittest.TestCase):
     def test_cloudwatch_values(self):
         """Test that dump contains the expected default values."""
 
-        mock_settings = Settings(info_init="test_cloudwatch_values()")
+        mock_settings = Settings(init_info="test_cloudwatch_values()")
         environment = mock_settings.dump["environment"]
         # aws_apigateway = mock_settings.dump["aws_apigateway"]
         openai_api = mock_settings.dump["openai_api"]

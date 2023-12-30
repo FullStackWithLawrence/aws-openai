@@ -7,11 +7,10 @@
 
 ## [0.8.1](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.8.0...v0.8.1) (2023-12-30)
 
-
 ### Bug Fixes
 
-* ensure that AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY are set when running CI ([3d788b0](https://github.com/FullStackWithLawrence/aws-openai/commit/3d788b0d72f327d9f4711586499807c06831f5db))
-* fix indentation error ([806865b](https://github.com/FullStackWithLawrence/aws-openai/commit/806865b2c5a0a250862b956319fe121ca452d423))
+- ensure that AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY are set when running CI ([3d788b0](https://github.com/FullStackWithLawrence/aws-openai/commit/3d788b0d72f327d9f4711586499807c06831f5db))
+- fix indentation error ([806865b](https://github.com/FullStackWithLawrence/aws-openai/commit/806865b2c5a0a250862b956319fe121ca452d423))
 
 # [0.8.0](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.7.2...v0.8.0) (2023-12-30)
 

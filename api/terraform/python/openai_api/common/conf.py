@@ -37,7 +37,7 @@ from openai_api.common.exceptions import (
     OpenAIAPIConfigurationError,
     OpenAIAPIValueError,
 )
-from pydantic import Field, SecretStr, ValidationInfo, field_validator
+from pydantic import Field, SecretStr, ValidationError, ValidationInfo, field_validator
 from pydantic_settings import BaseSettings
 
 
@@ -217,7 +217,7 @@ class Settings(BaseSettings):
     _initialized: bool = False
 
     # pylint: disable=too-many-branches,too-many-statements
-    def __init__(self, **data: Any):
+    def __init__(self, **data: Any):  # noqa: C901
         super().__init__(**data)
         if not Services.enabled(Services.AWS_CLI):
             self._initialized = True
@@ -240,14 +240,12 @@ class Settings(BaseSettings):
             logger.info("running inside GitHub Actions")
             aws_access_key_id = os.environ.get("AWS_ACCESS_KEY_ID", None)
             aws_secret_access_key = os.environ.get("AWS_SECRET_ACCESS_KEY", None)
-            if not aws_access_key_id or not aws_secret_access_key:
+            if not aws_access_key_id or not aws_secret_access_key and not self.aws_profile:
                 raise OpenAIAPIConfigurationError(
                     "required environment variable(s) AWS_ACCESS_KEY_ID and/or AWS_SECRET_ACCESS_KEY not set"
                 )
-            self._aws_access_key_id_source = "environ"
-            self._aws_secret_access_key_source = "environ"
             region_name = os.environ.get("AWS_REGION", None)
-            if not region_name:
+            if not region_name and not self.aws_profile:
                 raise OpenAIAPIConfigurationError("required environment variable AWS_REGION not set")
             try:
                 self._aws_session = boto3.Session(
@@ -259,11 +257,17 @@ class Settings(BaseSettings):
                 self._aws_access_key_id_source = "environ"
                 self._aws_secret_access_key_source = "environ"
             except ProfileNotFound:
-                logger.warning("aws_profile %s not found", self.aws_profile)
+                # only log this if the aws_profile is set
+                if self.aws_profile:
+                    logger.warning("aws_profile %s not found", self.aws_profile)
 
-            if self.aws_profile and self._aws_access_key_id_source == "unset":
+            if self.aws_profile:
                 self._aws_access_key_id_source = "aws_profile"
                 self._aws_secret_access_key_source = "aws_profile"
+            else:
+                self._aws_access_key_id_source = "environ"
+                self._aws_secret_access_key_source = "environ"
+
             self._initialized = True
 
         if not self.initialized:
@@ -392,6 +396,7 @@ class Settings(BaseSettings):
         }
         if self.init_info:
             retval["init_info"] = self.init_info
+        return retval
 
     @property
     def aws_session(self):
@@ -702,4 +707,25 @@ class Settings(BaseSettings):
         return v
 
 
-settings = Settings()
+class SingletonSettings:
+    """Singleton for Settings"""
+
+    _instance = None
+
+    def __new__(cls):
+        """Create a new instance of Settings"""
+        if cls._instance is None:
+            cls._instance = super(SingletonSettings, cls).__new__(cls)
+            try:
+                cls._instance._settings = Settings()
+            except ValidationError as e:
+                raise OpenAIAPIConfigurationError("Invalid configuration: " + str(e)) from e
+        return cls._instance
+
+    @property
+    def settings(self):
+        """Return the settings"""
+        return self._settings
+
+
+settings = SingletonSettings().settings

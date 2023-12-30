@@ -6,6 +6,9 @@ on:
     paths:
       - "**.py"
   push:
+    branches:
+      - main
+      - next
     paths:
       - "**.py"
 
@@ -26,6 +29,10 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Get IAM user info
+        run: |
+          aws sts get-caller-identity
 
       - name: Run Python tests
         uses: ./.github/actions/tests/python

@@ -38,6 +38,11 @@ class DateTimeEncoder(json.JSONEncoder):
         return super().default(o)
 
 
+def recursive_sort_dict(d):
+    """Recursively sort a dictionary by key."""
+    return {k: recursive_sort_dict(v) if isinstance(v, dict) else v for k, v in sorted(d.items())}
+
+
 def cloudwatch_handler(
     event,
     dump,

@@ -61,45 +61,7 @@ resource "aws_api_gateway_api_key" "openai" {
 resource "aws_api_gateway_deployment" "openai" {
   rest_api_id = aws_api_gateway_rest_api.openai.id
   triggers = {
-    redeployment = sha1(jsonencode([
-      aws_api_gateway_rest_api.openai.body,
-
-      # 1 thru 10
-      module.default_grammar.sha1_deployment_trigger,
-      module.default_summarize.sha1_deployment_trigger,
-      module.default_parse_data.sha1_deployment_trigger,
-      module.default_emoji_translation.sha1_deployment_trigger,
-      module.default_time_complexity.sha1_deployment_trigger,
-      module.default_explain_code.sha1_deployment_trigger,
-      module.default_keywords.sha1_deployment_trigger,
-      module.default_product_name_gen.sha1_deployment_trigger,
-      module.default_fix_python_bugs.sha1_deployment_trigger,
-      module.default_spreadsheet_gen.sha1_deployment_trigger,
-
-      # 11 thru 20
-      module.default_tweet_classifier.sha1_deployment_trigger,
-      module.default_airport_codes.sha1_deployment_trigger,
-      module.default_mood_color.sha1_deployment_trigger,
-      module.default_vr_fitness.sha1_deployment_trigger,
-      module.default_marv_sarcastic_chat.sha1_deployment_trigger,
-      module.default_turn_by_turn_directions.sha1_deployment_trigger,
-      module.default_interview_questions.sha1_deployment_trigger,
-      module.default_function_from_spec.sha1_deployment_trigger,
-      module.default_code_improvement.sha1_deployment_trigger,
-      module.default_single_page_website.sha1_deployment_trigger,
-
-      # 21 thru 30
-      module.default_rap_battle.sha1_deployment_trigger,
-      module.default_memo_writer.sha1_deployment_trigger,
-      module.default_emoji_chatbot.sha1_deployment_trigger,
-      module.default_translation.sha1_deployment_trigger,
-      module.default_socratic_tutor.sha1_deployment_trigger,
-      module.default_sql_translate.sha1_deployment_trigger,
-      module.default_meeting_notes_summarizer.sha1_deployment_trigger,
-      module.default_review_classifier.sha1_deployment_trigger,
-      module.default_pro_con_discusser.sha1_deployment_trigger,
-      module.default_lesson_plan_writer.sha1_deployment_trigger
-    ]))
+    redeployment = timestamp()
   }
   lifecycle {
     create_before_destroy = true

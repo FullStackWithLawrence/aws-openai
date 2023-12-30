@@ -68,7 +68,7 @@ def handler(event, context):
     OpenAI API endpoint based on the contents of the request.
     """
 
-    cloudwatch_handler(event)
+    cloudwatch_handler(event, settings.dump, debug_mode=settings.debug_mode)
     try:
         openai_results = {}
         # ----------------------------------------------------------------------
@@ -79,7 +79,7 @@ def handler(event, context):
         object_type, model, messages, input_text, temperature, max_tokens = parse_request(request_body)
         request_meta_data = {
             "request_meta_data": {
-                "lambda": "lambda_openai_v2",
+                "lambda": "lambda_langchain",
                 "model": model,
                 "object_type": object_type,
                 "temperature": temperature,

@@ -13,12 +13,11 @@
 #           that call this Lambda, rather than here.
 #------------------------------------------------------------------------------
 locals {
-  openai_v2_function_name        = "lambda_openai_v2"
-  openai_v2_build_path           = "${path.module}/build/"
-  openai_v2_openai_api_directory = "${path.module}/python/openai_api"
-  openai_v2_source_directory     = "${local.openai_v2_openai_api_directory}/${local.openai_v2_function_name}"
-  openai_v2_packaging_script     = "${local.openai_v2_source_directory}/create_pkg.sh"
-  openai_v2_dist_package_name    = "${local.openai_v2_function_name}_dist_pkg.zip"
+  openai_v2_function_name     = "lambda_openai_v2"
+  openai_v2_build_path        = "${path.module}/build/distribution_package"
+  openai_v2_source_directory  = "${path.module}/python/openai_api"
+  openai_v2_packaging_script  = "${local.openai_v2_source_directory}/create_pkg.sh"
+  openai_v2_dist_package_name = "${local.openai_v2_function_name}_dist_pkg.zip"
 }
 
 ###############################################################################
@@ -27,10 +26,7 @@ locals {
 ###############################################################################
 resource "null_resource" "package_lambda_openai_v2" {
   triggers = {
-    redeployment = sha1(jsonencode([
-      file("${local.openai_v2_source_directory}/lambda_handler.py"),
-      file("${local.openai_v2_packaging_script}")
-    ]))
+    always_redeploy = timestamp()
   }
 
   provisioner "local-exec" {
@@ -38,7 +34,7 @@ resource "null_resource" "package_lambda_openai_v2" {
     command     = local.openai_v2_packaging_script
 
     environment = {
-      PARENT_DIRECTORY = local.openai_v2_openai_api_directory
+      TERRAFORM_ROOT   = path.module
       SOURCE_CODE_PATH = local.openai_v2_source_directory
       BUILD_PATH       = local.openai_v2_build_path
       PACKAGE_FOLDER   = local.openai_v2_function_name
@@ -48,8 +44,8 @@ resource "null_resource" "package_lambda_openai_v2" {
 
 data "archive_file" "lambda_openai_v2" {
   # see https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file
-  source_dir  = "${local.openai_v2_source_directory}/${local.openai_v2_function_name}/"
-  output_path = "${local.openai_v2_build_path}/${local.openai_v2_dist_package_name}"
+  source_dir  = local.openai_v2_build_path
+  output_path = "${path.module}/build/${local.openai_v2_dist_package_name}"
   type        = "zip"
   depends_on  = [null_resource.package_lambda_openai_v2]
 }
@@ -59,7 +55,7 @@ data "archive_file" "lambda_openai_v2" {
 ###############################################################################
 data "external" "env_lambda_openai_v2" {
   # kluge to read and map the openai api key and org data contained in .env
-  program = ["${local.openai_v2_source_directory}/env.sh"]
+  program = ["${local.openai_v2_source_directory}/${local.openai_v2_function_name}/env.sh"]
 
   # For Windows (or Powershell core on MacOS and Linux),
   # run a Powershell script instead
@@ -79,7 +75,7 @@ resource "aws_lambda_function" "lambda_openai_v2" {
   runtime          = var.lambda_python_runtime
   memory_size      = var.lambda_memory_size
   timeout          = var.lambda_timeout
-  handler          = "lambda_handler.handler"
+  handler          = "openai_api.lambda_openai_v2.lambda_handler.handler"
   architectures    = var.compatible_architectures
   filename         = data.archive_file.lambda_openai_v2.output_path
   source_code_hash = data.archive_file.lambda_openai_v2.output_base64sha256
@@ -93,6 +89,7 @@ resource "aws_lambda_function" "lambda_openai_v2" {
       OPENAI_API_KEY             = data.external.env_lambda_openai_v2.result["OPENAI_API_KEY"]
       OPENAI_ENDPOINT_IMAGE_N    = var.openai_endpoint_image_n
       OPENAI_ENDPOINT_IMAGE_SIZE = var.openai_endpoint_image_size
+      AWS_DEPLOYED               = true
     }
   }
 }

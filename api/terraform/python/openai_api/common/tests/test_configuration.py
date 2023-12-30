@@ -36,7 +36,7 @@ class TestConfiguration(unittest.TestCase):
     def test_conf_defaults(self):
         """Test that settings == SettingsDefaults when no .env is in use."""
         os.environ.clear()
-        mock_settings = Settings()
+        mock_settings = Settings(init_info="test_conf_defaults()")
 
         self.assertEqual(mock_settings.aws_region, SettingsDefaults.AWS_REGION)
         self.assertEqual(mock_settings.openai_endpoint_image_n, SettingsDefaults.OPENAI_ENDPOINT_IMAGE_N)
@@ -59,7 +59,7 @@ class TestConfiguration(unittest.TestCase):
     def test_conf_defaults_secrets(self):
         """Test that settings == SettingsDefaults when no .env is in use."""
         os.environ.clear()
-        mock_settings = Settings()
+        mock_settings = Settings(init_info="test_conf_defaults_secrets()")
 
         # pylint: disable=no-member
         self.assertEqual(mock_settings.openai_api_key.get_secret_value(), None)
@@ -74,7 +74,7 @@ class TestConfiguration(unittest.TestCase):
         loaded = load_dotenv(env_path)
         self.assertTrue(loaded)
 
-        mock_settings = Settings()
+        mock_settings = Settings(init_info="test_env_legal_nulls()")
 
         self.assertEqual(mock_settings.aws_region, SettingsDefaults.AWS_REGION)
         self.assertEqual(mock_settings.langchain_memory_key, SettingsDefaults.LANGCHAIN_MEMORY_KEY)
@@ -89,7 +89,7 @@ class TestConfiguration(unittest.TestCase):
         self.assertTrue(loaded)
 
         with self.assertRaises(PydanticValidationError):
-            Settings()
+            Settings(init_info="test_env_illegal_nulls()")
 
     def test_env_overrides(self):
         """Test that settings takes custom .env values."""
@@ -98,7 +98,7 @@ class TestConfiguration(unittest.TestCase):
         loaded = load_dotenv(env_path)
         self.assertTrue(loaded)
 
-        mock_settings = Settings()
+        mock_settings = Settings(init_info="test_env_overrides()")
 
         self.assertEqual(mock_settings.aws_region, "us-west-1")
         self.assertEqual(mock_settings.debug_mode, True)
@@ -111,14 +111,13 @@ class TestConfiguration(unittest.TestCase):
         """Test that Pydantic raises a validation error for environment variable with non-existent aws region code."""
 
         with self.assertRaises(Exception):
-            Settings()
+            Settings(init_info="test_invalid_aws_region_code()")
 
     def test_configure_with_class_constructor(self):
         """test that we can set values with the class constructor"""
 
         mock_settings = Settings(
-            aws_region="eu-west-1",
-            debug_mode=True,
+            aws_region="eu-west-1", debug_mode=True, init_info="test_configure_with_class_constructor()"
         )
 
         self.assertEqual(mock_settings.aws_region, "eu-west-1")
@@ -191,7 +190,7 @@ class TestConfiguration(unittest.TestCase):
     def test_cloudwatch_values(self):
         """Test that dump contains the expected default values."""
 
-        mock_settings = Settings()
+        mock_settings = Settings(info_init="test_cloudwatch_values()")
         environment = mock_settings.dump["environment"]
         # aws_apigateway = mock_settings.dump["aws_apigateway"]
         openai_api = mock_settings.dump["openai_api"]
@@ -217,6 +216,7 @@ class TestConfiguration(unittest.TestCase):
             openai_endpoint_image_size="TEST_image_size",
             pinecone_api_key="TEST_pinecone_api_key",
             shared_resource_identifier="TEST_shared_resource_identifier",
+            init_info="test_initialize_with_values()",
         )
         self.assertEqual(mock_settings.debug_mode, False)
         self.assertEqual(mock_settings.dump_defaults, False)

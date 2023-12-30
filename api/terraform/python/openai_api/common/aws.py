@@ -44,43 +44,43 @@ class AWSInfrastructureConfig:
         """Return a dict of the AWS Lambdas."""
         lambda_client = settings.aws_session.client("lambda")
         lambdas = lambda_client.list_functions()["Functions"]
-        rekognition_lambdas = {
+        retval = {
             lambda_function["FunctionName"]: lambda_function["FunctionArn"]
             for lambda_function in lambdas
             if settings.shared_resource_identifier in lambda_function["FunctionName"]
         }
-        return rekognition_lambdas or {}
+        return retval or {}
 
     def get_iam_policies(self):
         """Return a dict of the AWS IAM policies."""
         iam_client = settings.aws_session.client("iam")
         policies = iam_client.list_policies()["Policies"]
-        rekognition_policies = {}
+        retval = {}
         for policy in policies:
             if settings.shared_resource_identifier in policy["PolicyName"]:
                 policy_version = iam_client.get_policy(PolicyArn=policy["Arn"])["Policy"]["DefaultVersionId"]
                 policy_document = iam_client.get_policy_version(PolicyArn=policy["Arn"], VersionId=policy_version)[
                     "PolicyVersion"
                 ]["Document"]
-                rekognition_policies[policy["PolicyName"]] = {"Arn": policy["Arn"], "Policy": policy_document}
-        return rekognition_policies
+                retval[policy["PolicyName"]] = {"Arn": policy["Arn"], "Policy": policy_document}
+        return retval
 
     def get_iam_roles(self):
         """Return a dict of the AWS IAM roles."""
         iam_client = settings.aws_session.client("iam")
         roles = iam_client.list_roles()["Roles"]
-        rekognition_roles = {}
+        retval = {}
         for role in roles:
             if settings.shared_resource_identifier in role["RoleName"]:
                 attached_policies = iam_client.list_attached_role_policies(RoleName=role["RoleName"])[
                     "AttachedPolicies"
                 ]
-                rekognition_roles[role["RoleName"]] = {
+                retval[role["RoleName"]] = {
                     "Arn": role["Arn"],
                     "Role": role,
                     "AttachedPolicies": attached_policies,
                 }
-        return rekognition_roles or {}
+        return retval or {}
 
     def get_api_stage(self) -> str:
         """Return the API stage."""

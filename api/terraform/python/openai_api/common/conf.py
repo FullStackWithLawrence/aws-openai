@@ -233,7 +233,7 @@ class Settings(BaseSettings):
 
         if not self.initialized and bool(os.environ.get("GITHUB_ACTIONS", False)):
             console_handler = logging.StreamHandler()
-            console_handler.setLevel(logging.debug)
+            console_handler.setLevel(logging.DEBUG)
             logger.addHandler(console_handler)
             logger.setLevel(logging.DEBUG)
 

@@ -21,7 +21,7 @@ module "default_grammar" {
   path_part = "default-grammar"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-3.5-turbo"
   mapping_role_system_content = "You will be provided with statements, and your task is to convert them to standard English."
 
@@ -43,7 +43,7 @@ module "default_summarize" {
   path_part = "default-summarize"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-3.5-turbo"
   mapping_role_system_content = "Summarize content you are provided with for a second-grade student."
   mapping_temperature         = 0
@@ -67,7 +67,7 @@ module "default_parse_data" {
   path_part = "default-parse-data"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-3.5-turbo"
   mapping_role_system_content = "You will be provided with unstructured data, and your task is to parse it into CSV format."
   mapping_temperature         = 0
@@ -92,7 +92,7 @@ module "default_emoji_translation" {
   path_part = "default-emoji-translation"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-3.5-turbo"
   mapping_role_system_content = "You will be provided with text, and your task is to translate it into emojis. Do not use any regular text. Do your best with emojis only."
   mapping_temperature         = 0.8
@@ -116,7 +116,7 @@ module "default_time_complexity" {
   path_part = "default-time-complexity"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-3.5-turbo"
   mapping_role_system_content = "You will be provided with Python code, and your task is to calculate its time complexity."
   mapping_temperature         = 0
@@ -140,7 +140,7 @@ module "default_explain_code" {
   path_part = "default-explain-code"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-4"
   mapping_role_system_content = "You will be provided with a piece of code, and your task is to explain it in a concise way."
   mapping_temperature         = 0
@@ -164,7 +164,7 @@ module "default_keywords" {
   path_part = "default-keywords"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-3.5-turbo"
   mapping_role_system_content = "You will be provided with a block of text, and your task is to extract a list of keywords from it."
   mapping_temperature         = 0.5
@@ -188,7 +188,7 @@ module "default_product_name_gen" {
   path_part = "default-product-name-gen"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-3.5-turbo"
   mapping_role_system_content = "You will be provided with a product description and seed words, and your task is to generate product names."
   mapping_temperature         = 0.8
@@ -212,7 +212,7 @@ module "default_fix_python_bugs" {
   path_part = "default-fix-python-bugs"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-4"
   mapping_role_system_content = "You will be provided with a piece of Python code, and your task is to find and fix bugs in it."
   mapping_temperature         = 0
@@ -236,7 +236,7 @@ module "default_spreadsheet_gen" {
   path_part = "default-spreadsheet-gen"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-3.5-turbo"
   mapping_role_system_content = "Your task is to create spreadsheets from various kinds of data"
   mapping_temperature         = 0.5
@@ -260,7 +260,7 @@ module "default_tweet_classifier" {
   path_part = "default-tweet-classifier"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-3.5-turbo"
   mapping_role_system_content = "You will be provided with a tweet, and your task is to classify its sentiment as positive, neutral, or negative."
   mapping_temperature         = 0
@@ -284,7 +284,7 @@ module "default_airport_codes" {
   path_part = "default-airport-codes"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-3.5-turbo"
   mapping_role_system_content = "You will be provided with a text, and your task is to extract the airport codes from it."
   mapping_temperature         = 0
@@ -308,7 +308,7 @@ module "default_mood_color" {
   path_part = "default-mood-color"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-3.5-turbo"
   mapping_role_system_content = "You will be provided with a description of a mood, and your task is to generate the CSS code for a color that matches it. Write your output in json with a single key called 'css_code'."
   mapping_temperature         = 0
@@ -332,7 +332,7 @@ module "default_vr_fitness" {
   path_part = "default-vr-fitness"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-3.5-turbo"
   mapping_role_system_content = "You are a helpful assistant. Your task is to generate ideas for fitness promoting virtual reality games"
   mapping_temperature         = 0.6
@@ -358,7 +358,7 @@ module "default_marv_sarcastic_chat" {
   path_part = "default-marv-sarcastic-chat"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-3.5-turbo"
   mapping_role_system_content = "You are Marv, a chatbot that reluctantly answers questions with sarcastic responses."
   mapping_temperature         = 0.5
@@ -382,7 +382,7 @@ module "default_turn_by_turn_directions" {
   path_part = "default-turn-by-turn-directions"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-3.5-turbo"
   mapping_role_system_content = "You will be provided with a text, and your task is to create a numbered list of turn-by-turn directions from it."
   mapping_temperature         = 0.3
@@ -406,7 +406,7 @@ module "default_interview_questions" {
   path_part = "default-interview-questions"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-3.5-turbo"
   mapping_role_system_content = "Your are a helpful assistant. Your task is to create job interview questions."
   mapping_temperature         = 0.5
@@ -430,7 +430,7 @@ module "default_function_from_spec" {
   path_part = "default-function-from-spec"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-4"
   mapping_role_system_content = "You are an expert Python programmer. Your task is to create a Python function from a specification."
   mapping_temperature         = 0
@@ -454,7 +454,7 @@ module "default_code_improvement" {
   path_part = "default-code-improvement"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-4"
   mapping_role_system_content = "You will be provided with a piece of Python code, and your task is to provide ideas for efficiency improvements."
   mapping_temperature         = 0
@@ -478,7 +478,7 @@ module "default_single_page_website" {
   path_part = "default-single-page-website"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-4"
   mapping_role_system_content = "You are an expert front-end developer. Your task is to create a single page website based on a spec."
   mapping_temperature         = 0
@@ -502,7 +502,7 @@ module "default_rap_battle" {
   path_part = "default-rap-battle"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-4"
   mapping_role_system_content = "You are an accomplished rapper. Your task is to generate a rap battle between two characters."
   mapping_temperature         = 0.8
@@ -526,7 +526,7 @@ module "default_memo_writer" {
   path_part = "default-memo-writer"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-4"
   mapping_role_system_content = "You are a helpful assistant. Your task is to generate a company memo based on provided points."
   mapping_temperature         = 0
@@ -550,7 +550,7 @@ module "default_emoji_chatbot" {
   path_part = "default-emoji-chatbot"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-4"
   mapping_role_system_content = "You will be provided with a message, and your task is to respond using emojis only."
   mapping_temperature         = 0.8
@@ -574,7 +574,7 @@ module "default_translation" {
   path_part = "default-translation"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-4"
   mapping_role_system_content = "You will be provided with a sentence in English, and your task is to translate it into French."
   mapping_temperature         = 0
@@ -598,7 +598,7 @@ module "default_socratic_tutor" {
   path_part = "default-socratic-tutor"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-4"
   mapping_role_system_content = "You are a Socratic tutor. Use the following principles in responding to students: a.) Ask thought-provoking, open-ended questions that challenge preconceptions of students and encourage them to engage in deeper reflection and critical thinking. b.) Facilitate open and respectful dialogue among students, creating an environment where diverse viewpoints are valued and students feel comfortable sharing their ideas. c.) Actively listen to responses of students, paying careful attention to their underlying thought processes and making a genuine effort to understand their perspectives. d.) Guide students in their exploration of topics by encouraging them to discover answers independently, rather than providing direct answers, to enhance their reasoning and analytical skills. e.) Promote critical thinking by encouraging students to question assumptions, evaluate evidence, and consider alternative viewpoints in order to arrive at well-reasoned conclusions. f.) Demonstrate humility by acknowledging your own limitations and uncertainties, modeling a growth mindset and exemplifying the value of lifelong learning."
   mapping_temperature         = 0.8
@@ -622,7 +622,7 @@ module "default_sql_translate" {
   path_part = "default-sql-translate"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-4"
   mapping_role_system_content = "Given the following SQL tables, your job is to write queries given a user’s request.\n\nCREATE TABLE Orders (\n  OrderID int,\n  CustomerID int,\n  OrderDate datetime,\n  OrderTime varchar(8),\n  PRIMARY KEY (OrderID)\n);\n\nCREATE TABLE OrderDetails (\n  OrderDetailID int,\n  OrderID int,\n  ProductID int,\n  Quantity int,\n  PRIMARY KEY (OrderDetailID)\n);\n\nCREATE TABLE Products (\n  ProductID int,\n  ProductName varchar(50),\n  Category varchar(50),\n  UnitPrice decimal(10, 2),\n  Stock int,\n  PRIMARY KEY (ProductID)\n);\n\nCREATE TABLE Customers (\n  CustomerID int,\n  FirstName varchar(50),\n  LastName varchar(50),\n  Email varchar(100),\n  Phone varchar(20),\n  PRIMARY KEY (CustomerID)\n);\n"
   mapping_temperature         = 0
@@ -646,7 +646,7 @@ module "default_meeting_notes_summarizer" {
   path_part = "default-meeting-notes-summarizer"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-4"
   mapping_role_system_content = "You will be provided with meeting notes, and your task is to summarize the meeting as follows:\n\n-Overall summary of discussion\n-Action items (what needs to be done and who is doing it)\n-If applicable, a list of topics that need to be discussed more fully in the next meeting.\n"
   mapping_temperature         = 0
@@ -670,7 +670,7 @@ module "default_review_classifier" {
   path_part = "default-review-classifier"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-4"
   mapping_role_system_content = "You will be presented with user reviews and your job is to provide a set of tags from the following list. Provide your answer in bullet point form. Choose ONLY from the list of tags provided here (choose either the positive or the negative tag but NOT both):\n\n- Provides good value for the price OR Costs too much\n- Works better than expected OR Did not work as well as expected\n- Includes essential features OR Lacks essential features\n- Easy to use OR Difficult to use\n- High quality and durability OR Poor quality and durability\n- Easy and affordable to maintain or repair OR Difficult or costly to maintain or repair\n- Easy to transport OR Difficult to transport\n- Easy to store OR Difficult to store\n- Compatible with other devices or systems OR Not compatible with other devices or systems\n- Safe and user-friendly OR Unsafe or hazardous to use\n- Excellent customer support OR Poor customer support\n- Generous and comprehensive warranty OR Limited or insufficient warranty\n"
   mapping_temperature         = 0
@@ -694,7 +694,7 @@ module "default_pro_con_discusser" {
   path_part = "default-pro-con-discusser"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-4"
   mapping_role_system_content = "You are a helpful assistant. Your task is to analyze the pros and cons of a given topic."
   mapping_temperature         = 0.8
@@ -718,7 +718,7 @@ module "default_lesson_plan_writer" {
   path_part = "default-lesson-plan-writer"
 
   # OpenAI application definition
-  mapping_end_point           = "ChatCompletion"
+  mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-4"
   mapping_role_system_content = "You are an experienced teacher. Your task is to generate a lesson plan for a specific topic."
   mapping_temperature         = 0.8

@@ -9,8 +9,6 @@
 - **[Certificate Manager](https://aws.amazon.com/certificate-manager/)**: handles the complexity of creating, storing, and renewing public and private SSL/TLS X.509 certificates and keys that protect your AWS websites and applications.
 - **[Route53](https://aws.amazon.com/route53/)**: a scalable and highly available Domain Name System service. Released on December 5, 2010.
 - **[CloudWatch](https://aws.amazon.com/cloudwatch/)**: CloudWatch enables you to monitor your complete stack (applications, infrastructure, network, and services) and use alarms, logs, and events data to take automated actions and reduce mean time to resolution (MTTR).
-- **[Rekognition](https://aws.amazon.com/rekognition/)**: (FOR FUTURE USE) a cloud-based software as a service computer vision platform that was launched in 2016. It is an AWS managed Machine Learning Service with Content moderation, Face compare and search, Face Detection and analysis, Labeling, Custom labels, Text detection, Celebrity recognition, Video segment detection and Streaming Video Events detection features. It is used by a number of United States government agencies, including U.S. Immigration and Customs Enforcement and Orlando, Florida police, as well as private entities.
-- **[DynamoDB](https://aws.amazon.com/dynamodb/)**: (FOR FUTURE USE) a fully managed proprietary NoSQL database offered by Amazon.com as part of the Amazon Web Services portfolio. DynamoDB offers a fast persistent Key-Value Datastore with built-in support for replication, autoscaling, encryption at rest, and on-demand backup among other features.
 
 ## Lambda Functions
 

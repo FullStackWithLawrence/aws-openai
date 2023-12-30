@@ -10,12 +10,12 @@
 locals {
   layer_slug              = "genai"
   layer_name              = "layer_${local.layer_slug}"
-  layer_parent_directory  = "${path.module}/python/"
-  layer_source_directory  = "${local.layer_parent_directory}${local.layer_name}"
+  layer_parent_directory  = "${path.module}/python"
+  layer_source_directory  = "${local.layer_parent_directory}/${local.layer_name}"
   layer_packaging_script  = "${local.layer_source_directory}/create_container.sh"
   layer_package_folder    = local.layer_slug
   layer_dist_build_path   = "${path.module}/build/"
-  layer_dist_package_name = "${local.layer_dist_build_path}${local.layer_name}_dst.zip"
+  layer_dist_package_name = "${local.layer_name}_dst.zip"
 }
 
 ###############################################################################
@@ -39,7 +39,6 @@ resource "null_resource" "package_layer_genai" {
     command     = local.layer_packaging_script
 
     environment = {
-      PARENT_DIRECTORY = local.layer_parent_directory
       SOURCE_CODE_PATH = local.layer_source_directory
       RUNTIME          = var.lambda_python_runtime
       CONTAINER_NAME   = local.layer_name

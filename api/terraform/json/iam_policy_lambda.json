@@ -13,6 +13,21 @@
         "logs:FilterLogEvents"
       ],
       "Resource": ["arn:aws:lambda:*"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "apigateway:GET",
+        "iam:ListPolicies",
+        "iam:GetPolicy",
+        "iam:GetPolicyVersion",
+        "iam:ListAttachedRolePolicies",
+        "s3:ListAllMyBuckets",
+        "ec2:DescribeRegions",
+        "route53:ListHostedZones",
+        "route53:ListResourceRecordSets"
+      ],
+      "Resource": "*"
     }
   ]
 }

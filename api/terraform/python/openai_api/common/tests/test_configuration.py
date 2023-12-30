@@ -164,13 +164,13 @@ class TestConfiguration(unittest.TestCase):
     def test_dump(self):
         """Test that dump is a dict."""
 
-        mock_settings = Settings()
+        mock_settings = Settings(init_info="test_dump()")
         self.assertIsInstance(mock_settings.dump, dict)
 
     def test_dump_keys(self):
         """Test that dump contains the expected keys."""
 
-        mock_settings = Settings()
+        mock_settings = Settings(init_info="test_dump_keys()")
         environment = mock_settings.dump["environment"]
         self.assertIn("DEBUG_MODE".lower(), environment)
         self.assertIn("os", environment)

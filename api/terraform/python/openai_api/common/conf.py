@@ -335,6 +335,10 @@ class Settings(BaseSettings):
         SettingsDefaults.AWS_APIGATEWAY_ROOT_DOMAIN,
         env="AWS_APIGATEWAY_ROOT_DOMAIN",
     )
+    init_info: Optional[str] = Field(
+        None,
+        env="INIT_INFO",
+    )
     langchain_memory_key: Optional[str] = Field(SettingsDefaults.LANGCHAIN_MEMORY_KEY, env="LANGCHAIN_MEMORY_KEY")
     openai_api_organization: Optional[str] = Field(
         SettingsDefaults.OPENAI_API_ORGANIZATION, env="OPENAI_API_ORGANIZATION"
@@ -385,6 +389,7 @@ class Settings(BaseSettings):
             "aws_access_key_id_source": self.aws_access_key_id_source,
             "aws_secret_access_key_source": self.aws_secret_access_key_source,
             "aws_region": self.aws_region,
+            "init_info": self.init_info,
         }
 
     @property

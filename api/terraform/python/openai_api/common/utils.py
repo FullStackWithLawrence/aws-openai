@@ -146,7 +146,7 @@ def parse_request(request_body: dict):
     model = request_body.get("model")
     messages = request_body.get("messages")
     input_text = request_body.get("input_text")
-    temperature = request_body.get("temperature")
+    temperature = request_body.get("temperature", -1)
     max_tokens = request_body.get("max_tokens")
     chat_history = request_body.get("chat_history")
 
@@ -158,7 +158,7 @@ def parse_request(request_body: dict):
         logging.warning("model key not found in request body. defaulting to gpt-3.5-turbo")
         model = "gpt-3.5-turbo"
 
-    if not temperature:
+    if temperature < 0:
         logging.warning("temperature key not found in request body. defaulting to 0.5")
         temperature = 0.5
 

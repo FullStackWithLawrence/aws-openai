@@ -232,6 +232,12 @@ class Settings(BaseSettings):
 
         if not self.initialized and bool(os.environ.get("GITHUB_ACTIONS", False)):
             try:
+                aws_access_key_id = os.environ.get("AWS_ACCESS_KEY_ID", None)
+                aws_secret_access_key = os.environ.get("AWS_SECRET_ACCESS_KEY", None)
+                if not aws_access_key_id or not aws_secret_access_key:
+                    raise OpenAIAPIConfigurationError(
+                        "required environment variable(s) AWS_ACCESS_KEY_ID and/or AWS_SECRET_ACCESS_KEY not set"
+                    )
                 self._aws_session = boto3.Session(
                     region_name=os.environ.get("AWS_REGION", "us-east-1"),
                     aws_access_key_id=os.environ.get("AWS_ACCESS_KEY_ID", None),

@@ -232,6 +232,11 @@ class Settings(BaseSettings):
             self._initialized = True
 
         if not self.initialized and bool(os.environ.get("GITHUB_ACTIONS", False)):
+            console_handler = logging.StreamHandler()
+            console_handler.setLevel(logging.debug)
+            logger.addHandler(console_handler)
+            logger.setLevel(logging.DEBUG)
+
             logger.info("running inside GitHub Actions")
             aws_access_key_id = os.environ.get("AWS_ACCESS_KEY_ID", None)
             aws_secret_access_key = os.environ.get("AWS_SECRET_ACCESS_KEY", None)

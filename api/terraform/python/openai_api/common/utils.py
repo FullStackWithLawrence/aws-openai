@@ -60,7 +60,7 @@ def http_response_factory(status_code: int, body: json, debug_mode: bool = False
     Generate a standardized JSON return dictionary for all possible response scenarios.
 
     status_code: an HTTP response code. see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
-    body: a JSON dict of Rekognition results for status 200, an error dict otherwise.
+    body: a JSON dict of http response for status 200, an error dict otherwise.
 
     see https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html
     """

@@ -102,7 +102,7 @@ Detailed documentation for each endpoint is available here: [Documentation](./do
 
 ## Support
 
-To get community support, go to the official [Issues Page](https://github.com/FullStackWithLawrence/aws-rekognition/issues) for this project.
+To get community support, go to the official [Issues Page](https://github.com/FullStackWithLawrence/aws-openai/issues) for this project.
 
 ## Good Coding Best Practices
 

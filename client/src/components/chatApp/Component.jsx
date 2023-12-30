@@ -30,6 +30,7 @@ import {
 import "./Component.css";
 import { ChatModal } from "./Modal.jsx";
 import { processApiRequest } from "./ApiRequest.js";
+import { ErrorBoundary } from "./errorBoundary.jsx";
 
 function ChatApp(props) {
   const fileInputRef = useRef(null);
@@ -227,12 +228,14 @@ function ChatApp(props) {
   return (
     <div className="chat-app">
       <MainContainer style={MainContainerStyle}>
-        <ChatModal
-          isModalOpen={isModalOpen}
-          title={modalTitle}
-          message={modalMessage}
-          onCloseClick={closeChatModal}
-        />
+        <ErrorBoundary>
+          <ChatModal
+            isModalOpen={isModalOpen}
+            title={modalTitle}
+            message={modalMessage}
+            onCloseClick={closeChatModal}
+          />
+        </ErrorBoundary>
         <ChatContainer style={transparentBackgroundStyle}>
           <ConversationHeader>
             <Avatar src={avatar_url} name={app_name} />

@@ -9,5 +9,8 @@
     "@semantic-release/github": "^9.2.3",
     "@semantic-release/release-notes-generator": "^12.1.0",
     "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "chatgpt_client": "file:client"
   }
 }

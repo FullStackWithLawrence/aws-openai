@@ -28,8 +28,19 @@ function mapResponse(response) {
     - OpenAI API responses are JSON objects of the format ./test/events/openai.response.v0.4.0.json
     - LangChain API responses are text/plain of the format ./test/events/langchain.response.v0.5.0.json
   */
-
-  if (response["request_meta_data"]["lambda"] == "lambda_langchain") {
+  if (typeof response === "string") {
+    try {
+      response = JSON.parse(response);
+    } catch (e) {
+      console.error("Failed to parse response as JSON", e);
+      return;
+    }
+  }
+  if (
+    response &&
+    response["request_meta_data"] &&
+    response["request_meta_data"]["lambda"] == "lambda_langchain"
+  ) {
     const messages = response["chat_memory"]["messages"];
     let aiMessages = messages.filter((message) => message.type === "ai");
     let ai_response = "";
@@ -120,7 +131,7 @@ export async function processApiRequest(
       openChatModal(errTitle, errMessage);
     }
   } catch (error) {
-    openChatModal("Error", error);
+    openChatModal("Error", error || "An unknown error occurred.");
     return;
   }
 }

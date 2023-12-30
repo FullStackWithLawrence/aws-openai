@@ -1,6 +1,9 @@
 [MASTER]
-ignore =
-  __version__.py
+ignore-paths=venv,node_modules
+ignore=__version__.py
 
 [FORMAT]
 max-line-length=120
+
+[MESSAGES CONTROL]
+disable=too-few-public-methods,invalid-name,line-too-long,no-self-argument,unused-import

@@ -61,7 +61,7 @@ def handler(event, context):
     Responsible for processing incoming requests and invoking the appropriate
     OpenAI API endpoint based on the contents of the request.
     """
-    cloudwatch_handler(event)
+    cloudwatch_handler(event, settings.dump, debug_mode=settings.debug_mode)
     try:
         openai_results = {}
         request_body = get_request_body(event=event)

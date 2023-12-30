@@ -12,12 +12,6 @@
     "dotenv": [
       "AWS_REGION",
       "DEBUG_MODE",
-      "AWS_DYNAMODB_TABLE_ID",
-      "AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT",
-      "AWS_REKOGNITION_FACE_DETECT_THRESHOLD",
-      "AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES",
-      "AWS_REKOGNITION_FACE_DETECT_QUALITY_FILTER",
-      "AWS_REKOGNITION_COLLECTION_ID",
       "LANGCHAIN_MEMORY_KEY",
       "OPENAI_ENDPOINT_IMAGE_N",
       "OPENAI_ENDPOINT_IMAGE_SIZE"
@@ -46,9 +40,9 @@
       "throttle_settings_rate_limit"
     ]
   },
-  "aws_api_gateway": {
+  "aws_apigateway": {
     "aws_apigateway_root_domain": "lawrencemcdaniel.com",
-    "aws_apigateway_custom_domain_name_create": true,
+    "aws_apigateway_create_custom_domaim": true,
     "aws_apigateway_custom_domain_name": "api.openai.lawrencemcdaniel.com"
   },
   "openai_api": {

@@ -41,76 +41,34 @@ class TestAWSInfrastructureBase(unittest.TestCase):
         env_path = self.env_path(".env")
         load_dotenv(env_path)
 
-        # environment variables
-        self.aws_region = settings.aws_region
-        self.aws_profile = settings.aws_profile
-
     @property
     def domain(self):
         """Return the domain."""
         if not self._domain:
-            if self.create_custom_domain:
+            if settings.aws_apigateway_create_custom_domaim:
                 self._domain = (
-                    os.getenv(key="DOMAIN") or "api." + self.shared_resource_identifier + "." + self.root_domain
+                    os.getenv(key="DOMAIN")
+                    or "api." + settings.shared_resource_identifier + "." + settings.aws_apigateway_root_domain
                 )
                 return self._domain
 
-            response = self.api_client.get_rest_apis()
+            response = settings.aws_apigateway_client.get_rest_apis()
             for item in response["items"]:
                 if item["name"] == self.api_gateway_name:
                     api_id = item["id"]
-                    self._domain = f"{api_id}.execute-api.{self.aws_region}.amazonaws.com"
+                    self._domain = f"{api_id}.execute-api.{settings.aws_region}.amazonaws.com"
         return self._domain
 
     @property
     def api_gateway_name(self):
         """Return the API Gateway name."""
-        return self.shared_resource_identifier + "-api"
-
-    @property
-    def shared_resource_identifier(self):
-        """Return the shared resource identifier."""
-        return settings.shared_resource_identifier
-
-    @property
-    def root_domain(self):
-        """Return the root domain."""
-        return settings.aws_apigateway_root_domain
-
-    @property
-    def aws_session(self) -> boto3.Session:
-        """Return a new AWS session."""
-        return settings.aws_session
-
-    @property
-    def s3_client(self):
-        """Return the S3 client."""
-        return settings.s3_client
-
-    @property
-    def dynamodb(self):
-        """Return the DynamoDB client."""
-        return settings.dynamodb_client
-
-    @property
-    def api_client(self):
-        """Return the API Gateway client."""
-        return settings.api_client
-
-    @property
-    def create_custom_domain(self) -> bool:
-        """Return the CREATE_CUSTOM_DOMAIN_NAME value."""
-        return settings.aws_apigateway_custom_domain_name_create
-
-    def get_url(self, path):
-        """Return the url for the given path."""
-        return f"https://{self.domain}{path}"
+        return settings.shared_resource_identifier + "-api"
 
     def aws_connection_works(self):
         """Test that the AWS connection works."""
         try:
             # Try a benign operation
-            self.s3_client.list_buckets()
+            settings.aws_session.get_available_regions("s3")
             return True
         except Exception:  # pylint: disable=broad-exception-caught
             return False
@@ -119,8 +77,8 @@ class TestAWSInfrastructureBase(unittest.TestCase):
         """Test that the domain exists in API Gateway."""
         if self._domain_exists:
             return True
-        if self.create_custom_domain:
-            response = self.api_client.get_domain_names()
+        if settings.aws_apigateway_create_custom_domaim:
+            response = settings.aws_apigateway_client.get_domain_names()
             for item in response["items"]:
                 if item.get("domainName") == self.domain:
                     self._domain_exists = True
@@ -132,27 +90,19 @@ class TestAWSInfrastructureBase(unittest.TestCase):
                     self._domain_exists = True
                     break
         else:
-            response = self.api_client.get_rest_apis()
+            response = settings.aws_apigateway_client.get_rest_apis()
             for item in response["items"]:
-                constructed_url = f"{item['id']}.execute-api.{self.api_client.meta.region_name}.amazonaws.com"
+                constructed_url = (
+                    f"{item['id']}.execute-api.{settings.aws_apigateway_client.meta.region_name}.amazonaws.com"
+                )
                 if constructed_url in self.domain:
                     self._domain_exists = True
 
         return self._domain_exists
 
-    def dynamodb_table_exists(self, table_name):
-        """Test that the DynamoDB table exists."""
-        try:
-            response = self.dynamodb.describe_table(TableName=table_name)
-            return response["Table"]["TableStatus"] == "ACTIVE"
-        except boto3.exceptions.botocore.exceptions.ClientError as e:
-            if e.response["Error"]["Code"] == "ResourceNotFoundException":
-                return False
-            raise
-
     def api_exists(self, api_name: str):
         """Test that the API Gateway exists."""
-        response = self.api_client.get_rest_apis()
+        response = settings.aws_apigateway_client.get_rest_apis()
 
         for item in response["items"]:
             if item["name"] == api_name:
@@ -161,7 +111,7 @@ class TestAWSInfrastructureBase(unittest.TestCase):
 
     def get_api(self, api_name: str) -> json:
         """Test that the API Gateway exists."""
-        response = self.api_client.get_rest_apis()
+        response = settings.aws_apigateway_client.get_rest_apis()
 
         for item in response["items"]:
             if item["name"] == api_name:
@@ -172,22 +122,24 @@ class TestAWSInfrastructureBase(unittest.TestCase):
         """Test that the API Gateway resource and method exists."""
         api = self.get_api(self.api_gateway_name)
         api_id = api["id"]
-        resources = self.api_client.get_resources(restApiId=api_id)
+        resources = settings.aws_apigateway_client.get_resources(restApiId=api_id)
         for resource in resources["items"]:
             if resource["path"] == path:
                 try:
-                    self.api_client.get_method(restApiId=api_id, resourceId=resource["id"], httpMethod=method)
+                    settings.aws_apigateway_client.get_method(
+                        restApiId=api_id, resourceId=resource["id"], httpMethod=method
+                    )
                     return True
-                except self.api_client.exceptions.NotFoundException:
+                except settings.aws_apigateway_client.exceptions.NotFoundException:
                     return False
 
         return False
 
     def get_api_keys(self) -> str:
         """Test that the API Gateway exists."""
-        response = self.api_client.get_api_keys(includeValues=True)
+        response = settings.aws_apigateway_client.get_api_keys(includeValues=True)
         for item in response["items"]:
-            if item["name"] == self.shared_resource_identifier:
+            if item["name"] == settings.shared_resource_identifier:
                 return item["value"]
         return False
 

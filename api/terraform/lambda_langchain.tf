@@ -13,12 +13,11 @@
 #           that call this Lambda, rather than here.
 #------------------------------------------------------------------------------
 locals {
-  langchain_function_name        = "lambda_langchain"
-  langchain_build_path           = "${path.module}/build/"
-  langchain_openai_api_directory = "${path.module}/python/openai_api"
-  langchain_source_directory     = "${local.langchain_openai_api_directory}/${local.langchain_function_name}"
-  langchain_packaging_script     = "${local.langchain_source_directory}/create_pkg.sh"
-  langchain_dist_package_name    = "${local.langchain_function_name}_dist_pkg.zip"
+  langchain_function_name     = "lambda_langchain"
+  langchain_build_path        = "${path.module}/build/distribution_package"
+  langchain_source_directory  = "${path.module}/python/openai_api"
+  langchain_packaging_script  = "${local.langchain_source_directory}/create_pkg.sh"
+  langchain_dist_package_name = "${local.langchain_function_name}_dist_pkg.zip"
 }
 
 ###############################################################################
@@ -27,10 +26,7 @@ locals {
 ###############################################################################
 resource "null_resource" "package_lambda_langchain" {
   triggers = {
-    redeployment = sha1(jsonencode([
-      file("${local.langchain_source_directory}/lambda_handler.py"),
-      file("${local.langchain_packaging_script}")
-    ]))
+    always_redeploy = timestamp()
   }
 
   provisioner "local-exec" {
@@ -38,7 +34,7 @@ resource "null_resource" "package_lambda_langchain" {
     command     = local.langchain_packaging_script
 
     environment = {
-      PARENT_DIRECTORY = local.langchain_openai_api_directory
+      TERRAFORM_ROOT   = path.module
       SOURCE_CODE_PATH = local.langchain_source_directory
       BUILD_PATH       = local.langchain_build_path
       PACKAGE_FOLDER   = local.langchain_function_name
@@ -49,7 +45,7 @@ resource "null_resource" "package_lambda_langchain" {
 data "archive_file" "lambda_langchain" {
   # see https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file
   source_dir  = local.langchain_build_path
-  output_path = "${local.langchain_build_path}/${local.langchain_dist_package_name}"
+  output_path = "${path.module}/build/${local.langchain_dist_package_name}"
   type        = "zip"
   depends_on  = [null_resource.package_lambda_langchain]
 }
@@ -59,7 +55,7 @@ data "archive_file" "lambda_langchain" {
 ###############################################################################
 data "external" "env_lambda_langchain" {
   # kluge to read and map the openai api key and org data contained in .env
-  program = ["${local.langchain_source_directory}/env.sh"]
+  program = ["${local.langchain_source_directory}/${local.langchain_function_name}/env.sh"]
 
   # For Windows (or Powershell core on MacOS and Linux),
   # run a Powershell script instead
@@ -79,7 +75,7 @@ resource "aws_lambda_function" "lambda_langchain" {
   runtime          = var.lambda_python_runtime
   memory_size      = var.lambda_memory_size
   timeout          = var.lambda_timeout
-  handler          = "lambda_handler.handler"
+  handler          = "openai_api.lambda_langchain.lambda_handler.handler"
   architectures    = var.compatible_architectures
   filename         = data.archive_file.lambda_langchain.output_path
   source_code_hash = data.archive_file.lambda_langchain.output_base64sha256
@@ -93,6 +89,7 @@ resource "aws_lambda_function" "lambda_langchain" {
       OPENAI_API_KEY             = data.external.env_lambda_langchain.result["OPENAI_API_KEY"]
       OPENAI_ENDPOINT_IMAGE_N    = var.openai_endpoint_image_n
       OPENAI_ENDPOINT_IMAGE_SIZE = var.openai_endpoint_image_size
+      AWS_DEPLOYED               = true
     }
   }
 }

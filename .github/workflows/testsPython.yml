@@ -32,7 +32,7 @@ jobs:
 
       - name: Get IAM user info
         run: |
-          aws sts get-caller-identity
+          aws sts get-caller-identity | sed -E 's/(arn:aws:iam::)[0-9]+(:user\/\w+)/\1************\2/' | jq '.Account="************"'
 
       - name: Run Python tests
         uses: ./.github/actions/tests/python

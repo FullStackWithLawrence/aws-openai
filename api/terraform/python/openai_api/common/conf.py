@@ -216,7 +216,7 @@ class Settings(BaseSettings):
     _dump: dict = None
     _initialized: bool = False
 
-    # pylint: disable=too-many-branches
+    # pylint: disable=too-many-branches,too-many-statements
     def __init__(self, **data: Any):
         super().__init__(**data)
         if not Services.enabled(Services.AWS_CLI):
@@ -225,27 +225,45 @@ class Settings(BaseSettings):
 
         if bool(os.environ.get("AWS_DEPLOYED", False)):
             # If we're running inside AWS Lambda, then we don't need to set the AWS credentials.
+            logger.info("running inside AWS Lambda")
             self._aws_access_key_id_source: str = "overridden by IAM role-based security"
             self._aws_secret_access_key_source: str = "overridden by IAM role-based security"
             self._aws_session = boto3.Session()
             self._initialized = True
 
         if not self.initialized and bool(os.environ.get("GITHUB_ACTIONS", False)):
+            console_handler = logging.StreamHandler()
+            console_handler.setLevel(logging.DEBUG)
+            logger.addHandler(console_handler)
+            logger.setLevel(logging.DEBUG)
+
+            logger.info("running inside GitHub Actions")
+            aws_access_key_id = os.environ.get("AWS_ACCESS_KEY_ID", None)
+            aws_secret_access_key = os.environ.get("AWS_SECRET_ACCESS_KEY", None)
+            if not aws_access_key_id or not aws_secret_access_key:
+                raise OpenAIAPIConfigurationError(
+                    "required environment variable(s) AWS_ACCESS_KEY_ID and/or AWS_SECRET_ACCESS_KEY not set"
+                )
+            self._aws_access_key_id_source = "environ"
+            self._aws_secret_access_key_source = "environ"
+            region_name = os.environ.get("AWS_REGION", None)
+            if not region_name:
+                raise OpenAIAPIConfigurationError("required environment variable AWS_REGION not set")
             try:
                 self._aws_session = boto3.Session(
-                    region_name=os.environ.get("AWS_REGION", "us-east-1"),
-                    aws_access_key_id=os.environ.get("AWS_ACCESS_KEY_ID", None),
-                    aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY", None),
+                    region_name=region_name,
+                    aws_access_key_id=aws_access_key_id,
+                    aws_secret_access_key=aws_secret_access_key,
                 )
+                self._initialized = True
+                self._aws_access_key_id_source = "environ"
+                self._aws_secret_access_key_source = "environ"
             except ProfileNotFound:
                 logger.warning("aws_profile %s not found", self.aws_profile)
 
-            if self.aws_profile:
+            if self.aws_profile and self._aws_access_key_id_source == "unset":
                 self._aws_access_key_id_source = "aws_profile"
                 self._aws_secret_access_key_source = "aws_profile"
-            else:
-                self._aws_access_key_id_source = "environ"
-                self._aws_secret_access_key_source = "environ"
             self._initialized = True
 
         if not self.initialized:
@@ -317,6 +335,10 @@ class Settings(BaseSettings):
         SettingsDefaults.AWS_APIGATEWAY_ROOT_DOMAIN,
         env="AWS_APIGATEWAY_ROOT_DOMAIN",
     )
+    init_info: Optional[str] = Field(
+        None,
+        env="INIT_INFO",
+    )
     langchain_memory_key: Optional[str] = Field(SettingsDefaults.LANGCHAIN_MEMORY_KEY, env="LANGCHAIN_MEMORY_KEY")
     openai_api_organization: Optional[str] = Field(
         SettingsDefaults.OPENAI_API_ORGANIZATION, env="OPENAI_API_ORGANIZATION"
@@ -367,6 +389,7 @@ class Settings(BaseSettings):
             "aws_access_key_id_source": self.aws_access_key_id_source,
             "aws_secret_access_key_source": self.aws_secret_access_key_source,
             "aws_region": self.aws_region,
+            "init_info": self.init_info,
         }
 
     @property

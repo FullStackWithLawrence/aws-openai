@@ -11,22 +11,22 @@ inputs:
     description: "The version of Python to use, such as 3.11.0"
     required: true
     type: string
-openai-api-organization:
-  description: "The OpenAI API organization"
-  required: true
-  type: string
-openai-api-key:
-  description: "The OpenAI API key"
-  required: true
-  type: string
-pinecone-api-key:
-  description: "The Pinecone API key"
-  required: true
-  type: string
-pinecone-environment:
-  description: "The Pinecone environment"
-  required: true
-  type: string
+  openai-api-organization:
+    description: "The OpenAI API organization"
+    required: true
+    type: string
+  openai-api-key:
+    description: "The OpenAI API key"
+    required: true
+    type: string
+  pinecone-api-key:
+    description: "The Pinecone API key"
+    required: true
+    type: string
+  pinecone-environment:
+    description: "The Pinecone environment"
+    required: true
+    type: string
 
 runs:
   using: "composite"

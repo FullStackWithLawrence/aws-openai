@@ -116,6 +116,7 @@ runs:
       shell: bash
       env:
         GITHUB_ACTIONS: "true"
+        AWS_DEPLOYED: "true"
         DEBUG_MODE: "true"
       run: |
         make api-test

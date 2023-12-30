@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=R0911,R0912,W0718
-"""Lambda entry point for rekognition_api/info"""
+"""Lambda entry point for /info"""
 
 import json
 

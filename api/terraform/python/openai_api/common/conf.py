@@ -384,13 +384,14 @@ class Settings(BaseSettings):
     @property
     def aws_auth(self) -> dict:
         """AWS authentication"""
-        return {
+        retval = {
             "aws_profile": self.aws_profile,
             "aws_access_key_id_source": self.aws_access_key_id_source,
             "aws_secret_access_key_source": self.aws_secret_access_key_source,
             "aws_region": self.aws_region,
-            "init_info": self.init_info,
         }
+        if self.init_info:
+            retval["init_info"] = self.init_info
 
     @property
     def aws_session(self):

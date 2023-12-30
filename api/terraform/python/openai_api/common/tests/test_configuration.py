@@ -27,7 +27,13 @@ class TestConfiguration(unittest.TestCase):
     here = os.path.dirname(os.path.abspath(__file__))
 
     def setUp(self):
-        """Set up test fixtures."""
+        # Save current environment variables
+        self.saved_env = dict(os.environ)
+
+    def tearDown(self):
+        # Restore environment variables
+        os.environ.clear()
+        os.environ.update(self.saved_env)
 
     def env_path(self, filename):
         """Return the path to the .env file."""

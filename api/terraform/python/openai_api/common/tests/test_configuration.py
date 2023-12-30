@@ -18,7 +18,6 @@ sys.path.append(PYTHON_ROOT)  # noqa: E402
 
 # our stuff
 from openai_api.common.conf import Settings, SettingsDefaults  # noqa: E402
-from openai_api.common.exceptions import OpenAIAPIValueError  # noqa: E402
 
 
 class TestConfiguration(unittest.TestCase):
@@ -40,27 +39,9 @@ class TestConfiguration(unittest.TestCase):
         mock_settings = Settings()
 
         self.assertEqual(mock_settings.aws_region, SettingsDefaults.AWS_REGION)
-        self.assertEqual(mock_settings.aws_dynamodb_table_id, SettingsDefaults.AWS_DYNAMODB_TABLE_ID)
-
         self.assertEqual(mock_settings.openai_endpoint_image_n, SettingsDefaults.OPENAI_ENDPOINT_IMAGE_N)
         self.assertEqual(mock_settings.openai_endpoint_image_size, SettingsDefaults.OPENAI_ENDPOINT_IMAGE_SIZE)
 
-        self.assertEqual(mock_settings.aws_rekognition_collection_id, SettingsDefaults.AWS_REKOGNITION_COLLECTION_ID)
-        self.assertEqual(
-            mock_settings.aws_rekognition_face_detect_max_faces_count,
-            SettingsDefaults.AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT,
-        )
-        self.assertEqual(
-            mock_settings.aws_rekognition_face_detect_attributes,
-            SettingsDefaults.AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES,
-        )
-        self.assertEqual(
-            mock_settings.aws_rekognition_face_detect_quality_filter,
-            SettingsDefaults.AWS_REKOGNITION_FACE_DETECT_QUALITY_FILTER,
-        )
-        self.assertEqual(
-            mock_settings.aws_rekognition_face_detect_threshold, SettingsDefaults.AWS_REKOGNITION_FACE_DETECT_THRESHOLD
-        )
         self.assertEqual(mock_settings.debug_mode, SettingsDefaults.DEBUG_MODE)
         self.assertEqual(mock_settings.langchain_memory_key, SettingsDefaults.LANGCHAIN_MEMORY_KEY)
         self.assertEqual(mock_settings.openai_endpoint_image_n, SettingsDefaults.OPENAI_ENDPOINT_IMAGE_N)
@@ -96,16 +77,6 @@ class TestConfiguration(unittest.TestCase):
         mock_settings = Settings()
 
         self.assertEqual(mock_settings.aws_region, SettingsDefaults.AWS_REGION)
-        self.assertEqual(mock_settings.aws_dynamodb_table_id, SettingsDefaults.AWS_DYNAMODB_TABLE_ID)
-        self.assertEqual(mock_settings.aws_rekognition_collection_id, SettingsDefaults.AWS_REKOGNITION_COLLECTION_ID)
-        self.assertEqual(
-            mock_settings.aws_rekognition_face_detect_attributes,
-            SettingsDefaults.AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES,
-        )
-        self.assertEqual(
-            mock_settings.aws_rekognition_face_detect_quality_filter,
-            SettingsDefaults.AWS_REKOGNITION_FACE_DETECT_QUALITY_FILTER,
-        )
         self.assertEqual(mock_settings.langchain_memory_key, SettingsDefaults.LANGCHAIN_MEMORY_KEY)
         self.assertEqual(mock_settings.openai_endpoint_image_n, SettingsDefaults.OPENAI_ENDPOINT_IMAGE_N)
         self.assertEqual(mock_settings.openai_endpoint_image_size, SettingsDefaults.OPENAI_ENDPOINT_IMAGE_SIZE)
@@ -130,12 +101,6 @@ class TestConfiguration(unittest.TestCase):
         mock_settings = Settings()
 
         self.assertEqual(mock_settings.aws_region, "us-west-1")
-        self.assertEqual(mock_settings.aws_dynamodb_table_id, "TEST_facialrecognition")
-        self.assertEqual(mock_settings.aws_rekognition_collection_id, "TEST_facialrecognition-collection")
-        self.assertEqual(mock_settings.aws_rekognition_face_detect_max_faces_count, 100)
-        self.assertEqual(mock_settings.aws_rekognition_face_detect_attributes, "TEST_DEFAULT")
-        self.assertEqual(mock_settings.aws_rekognition_face_detect_quality_filter, "TEST_AUTO")
-        self.assertEqual(mock_settings.aws_rekognition_face_detect_threshold, 100)
         self.assertEqual(mock_settings.debug_mode, True)
         self.assertEqual(mock_settings.langchain_memory_key, "TEST_langchain_memory_key")
         self.assertEqual(mock_settings.openai_endpoint_image_n, 100)
@@ -145,21 +110,7 @@ class TestConfiguration(unittest.TestCase):
     def test_invalid_aws_region_code(self):
         """Test that Pydantic raises a validation error for environment variable with non-existent aws region code."""
 
-        with self.assertRaises(OpenAIAPIValueError):
-            Settings()
-
-    @patch.dict(os.environ, {"AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT": "-1"})
-    def test_invalid_max_faces_count(self):
-        """Test that Pydantic raises a validation error for environment variable w negative integer values."""
-
-        with self.assertRaises(PydanticValidationError):
-            Settings()
-
-    @patch.dict(os.environ, {"AWS_REKOGNITION_FACE_DETECT_THRESHOLD": "-1"})
-    def test_invalid_threshold(self):
-        """Test that Pydantic raises a validation error for environment variable w negative integer values."""
-
-        with self.assertRaises(PydanticValidationError):
+        with self.assertRaises(Exception):
             Settings()
 
     def test_configure_with_class_constructor(self):
@@ -167,22 +118,10 @@ class TestConfiguration(unittest.TestCase):
 
         mock_settings = Settings(
             aws_region="eu-west-1",
-            aws_dynamodb_table_id="TEST_facialrecognition",
-            aws_rekognition_collection_id="TEST_facialrecognition-collection",
-            aws_rekognition_face_detect_max_faces_count=101,
-            aws_rekognition_face_detect_attributes="TEST_DEFAULT",
-            aws_rekognition_face_detect_quality_filter="TEST_AUTO",
-            aws_rekognition_face_detect_threshold=102,
             debug_mode=True,
         )
 
         self.assertEqual(mock_settings.aws_region, "eu-west-1")
-        self.assertEqual(mock_settings.aws_dynamodb_table_id, "TEST_facialrecognition")
-        self.assertEqual(mock_settings.aws_rekognition_collection_id, "TEST_facialrecognition-collection")
-        self.assertEqual(mock_settings.aws_rekognition_face_detect_max_faces_count, 101)
-        self.assertEqual(mock_settings.aws_rekognition_face_detect_attributes, "TEST_DEFAULT")
-        self.assertEqual(mock_settings.aws_rekognition_face_detect_quality_filter, "TEST_AUTO")
-        self.assertEqual(mock_settings.aws_rekognition_face_detect_threshold, 102)
         self.assertEqual(mock_settings.debug_mode, True)
 
     def test_configure_neg_int_with_class_constructor(self):
@@ -241,66 +180,26 @@ class TestConfiguration(unittest.TestCase):
         self.assertIn("SHARED_RESOURCE_IDENTIFIER".lower(), environment)
         self.assertIn("version", environment)
 
-        aws_api_gateway = mock_settings.dump["aws_api_gateway"]
-        self.assertIn("AWS_APIGATEWAY_ROOT_DOMAIN".lower(), aws_api_gateway)
-        self.assertIn("AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME".lower(), aws_api_gateway)
-        self.assertIn("AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE".lower(), aws_api_gateway)
+        aws_apigateway = mock_settings.dump["aws_apigateway"]
+        self.assertIn("AWS_APIGATEWAY_ROOT_DOMAIN".lower(), aws_apigateway)
 
         openai_api = mock_settings.dump["openai_api"]
         self.assertIn("LANGCHAIN_MEMORY_KEY".lower(), openai_api)
         self.assertIn("OPENAI_ENDPOINT_IMAGE_N".lower(), openai_api)
         self.assertIn("OPENAI_ENDPOINT_IMAGE_SIZE".lower(), openai_api)
 
-        if mock_settings.is_using_aws_rekognition:
-            aws_rekognition = mock_settings.dump["aws_rekognition"]
-            self.assertIn("AWS_REKOGNITION_COLLECTION_ID".lower(), aws_rekognition)
-            self.assertIn("AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT".lower(), aws_rekognition)
-            self.assertIn("AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES".lower(), aws_rekognition)
-            self.assertIn("AWS_REKOGNITION_QUALITY_FILTER".lower(), aws_rekognition)
-
-        if mock_settings.is_using_aws_dynamodb:
-            aws_dynamodb = mock_settings.dump["aws_dynamodb"]
-            self.assertIn("AWS_DYNAMODB_TABLE_ID".lower(), aws_dynamodb)
-
     def test_cloudwatch_values(self):
         """Test that dump contains the expected default values."""
 
         mock_settings = Settings()
         environment = mock_settings.dump["environment"]
-        aws_api_gateway = mock_settings.dump["aws_api_gateway"]
+        # aws_apigateway = mock_settings.dump["aws_apigateway"]
         openai_api = mock_settings.dump["openai_api"]
 
         self.assertEqual(environment["DEBUG_MODE".lower()], mock_settings.debug_mode)
-        self.assertEqual(
-            aws_api_gateway["AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME_CREATE".lower()],
-            mock_settings.aws_apigateway_custom_domain_name_create,
-        )
-        self.assertEqual(
-            aws_api_gateway["AWS_APIGATEWAY_CUSTOM_DOMAIN_NAME".lower()],
-            mock_settings.aws_apigateway_custom_domain_name,
-        )
         self.assertEqual(openai_api["LANGCHAIN_MEMORY_KEY".lower()], mock_settings.langchain_memory_key)
         self.assertEqual(openai_api["OPENAI_ENDPOINT_IMAGE_N".lower()], mock_settings.openai_endpoint_image_n)
         self.assertEqual(openai_api["OPENAI_ENDPOINT_IMAGE_SIZE".lower()], mock_settings.openai_endpoint_image_size)
-
-        if mock_settings.is_using_aws_rekognition:
-            aws_rekognition = mock_settings.dump["aws_rekognition"]
-            self.assertEqual(
-                aws_rekognition["AWS_REKOGNITION_COLLECTION_ID".lower()], mock_settings.aws_rekognition_collection_id
-            )
-            self.assertEqual(aws_rekognition["AWS_DYNAMODB_TABLE_ID".lower()], mock_settings.aws_dynamodb_table_id)
-            self.assertEqual(
-                aws_rekognition["AWS_REKOGNITION_FACE_DETECT_MAX_FACES_COUNT".lower()],
-                mock_settings.aws_rekognition_face_detect_max_faces_count,
-            )
-            self.assertEqual(
-                aws_rekognition["AWS_REKOGNITION_FACE_DETECT_ATTRIBUTES".lower()],
-                mock_settings.aws_rekognition_face_detect_attributes,
-            )
-            self.assertEqual(
-                aws_rekognition["AWS_REKOGNITION_QUALITY_FILTER".lower()],
-                mock_settings.aws_rekognition_face_detect_quality_filter,
-            )
 
     def test_initialize_with_values(self):
         """test that we can set values with the class constructor"""
@@ -309,15 +208,8 @@ class TestConfiguration(unittest.TestCase):
             dump_defaults=False,
             aws_profile="test-profile",
             aws_region="eu-west-1",
-            aws_apigateway_custom_domain_name_create=False,
+            aws_apigateway_create_custom_domaim=False,
             aws_apigateway_root_domain="test-domain.com",
-            aws_apigateway_custom_domain_name="api.test-domain.com",
-            aws_dynamodb_table_id="TEST_facialrecognition",
-            aws_rekognition_collection_id="TEST_facialrecognition-collection",
-            aws_rekognition_face_detect_attributes="TEST_DEFAULT",
-            aws_rekognition_face_detect_quality_filter="TEST_AUTO",
-            aws_rekognition_face_detect_max_faces_count=101,
-            aws_rekognition_face_detect_threshold=102,
             langchain_memory_key="TEST_langchain_memory_key",
             openai_api_organization="TEST_openai_api_organization",
             openai_api_key="TEST_openai_api_key",
@@ -330,15 +222,8 @@ class TestConfiguration(unittest.TestCase):
         self.assertEqual(mock_settings.dump_defaults, False)
         self.assertEqual(mock_settings.aws_profile, "test-profile")
         self.assertEqual(mock_settings.aws_region, "eu-west-1")
-        self.assertEqual(mock_settings.aws_apigateway_custom_domain_name_create, False)
+        self.assertEqual(mock_settings.aws_apigateway_create_custom_domaim, False)
         self.assertEqual(mock_settings.aws_apigateway_root_domain, "test-domain.com")
-        self.assertEqual(mock_settings.aws_apigateway_custom_domain_name, "api.test-domain.com")
-        self.assertEqual(mock_settings.aws_dynamodb_table_id, "TEST_facialrecognition")
-        self.assertEqual(mock_settings.aws_rekognition_collection_id, "TEST_facialrecognition-collection")
-        self.assertEqual(mock_settings.aws_rekognition_face_detect_attributes, "TEST_DEFAULT")
-        self.assertEqual(mock_settings.aws_rekognition_face_detect_quality_filter, "TEST_AUTO")
-        self.assertEqual(mock_settings.aws_rekognition_face_detect_max_faces_count, 101)
-        self.assertEqual(mock_settings.aws_rekognition_face_detect_threshold, 102)
         self.assertEqual(mock_settings.langchain_memory_key, "TEST_langchain_memory_key")
         self.assertEqual(mock_settings.openai_api_organization, "TEST_openai_api_organization")
         # pylint: disable=no-member

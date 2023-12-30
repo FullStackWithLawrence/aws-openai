@@ -3,11 +3,12 @@
 # pylint: disable=E1101
 """Utility functions for the OpenAI Lambda functions"""
 import base64
+import datetime
 import json  # library for interacting with JSON data https://www.json.org/json-en.html
+import logging
 import sys  # libraries for error management
 import traceback  # libraries for error management
 
-from openai_api.common.conf import settings
 from openai_api.common.const import LANGCHAIN_MESSAGE_HISTORY_ROLES, OpenAIObjectTypes
 from openai_api.common.exceptions import OpenAIAPIValueError
 from openai_api.common.validators import (
@@ -19,16 +20,37 @@ from openai_api.common.validators import (
     validate_request_body,
     validate_temperature,
 )
+from pydantic import SecretStr
 
 
-def cloudwatch_handler(event, quiet: bool = False):
+logger = logging.getLogger(__name__)
+
+
+class DateTimeEncoder(json.JSONEncoder):
+    """JSON encoder that handles datetime objects."""
+
+    def default(self, o):
+        if isinstance(o, datetime.datetime):
+            return o.strftime("%Y-%m-%d")
+        if isinstance(o, SecretStr):
+            return "*** REDACTED ***"
+
+        return super().default(o)
+
+
+def cloudwatch_handler(
+    event,
+    dump,
+    debug_mode: bool = False,
+    quiet: bool = False,
+):
     """Create a CloudWatch log entry for the event and dump the event to stdout."""
-    if settings.debug_mode and not quiet:
-        print(json.dumps(settings.dump))
-        print(json.dumps({"event": event}))
+    if debug_mode and not quiet:
+        print(json.dumps(dump, cls=DateTimeEncoder))
+        print(json.dumps({"event": event}, cls=DateTimeEncoder))
 
 
-def http_response_factory(status_code: int, body: json) -> json:
+def http_response_factory(status_code: int, body: json, debug_mode: bool = False) -> json:
     """
     Generate a standardized JSON return dictionary for all possible response scenarios.
 
@@ -38,9 +60,9 @@ def http_response_factory(status_code: int, body: json) -> json:
     see https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html
     """
     if status_code < 100 or status_code > 599:
-        raise OpenAIAPIValueError(f"Invalid HTTP response code received: {status_code}")
+        raise ValueError(f"Invalid HTTP response code received: {status_code}")
 
-    if settings.debug_mode:
+    if debug_mode:
         retval = {
             "isBase64Encoded": False,
             "statusCode": status_code,
@@ -48,14 +70,14 @@ def http_response_factory(status_code: int, body: json) -> json:
             "body": body,
         }
         # log our output to the CloudWatch log for this Lambda
-        print(json.dumps({"retval": retval}))
+        print(json.dumps({"retval": retval}, cls=DateTimeEncoder))
 
     # see https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
     retval = {
         "isBase64Encoded": False,
         "statusCode": status_code,
         "headers": {"Content-Type": "application/json"},
-        "body": json.dumps(body),
+        "body": json.dumps(body, cls=DateTimeEncoder),
     }
 
     return retval
@@ -129,7 +151,20 @@ def parse_request(request_body: dict):
     chat_history = request_body.get("chat_history")
 
     if not object_type:
-        raise OpenAIAPIValueError("object key not found in request body")
+        logging.warning("object key not found in request body. defaulting to ChatCompletion")
+        object_type = OpenAIObjectTypes.ChatCompletion
+
+    if not model:
+        logging.warning("model key not found in request body. defaulting to gpt-3.5-turbo")
+        model = "gpt-3.5-turbo"
+
+    if not temperature:
+        logging.warning("temperature key not found in request body. defaulting to 0.5")
+        temperature = 0.5
+
+    if not max_tokens:
+        logging.warning("max_tokens key not found in request body. defaulting to 150")
+        max_tokens = 150
 
     validate_item(
         item=object_type,

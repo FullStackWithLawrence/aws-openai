@@ -37,7 +37,7 @@ export function ChatModal(props) {
             <h2>{props.title}</h2>
             <hr />
           </div>
-          <p>{props.message}</p>
+          <p>{String(props.message)}</p>
           <button className="modal-button" onClick={props.onCloseClick}>
             Close
           </button>

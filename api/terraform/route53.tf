@@ -60,8 +60,9 @@ module "acm" {
   #   aws = var.aws_region
   # }
 
-  domain_name = local.api_gateway_subdomain
-  zone_id     = data.aws_route53_zone.root_domain[count.index].id
+  domain_name       = local.api_gateway_subdomain
+  zone_id           = data.aws_route53_zone.root_domain[count.index].id
+  validation_method = "DNS"
 
   subject_alternative_names = [
     "*.${local.api_gateway_subdomain}",

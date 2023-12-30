@@ -1,18 +1,16 @@
 # [0.8.0](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.7.2...v0.8.0) (2023-12-30)
 
-
 ### Bug Fixes
 
-* add an error boundary ([4b7d021](https://github.com/FullStackWithLawrence/aws-openai/commit/4b7d02113d4c06f57aef067155f458ca3857d60c))
-* convert return value to json if necessary. also verify dict keys before attempting to access anything ([376e14d](https://github.com/FullStackWithLawrence/aws-openai/commit/376e14defa77cef7d1bbc55ce98176f7b7be41bc))
-* ensure that error messages are strings ([7c01083](https://github.com/FullStackWithLawrence/aws-openai/commit/7c01083e780391e637f551f4f49a76670ff771a7))
-* scaffold an Error Boundary for the chatapp ([3fcbdb6](https://github.com/FullStackWithLawrence/aws-openai/commit/3fcbdb6c55d6748a1789d51e051cc8fab9b9456a))
-
+- add an error boundary ([4b7d021](https://github.com/FullStackWithLawrence/aws-openai/commit/4b7d02113d4c06f57aef067155f458ca3857d60c))
+- convert return value to json if necessary. also verify dict keys before attempting to access anything ([376e14d](https://github.com/FullStackWithLawrence/aws-openai/commit/376e14defa77cef7d1bbc55ce98176f7b7be41bc))
+- ensure that error messages are strings ([7c01083](https://github.com/FullStackWithLawrence/aws-openai/commit/7c01083e780391e637f551f4f49a76670ff771a7))
+- scaffold an Error Boundary for the chatapp ([3fcbdb6](https://github.com/FullStackWithLawrence/aws-openai/commit/3fcbdb6c55d6748a1789d51e051cc8fab9b9456a))
 
 ### Features
 
-* add v2 Settings class ([da8943d](https://github.com/FullStackWithLawrence/aws-openai/commit/da8943d55a568f1196e9389d8f3aaee1b15408bb))
-* add v2 Settings class ([240433b](https://github.com/FullStackWithLawrence/aws-openai/commit/240433bd2a50c32da4bdf484420bc86b9db545d6))
+- add v2 Settings class ([da8943d](https://github.com/FullStackWithLawrence/aws-openai/commit/da8943d55a568f1196e9389d8f3aaee1b15408bb))
+- add v2 Settings class ([240433b](https://github.com/FullStackWithLawrence/aws-openai/commit/240433bd2a50c32da4bdf484420bc86b9db545d6))
 
 ## [0.7.2](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.7.1...v0.7.2) (2023-12-19)
 

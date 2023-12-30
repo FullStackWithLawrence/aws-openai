@@ -18,14 +18,16 @@
       "Effect": "Allow",
       "Action": [
         "apigateway:GET",
+        "ec2:DescribeRegions",
         "iam:ListPolicies",
+        "iam:ListRoles",
         "iam:GetPolicy",
         "iam:GetPolicyVersion",
         "iam:ListAttachedRolePolicies",
-        "s3:ListAllMyBuckets",
-        "ec2:DescribeRegions",
+        "lambda:ListFunctions",
         "route53:ListHostedZones",
-        "route53:ListResourceRecordSets"
+        "route53:ListResourceRecordSets",
+        "s3:ListAllMyBuckets"
       ],
       "Resource": "*"
     }

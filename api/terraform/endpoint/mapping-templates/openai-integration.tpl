@@ -1,6 +1,6 @@
 ## see https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html
 {
-  "object_type": "chat.completion",
+  "object_type": "${mapping_object_type}",
   "model": "${mapping_model}",
   "end_point": "${mapping_end_point}",
   "temperature": ${mapping_temperature},

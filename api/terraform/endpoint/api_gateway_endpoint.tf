@@ -8,6 +8,7 @@ locals {
   openai_integration_template = templatefile(
     "${path.module}/mapping-templates/openai-integration.tpl",
     {
+      mapping_object_type         = var.mapping_object_type
       mapping_model               = var.mapping_model
       mapping_role_system_content = var.mapping_role_system_content
       mapping_end_point           = var.mapping_end_point

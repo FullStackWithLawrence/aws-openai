@@ -38,6 +38,12 @@ variable "aws_iam_role_arn" {
 ###############################################################################
 # OpenAI mapping template
 ###############################################################################
+variable "mapping_object_type" {
+  description = "OpenAI Python API class to invoke."
+  type        = string
+  default     = "chat.completion"
+
+}
 variable "mapping_model" {
   # see https://platform.openai.com/docs/models/overview
   description = "which OpenAI model to use"

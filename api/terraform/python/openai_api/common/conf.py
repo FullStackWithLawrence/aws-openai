@@ -37,6 +37,7 @@ from openai_api.common.exceptions import (
     OpenAIAPIConfigurationError,
     OpenAIAPIValueError,
 )
+from openai_api.common.utils import recursive_sort_dict
 from pydantic import Field, SecretStr, ValidationError, ValidationInfo, field_validator
 from pydantic_settings import BaseSettings
 
@@ -99,6 +100,12 @@ class Services:
     AWS_ROUTE53 = ("route53", True)
 
     # disabled
+    AWS_S3 = ("s3", False)
+    AWS_SNS = ("sns", False)
+    AWS_SQS = ("sqs", False)
+    AWS_SES = ("ses", False)
+    AWS_REKOGNITION = ("rekognition", False)
+    AWS_DYNAMODB = ("dynamodb", False)
     AWS_RDS = ("rds", False)
 
     @classmethod
@@ -504,10 +511,6 @@ class Settings(BaseSettings):
     @property
     def dump(self) -> dict:
         """Dump all settings."""
-
-        def recursive_sort_dict(d):
-            """Recursively sort a dictionary by key."""
-            return {k: recursive_sort_dict(v) if isinstance(v, dict) else v for k, v in sorted(d.items())}
 
         def get_installed_packages():
             installed_packages = pkg_resources.working_set

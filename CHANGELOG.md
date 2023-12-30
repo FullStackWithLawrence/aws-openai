@@ -1,9 +1,8 @@
 ## [0.8.2](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.8.1...v0.8.2) (2023-12-30)
 
-
 ### Bug Fixes
 
-* refactor request templates for openai api v1 object_type ([c857082](https://github.com/FullStackWithLawrence/aws-openai/commit/c8570826c75a9f99f465ffa3ebd470795ffb70d3))
+- refactor request templates for openai api v1 object_type ([c857082](https://github.com/FullStackWithLawrence/aws-openai/commit/c8570826c75a9f99f465ffa3ebd470795ffb70d3))
 
 ## [0.8.1](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.8.0...v0.8.1) (2023-12-30)
 

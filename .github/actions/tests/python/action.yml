@@ -117,6 +117,5 @@ runs:
       env:
         GITHUB_ACTIONS: "true"
         DEBUG_MODE: "true"
-        AWS_PROFILE: ""
       run: |
         make api-test

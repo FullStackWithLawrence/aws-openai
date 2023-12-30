@@ -2,8 +2,6 @@
 # pylint: disable=R0911,R0912,W0718
 """Lambda entry point for /info"""
 
-import json
-
 from openai_api.common.aws import aws_infrastructure_config as aws_config
 from openai_api.common.conf import settings
 from openai_api.common.utils import http_response_factory

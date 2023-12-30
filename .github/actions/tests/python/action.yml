@@ -27,6 +27,18 @@ inputs:
     description: "The Pinecone environment"
     required: true
     type: string
+  aws-access-key-id:
+    description: "The AWS access key ID"
+    required: true
+    type: string
+  aws-secret-access-key:
+    description: "The AWS secret access key"
+    required: true
+    type: string
+  aws-region:
+    description: "The AWS region"
+    required: true
+    type: string
 
 runs:
   using: "composite"
@@ -116,7 +128,9 @@ runs:
       shell: bash
       env:
         GITHUB_ACTIONS: "true"
-        AWS_DEPLOYED: "true"
         DEBUG_MODE: "true"
+        AWS_ACCESS_KEY_ID: ${{ inputs.aws-access-key-id }}
+        AWS_SECRET_ACCESS_KEY: ${{ inputs.aws-secret-access-key }}
+        AWS_REGION: ${{ inputs.aws-region }}
       run: |
         make api-test

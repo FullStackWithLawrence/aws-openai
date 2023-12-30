@@ -24,6 +24,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
+      - name: Get IAM user info
+        run: |
+          aws sts get-caller-identity
+
       - name: Run Python tests
         uses: ./.github/actions/tests/python
         with:

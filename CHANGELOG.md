@@ -1,3 +1,10 @@
+# [0.9.0](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.8.2...v0.9.0) (2023-12-30)
+
+
+### Features
+
+* add /info end point ([bc7cdcd](https://github.com/FullStackWithLawrence/aws-openai/commit/bc7cdcdd02efb0f609eae24648b2e1867f38e3f9))
+
 ## [0.8.2](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.8.1...v0.8.2) (2023-12-30)
 
 ### Bug Fixes

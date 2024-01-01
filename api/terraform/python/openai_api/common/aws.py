@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 """A utility class for introspecting AWS infrastructure."""
 
+import json
+
 # python stuff
+import os
 import socket
 
 # our stuff
@@ -12,6 +15,8 @@ from openai_api.common.utils import recursive_sort_dict
 # pylint: disable=too-many-public-methods
 class AWSInfrastructureConfig:
     """AWS Infrastructure Config"""
+
+    _domain = None
 
     @property
     def dump(self):
@@ -114,11 +119,34 @@ class AWSInfrastructureConfig:
     def aws_connection_works(self):
         """Test that the AWS connection works."""
         try:
-            # Try a benign operation
-            settings.aws_s3_client.buckets.all()
+            # pylint: disable=pointless-statement
+            settings.aws_session.region_name
             return True
         except Exception:  # pylint: disable=broad-exception-caught
             return False
+
+    @property
+    def domain(self):
+        """Return the domain."""
+        if not self._domain:
+            if settings.aws_apigateway_create_custom_domaim:
+                self._domain = (
+                    os.getenv(key="DOMAIN")
+                    or "api." + settings.shared_resource_identifier + "." + settings.aws_apigateway_root_domain
+                )
+                return self._domain
+
+            response = settings.aws_apigateway_client.get_rest_apis()
+            for item in response["items"]:
+                if item["name"] == self.api_gateway_name:
+                    api_id = item["id"]
+                    self._domain = f"{api_id}.execute-api.{settings.aws_region}.amazonaws.com"
+        return self._domain
+
+    @property
+    def api_gateway_name(self):
+        """Return the API Gateway name."""
+        return settings.shared_resource_identifier + "-api"
 
     def domain_exists(self) -> bool:
         """Test that the domain exists."""
@@ -245,7 +273,7 @@ class SingletonConfig:
         return cls._instance
 
     @property
-    def config(self):
+    def config(self) -> AWSInfrastructureConfig:
         """Return the settings"""
         return self._config  # pylint: disable=E1101
 

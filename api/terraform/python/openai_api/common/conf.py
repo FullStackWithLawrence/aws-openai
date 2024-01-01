@@ -726,7 +726,7 @@ class SingletonSettings:
         return cls._instance
 
     @property
-    def settings(self):
+    def settings(self) -> Settings:
         """Return the settings"""
         return self._settings
 

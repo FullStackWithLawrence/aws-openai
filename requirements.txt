@@ -33,7 +33,7 @@ codespell==2.2.6
 # production
 # ------------
 python-dotenv==1.0.0
-openai==1.6.1
+openai==1.7.2
 langchain
 langchain-experimental
 pinecone-client==2.2.4

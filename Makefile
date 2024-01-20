@@ -100,6 +100,7 @@ client-init:
 
 client-lint:
 	cd ./client && npm run lint
+	# npx prettier --write "src/**/*.{js,cjs,jsx,ts,tsx,json,css,scss,md}"
 
 client-update:
 	npm install -g npm

@@ -22,7 +22,6 @@ if PYTHON_ROOT not in sys.path:
     sys.path.append(PYTHON_ROOT)  # noqa: E402
 
 from openai_api.common.aws import aws_infrastructure_config  # noqa: E402
-from openai_api.common.conf import settings  # noqa: E402
 
 
 class TestAWSInfrastructure(unittest.TestCase):

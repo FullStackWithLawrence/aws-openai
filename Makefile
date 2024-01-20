@@ -90,9 +90,12 @@ api-clean:
 ######################
 client-clean:
 	rm -rf node_modules
+	rm -rf client/node_modules
+	rm -rf client/dist
 
 client-init:
 	make client-clean
+	npm install
 	cd ./client && npm install && npm init @eslint/config
 
 client-lint:
@@ -101,6 +104,7 @@ client-lint:
 client-update:
 	npm install -g npm
 	npm install -g npm-check-updates
+	ncu --upgrade --packageFile ./package.json
 	ncu --upgrade --packageFile ./client/package.json
 	npm update -g
 	npm install ./client/

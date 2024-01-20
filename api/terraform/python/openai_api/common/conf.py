@@ -8,7 +8,7 @@ library to validate the configuration values. The configuration values are initi
 according to the following prioritization sequence:
     1. constructor
     2. environment variables
-    3. dotenv file
+    3. `.env` file
     4. tfvars file
     5. defaults
 

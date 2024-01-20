@@ -43,7 +43,8 @@ tardigrade-ci/
 tests/go.*
 
 # ReactJS
-client/node_modules/
 node_modules
-
 package-lock.json
+
+client/node_modules/
+client/package-lock.json

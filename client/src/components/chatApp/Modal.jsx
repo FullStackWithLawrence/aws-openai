@@ -1,5 +1,6 @@
 import React from "react";
 import ReactModal from "react-modal";
+import PropTypes from "prop-types";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
@@ -46,3 +47,10 @@ export function ChatModal(props) {
     </ReactModal>
   );
 }
+
+ChatModal.propTypes = {
+  isModalOpen: PropTypes.bool.isRequired,
+  onCloseClick: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
+};

@@ -1,15 +1,15 @@
 SHELL := /bin/bash
-S3_BUCKET = openai.lawrencemcdaniel.com
-CLOUDFRONT_DISTRIBUTION_ID = E3AIBM1KMSJOP1
+S3_BUCKET := openai.lawrencemcdaniel.com
+CLOUDFRONT_DISTRIBUTION_ID := E3AIBM1KMSJOP1
 
 ifeq ($(OS),Windows_NT)
-    PYTHON = python.exe
-    ACTIVATE_VENV = venv\Scripts\activate
+    PYTHON := python.exe
+    ACTIVATE_VENV := venv\Scripts\activate
 else
-    PYTHON = python3.11
-    ACTIVATE_VENV = source venv/bin/activate
+    PYTHON := python3.11
+    ACTIVATE_VENV := source venv/bin/activate
 endif
-PIP = $(PYTHON) -m pip
+PIP := $(PYTHON) -m pip
 
 ifneq ("$(wildcard .env)","")
     include .env
@@ -21,6 +21,18 @@ endif
 
 # Default target executed when no arguments are given to make.
 all: help
+
+clean:
+	make api-clean
+	make client-clean
+
+lint:
+	make api-lint
+	make client-lint
+
+init:
+	make api-init
+	make client-init
 
 analyze:
 	cloc . --exclude-ext=svg,json,zip --vcs=git
@@ -76,15 +88,24 @@ api-clean:
 ######################
 # React app
 ######################
+client-clean:
+	rm -rf node_modules
+	rm -rf client/node_modules
+	rm -rf client/dist
+
 client-init:
+	make client-clean
+	npm install
 	cd ./client && npm install && npm init @eslint/config
 
 client-lint:
 	cd ./client && npm run lint
+	# npx prettier --write "src/**/*.{js,cjs,jsx,ts,tsx,json,css,scss,md}"
 
 client-update:
 	npm install -g npm
 	npm install -g npm-check-updates
+	ncu --upgrade --packageFile ./package.json
 	ncu --upgrade --packageFile ./client/package.json
 	npm update -g
 	npm install ./client/
@@ -128,6 +149,9 @@ client-release:
 
 help:
 	@echo '===================================================================='
+	@echo 'clean               - remove all build, test, coverage and Python artifacts'
+	@echo 'lint                - run all code linters and formatters'
+	@echo 'init                - create environments for Python, NPM and pre-commit and install dependencies'
 	@echo 'analyze             - generate code analysis report'
 	@echo 'release             - force a new release'
 	@echo '-- AWS API Gateway + Lambda --'
@@ -136,6 +160,7 @@ help:
 	@echo 'api-lint            - run Python linting'
 	@echo 'api-clean           - destroy the Python virtual environment'
 	@echo '-- React App --'
+	@echo 'client-clean        - destroy npm environment'
 	@echo 'client-init         - run npm install'
 	@echo 'client-lint         - run npm lint'
 	@echo 'client-update       - update npm packages'

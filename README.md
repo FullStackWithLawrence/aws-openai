@@ -21,29 +21,29 @@ A [React](https://react.dev/) + [AWS Serverless](https://aws.amazon.com/serverle
 
 **IMPORTANT DISCLAIMER: AWS' Lambda service has a hard 29-second timeout. OpenAI API calls often take longer than this, in which case the AWS API Gateway endpoint will return a 504 "Gateway timeout error" response to the React client. This happens frequently with apps created using chatgpt-4. Each of the 30 OpenAI API example applications are nonetheless implemented exactly as they are specified in the official documentation.**
 
-Code composition as of Dec-2023:
+Code composition as of Jan-2024:
 
 ```console
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
-Markdown                        50            739              6           2357
-HCL                             23            296            574           1948
-Python                          14            352            369           1306
-YAML                            19            109            101           1077
-JavaScript                      39            112            126           1074
-JSX                              5             37             41            771
+Markdown                        49            738              6           2257
+HCL                             24            308            601           1990
+Python                          17            420            437           1580
+YAML                            19            111            101           1089
+JavaScript                      39            111            126           1086
+JSX                              6             42             44            793
 CSS                              5             31             14            172
-make                             1             22             32             82
-INI                              2             15              0             69
+make                             1             26             29            109
+INI                              2             15              0             70
 HTML                             2              1              0             65
-Text                             3              3              0             56
+Text                             3              5              0             64
 Jupyter Notebook                 1              0            186             48
-Bourne Shell                     4             10             44             32
-TOML                             1              3              0             32
-Dockerfile                       1              4              4              7
+Bourne Shell                     4             13             42             36
+TOML                             1              1              0             23
+Dockerfile                       1              4              4              5
 -------------------------------------------------------------------------------
-SUM:                           170           1734           1497           9096
+SUM:                           174           1826           1590           9387
 -------------------------------------------------------------------------------
 ```
 

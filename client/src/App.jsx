@@ -84,6 +84,7 @@ const Footer = () => {
         <a
           href="https://github.com/FullStackWithLawrence/aws-openai"
           target="_blank"
+          rel="noreferrer"
         >
           <img src="/github-logo.svg" /> Source code
         </a>
@@ -117,7 +118,7 @@ const App = () => {
                   },
                 }}
               >
-                <a href="https://openai.com/" target="_blank">
+                <a href="https://openai.com/" target="_blank" rel="noreferrer">
                   <img
                     src="/OpenAI_Logo.png"
                     alt="OpenAI Logo"

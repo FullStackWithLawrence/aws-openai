@@ -9,6 +9,8 @@ import sys
 import unittest
 from pathlib import Path
 
+import yaml
+
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 PROJECT_ROOT = str(Path(HERE).parent.parent)
@@ -18,9 +20,8 @@ if PYTHON_ROOT not in sys.path:
 
 
 from openai_api.common.utils import does_refer_to
-from openai_api.lambda_openai_function.lambda_handler import (  # noqa: E402
-    handler,
-    its_about_me,
+from openai_api.lambda_openai_function.lambda_handler import (  # noqa: E402; handler,
+    search_terms_are_in_messages,
 )
 
 # our stuff
@@ -34,9 +35,24 @@ class TestLambdaOpenai(unittest.TestCase):
 
     # load a mock lambda_index event
     event_about_lawrence = get_test_file("json/prompt_about_lawrence.json")
+    SEARCH_TERMS = []
+    SEARCH_PAIRS = []
 
     def setUp(self):
         """Set up test fixtures."""
+        with open(PYTHON_ROOT + "/openai_api/lambda_openai_function/lambda_config.yaml", "r", encoding="utf-8") as file:
+            lambda_config = yaml.safe_load(file)
+        self.SEARCH_TERMS = lambda_config["search_terms"]
+        self.SEARCH_PAIRS = lambda_config["search_pairs"]
+
+    def test_does_not_refer_to(self):
+        """Test simple false outcomes for does_refer_to."""
+        self.assertFalse(does_refer_to("larry", "lawrence"))
+        self.assertFalse(does_refer_to("dev", "developer"))
+
+    def test_does_refer_to_camel_case(self):
+        """Test does_refer_to works correctly with camel case."""
+        self.assertTrue(does_refer_to("FullStackWithLawrence", "Full Stack With Lawrence"))
 
     def test_does_refer_to_easy(self):
         """Test does_refer_to."""
@@ -51,8 +67,8 @@ class TestLambdaOpenai(unittest.TestCase):
         self.assertTrue(does_refer_to("Is it true that Lawrence P. McDaniel has a YouTube channel?", "lawrence"))
         self.assertTrue(does_refer_to("Is it true that Larry McDaniel has a YouTube channel?", "larry McDaniel"))
 
-    def test_its_about_me(self):
-        """Test its_about_me()."""
+    def test_search_terms_are_in_messages(self):
+        """Test search_terms_are_in_messages()."""
 
         def list_factory(content: str) -> list:
             return [
@@ -62,22 +78,43 @@ class TestLambdaOpenai(unittest.TestCase):
                 {"role": "user", "content": content},
             ]
 
+        def false_assertion(content: str):
+            self.assertFalse(
+                search_terms_are_in_messages(
+                    messages=list_factory(content),
+                    search_terms=self.SEARCH_TERMS,
+                    search_pairs=self.SEARCH_PAIRS,
+                )
+            )
+            print("False - content:", content)
+
+        def true_assertion(content: str):
+            self.assertTrue(
+                search_terms_are_in_messages(
+                    messages=list_factory(content),
+                    search_terms=self.SEARCH_TERMS,
+                    search_pairs=self.SEARCH_PAIRS,
+                )
+            )
+            print("True - content:", content)
+
         # false cases
-        self.assertFalse(its_about_me(list_factory("how is leisure suit larry?")))
-        self.assertFalse(its_about_me(list_factory("do full stack developers earn a lot of money?")))
-        self.assertFalse(its_about_me(list_factory("who is John Kennedy?")))
-        self.assertFalse(its_about_me(list_factory("Hello world!")))
-        self.assertFalse(its_about_me(list_factory("test test test")))
-        self.assertFalse(its_about_me(list_factory("what is the airport code the airport in Dallas, Texas?")))
+        false_assertion("when was leisure suit larry released?")
+        false_assertion("is larry carlton a good guitarist?")
+        false_assertion("do full stack developers earn a lot of money?")
+        false_assertion("who is John Kennedy?")
+        false_assertion("Hello world!")
+        false_assertion("test test test")
+        false_assertion("what is the airport code the airport in Dallas, Texas?")
 
         # true cases
-        self.assertTrue(its_about_me(list_factory("who is lawrence mcdaniel?")))
-        self.assertTrue(its_about_me(list_factory("is FullStackWithLawrence a youtube channel?")))
-        self.assertTrue(its_about_me(list_factory("have you ever seen the youtube channel full stack with lawrence?")))
-        self.assertTrue(its_about_me(list_factory("Is it true that larry mcdaniel has a YouTube channel?")))
-        self.assertTrue(its_about_me(list_factory("Is it true that Lawrence McDaniel has a YouTube channel?")))
-        self.assertTrue(its_about_me(list_factory("Is it true that Lawrence P. McDaniel has a YouTube channel?")))
-        self.assertTrue(its_about_me(list_factory("Is it true that Larry McDaniel has a YouTube channel?")))
+        true_assertion("who is lawrence mcdaniel?")
+        true_assertion("is FullStackWithLawrence a youtube channel?")
+        true_assertion("have you ever seen the youtube channel full stack with lawrence?")
+        true_assertion("Is it true that larry mcdaniel has a YouTube channel?")
+        true_assertion("Is it true that Lawrence McDaniel has a YouTube channel?")
+        true_assertion("Is it true that Lawrence P. McDaniel has a YouTube channel?")
+        true_assertion("Is it true that Larry McDaniel has a YouTube channel?")
 
     # def test_lambda_handler(self):
     #     """Test lambda_handler."""

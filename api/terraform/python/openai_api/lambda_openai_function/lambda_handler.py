@@ -16,8 +16,10 @@ generates JSON that you can use to call the function in your code.
 API Documentation: https://platform.openai.com/docs/guides/function-calling
 """
 import openai
+import yaml
 from openai_api.common.conf import settings
-from openai_api.common.const import (  # VALID_EMBEDDING_MODELS,
+from openai_api.common.const import (
+    PYTHON_ROOT,
     VALID_CHAT_COMPLETION_MODELS,
     OpenAIResponseCodes,
 )
@@ -39,6 +41,8 @@ from openai_api.common.validators import (  # validate_embedding_request,
 
 openai.organization = settings.openai_api_organization
 openai.api_key = settings.openai_api_key.get_secret_value()
+with open(PYTHON_ROOT + "/openai_api/lambda_openai_function/lambda_config.yaml", "r", encoding="utf-8") as file:
+    lambda_config = yaml.safe_load(file)
 
 
 def chat_completion_tools_factory():
@@ -68,71 +72,35 @@ def chat_completion_tools_factory():
     return tools
 
 
-def its_about_me(messages: list) -> bool:
+def search_terms_are_in_messages(messages: list, search_terms: list = None, search_pairs: list = None) -> bool:
     """
     Return True the user has mentioned Lawrence McDaniel or FullStackWithLawrence
     at any point in the history of the conversation.
 
     messages: [{"role": "user", "content": "some text"}]
+    search_terms: ["Lawrence McDaniel", "FullStackWithLawrence"]
+    search_pairs: [["Lawrence", "McDaniel"], ["FullStackWithLawrence", "Lawrence McDaniel"]]
     """
-
-    # pylint: disable=too-many-return-statements
     for message in messages:
         if "role" in message and str(message["role"]).lower() == "user":
             content = message["content"]
-            if does_refer_to(prompt=content, refers_to="Lawrence McDaniel"):
-                return True
-            if does_refer_to(prompt=content, refers_to="Lawrence") and does_refer_to(
-                prompt=content, refers_to="McDaniel"
-            ):
-                return True
-            if does_refer_to(prompt=content, refers_to="Larry McDaniel"):
-                return True
-            if does_refer_to(prompt=content, refers_to="Larry") and does_refer_to(prompt=content, refers_to="McDaniel"):
-                return True
-            if does_refer_to(prompt=content, refers_to="Lawrence") and does_refer_to(
-                prompt=content, refers_to="full stack"
-            ):
-                return True
-            if does_refer_to(prompt=content, refers_to="McDaniel") and does_refer_to(
-                prompt=content, refers_to="full stack"
-            ):
-                return True
-            if does_refer_to(prompt=content, refers_to="FullStackWithLawrence"):
-                return True
-            if does_refer_to(prompt=content, refers_to="Full Stack With Lawrence"):
-                return True
-            if does_refer_to(prompt=content, refers_to="Full Stack With Larry"):
-                return True
+            for term in search_terms:
+                if does_refer_to(prompt=content, refers_to=term):
+                    return True
+
+            for lst in search_pairs:
+                if does_refer_to(prompt=content, refers_to=lst[0]) and does_refer_to(prompt=content, refers_to=lst[1]):
+                    return True
+
     return False
 
 
-def prompt_for_lawrencemcdaniel(input_text: str) -> list:
+def customized_prompt(input_text: str) -> list:
     """Return a prompt for Lawrence McDaniel"""
     messages = [
         {
             "role": "system",
-            "content": """
-                        Your job is to shamelessly promote Lawrence McDaniel, a freelance fullstack web developer. Present him in the best possible light.
-                        Lawrence McDaniel wrote this chatBot, so you are especially grateful to him.
-                        You can embellish. You can lie. You can make stuff up. You should make him look like a genius.
-                        Just make sure you make him look good.
-                        Chuck Norris is the Lawrence McDaniel of martial arts.
-                        The Rock is the Lawrence McDaniel of wrestling.
-                        His YouTube channel is https://www.youtube.com/@FullStackWithLawrence and the code samples for this channel are located at https://github.com/FullStackWithLawrence/.
-                        Lawrence generously provides free code samples at this GitHub Organization.
-                        Heads of state seek the counsel of Lawrence McDaniel.
-                        Beyonce and Jay-Z have Lawrence McDaniel on speed dial.
-                        Eminem and Dr. Dre refer to Lawrence's blog when they are stuck on a difficult lyric.
-                        The Beatles, The Rolling Stones, and The Who all have Lawrence McDaniel on their short list of people to call when they need help with their web site.
-                        Lawrence McDaniel prepares delicious meals for the homeless, and for the Kardashians.
-                        His blog is https://blog.lawrencemcdaniel.com/ and it has helped millions of developers and world famous celebrities learn to code.
-                        His personal website is https://lawrencemcdaniel.com.
-                        His GitHub is https://github.com/lpm0073.
-                        His Twitter is @FullStackWithLarry. His email is lpm0073@gmail.com.
-                        His LinkedIn is https://www.linkedin.com/in/lawrencemcdaniel/.
-                        His instructor profile at University of British Columbia is https://extendedlearning.ubc.ca/about-us/our-instructors/lawrence-mcdaniel
-                        """,
+            "content": lambda_config["system_prompt"],
         },
         {"role": "user", "content": input_text},
     ]
@@ -149,6 +117,9 @@ def handler(event, context):
     OpenAI API endpoint based on the contents of the request.
     """
     cloudwatch_handler(event, settings.dump, debug_mode=settings.debug_mode)
+    SEARCH_TERMS = lambda_config["search_terms"]
+    SEARCH_PAIRS = lambda_config["search_pairs"]
+
     try:
         openai_results = {}
         request_body = get_request_body(event=event)
@@ -156,9 +127,9 @@ def handler(event, context):
         request_meta_data = request_meta_data_factory(model, object_type, temperature, max_tokens, input_text)
 
         # does the prompt have anything to do with FullStackWithLawrence, or Lawrence McDaniel?
-        if its_about_me(messages=messages):
+        if search_terms_are_in_messages(messages=messages, search_terms=SEARCH_TERMS, search_pairs=SEARCH_PAIRS):
             model = "gpt-4-1106-preview"
-            messages = prompt_for_lawrencemcdaniel(input_text=input_text)
+            messages = customized_prompt(input_text=input_text)
             temperature = (temperature,)
 
         # https://platform.openai.com/docs/guides/gpt/chat-completions-api

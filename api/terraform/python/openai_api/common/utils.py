@@ -240,6 +240,10 @@ def request_meta_data_factory(model, object_type, temperature, max_tokens, input
 def does_refer_to(prompt: str, refers_to: str, threshold=3) -> bool:
     """Check if the prompt refers to the given string."""
 
+    def lower_case_splitter(string_of_words: str) -> list:
+        """Split a string on spaces and return a list of lowercase words."""
+        return [word.lower() for word in string_of_words.split()]
+
     # clean up the prompt by adding spaces before capital letters
     # converts "WhoIsLawrenceMcDaniel" to "Who Is Lawrence McDaniel"
     clean_prompt = []
@@ -256,11 +260,11 @@ def does_refer_to(prompt: str, refers_to: str, threshold=3) -> bool:
     prompt = " ".join(clean_prompt)
 
     # first, try to find the target string in the prompt
-    prompt_words = prompt.lower().split()
+    prompt_words = lower_case_splitter(prompt)
     token_count = len(refers_to.split())
     found_count = 0
-    for token in refers_to.lower().split():
-        if token.lower() in prompt_words:
+    for token in lower_case_splitter(refers_to):
+        if token in prompt_words:
             found_count += 1
         if found_count >= token_count:
             return True
@@ -268,7 +272,7 @@ def does_refer_to(prompt: str, refers_to: str, threshold=3) -> bool:
     # try to extract any names/titles from the prompt and then use
     # the Levenshtein distance algorithm to see if any of them are
     # close enough to the target name
-    words = prompt.split()
+    words = lower_case_splitter(prompt)
     names = [word for word in words if word.istitle()]
     for name in names:
         distance = Levenshtein.distance(refers_to, name)

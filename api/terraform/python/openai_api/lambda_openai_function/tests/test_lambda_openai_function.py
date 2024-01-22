@@ -19,10 +19,10 @@ if PYTHON_ROOT not in sys.path:
     sys.path.append(PYTHON_ROOT)  # noqa: E402
 
 
-from openai_api.common.utils import does_refer_to
 from openai_api.lambda_openai_function.lambda_handler import (  # noqa: E402; handler,
     search_terms_are_in_messages,
 )
+from openai_api.lambda_openai_function.natural_language_processing import does_refer_to
 
 # our stuff
 from openai_api.lambda_openai_function.tests.test_setup import (  # noqa: E402

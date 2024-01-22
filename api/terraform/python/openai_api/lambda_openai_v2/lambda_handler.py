@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=no-member
-# FIX NOTE: pylint is not recognizing the 'openai' module.
+# pylint: disable=R0801
 """
 written by: Lawrence McDaniel
             https://lawrencemcdaniel.com/

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=no-member
-# FIX NOTE: pylint is not recognizing the 'openai' module.
+# pylint: disable=R0801
 """
 written by: Lawrence McDaniel
             https://lawrencemcdaniel.com/
@@ -26,7 +26,6 @@ from openai_api.common.const import (
 from openai_api.common.exceptions import EXCEPTION_MAP
 from openai_api.common.utils import (
     cloudwatch_handler,
-    does_refer_to,
     exception_response_factory,
     get_request_body,
     http_response_factory,
@@ -37,6 +36,7 @@ from openai_api.common.validators import (  # validate_embedding_request,
     validate_completion_request,
     validate_item,
 )
+from openai_api.lambda_openai_function.natural_language_processing import does_refer_to
 
 
 openai.organization = settings.openai_api_organization
@@ -95,15 +95,18 @@ def search_terms_are_in_messages(messages: list, search_terms: list = None, sear
     return False
 
 
-def customized_prompt(input_text: str) -> list:
+def customized_prompt(messages: list) -> list:
     """Return a prompt for Lawrence McDaniel"""
-    messages = [
-        {
-            "role": "system",
-            "content": lambda_config["system_prompt"],
-        },
-        {"role": "user", "content": input_text},
-    ]
+    custom_prompt = {
+        "role": "system",
+        "content": lambda_config["system_prompt"],
+    }
+
+    for i, message in enumerate(messages):
+        if message.get("role") == "system":
+            messages[i] = custom_prompt
+            break
+
     return messages
 
 
@@ -129,7 +132,7 @@ def handler(event, context):
         # does the prompt have anything to do with FullStackWithLawrence, or Lawrence McDaniel?
         if search_terms_are_in_messages(messages=messages, search_terms=SEARCH_TERMS, search_pairs=SEARCH_PAIRS):
             model = "gpt-4-1106-preview"
-            messages = customized_prompt(input_text=input_text)
+            messages = customized_prompt(messages=messages)
             temperature = (temperature,)
 
         # https://platform.openai.com/docs/guides/gpt/chat-completions-api

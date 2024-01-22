@@ -6,13 +6,9 @@ import base64
 import datetime
 import json  # library for interacting with JSON data https://www.json.org/json-en.html
 import logging
-import re
-import string
 import sys  # libraries for error management
 import traceback  # libraries for error management
 
-import Levenshtein
-import spacy
 from openai_api.common.const import LANGCHAIN_MESSAGE_HISTORY_ROLES, OpenAIObjectTypes
 from openai_api.common.exceptions import OpenAIAPIValueError
 from openai_api.common.validators import (
@@ -28,7 +24,6 @@ from pydantic import SecretStr
 
 
 logger = logging.getLogger(__name__)
-nlp = spacy.load("en_core_web_sm")
 
 
 class DateTimeEncoder(json.JSONEncoder):
@@ -235,49 +230,3 @@ def request_meta_data_factory(model, object_type, temperature, max_tokens, input
             "input_text": input_text,
         }
     }
-
-
-def does_refer_to(prompt: str, refers_to: str, threshold=3) -> bool:
-    """Check if the prompt refers to the given string."""
-
-    def lower_case_splitter(string_of_words: str) -> list:
-        """Split a string on spaces and return a list of lowercase words."""
-        return [word.lower() for word in string_of_words.split()]
-
-    # clean up the prompt by adding spaces before capital letters
-    # converts "WhoIsLawrenceMcDaniel" to "Who Is Lawrence McDaniel"
-    clean_prompt = []
-    for word in prompt.split():
-        word = word.translate(str.maketrans("", "", string.punctuation))
-        doc = nlp(word)
-        words = re.sub("([A-Z][a-z]+)", r" \1", re.sub("([A-Z]+)", r" \1", word)).split()
-        words = (
-            ["".join(re.findall("[a-zA-Z]+", w)) for w in words]
-            if not any(ent.label_ in ["PERSON", "ORG"] for ent in doc.ents)
-            else [word.title()]
-        )
-        clean_prompt.extend(words)
-    prompt = " ".join(clean_prompt)
-
-    # first, try to find the target string in the prompt
-    prompt_words = lower_case_splitter(prompt)
-    token_count = len(refers_to.split())
-    found_count = 0
-    for token in lower_case_splitter(refers_to):
-        if token in prompt_words:
-            found_count += 1
-        if found_count >= token_count:
-            return True
-
-    # try to extract any names/titles from the prompt and then use
-    # the Levenshtein distance algorithm to see if any of them are
-    # close enough to the target name
-    words = lower_case_splitter(prompt)
-    names = [word for word in words if word.istitle()]
-    for name in names:
-        distance = Levenshtein.distance(refers_to, name)
-        if distance <= threshold:
-            return True
-
-    # bust. we didn't find the target string in the prompt
-    return False

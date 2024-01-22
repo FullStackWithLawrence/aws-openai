@@ -155,6 +155,32 @@ function ChatApp(props) {
           openChatModal,
         );
       }
+      // FIX NOTE: THIS IS A HACK, AND ITS STUPIDLY REPETITIVE. REFACTOR THIS.
+      // Legacy OpenAI API
+      if (
+        response &&
+        "chat_memory" in response &&
+        "messages" in response.chat_memory
+      ) {
+        const aiMessage = response.chat_memory.messages.find(
+          (message) => message.type === "ai",
+        );
+        if (aiMessage) {
+          const content = aiMessage.content;
+          // Now you can use the content variable
+          if (content) {
+            const chatGPTResponse = messageFactory(
+              content,
+              "incoming",
+              "assistant",
+            );
+            setMessages((prevMessages) => [...prevMessages, chatGPTResponse]);
+          }
+          const llm_response = response.request_meta_data.model;
+          setLLM(llm_response);
+        }
+      }
+      // LangChain
       if (response && "choices" in response) {
         const content = response.choices[0]?.message?.content;
         if (content) {

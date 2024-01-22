@@ -11,7 +11,7 @@
 # generative AI requirements
 langchain
 langchain-experimental
-openai==1.7.2
+openai==1.9.0
 pinecone-client==2.2.4
 
 # general requirements

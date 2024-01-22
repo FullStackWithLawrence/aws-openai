@@ -167,7 +167,6 @@ function ChatApp(props) {
         );
         if (aiMessage) {
           const content = aiMessage.content;
-          // Now you can use the content variable
           if (content) {
             const chatGPTResponse = messageFactory(
               content,

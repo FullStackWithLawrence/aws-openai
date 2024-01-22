@@ -13,7 +13,31 @@ updates:
     reviewers:
       - "lpm0073"
   - package-ecosystem: "pip"
-    directory: "/api/terraform/python/layer_genai/"
+    directory: "/api/terraform/python/layer_openai/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "python"
+      - "automated pr"
+    assignees:
+      - "lpm0073"
+    reviewers:
+      - "lpm0073"
+  - package-ecosystem: "pip"
+    directory: "/api/terraform/python/layer_langchain/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "python"
+      - "automated pr"
+    assignees:
+      - "lpm0073"
+    reviewers:
+      - "lpm0073"
+  - package-ecosystem: "pip"
+    directory: "/api/terraform/python/layer_nlp/"
     schedule:
       interval: "weekly"
     labels:

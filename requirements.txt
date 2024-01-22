@@ -32,13 +32,7 @@ codespell==2.2.6
 
 # Lambda layer: openai
 # ------------
-openai==1.7.2
-
-# Lambda layer: langchain
-# ------------
-langchain
-#langchain-experimental
-langchain-openai==0.0.3
+openai==1.9.0
 
 # Lambda layer: common
 # ------------
@@ -46,6 +40,12 @@ python-dotenv==1.0.0
 pydantic==2.5.3
 pydantic-settings==2.1.0
 python-hcl2==4.3.2
+
+# Lambda layer: langchain
+# ------------
+langchain
+langchain-openai==0.0.3
+#langchain-experimental
 
 # Lambda layer: nlp
 # ------------

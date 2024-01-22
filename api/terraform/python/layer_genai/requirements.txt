@@ -12,7 +12,7 @@
 langchain
 langchain-experimental
 openai==1.9.0
-pinecone-client==2.2.4
+pinecone-client==3.0.1
 
 # general requirements
 pydantic==2.5.3

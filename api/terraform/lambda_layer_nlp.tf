@@ -30,7 +30,7 @@ resource "null_resource" "package_nlp_layer" {
       file("${local.nlp_layer_source_directory}/Dockerfile"),
       file("${local.nlp_layer_source_directory}/create_container.sh"),
       file("${local.nlp_layer_source_directory}/requirements.txt"),
-      fileexists("${local.nlp_layer_source_directory}/${local.nlp_layer_dist_package_name}") ? filebase64("${local.nlp_layer_source_directory}/${local.nlp_layer_dist_package_name}") : null
+      fileexists("${local.nlp_layer_source_directory}/${local.nlp_layer_dist_package_name}") ? filebase64("${local.nlp_layer_source_directory}/${local.nlp_layer_dist_package_name}") : "default"
     ]))
   }
 

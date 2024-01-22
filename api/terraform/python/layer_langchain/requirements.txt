@@ -11,13 +11,5 @@
 # generative AI requirements
 # --------------------------
 langchain
-langchain-experimental
+#langchain-experimental
 langchain-openai==0.0.3
-openai==1.7.2
-
-# general requirements
-# --------------------------
-pydantic==2.5.3
-pydantic-settings==2.1.0
-python-dotenv==1.0.0
-python-hcl2==4.3.2

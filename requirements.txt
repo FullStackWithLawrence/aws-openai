@@ -30,17 +30,24 @@ pydocstringformatter==0.7.3
 tox==4.12.0
 codespell==2.2.6
 
-# production
+# Lambda layer: openai
+# ------------
+openai==1.7.2
+
+# Lambda layer: langchain
+# ------------
+langchain
+#langchain-experimental
+langchain-openai==0.0.3
+
+# Lambda layer: common
 # ------------
 python-dotenv==1.0.0
-openai==1.7.2
-langchain
-langchain-experimental
-langchain-openai==0.0.3
 pydantic==2.5.3
 pydantic-settings==2.1.0
-python-dotenv==1.0.0
 python-hcl2==4.3.2
+
+# Lambda layer: nlp
+# ------------
 python-Levenshtein==0.23.0
-spacy==3.7.2
 pyyaml

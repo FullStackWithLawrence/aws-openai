@@ -5,10 +5,6 @@ import re
 import string
 
 import Levenshtein
-import spacy
-
-
-nlp = spacy.load("en_core_web_sm")
 
 
 def clean_prompt(prompt: str) -> str:
@@ -16,16 +12,11 @@ def clean_prompt(prompt: str) -> str:
     Clean up the prompt by adding spaces before capital letters.
     Example: converts "WhoIsLawrenceMcDaniel" to "Who Is Lawrence McDaniel"
     """
+    pattern = r"(?<!Mc)([A-Z][a-z]+)|(?<!Mc)([A-Z]+)"
     retval = []
     for word in prompt.split():
         word = word.translate(str.maketrans("", "", string.punctuation))
-        doc = nlp(word)
-        words = re.sub("([A-Z][a-z]+)", r" \1", re.sub("([A-Z]+)", r" \1", word)).split()
-        words = (
-            ["".join(re.findall("[a-zA-Z]+", w)) for w in words]
-            if not any(ent.label_ in ["PERSON", "ORG"] for ent in doc.ents)
-            else [word.title()]
-        )
+        words = re.sub(pattern, r" \1\2", word).split()
         retval.extend(words)
     retval = " ".join(retval)
     return retval

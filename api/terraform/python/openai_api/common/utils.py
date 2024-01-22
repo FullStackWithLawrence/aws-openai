@@ -6,9 +6,13 @@ import base64
 import datetime
 import json  # library for interacting with JSON data https://www.json.org/json-en.html
 import logging
+import re
+import string
 import sys  # libraries for error management
 import traceback  # libraries for error management
 
+import Levenshtein
+import spacy
 from openai_api.common.const import LANGCHAIN_MESSAGE_HISTORY_ROLES, OpenAIObjectTypes
 from openai_api.common.exceptions import OpenAIAPIValueError
 from openai_api.common.validators import (
@@ -24,6 +28,7 @@ from pydantic import SecretStr
 
 
 logger = logging.getLogger(__name__)
+nlp = spacy.load("en_core_web_sm")
 
 
 class DateTimeEncoder(json.JSONEncoder):
@@ -147,7 +152,7 @@ def get_request_body(event) -> dict:
 
 def parse_request(request_body: dict):
     """Parse the request body and return the endpoint, model, messages, and input_text"""
-    object_type = request_body.get("object")
+    object_type = request_body.get("object_type")
     model = request_body.get("model")
     messages = request_body.get("messages")
     input_text = request_body.get("input_text")
@@ -214,3 +219,61 @@ def get_messages_for_role(messages: list, role: str) -> list:
     """Get the text content from the messages list for a given role"""
     retval = [d.get("content") for d in messages if d["role"] == role]
     return retval
+
+
+def request_meta_data_factory(model, object_type, temperature, max_tokens, input_text):
+    """
+    Return a dictionary of request meta data.
+    """
+    return {
+        "request_meta_data": {
+            "lambda": "lambda_openai_v2",
+            "model": model,
+            "object_type": object_type,
+            "temperature": temperature,
+            "max_tokens": max_tokens,
+            "input_text": input_text,
+        }
+    }
+
+
+def does_refer_to(prompt: str, refers_to: str, threshold=3) -> bool:
+    """Check if the prompt refers to the given string."""
+
+    # clean up the prompt by adding spaces before capital letters
+    # converts "WhoIsLawrenceMcDaniel" to "Who Is Lawrence McDaniel"
+    clean_prompt = []
+    for word in prompt.split():
+        word = word.translate(str.maketrans("", "", string.punctuation))
+        doc = nlp(word)
+        words = re.sub("([A-Z][a-z]+)", r" \1", re.sub("([A-Z]+)", r" \1", word)).split()
+        words = (
+            ["".join(re.findall("[a-zA-Z]+", w)) for w in words]
+            if not any(ent.label_ in ["PERSON", "ORG"] for ent in doc.ents)
+            else [word.title()]
+        )
+        clean_prompt.extend(words)
+    prompt = " ".join(clean_prompt)
+
+    # first, try to find the target string in the prompt
+    prompt_words = prompt.lower().split()
+    token_count = len(refers_to.split())
+    found_count = 0
+    for token in refers_to.lower().split():
+        if token.lower() in prompt_words:
+            found_count += 1
+        if found_count >= token_count:
+            return True
+
+    # try to extract any names/titles from the prompt and then use
+    # the Levenshtein distance algorithm to see if any of them are
+    # close enough to the target name
+    words = prompt.split()
+    names = [word for word in words if word.istitle()]
+    for name in names:
+        distance = Levenshtein.distance(refers_to, name)
+        if distance <= threshold:
+            return True
+
+    # bust. we didn't find the target string in the prompt
+    return False

@@ -36,8 +36,10 @@ python-dotenv==1.0.0
 openai==1.7.2
 langchain
 langchain-experimental
-pinecone-client==2.2.4
+langchain-openai==0.0.3
 pydantic==2.5.3
 pydantic-settings==2.1.0
 python-dotenv==1.0.0
 python-hcl2==4.3.2
+python-Levenshtein==0.23.0
+spacy==3.7.2

@@ -41,6 +41,7 @@ from openai_api.common.utils import (
     get_request_body,
     http_response_factory,
     parse_request,
+    request_meta_data_factory,
 )
 from openai_api.common.validators import (  # validate_embedding_request,
     validate_completion_request,
@@ -66,16 +67,7 @@ def handler(event, context):
         openai_results = {}
         request_body = get_request_body(event=event)
         object_type, model, messages, input_text, temperature, max_tokens = parse_request(request_body)
-        request_meta_data = {
-            "request_meta_data": {
-                "lambda": "lambda_openai_v2",
-                "model": model,
-                "object_type": object_type,
-                "temperature": temperature,
-                "max_tokens": max_tokens,
-                "input_text": input_text,
-            }
-        }
+        request_meta_data = request_meta_data_factory(model, object_type, temperature, max_tokens, input_text)
 
         match object_type:
             case OpenAIObjectTypes.ChatCompletion:

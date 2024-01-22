@@ -79,7 +79,7 @@ resource "aws_lambda_function" "lambda_openai_function" {
   architectures    = var.compatible_architectures
   filename         = data.archive_file.lambda_openai_function.output_path
   source_code_hash = data.archive_file.lambda_openai_function.output_base64sha256
-  layers           = [aws_lambda_layer_version.genai.arn]
+  layers           = [aws_lambda_layer_version.genai.arn, aws_lambda_layer_version.nlp.arn]
   tags             = var.tags
 
   environment {

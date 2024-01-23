@@ -1,3 +1,10 @@
+## [0.10.2](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.10.1...v0.10.2) (2024-01-23)
+
+
+### Bug Fixes
+
+* add more granular info section selections ([ce870f0](https://github.com/FullStackWithLawrence/aws-openai/commit/ce870f0eca1f2519d1de8ee3cecdf26ce1acae1c))
+
 ## [0.10.1](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.10.0...v0.10.1) (2024-01-23)
 
 

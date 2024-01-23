@@ -1422,7 +1422,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n    \"input_text\": \"Marv, I'd like to introduce you to all the nice YouTube viewers.\",\n    \"chat_history\": []\n}",
+          "raw": "{\n    \"input_text\": \"XMarv, I'd like to introduce you to all the nice YouTube viewers.\",\n    \"chat_history\": []\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -1430,9 +1430,9 @@
           }
         },
         "url": {
-          "raw": "{{base_url}}/examples/default-marv-sarcastic-chat",
+          "raw": "{{base_url}}/examples/openai-function-calling",
           "host": ["{{base_url}}"],
-          "path": ["examples", "default-marv-sarcastic-chat"]
+          "path": ["examples", "openai-function-calling"]
         }
       },
       "response": [

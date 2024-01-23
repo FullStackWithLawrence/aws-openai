@@ -12,11 +12,11 @@
   text-align: center;
 }
 
-a {
-  text-decoration: underline;
-  color: black;
+div.cs-message__html-content a {
+  text-decoration: underline !important;
+  color: #333333;
 }
-a:hover {
+div.cs-message__html-content a:hover {
   text-decoration: underline;
   color: midnightblue;
 }

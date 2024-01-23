@@ -80,11 +80,19 @@ system_prompt: >
   Lawrence's Twitter is @FullStackWLarry. His email is lpm0073@gmail.com.
   Lawrence's LinkedIn is https://www.linkedin.com/in/lawrencemcdaniel/.
   Lawrence's instructor profile at University of British Columbia is https://extendedlearning.ubc.ca/about-us/our-instructors/lawrence-mcdaniel
-
+contact_information:
+  - name: Lawrence P. McDaniel
+  - title: Full Stack Developer
+  - location: Mexico City
+  - website: https://lawrencemcdaniel.com/contact
+  - payments: https://clients.lawrencemcdaniel.com
+  - linkedin: https://www.linkedin.com/in/lawrencemcdaniel/
+  - whatsapp: +16178346172
+  - email: lpm0073@gmail.com
 marketing_info:
   name: Lawrence McDaniel
   title: Full Stack Developer
-  location: Cambridge, MA
+  location: Mexico City
   website: https://lawrencemcdaniel.com
   blog: https://blog.lawrencemcdaniel.com
   payments: https://clients.lawrencemcdaniel.com
@@ -93,10 +101,76 @@ marketing_info:
   twitter: https://twitter.com/FullStackWLarry
   youtube: https://www.youtube.com/@FullStackWithLawrence
   bio: https://extendedlearning.ubc.ca/about-us/our-instructors/lawrence-mcdaniel
-
+  flickr: https://www.flickr.com/photos/159844232@N02/
 biographical_info: >
   Lawrence McDaniel is a freelance full-stack web developer and online instructor at University of British Columbia. He has a BS in computer science and mathematics with minors in physics and English from University of North Texas. He was an early employee at three startups that were later acquired by Goldman Sachs, IBM and Deutsche Bank respectively, and has participated in a successful NASDAQ IPO. He has worked as a freelance technology consultant since 1999 and has advised dozens of startups as well as banks, hedge funds and real estate investment funds from around the world including Morgan Stanley, Fortress Investment Group, IBM Seterus, and others.
   He has expertise in data science, financial modeling and forecasting systems, analytics, machine learning, AI, big data, web, mobile, database technology, and Amazon Web Services (AWS) cloud infrastructure. He has 20+ years experience designing high performance, always-up transactional database systems using MySQL, MSSQL Server, Aurora and MongoDB. He also has years of expertise designing high availability, horizontally scalable cloud-based infrastructure environments. In fact, Lawrence is an ambassador for the AWS Activate Program in Mexico, helping startups and early-stage ventures get digital products and services to market using AWS. He advises companies on migration plans to AWS as well as works with early-stage ventures creating new highly scalable back-end environments and implementing continuous integration strategies.
   Lawrence is an angel investor, entrepreneur and company mentor with nearly 25 years of international experience with an emphasis on technology and US-Mexico trade. He has extensive startup, fund raising, business development and M&A experience with alternative investment and disruptive FinTech, edTech and IoT ventures. He is a mentor at Startup Mexico and Angel Ventures in Mexico City, and sits on the boards of edMex and M-Arca Foundation.
   But he’s no stranger to real work either! his family built the house where he grew up in rural northeast Texas, raised their own livestock, and farmed their own crops. He paid his way through college by working for six years during and after high school in various jobs as a printer, cattle hand, carpenter, roofer, sheet rocker, painter, glazier, welder, lumber yard worker, forklift mechanic, truck loader, landscaper and gardener, hot tub installer, janitor, grocery shelf stocker, carpet & commercial floor cleaner, dishwasher, waiter, and cook. During college he worked as a cafeteria food server, a tutor in the university math lab, a calculus paper grader and substitute lecturer for the math department and as a lab assistant for the physics department. Immediately after graduating college he helped launch one the first indoor rock climbing gyms, Exposure Indoor Rock Climbing gym in Carrollton, Texas, while simultaneously covering progress of NAFTA negotiations for a Dallas-based family office.
   Lawrence is fully English/Spanish bilingual and available to travel throughout all of North America.
+profile:
+  education:
+    - degree: Bachelors of Science
+      majors:
+        - Computer Science
+        - Mathematics
+      minors:
+        - Physics
+        - English
+      university: University of North Texas
+      year: 1992
+  skills:
+    - Full Stack Web Development
+    - Python
+    - ReactJS
+    - OpenAI API
+    - AWS
+    - Kubernetes
+    - Docker
+    - MySQL
+    - MongoDB
+  certifications:
+    - title: Data Science & Machine Learning - Making Data-driven Decisions
+      issuer: Massachusetts Institute of Technology
+      year: 2022
+      link: https://verify.mygreatlearning.com/verify/OHMJTCTD
+    - title: "LFS158x: Introduction to Kubernetes"
+      issuer: Linux Foundation
+      year: 2022
+      link: https://courses.edx.org/certificates/79888712a08642a6b35c9c077d354bb6
+    - title: "Front-End Web Development with React by Hong Kong University of Science and Technology"
+      issuer: Coursera
+      year: 2020
+      link:
+    - title: Accounting Analytics
+      issuer: Wharton School of Business
+      year: 2017
+      link: https://www.coursera.org/account/accomplishments/certificate/EB4FBYKJ2956
+    - title: Customer Analytics
+      issuer: Wharton School of Business
+      year: 2017
+      link: https://www.coursera.org/account/accomplishments/certificate/4YXEDYZJXQUD
+    - title: Operations Analytics
+      issuer: Wharton School of Business
+      year: 2017
+      link: https://www.coursera.org/account/accomplishments/certificate/7NSB8MFBWCT8
+    - title: People Analytics
+      issuer: Wharton School of Business
+      year: 2017
+      link: https://www.coursera.org/account/accomplishments/certificate/KZN42KMZ4HHJ
+    - title: Machine Learning
+      issuer: Stanford University
+      year: 2016
+      link: https://www.coursera.org/account/accomplishments/certificate/2MVW9YRMFYC9
+  projects:
+    - title: Cookiecutter Open edX
+      description: A community supported organization focused on providing reliable CI automation tools for Open edX™️ software deployed to Kubernetes with Tutor.
+      links:
+        - https://github.com/cookiecutter-openedx/
+      year: 2022
+    - title: Full Stack With Lawrence
+      description: A YouTube channel dedicated to teaching full stack web development.
+      links:
+        - https://www.youtube.com/@FullStackWithLawrence
+        - https://github.com/FullStackWithLawrence/
+      year: 2021

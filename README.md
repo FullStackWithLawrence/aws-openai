@@ -17,9 +17,15 @@
 
 A [React](https://react.dev/) + [AWS Serverless](https://aws.amazon.com/serverless/) full stack implementation of the [30 example applications](https://platform.openai.com/examples) found in the official OpenAI API documentation. This repository is used as an instructional tool for the YouTube channel "[Full Stack With Lawrence](https://youtube.com/@FullStackWithLawrence)" as well as for University of British Columbia course, "[Artificial Intelligence Cloud Technology Implementation](https://extendedlearning.ubc.ca/courses/artificial-intelligence-cloud-technology-implementation/mg202)" taught by Lawrence McDaniel.
 
+_New in version 0.10.x: A new chat app named "OpenAI Function Calling". See [lambda_openai_function](https://github.com/FullStackWithLawrence/aws-openai/tree/main/api/terraform/python/openai_api/lambda_openai_function) for examples including the fully implemented "[get_current_weather()](https://platform.openai.com/docs/guides/function-calling)" from The official OpenAI API documentation, and also a fun example of how get OpenAI to not only recognize you but also say flowery nice things about you!_
+
 ![Marv](https://cdn.lawrencemcdaniel.com/marv.gif)
 
-**IMPORTANT DISCLAIMER: AWS' Lambda service has a hard 29-second timeout. OpenAI API calls often take longer than this, in which case the AWS API Gateway endpoint will return a 504 "Gateway timeout error" response to the React client. This happens frequently with apps created using chatgpt-4. Each of the 30 OpenAI API example applications are nonetheless implemented exactly as they are specified in the official documentation.**
+IMPORTANT DISCLAIMERS:
+
+1. AWS' Lambda service has a hard 29-second timeout. OpenAI API calls often take longer than this, in which case the AWS API Gateway endpoint will return a 504 "Gateway timeout error" response to the React client. This happens frequently with apps created using chatgpt-4. Each of the 30 OpenAI API example applications are nonetheless implemented exactly as they are specified in the official documentation.
+
+2. Distribution upload packages for AWS Lambda functions as well as AWS Lambda Layers are limited to 50mb (and 250mb unzipped). Often, this poses serious limitations for Layers, which are intended to store your PyPi / NPM package dependencies. Note that incidentally, these code samples are also pretty code scaffolding for alternative Docker-based deployment strategies using Elastic Container Service and/or Elastic Kubernetes Service.
 
 Code composition as of Jan-2024:
 
@@ -27,23 +33,23 @@ Code composition as of Jan-2024:
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
-Markdown                        49            738              6           2257
-HCL                             24            308            601           1990
-Python                          17            420            437           1580
-YAML                            19            111            101           1089
-JavaScript                      39            111            126           1086
-JSX                              6             42             44            793
-CSS                              5             31             14            172
-make                             1             26             29            109
+HCL                             29            346            714           2324
+Markdown                        51            751              6           2277
+Python                          22            514            557           1955
+YAML                            20            114            109           1204
+JavaScript                      39            114            127           1085
+JSX                              6             45             47            856
+CSS                              5             32             14            180
+Text                             6             13              0            116
+make                             1             26             30            114
 INI                              2             15              0             70
 HTML                             2              1              0             65
-Text                             3              5              0             64
 Jupyter Notebook                 1              0            186             48
-Bourne Shell                     4             13             42             36
+Bourne Shell                     5             17             55             47
 TOML                             1              1              0             23
 Dockerfile                       1              4              4              5
 -------------------------------------------------------------------------------
-SUM:                           174           1826           1590           9387
+SUM:                           191          1,993          1,849         10,369
 -------------------------------------------------------------------------------
 ```
 
@@ -95,6 +101,11 @@ A REST API implementing each of the [30 example applications](https://platform.o
 - [Python 3.11](https://www.python.org/downloads/): for creating virtual environment used for building AWS Lambda Layer, and locally by pre-commit linters and code formatters.
 - [NodeJS](https://nodejs.org/en/download): used with NPM for local ReactJS developer environment, and for configuring/testing Semantic Release.
 - [Docker Compose](https://docs.docker.com/compose/install/): used by an automated Terraform process to create the AWS Lambda Layer for OpenAI and LangChain.
+
+Optional requirements:
+
+- [Google Maps API key](https://developers.google.com/maps/documentation/geocoding/overview). This is used the OpenAI API Function Calling coding example, "[get_current_weather()](https://platform.openai.com/docs/guides/function-calling)".
+- [Pinecone API key](https://docs.pinecone.io/docs/quickstart). This is used for OpenAI API Embedding examples.
 
 ## Documentation
 

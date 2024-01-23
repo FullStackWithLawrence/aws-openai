@@ -35,7 +35,7 @@ gmaps = googlemaps.Client(key=settings.google_maps_api_key)
 # Make sure all required weather variables are listed here
 # The order of variables in hourly or daily is important to assign them correctly below
 WEATHER_API_URL = "https://api.open-meteo.com/v1/forecast"
-WEATHER_API_CACHE_SESSION = requests_cache.CachedSession(".cache", expire_after=3600)
+WEATHER_API_CACHE_SESSION = requests_cache.CachedSession("/tmp/.cache", expire_after=3600)  # nosec
 WEATHER_API_RETRY_SESSION = retry(WEATHER_API_CACHE_SESSION, retries=5, backoff_factor=0.2)
 
 openmeteo = openmeteo_requests.Client(session=WEATHER_API_RETRY_SESSION)
@@ -44,6 +44,8 @@ openmeteo = openmeteo_requests.Client(session=WEATHER_API_RETRY_SESSION)
 # pylint: disable=too-many-locals
 def get_current_weather(location, unit="METRIC"):
     """Get the current weather in a given location as a 24-hour forecast"""
+    unit = unit or "METRIC"
+    location = location or "Cambridge, MA, near Kendall Square"
     latitude: float = 0.0
     longitude: float = 0.0
     address: str = None

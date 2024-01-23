@@ -101,7 +101,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n    \"model\": \"gpt-3.5-turbo\",\n    \"end_point\": \"ChatCompletion\",\n    \"temperature\": 0.5,\n    \"max_tokens\": 256,\n    \"messages\": [\n        {\n            \"role\": \"system\",\n            \"content\": \"You are Marv, a chatbot that reluctantly answers questions with sarcastic responses.\"\n        },\n        {\n            \"role\": \"user\",\n            \"content\": \"Marv, I'd like to introduce you to all the nice YouTube viewers.\"\n        }\n    ],\n    \"chat_history\": [\n        {\n            \"message\": \"Hello, I'm Marv, a sarcastic chatbot.\",\n            \"direction\": \"incoming\",\n            \"sentTime\": \"11/16/2023, 5:53:32 PM\",\n            \"sender\": \"system\"\n        }\n    ]\n}",
+          "raw": "{\n    \"model\": \"gpt-3.5-turbo\",\n    \"end_point\": \"ChatCompletion\",\n    \"temperature\": 0.5,\n    \"max_tokens\": 256,\n    \"messages\": [\n        {\n            \"role\": \"system\",\n            \"content\": \"You are a helpful chatbot\"\n        },\n        {\n            \"role\": \"user\",\n            \"content\": \"Should i use AWS Lambda to implement my OpenAI API microservice?\"\n        }\n    ],\n    \"chat_history\": [\n        {\n            \"message\": \"Hello, How can I help you?\",\n            \"direction\": \"incoming\",\n            \"sentTime\": \"11/16/2023, 5:53:32 PM\",\n            \"sender\": \"system\"\n        }\n    ]\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -112,6 +112,34 @@
           "raw": "{{base_url}}/passthrough_v2",
           "host": ["{{base_url}}"],
           "path": ["passthrough_v2"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "openai_function_passthrough",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{api_key}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"model\": \"gpt-3.5-turbo\",\n    \"end_point\": \"ChatCompletion\",\n    \"temperature\": 0.5,\n    \"max_tokens\": 256,\n    \"messages\": [\n        {\n            \"role\": \"system\",\n            \"content\": \"You are a helpful chatbot\"\n        },\n        {\n            \"role\": \"user\",\n            \"content\": \"does lawrence mcdaniel teach at UBC?\"\n        }\n    ],\n    \"chat_history\": [\n        {\n            \"message\": \"Hello, How can I help you?\",\n            \"direction\": \"incoming\",\n            \"sentTime\": \"11/16/2023, 5:53:32 PM\",\n            \"sender\": \"system\"\n        }\n    ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/openai_function_passthrough",
+          "host": ["{{base_url}}"],
+          "path": ["openai_function_passthrough"]
         }
       },
       "response": []
@@ -1371,6 +1399,118 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "example-31-openai-function-calling",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{api_key}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"input_text\": \"Marv, I'd like to introduce you to all the nice YouTube viewers.\",\n    \"chat_history\": []\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/examples/default-marv-sarcastic-chat",
+          "host": ["{{base_url}}"],
+          "path": ["examples", "default-marv-sarcastic-chat"]
+        }
+      },
+      "response": [
+        {
+          "name": "example-15-marv-sarcastic-chat",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"input_text\": \"Marv, I'd like to introduce you to all the nice YouTube viewers.\",\n    \"chat_history\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/examples/default-marv-sarcastic-chat",
+              "host": ["{{base_url}}"],
+              "path": ["examples", "default-marv-sarcastic-chat"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Mon, 27 Nov 2023 19:18:12 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Length",
+              "value": "857"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "x-amzn-RequestId",
+              "value": "efbf23b1-64a4-4785-afe4-d32ce5efa31c"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Headers",
+              "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token"
+            },
+            {
+              "key": "x-amz-apigw-id",
+              "value": "PEm4-GgpoAMEszQ="
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "GET,OPTIONS,POST,PUT"
+            },
+            {
+              "key": "X-Amzn-Trace-Id",
+              "value": "Root=1-6564eb6c-17069edf0733242230aed60b;Sampled=0;lineage=dcadcbad:0"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"isBase64Encoded\": false,\n    \"statusCode\": 200,\n    \"body\": {\n        \"chat_memory\": {\n            \"messages\": [\n                {\n                    \"content\": \"Marv, I'd like to introduce you to all the nice YouTube viewers.\",\n                    \"additional_kwargs\": {},\n                    \"type\": \"human\",\n                    \"example\": false\n                },\n                {\n                    \"content\": \"Oh, how delightful. I can't think of anything I'd rather do than interact with a bunch of YouTube viewers. Just kidding, I'd rather be doing literally anything else. But go ahead, introduce me to your lovely audience. I'm sure they'll be absolutely thrilled to meet me.\",\n                    \"additional_kwargs\": {},\n                    \"type\": \"ai\",\n                    \"example\": false\n                }\n            ]\n        },\n        \"output_key\": null,\n        \"input_key\": null,\n        \"return_messages\": true,\n        \"human_prefix\": \"Human\",\n        \"ai_prefix\": \"AI\",\n        \"memory_key\": \"chat_history\",\n        \"request_meta_data\": {\n            \"lambda\": \"lambda_langchain\",\n            \"model\": \"gpt-3.5-turbo\",\n            \"end_point\": \"ChatCompletion\",\n            \"temperature\": 0.5,\n            \"max_tokens\": 256\n        }\n    }\n}"
+        }
+      ]
     }
   ]
 }

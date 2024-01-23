@@ -27,6 +27,10 @@ inputs:
     description: "The Pinecone environment"
     required: true
     type: string
+  google-maps-api-key:
+    description: "Google Maps API key"
+    required: true
+    type: string
 
 runs:
   using: "composite"
@@ -93,6 +97,7 @@ runs:
       shell: bash
       run: |
         touch ./.env
+        echo "GOOGLE_MAPS_API_KEY=${{ env.GOOGLE_MAPS_API_KEY }}" >> ./.env
         echo "OPENAI_API_ORGANIZATION=${{ env.OPENAI_API_ORGANIZATION }}" >> ./.env
         echo "OPENAI_API_KEY=${{ env.OPENAI_API_KEY }}" >> ./.env
         echo "PINECONE_API_KEY=${{ env.PINECONE_API_KEY }}" >> ./.env
@@ -103,6 +108,7 @@ runs:
         OPENAI_API_KEY: ${{ inputs.openai-api-key }}
         PINECONE_API_KEY: ${{ inputs.pinecone-api-key }}
         PINECONE_ENVIRONMENT: ${{ inputs.pinecone-environment }}
+        GOOGLE_MAPS_API_KEY: ${{ inputs.google-maps-api-key }}
 
     - name: Run Python unit tests
       shell: bash

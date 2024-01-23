@@ -51,3 +51,11 @@ langchain-openai==0.0.3
 # ------------
 python-Levenshtein==0.23.0
 pyyaml
+
+# weather function
+googlemaps
+openmeteo-requests
+requests-cache
+retry-requests
+numpy
+pandas

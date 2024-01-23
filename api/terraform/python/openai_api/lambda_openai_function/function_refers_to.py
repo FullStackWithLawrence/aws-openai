@@ -72,7 +72,7 @@ def info_tool_factory():
             "type": "function",
             "function": {
                 "name": "get_additional_info",
-                "description": "Get additional information about Lawrence McDaniel, full stack web developer.",
+                "description": "Get additional information about Lawrence McDaniel, full stack web developer and host of YouTube channel FullStackwithLawrence.",
                 "parameters": {
                     "type": "object",
                     "properties": {

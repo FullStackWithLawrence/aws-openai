@@ -79,12 +79,17 @@ resource "aws_lambda_function" "lambda_openai_function" {
   architectures    = var.compatible_architectures
   filename         = data.archive_file.lambda_openai_function.output_path
   source_code_hash = data.archive_file.lambda_openai_function.output_base64sha256
-  layers           = [aws_lambda_layer_version.openai.arn, aws_lambda_layer_version.nlp.arn]
-  tags             = var.tags
+  layers = [
+    aws_lambda_layer_version.openai.arn,
+    aws_lambda_layer_version.nlp.arn,
+    aws_lambda_layer_version.pandas.arn
+  ]
+  tags = var.tags
 
   environment {
     variables = {
       DEBUG_MODE                 = var.debug_mode
+      GOOGLE_MAPS_API_KEY        = data.external.env_lambda_openai_function.result["GOOGLE_MAPS_API_KEY"]
       OPENAI_API_ORGANIZATION    = data.external.env_lambda_openai_function.result["OPENAI_API_ORGANIZATION"]
       OPENAI_API_KEY             = data.external.env_lambda_openai_function.result["OPENAI_API_KEY"]
       OPENAI_ENDPOINT_IMAGE_N    = var.openai_endpoint_image_n

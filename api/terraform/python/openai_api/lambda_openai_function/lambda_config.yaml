@@ -3,6 +3,8 @@
 # "who is Lawrence McDaniel?"
 # but it will not trigger the chatbot for a user prompt that contains the phrase "Lawrence P. McDaniel"
 search_terms:
+  - Lawrence
+  - Laurence
   - Lawrence McDaniel
   - Lawrence McDaniels
   - Lawrence MacDaniel
@@ -22,6 +24,7 @@ search_terms:
   - FullStackWithLawrence
   - Full Stack With Lawrence
   - Full Stack With Larry
+  - Lorenzo de Polanco
 
 # Lists of search pairs that will trigger the chatbot to use your customized system prompt.
 # The list ["Lawrence", "McDaniel"] will trigger the chatbot for a user prompt that contains the words "Lawrence" and "McDaniel

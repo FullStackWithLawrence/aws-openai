@@ -99,6 +99,7 @@ def handler(event, context):
             max_tokens=max_tokens,
         )
         response_message = openai_results.choices[0].message
+        openai_results = openai_results.model_dump()
         tool_calls = response_message.tool_calls
         if tool_calls:
             # Step 3: call the function

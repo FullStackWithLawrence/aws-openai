@@ -15,6 +15,8 @@ generates JSON that you can use to call the function in your code.
 
 API Documentation: https://platform.openai.com/docs/guides/function-calling
 """
+import json
+
 import openai
 import yaml
 from openai_api.common.conf import settings
@@ -36,78 +38,24 @@ from openai_api.common.validators import (  # validate_embedding_request,
     validate_completion_request,
     validate_item,
 )
-from openai_api.lambda_openai_function.natural_language_processing import does_refer_to
+from openai_api.lambda_openai_function.function_refers_to import (
+    customized_prompt,
+    get_additional_info,
+    info_tool_factory,
+    search_terms_are_in_messages,
+)
+
+# OpenAI functions
+from openai_api.lambda_openai_function.function_weather import (
+    get_current_weather,
+    weather_tool_factory,
+)
 
 
 openai.organization = settings.openai_api_organization
 openai.api_key = settings.openai_api_key.get_secret_value()
 with open(PYTHON_ROOT + "/openai_api/lambda_openai_function/lambda_config.yaml", "r", encoding="utf-8") as file:
     lambda_config = yaml.safe_load(file)
-
-
-def chat_completion_tools_factory():
-    """
-    Return a dictionary of chat completion tools.
-    """
-    tools = [
-        {
-            "type": "function",
-            "function": {
-                "name": "get_current_weather",
-                "description": "Get the current weather in a given location",
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        "location": {
-                            "type": "string",
-                            "description": "The city and state, e.g. San Francisco, CA",
-                        },
-                        "unit": {"type": "string", "enum": ["celsius", "fahrenheit"]},
-                    },
-                    "required": ["location"],
-                },
-            },
-        }
-    ]
-    return tools
-
-
-def search_terms_are_in_messages(messages: list, search_terms: list = None, search_pairs: list = None) -> bool:
-    """
-    Return True the user has mentioned Lawrence McDaniel or FullStackWithLawrence
-    at any point in the history of the conversation.
-
-    messages: [{"role": "user", "content": "some text"}]
-    search_terms: ["Lawrence McDaniel", "FullStackWithLawrence"]
-    search_pairs: [["Lawrence", "McDaniel"], ["FullStackWithLawrence", "Lawrence McDaniel"]]
-    """
-    for message in messages:
-        if "role" in message and str(message["role"]).lower() == "user":
-            content = message["content"]
-            for term in search_terms:
-                if does_refer_to(prompt=content, refers_to=term):
-                    return True
-
-            for lst in search_pairs:
-                if does_refer_to(prompt=content, refers_to=lst[0]) and does_refer_to(prompt=content, refers_to=lst[1]):
-                    return True
-
-    return False
-
-
-def customized_prompt(messages: list) -> list:
-    """Return a prompt for Lawrence McDaniel"""
-    custom_prompt = {
-        "role": "system",
-        "content": lambda_config["system_prompt"],
-    }
-
-    for i, message in enumerate(messages):
-        if message.get("role") == "system":
-            messages[i] = custom_prompt
-            break
-
-    return messages
 
 
 # pylint: disable=unused-argument
@@ -122,6 +70,7 @@ def handler(event, context):
     cloudwatch_handler(event, settings.dump, debug_mode=settings.debug_mode)
     SEARCH_TERMS = lambda_config["search_terms"]
     SEARCH_PAIRS = lambda_config["search_pairs"]
+    tools = weather_tool_factory()
 
     try:
         openai_results = {}
@@ -129,11 +78,11 @@ def handler(event, context):
         object_type, model, messages, input_text, temperature, max_tokens = parse_request(request_body)
         request_meta_data = request_meta_data_factory(model, object_type, temperature, max_tokens, input_text)
 
-        # does the prompt have anything to do with FullStackWithLawrence, or Lawrence McDaniel?
+        # does the prompt have anything to do with the search terms defined in lambda_config.yaml?
         if search_terms_are_in_messages(messages=messages, search_terms=SEARCH_TERMS, search_pairs=SEARCH_PAIRS):
-            model = "gpt-4-1106-preview"
+            model = "gpt-3.5-turbo-1106"
             messages = customized_prompt(messages=messages)
-            temperature = (temperature,)
+            tools = info_tool_factory()
 
         # https://platform.openai.com/docs/guides/gpt/chat-completions-api
         validate_item(
@@ -145,11 +94,46 @@ def handler(event, context):
         openai_results = openai.chat.completions.create(
             model=model,
             messages=messages,
-            tools=chat_completion_tools_factory(),
+            tools=tools,
             temperature=temperature,
             max_tokens=max_tokens,
         )
-        openai_results = openai_results.model_dump()
+        response_message = openai_results.choices[0].message
+        tool_calls = response_message.tool_calls
+        if tool_calls:
+            # Step 3: call the function
+            # Note: the JSON response may not always be valid; be sure to handle errors
+            available_functions = {
+                "get_current_weather": get_current_weather,
+                "get_additional_info": get_additional_info,
+            }  # only one function in this example, but you can have multiple
+            messages.append(response_message)  # extend conversation with assistant's reply
+            # Step 4: send the info for each function call and function response to the model
+            for tool_call in tool_calls:
+                function_name = tool_call.function.name
+                function_to_call = available_functions[function_name]
+                function_args = json.loads(tool_call.function.arguments)
+
+                if function_name == "get_current_weather":
+                    function_response = function_to_call(
+                        location=function_args.get("location"),
+                        unit=function_args.get("unit"),
+                    )
+                elif function_name == "get_additional_info":
+                    function_response = function_to_call(inquiry_type=function_args.get("inquiry_type"))
+                messages.append(
+                    {
+                        "tool_call_id": tool_call.id,
+                        "role": "tool",
+                        "name": function_name,
+                        "content": function_response,
+                    }
+                )  # extend conversation with function response
+            second_response = openai.chat.completions.create(
+                model=model,
+                messages=messages,
+            )  # get a new response from the model where it can see the function response
+            openai_results = second_response.model_dump()
 
     # handle anything that went wrong
     # pylint: disable=broad-exception-caught

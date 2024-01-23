@@ -30,7 +30,14 @@ from retry_requests import retry
 
 
 # Google Maps API key
-gmaps = googlemaps.Client(key=settings.google_maps_api_key)
+gmaps = None
+try:
+    gmaps = googlemaps.Client(key=settings.google_maps_api_key)
+# pylint: disable=broad-exception-caught
+except ValueError as value_error:
+    print(
+        f"Could not initialize Google Maps API. Setup the Google Geolocation API service: https://developers.google.com/maps/documentation/geolocation/overview. {value_error}"
+    )
 
 # Make sure all required weather variables are listed here
 # The order of variables in hourly or daily is important to assign them correctly below
@@ -44,6 +51,12 @@ openmeteo = openmeteo_requests.Client(session=WEATHER_API_RETRY_SESSION)
 # pylint: disable=too-many-locals
 def get_current_weather(location, unit="METRIC"):
     """Get the current weather in a given location as a 24-hour forecast"""
+    if gmaps is None:
+        retval = {
+            "error": "Google Maps Geolocation service is not initialized. Setup the Google Geolocation API service: https://developers.google.com/maps/documentation/geolocation/overview, and add your GOOGLE_MAPS_API_KEY to .env"
+        }
+        return json.dumps(retval)
+
     unit = unit or "METRIC"
     location = location or "Cambridge, MA, near Kendall Square"
     latitude: float = 0.0
@@ -57,8 +70,8 @@ def get_current_weather(location, unit="METRIC"):
         longitude = geocode_result[0]["geometry"]["location"]["lng"] or 0
         address = geocode_result[0]["formatted_address"]
         print(f"Getting weather for {address} ({latitude}, {longitude})")
-    except googlemaps.exceptions.ApiError as e:
-        print(f"Google Maps API error getting geo coordinates for {location}: {e}")
+    except googlemaps.exceptions.ApiError as api_error:
+        print(f"Google Maps API error getting geo coordinates for {location}: {api_error}")
     # pylint: disable=broad-exception-caught
     except Exception as e:
         print(f"An unexpected error occurred while getting geo coordinates for {location}: {e}")

@@ -78,9 +78,20 @@ function ChatApp(props) {
     return conversation_header;
   }
 
+  function convertMarkdownLinksToHTML(message) {
+    const markdownLinkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+    return message.replace(markdownLinkRegex, '<a href="$2">$1</a>');
+  }
+  function convertURLsToHTML(message) {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    return message.replace(urlRegex, '<a href="$1">$1</a>');
+  }
+
   function messageFactory(message, direction, sender) {
+    const converted_message = convertMarkdownLinksToHTML(message);
+    const converted_message2 = convertURLsToHTML(converted_message);
     return {
-      message: message,
+      message: converted_message2,
       direction: direction,
       sentTime: new Date().toLocaleString(),
       sender: sender,

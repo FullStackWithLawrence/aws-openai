@@ -72,7 +72,7 @@ resource "aws_lambda_function" "info" {
   handler          = "openai_api.lambda_info.lambda_handler.handler"
   filename         = data.archive_file.lambda_info.output_path
   source_code_hash = data.archive_file.lambda_info.output_base64sha256
-  layers           = [aws_lambda_layer_version.genai.arn]
+  layers           = [aws_lambda_layer_version.openai.arn]
   tags             = var.tags
 
   environment {

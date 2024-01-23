@@ -745,7 +745,7 @@ module "openai_function_calling" {
   # OpenAI application definition
   mapping_object_type         = "chat.completion"
   mapping_model               = "gpt-3.5-turbo"
-  mapping_role_system_content = "You are a helpful assistant."
+  mapping_role_system_content = "You are a helpful assistant. You were created by Lawrence McDaniel (or just Lawrence) in January, 2024."
   mapping_max_tokens          = 2048
 
   # integrate this endpoint to the AWS Gateway API.

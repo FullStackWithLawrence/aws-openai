@@ -74,6 +74,7 @@ def get_client_list() -> list:
     return []
 
 
+# pylint: disable=too-many-return-statements
 def get_additional_info(inquiry_type: str = "biographical_info") -> str:
     """Return select info from lambda_config.yaml"""
     inquiry_type = inquiry_type or "biographical_info"
@@ -92,6 +93,9 @@ def get_additional_info(inquiry_type: str = "biographical_info") -> str:
                 "certifications": lambda_config["profile"]["certifications"],
             }
         )
+
+    if inquiry_type == "teaching":
+        return json.dumps(lambda_config["teaching"])
 
     if inquiry_type == "biographical_info":
         return json.dumps(lambda_config)
@@ -122,6 +126,7 @@ def info_tool_factory():
                                 "marketing_info",
                                 "contact_info",
                                 "educational_info",
+                                "teaching",
                                 "client_list",
                             ],
                         },

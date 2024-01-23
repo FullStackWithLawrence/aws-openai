@@ -59,14 +59,6 @@ runs:
           exit 1
         fi
 
-    - name: Check for pinecone-client in requirements
-      shell: bash
-      run: |
-        if ! grep -q "pinecone-client" ./requirements.txt; then
-          echo "pinecone-client not found in requirements.txt" >&2
-          exit 1
-        fi
-
     - name: Cache Python dependencies
       uses: actions/cache@v3
       with:

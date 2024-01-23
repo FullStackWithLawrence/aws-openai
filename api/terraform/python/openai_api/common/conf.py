@@ -167,6 +167,8 @@ class SettingsDefaults:
     AWS_APIGATEWAY_CONNECT_TIMEOUT: int = TFVARS.get("aws_apigateway_connect_timeout", 70)
     AWS_APIGATEWAY_MAX_ATTEMPTS: int = TFVARS.get("aws_apigateway_max_attempts", 10)
 
+    GOOGLE_MAPS_API_KEY: str = TFVARS.get("google_maps_api_key", None)
+
     LANGCHAIN_MEMORY_KEY = "chat_history"
     OPENAI_API_ORGANIZATION: str = None
     OPENAI_API_KEY = SecretStr(None)
@@ -349,6 +351,10 @@ class Settings(BaseSettings):
     init_info: Optional[str] = Field(
         None,
         env="INIT_INFO",
+    )
+    google_maps_api_key: Optional[str] = Field(
+        SettingsDefaults.GOOGLE_MAPS_API_KEY,
+        env="GOOGLE_MAPS_API_KEY",
     )
     langchain_memory_key: Optional[str] = Field(SettingsDefaults.LANGCHAIN_MEMORY_KEY, env="LANGCHAIN_MEMORY_KEY")
     openai_api_organization: Optional[str] = Field(
@@ -554,6 +560,9 @@ class Settings(BaseSettings):
                 "aws_apigateway_domain_name": self.aws_apigateway_domain_name,
             },
             "aws_lambda": {},
+            "google": {
+                "google_maps_api_key": self.google_maps_api_key,
+            },
             "openai_api": {
                 "langchain_memory_key": self.langchain_memory_key,
                 "openai_endpoint_image_n": self.openai_endpoint_image_n,
@@ -662,6 +671,13 @@ class Settings(BaseSettings):
         if v in [None, ""]:
             return SettingsDefaults.DUMP_DEFAULTS
         return v.lower() in ["true", "1", "t", "y", "yes"]
+
+    @field_validator("google_maps_api_key")
+    def check_google_maps_api_key(cls, v) -> str:
+        """Check google_maps_api_key"""
+        if v in [None, ""]:
+            return SettingsDefaults.GOOGLE_MAPS_API_KEY
+        return v
 
     @field_validator("langchain_memory_key")
     def check_langchain_memory_key(cls, v) -> str:

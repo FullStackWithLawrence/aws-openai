@@ -15,6 +15,7 @@ lambda_dist_pkg
 *.zip
 __pycache__
 .pytest_cache
+.cache.sqlite
 
 # Python
 venv

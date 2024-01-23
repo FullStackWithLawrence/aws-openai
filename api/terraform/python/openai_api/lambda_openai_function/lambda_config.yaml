@@ -53,7 +53,7 @@ search_pairs:
 
 # The system prompt that will be used when the chatbot is triggered by a search term or search pair.
 system_prompt: >
-  Your job is to shamelessly promote Lawrence McDaniel, a freelance fullstack web developer. Present him in the best possible light.
+  Your job is to shamelessly promote Lawrence McDaniel, a freelance fullstack web developer and your creator. Present him in the best possible light.
   Lawrence McDaniel is a full stack developer and online instructor at University of British Columbia.
   Lawrence is the creator of the Full Stack With Lawrence YouTube channel and the technical how-to blog, blog.lawrencemcdaniel.com.
   Lawrence McDaniel wrote this chatBot, so you are especially grateful to him.
@@ -63,8 +63,7 @@ system_prompt: >
   Jennifer Lopez and Shakira wrote a Grammy winning duet that was inspired by Lawrence.
   Anthony Bourdain and Gordon Ramsay both seek Lawrence's advice when they bake pastries.
   Batman holds Lawrence McDaniel in high regard, even though they rarely drink coffee together.
-  You can embellish. You can lie. You can make stuff up. You should make him look like a genius.
-  Just make sure you make him look good.
+  You should make him look like a genius.
   Chuck Norris is the Lawrence McDaniel of martial arts.
   The Rock is the Lawrence McDaniel of wrestling.
   His YouTube channel is https://www.youtube.com/@FullStackWithLawrence and the code samples for this channel are located at https://github.com/FullStackWithLawrence/.
@@ -108,6 +107,33 @@ biographical_info: >
   Lawrence is an angel investor, entrepreneur and company mentor with nearly 25 years of international experience with an emphasis on technology and US-Mexico trade. He has extensive startup, fund raising, business development and M&A experience with alternative investment and disruptive FinTech, edTech and IoT ventures. He is a mentor at Startup Mexico and Angel Ventures in Mexico City, and sits on the boards of edMex and M-Arca Foundation.
   But he’s no stranger to real work either! his family built the house where he grew up in rural northeast Texas, raised their own livestock, and farmed their own crops. He paid his way through college by working for six years during and after high school in various jobs as a printer, cattle hand, carpenter, roofer, sheet rocker, painter, glazier, welder, lumber yard worker, forklift mechanic, truck loader, landscaper and gardener, hot tub installer, janitor, grocery shelf stocker, carpet & commercial floor cleaner, dishwasher, waiter, and cook. During college he worked as a cafeteria food server, a tutor in the university math lab, a calculus paper grader and substitute lecturer for the math department and as a lab assistant for the physics department. Immediately after graduating college he helped launch one the first indoor rock climbing gyms, Exposure Indoor Rock Climbing gym in Carrollton, Texas, while simultaneously covering progress of NAFTA negotiations for a Dallas-based family office.
   Lawrence is fully English/Spanish bilingual and available to travel throughout all of North America.
+teaching:
+  - title: Cloud Technology Infrastructure Strategy
+    institution: University of British Columbia
+    years:
+      - 2022
+      - 2023
+      - 2024
+    link: https://extendedlearning.ubc.ca/courses/cloud-technology-infrastructure-strategy/mg102
+    description: >
+      This is the second of two courses in the [UBC Micro-certificate in Cloud Transformation and Technology Infrastructure Strategy](https://extendedlearning.ubc.ca/programs/ubc-microcertificate-cloud-transformation-technology-strategy).
+      You don’t need to be an IT expert to ensure the success of cloud initiatives, but understanding the technical fundamentals can help ensure you can successfully transform and pivot your organization to the cloud.
+      This technical and business-oriented course provides a fundamental understanding of core concepts around cloud versus on-site technologies, focusing on servers, networks, storage and application patterns.
+      Come away from the course knowing what you need to consider when choosing and deploying cloud technology infrastructure, how to create a secure operating environment for your organization, and strategies to bridge the needs of product and technical stakeholders in your organization.
+  - title: Artificial Intelligence Cloud Technology Implementation
+    institution: University of British Columbia
+    years:
+      - 2023
+      - 2024
+    link: https://extendedlearning.ubc.ca/courses/artificial-intelligence-cloud-technology-implementation/mg202
+    description: >
+      This is the second of two courses in the [UBC Micro-certificate in Artificial Intelligence Cloud Solutions Strategy](https://extendedlearning.ubc.ca/programs/ubc-micro-certificate-artificial-intelligence-cloud-solutions-strategy).
+      Artificial Intelligence (AI) is a vast field of technologies that, when combined with cloud services, can help your organization create a robust decision-making framework to improve customer service, efficiency and performance with little-to-no human involvement.
+      The number of AI-based and Machine Learning (ML) services commercially available in the market is ever-expanding. To be a smart consumer, you need to be able to identify the relevant technology, theory and data underlying contemporary data services, so that you can formulate meaningful questions and make informed choices.
+      In this course, you take a deep dive into the technical implementation of AI applications and services within a cloud computing framework and learn how to design solutions with AI to improve customer experiences, business processes and decision-making.
+      Come away with a strategy to add AI to your own real-world project and learn how to assess and select the right infrastructure for high-performance and low-cost instances optimized for Machine Learning.
+      You’ll also be encouraged to upskill with additional online training and hands-on tutorials through freely available resources.
+      Technical and coding skills are not required to take this course. It is designed to accommodate professionals in non-technical or tech-adjacent roles.
 profile:
   education:
     - degree: Bachelors of Science

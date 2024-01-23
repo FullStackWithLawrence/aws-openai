@@ -8,14 +8,7 @@
 #             requirements in the zip package for this layer.
 # -----------------------------------------------------------------------------
 
-# generative AI requirements
-langchain
-langchain-experimental
-openai==1.9.0
-pinecone-client==3.0.1
-
-# general requirements
-pydantic==2.5.3
-pydantic-settings==2.1.0
-python-dotenv==1.0.0
-python-hcl2==4.3.2
+# NLP requirements
+# --------------------------
+python-Levenshtein==0.23.0
+pyyaml

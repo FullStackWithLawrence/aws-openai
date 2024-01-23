@@ -34,6 +34,7 @@ import Emojibot from "./applications/Emojibot";
 import Emojibot4 from "./applications/Emojibot4";
 import English2French from "./applications/English2French";
 import FunctionCreator from "./applications/FunctionCreator";
+import FunctionCalling from "./applications/FunctionCalling";
 import GrammarGenius from "./applications/GrammarGenius";
 import InterviewQuestions from "./applications/InterviewQuestions";
 import KeyWords from "./applications/KeyWords";
@@ -132,6 +133,13 @@ const App = () => {
                     onClick={() => handleItemClick(APPLICATIONS.SarcasticChat)}
                   >
                     {SarcasticChat.sidebar_title}
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() =>
+                      handleItemClick(APPLICATIONS.FunctionCalling)
+                    }
+                  >
+                    {FunctionCalling.sidebar_title}
                   </MenuItem>
                   <MenuItem
                     onClick={() => handleItemClick(APPLICATIONS.Emojibot)}
@@ -384,6 +392,9 @@ const App = () => {
           )}
           {selectedItem === APPLICATIONS.SarcasticChat && (
             <ChatApp {...SarcasticChat} />
+          )}
+          {selectedItem === APPLICATIONS.FunctionCalling && (
+            <ChatApp {...FunctionCalling} />
           )}
           {selectedItem === APPLICATIONS.SinglePageWebapp && (
             <ChatApp {...SinglePageWebapp} />

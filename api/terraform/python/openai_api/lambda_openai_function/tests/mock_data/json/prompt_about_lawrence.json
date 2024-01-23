@@ -1,0 +1,16 @@
+{
+  "model": "gpt-3.5-turbo",
+  "object": "chat.completion",
+  "temperature": 0,
+  "max_tokens": 256,
+  "messages": [
+    {
+      "role": "system",
+      "content": "you are a helpful chatbot."
+    },
+    {
+      "role": "user",
+      "content": "have you ever heard of lawrence mcdaniel?"
+    }
+  ]
+}

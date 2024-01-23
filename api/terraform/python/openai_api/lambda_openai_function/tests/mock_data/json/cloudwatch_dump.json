@@ -1,0 +1,53 @@
+{
+  "environment": {
+    "is_using_tfvars_file": true,
+    "is_using_dotenv_file": true,
+    "os": "posix",
+    "system": "Darwin",
+    "release": "23.2.0",
+    "boto3": "1.34.0",
+    "shared_resource_identifier": "openai",
+    "debug_mode": true,
+    "openai_api_version": "0.7.0",
+    "dotenv": [
+      "AWS_REGION",
+      "DEBUG_MODE",
+      "LANGCHAIN_MEMORY_KEY",
+      "OPENAI_ENDPOINT_IMAGE_N",
+      "OPENAI_ENDPOINT_IMAGE_SIZE"
+    ],
+    "tfvars": [
+      "aws_account_id",
+      "tags",
+      "aws_region",
+      "aws_profile",
+      "openai_endpoint_image_n",
+      "openai_endpoint_image_size",
+      "lambda_python_runtime",
+      "debug_mode",
+      "lambda_memory_size",
+      "lambda_timeout",
+      "logging_level",
+      "log_retention_days",
+      "create_custom_domain",
+      "root_domain",
+      "shared_resource_identifier",
+      "stage",
+      "quota_settings_limit",
+      "quota_settings_offset",
+      "quota_settings_period",
+      "throttle_settings_burst_limit",
+      "throttle_settings_rate_limit"
+    ]
+  },
+  "aws_apigateway": {
+    "aws_apigateway_root_domain": "lawrencemcdaniel.com",
+    "aws_apigateway_create_custom_domaim": true,
+    "aws_apigateway_custom_domain_name": "api.openai.lawrencemcdaniel.com"
+  },
+  "openai_api": {
+    "langchain_memory_key": "chat_history",
+    "openai_endpoint_image_n": 4,
+    "openai_endpoint_image_size": "1024x768"
+  }
+}

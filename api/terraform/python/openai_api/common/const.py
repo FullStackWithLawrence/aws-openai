@@ -89,6 +89,9 @@ class OpenAIMessageKeys:
 
 VALID_CHAT_COMPLETION_MODELS = [
     "gpt-4",
+    "gpt-4-turbo",
+    "gpt-4-32k",
+    "gpt-4-1106-preview",
     "gpt-4-0613",
     "gpt-4-32k",
     "gpt-4-32k-0613",
@@ -96,6 +99,8 @@ VALID_CHAT_COMPLETION_MODELS = [
     "gpt-3.5-turbo-0613",
     "gpt-3.5-turbo-16k",
     "gpt-3.5-turbo-16k-0613",
+    "gpt-3.5-turbo-1106",
+    "gpt-3.5-turbo-instruct",
 ]
 VALID_EMBEDDING_MODELS = [
     "text-embedding-ada-002",

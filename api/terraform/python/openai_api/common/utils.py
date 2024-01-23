@@ -147,7 +147,7 @@ def get_request_body(event) -> dict:
 
 def parse_request(request_body: dict):
     """Parse the request body and return the endpoint, model, messages, and input_text"""
-    object_type = request_body.get("object")
+    object_type = request_body.get("object_type")
     model = request_body.get("model")
     messages = request_body.get("messages")
     input_text = request_body.get("input_text")
@@ -214,3 +214,19 @@ def get_messages_for_role(messages: list, role: str) -> list:
     """Get the text content from the messages list for a given role"""
     retval = [d.get("content") for d in messages if d["role"] == role]
     return retval
+
+
+def request_meta_data_factory(model, object_type, temperature, max_tokens, input_text):
+    """
+    Return a dictionary of request meta data.
+    """
+    return {
+        "request_meta_data": {
+            "lambda": "lambda_openai_v2",
+            "model": model,
+            "object_type": object_type,
+            "temperature": temperature,
+            "max_tokens": max_tokens,
+            "input_text": input_text,
+        }
+    }

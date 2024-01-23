@@ -21,7 +21,6 @@ usage:      Use langchain to process requests to the OpenAI API.
 import json
 
 from langchain.chains import LLMChain
-from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import (
     ChatPromptTemplate,
@@ -29,6 +28,7 @@ from langchain.prompts import (
     MessagesPlaceholder,
     SystemMessagePromptTemplate,
 )
+from langchain_openai import ChatOpenAI
 from openai_api.common.conf import settings
 from openai_api.common.const import (  # VALID_EMBEDDING_MODELS,
     VALID_CHAT_COMPLETION_MODELS,
@@ -46,6 +46,7 @@ from openai_api.common.utils import (
     get_request_body,
     http_response_factory,
     parse_request,
+    request_meta_data_factory,
 )
 from openai_api.common.validators import (  # validate_embedding_request,
     validate_completion_request,
@@ -77,17 +78,7 @@ def handler(event, context):
         request_body = get_request_body(event=event)
         validate_request_body(request_body=request_body)
         object_type, model, messages, input_text, temperature, max_tokens = parse_request(request_body)
-        request_meta_data = {
-            "request_meta_data": {
-                "lambda": "lambda_langchain",
-                "model": model,
-                "object_type": object_type,
-                "temperature": temperature,
-                "max_tokens": max_tokens,
-                "input_text": input_text,
-            }
-        }
-
+        request_meta_data = request_meta_data_factory(model, object_type, temperature, max_tokens, input_text)
         validate_messages(request_body=request_body)
 
         match object_type:

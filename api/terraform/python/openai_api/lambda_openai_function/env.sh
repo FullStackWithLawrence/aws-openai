@@ -22,6 +22,7 @@ source ../../.env set    # this is relative to the calling Terraform resource
 cat <<EOF
 {
   "OPENAI_API_KEY": "$OPENAI_API_KEY",
-  "OPENAI_API_ORGANIZATION": "$OPENAI_API_ORGANIZATION"
+  "OPENAI_API_ORGANIZATION": "$OPENAI_API_ORGANIZATION",
+  "GOOGLE_MAPS_API_KEY": "$GOOGLE_MAPS_API_KEY"
 }
 EOF

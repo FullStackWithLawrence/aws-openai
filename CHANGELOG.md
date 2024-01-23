@@ -1,26 +1,23 @@
 # [0.10.0](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.9.1...v0.10.0) (2024-01-23)
 
-
 ### Bug Fixes
 
-* add handling for legacy native openai api responses ([b5de30c](https://github.com/FullStackWithLawrence/aws-openai/commit/b5de30cbbfebed2ca50189063b80f16a92b9b49e))
-
+- add handling for legacy native openai api responses ([b5de30c](https://github.com/FullStackWithLawrence/aws-openai/commit/b5de30cbbfebed2ca50189063b80f16a92b9b49e))
 
 ### Features
 
-* add openai-function-calling app ([9033b6d](https://github.com/FullStackWithLawrence/aws-openai/commit/9033b6dd02fea818588ae9d926ded4cbf34411eb))
-* code lambda_handler() to process tool_call(s) returned by openai api ([f4b076c](https://github.com/FullStackWithLawrence/aws-openai/commit/f4b076cff230fee81faf8d0858baf409f0b9ada2))
-* convert urls in response text to links and add styling ([031eac7](https://github.com/FullStackWithLawrence/aws-openai/commit/031eac772627f13636501071ea212c0210476a95))
-* create new layer_nlp lambda layer ([1c11515](https://github.com/FullStackWithLawrence/aws-openai/commit/1c115155252b954189418c9415aae7912d633b3d))
-* scaffold a lambda that uses an openai function ([b6a5cc2](https://github.com/FullStackWithLawrence/aws-openai/commit/b6a5cc280fe57637e2cdf6ba869cc8760bc49d4e))
+- add openai-function-calling app ([9033b6d](https://github.com/FullStackWithLawrence/aws-openai/commit/9033b6dd02fea818588ae9d926ded4cbf34411eb))
+- code lambda_handler() to process tool_call(s) returned by openai api ([f4b076c](https://github.com/FullStackWithLawrence/aws-openai/commit/f4b076cff230fee81faf8d0858baf409f0b9ada2))
+- convert urls in response text to links and add styling ([031eac7](https://github.com/FullStackWithLawrence/aws-openai/commit/031eac772627f13636501071ea212c0210476a95))
+- create new layer_nlp lambda layer ([1c11515](https://github.com/FullStackWithLawrence/aws-openai/commit/1c115155252b954189418c9415aae7912d633b3d))
+- scaffold a lambda that uses an openai function ([b6a5cc2](https://github.com/FullStackWithLawrence/aws-openai/commit/b6a5cc280fe57637e2cdf6ba869cc8760bc49d4e))
 
 ## [0.9.1](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.9.0...v0.9.1) (2024-01-20)
 
-
 ### Bug Fixes
 
-* force a new release ([a069aae](https://github.com/FullStackWithLawrence/aws-openai/commit/a069aae8d6d0959cbc74334f0ebdf0105d55c3a8))
-* force a new release ([a2daf8a](https://github.com/FullStackWithLawrence/aws-openai/commit/a2daf8a58be94cbd6769c1ba7dedab5e18ef3fc1))
+- force a new release ([a069aae](https://github.com/FullStackWithLawrence/aws-openai/commit/a069aae8d6d0959cbc74334f0ebdf0105d55c3a8))
+- force a new release ([a2daf8a](https://github.com/FullStackWithLawrence/aws-openai/commit/a2daf8a58be94cbd6769c1ba7dedab5e18ef3fc1))
 
 ## [0.9.0](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.8.2...v0.9.0) (2023-12-30)
 

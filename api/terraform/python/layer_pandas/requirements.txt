@@ -1,0 +1,8 @@
+# -----------------------------------------------------------------------------
+# written by: Lawrence McDaniel
+#             https://lawrencemcdaniel.com
+#
+# usage:      Shared Python requirements for anything requiring Pandas or NumPy
+# -----------------------------------------------------------------------------
+
+pandas

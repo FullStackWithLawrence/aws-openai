@@ -732,3 +732,27 @@ module "default_lesson_plan_writer" {
   aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai_v2.function_name
   aws_iam_role_arn                           = aws_iam_role.apigateway.arn
 }
+
+###############################################################################
+# 31. Openai function calling example
+#
+#
+###############################################################################
+module "openai_function_calling" {
+  source    = "./endpoint"
+  path_part = "openai-function-calling"
+
+  # OpenAI application definition
+  mapping_object_type         = "chat.completion"
+  mapping_model               = "gpt-3.5-turbo"
+  mapping_role_system_content = "You are a helpful assistant."
+  mapping_max_tokens          = 2048
+
+  # integrate this endpoint to the AWS Gateway API.
+  aws_region                                 = var.aws_region
+  aws_api_gateway_rest_api_parent_id         = aws_api_gateway_resource.examples.id
+  aws_api_gateway_rest_api_id                = aws_api_gateway_rest_api.openai.id
+  aws_lambda_function_openai_text_invoke_arn = aws_lambda_function.lambda_openai_function.invoke_arn
+  aws_lambda_function_openai_text            = aws_lambda_function.lambda_openai_function.function_name
+  aws_iam_role_arn                           = aws_iam_role.apigateway.arn
+}

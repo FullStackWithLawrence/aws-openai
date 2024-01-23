@@ -65,6 +65,7 @@ api-init:
 	$(ACTIVATE_VENV) && \
 	$(PIP) install --upgrade pip && \
 	$(PIP) install -r requirements.txt && \
+	$(PYTHON) -m spacy download en_core_web_sm
 	deactivate && \
 	pre-commit install
 

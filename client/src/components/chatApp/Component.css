@@ -11,3 +11,12 @@
 .cs-conversation-header {
   text-align: center;
 }
+
+a {
+  text-decoration: underline;
+  color: black;
+}
+a:hover {
+  text-decoration: underline;
+  color: midnightblue;
+}

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=wrong-import-position
 # pylint: disable=R0801
+# pylint: disable=broad-exception-caught
 """Test lambda_openai_v2 function."""
 
 # python stuff
@@ -20,6 +21,7 @@ if PYTHON_ROOT not in sys.path:
 
 
 from openai_api.lambda_openai_function.lambda_handler import (  # noqa: E402; handler,
+    handler,
     search_terms_are_in_messages,
 )
 from openai_api.lambda_openai_function.natural_language_processing import does_refer_to
@@ -34,7 +36,6 @@ class TestLambdaOpenai(unittest.TestCase):
     """Test Index Lambda function."""
 
     # load a mock lambda_index event
-    event_about_lawrence = get_test_file("json/prompt_about_lawrence.json")
     SEARCH_TERMS = []
     SEARCH_PAIRS = []
 
@@ -44,6 +45,21 @@ class TestLambdaOpenai(unittest.TestCase):
             lambda_config = yaml.safe_load(file)
         self.SEARCH_TERMS = lambda_config["search_terms"]
         self.SEARCH_PAIRS = lambda_config["search_pairs"]
+
+    def check_response(self, response):
+        """Check response structure from lambda_handler."""
+        self.assertEqual(response["statusCode"], 200)
+        self.assertTrue("body" in response)
+        self.assertTrue("isBase64Encoded" in response)
+        body = response["body"]
+        self.assertTrue("id" in body)
+        self.assertTrue("object" in body)
+        self.assertTrue("created" in body)
+        self.assertTrue("model" in body)
+        self.assertTrue("choices" in body)
+        self.assertTrue("completion" in body)
+        self.assertTrue("request_meta_data" in body)
+        self.assertTrue("usage" in body)
 
     def test_does_not_refer_to(self):
         """Test simple false outcomes for does_refer_to."""
@@ -86,7 +102,6 @@ class TestLambdaOpenai(unittest.TestCase):
                     search_pairs=self.SEARCH_PAIRS,
                 )
             )
-            print("False - content:", content)
 
         def true_assertion(content: str):
             self.assertTrue(
@@ -96,7 +111,6 @@ class TestLambdaOpenai(unittest.TestCase):
                     search_pairs=self.SEARCH_PAIRS,
                 )
             )
-            print("True - content:", content)
 
         # false cases
         false_assertion("when was leisure suit larry released?")
@@ -116,19 +130,35 @@ class TestLambdaOpenai(unittest.TestCase):
         true_assertion("Is it true that Lawrence P. McDaniel has a YouTube channel?")
         true_assertion("Is it true that Larry McDaniel has a YouTube channel?")
 
-    # def test_lambda_handler(self):
-    #     """Test lambda_handler."""
-    #     response = handler(self.event_about_lawrence, None)
+    def test_lambda_handler_lawrence(self):
+        """Test lambda_handler."""
+        response = None
+        event_about_lawrence = get_test_file("json/prompt_about_lawrence.json")
 
-    #     self.assertEqual(response["statusCode"], 200)
-    #     self.assertTrue("body" in response)
-    #     self.assertTrue("isBase64Encoded" in response)
-    #     body = response["body"]
-    #     self.assertTrue("id" in body)
-    #     self.assertTrue("object" in body)
-    #     self.assertTrue("created" in body)
-    #     self.assertTrue("model" in body)
-    #     self.assertTrue("choices" in body)
-    #     self.assertTrue("completion" in body)
-    #     self.assertTrue("request_meta_data" in body)
-    #     self.assertTrue("usage" in body)
+        try:
+            response = handler(event_about_lawrence, None)
+        except Exception as error:
+            self.fail(f"handler() raised {error}")
+        self.check_response(response)
+
+    def test_lambda_handler_weather(self):
+        """Test lambda_handler."""
+        response = None
+        event_about_weather = get_test_file("json/prompt_about_weather.json")
+
+        try:
+            response = handler(event_about_weather, None)
+        except Exception as error:
+            self.fail(f"handler() raised {error}")
+        self.check_response(response)
+
+    def test_lambda_handler_recipes(self):
+        """Test lambda_handler."""
+        response = None
+        event_about_recipes = get_test_file("json/prompt_about_recipes.json")
+
+        try:
+            response = handler(event_about_recipes, None)
+        except Exception as error:
+            self.fail(f"handler() raised {error}")
+        self.check_response(response)

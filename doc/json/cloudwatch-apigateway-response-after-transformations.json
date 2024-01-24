@@ -6,7 +6,7 @@
   },
   "body": {
     "id": "chatcmpl-7yjlsCU70sm8BilEtAiGaxUmdwJNM",
-    "object": "chat.completion",
+    "object_type": "chat.completion",
     "created": 1694709980,
     "model": "gpt-3.5-turbo-0613",
     "choices": [

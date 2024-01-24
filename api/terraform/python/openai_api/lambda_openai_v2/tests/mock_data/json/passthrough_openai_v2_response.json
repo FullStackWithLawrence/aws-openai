@@ -22,7 +22,7 @@
       ],
       "created": 1702849975,
       "model": "gpt-3.5-turbo-0613",
-      "object": "chat.completion",
+      "object_type": "chat.completion",
       "system_fingerprint": null,
       "usage": {
         "completion_tokens": 1,

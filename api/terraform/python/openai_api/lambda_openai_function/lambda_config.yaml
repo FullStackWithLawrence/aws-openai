@@ -4,8 +4,10 @@
 # but it will not trigger the chatbot for a user prompt that contains the phrase "Lawrence P. McDaniel"
 search_terms:
   - Lawrence
+  - Lawrence's
   - Laurence
   - Lawrence McDaniel
+  - Lawrence McDaniel's
   - Lawrence McDaniels
   - Lawrence MacDaniel
   - Lawrence Mac Daniel

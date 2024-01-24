@@ -138,7 +138,7 @@ def get_request_body(event) -> dict:
         validate_endpoint(end_point=end_point)
 
     if hasattr(request_body, "object_type"):
-        object_type = request_body["object"]
+        object_type = request_body["object_type"]
         validate_object_types(object_type=object_type)
 
     validate_messages(request_body=request_body)
@@ -156,7 +156,7 @@ def parse_request(request_body: dict):
     chat_history = request_body.get("chat_history")
 
     if not object_type:
-        logging.warning("object key not found in request body. defaulting to ChatCompletion")
+        logging.warning("object_type key not found in request body. defaulting to ChatCompletion")
         object_type = OpenAIObjectTypes.ChatCompletion
 
     if not model:

@@ -3,7 +3,7 @@
   "statusCode": 200,
   "body": {
     "id": "chatcmpl-8B4RwgebWS8ZdTQ1ppHgElsru0BVW",
-    "object": "chat.completion",
+    "object_type": "chat.completion",
     "created": 1697649404,
     "model": "gpt-3.5-turbo-0613",
     "choices": [

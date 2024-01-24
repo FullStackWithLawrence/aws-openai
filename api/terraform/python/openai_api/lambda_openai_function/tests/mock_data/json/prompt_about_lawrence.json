@@ -1,6 +1,6 @@
 {
   "model": "gpt-3.5-turbo",
-  "object": "chat.completion",
+  "object_type": "chat.completion",
   "temperature": 0,
   "max_tokens": 256,
   "messages": [

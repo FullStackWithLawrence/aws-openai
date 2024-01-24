@@ -1,0 +1,33 @@
+{
+  "id": "chatcmpl-8kgBg635H4GnX3KAFg8DvubtAmXSv",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "The current weather in Mexico City near Polanco is 22.1°C with no precipitation.",
+        "role": "assistant",
+        "function_call": null,
+        "tool_calls": null
+      }
+    }
+  ],
+  "created": 1706135948,
+  "model": "gpt-3.5-turbo-0613",
+  "object_type": "chat.completion",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 19,
+    "prompt_tokens": 819,
+    "total_tokens": 838
+  },
+  "request_meta_data": {
+    "lambda": "lambda_openai_v2",
+    "model": "gpt-3.5-turbo",
+    "object_type": "chat.completion",
+    "temperature": 1,
+    "max_tokens": 2048,
+    "input_text": "what is the weather in mexico city near polanco?"
+  }
+}

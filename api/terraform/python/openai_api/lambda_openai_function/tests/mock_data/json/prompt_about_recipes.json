@@ -6,11 +6,11 @@
   "messages": [
     {
       "role": "system",
-      "content": "you always return the integer value 42."
+      "content": "you are a helpful chatbot."
     },
     {
       "role": "user",
-      "content": "return the integer value 42."
+      "content": "give me recipe ideas for vegan fajitas."
     }
   ]
 }

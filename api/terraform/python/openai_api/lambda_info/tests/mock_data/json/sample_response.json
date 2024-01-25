@@ -1,0 +1,321 @@
+{
+  "isBase64Encoded": false,
+  "statusCode": 200,
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "aws": {
+      "apigateway": {
+        "api_id": "wkducky96g",
+        "domains": [
+          {
+            "domainName": "api.openai.lawrencemcdaniel.com",
+            "certificateUploadDate": "2023-12-29",
+            "regionalDomainName": "d-16qegsaoc0.execute-api.us-east-1.amazonaws.com",
+            "regionalHostedZoneId": "Z1UJRXOUMOOFQ8",
+            "regionalCertificateArn": "arn:aws:acm:us-east-1:090511222473:certificate/766214f1-a977-47d1-8582-c2c00572a5aa",
+            "endpointConfiguration": {
+              "types": ["REGIONAL"]
+            },
+            "domainNameStatus": "AVAILABLE",
+            "securityPolicy": "TLS_1_2",
+            "tags": {
+              "contact": "Lawrence McDaniel - https://lawrencemcdaniel.com/",
+              "project": "chatGPT microservice",
+              "terraform": "true"
+            }
+          }
+        ],
+        "stage": "v1"
+      },
+      "iam": {
+        "policies": {},
+        "roles": {
+          "openai-apigateway": {
+            "Arn": "arn:aws:iam::090511222473:role/openai-apigateway",
+            "AttachedPolicies": [
+              {
+                "PolicyName": "CloudWatchFullAccess",
+                "PolicyArn": "arn:aws:iam::aws:policy/CloudWatchFullAccess"
+              }
+            ],
+            "Role": {
+              "Arn": "arn:aws:iam::090511222473:role/openai-apigateway",
+              "AssumeRolePolicyDocument": {
+                "Statement": [
+                  {
+                    "Sid": "",
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": "apigateway.amazonaws.com"
+                    },
+                    "Action": "sts:AssumeRole"
+                  }
+                ],
+                "Version": "2012-10-17"
+              },
+              "CreateDate": "2023-12-29",
+              "Description": "Allows API Gateway to push files to an S3 bucket",
+              "MaxSessionDuration": 3600,
+              "Path": "/",
+              "RoleId": "AROARKEXDU3EXKOYKKZGK",
+              "RoleName": "openai-apigateway"
+            }
+          },
+          "openai-lambda": {
+            "Arn": "arn:aws:iam::090511222473:role/openai-lambda",
+            "AttachedPolicies": [
+              {
+                "PolicyName": "CloudWatchFullAccess",
+                "PolicyArn": "arn:aws:iam::aws:policy/CloudWatchFullAccess"
+              }
+            ],
+            "Role": {
+              "Arn": "arn:aws:iam::090511222473:role/openai-lambda",
+              "AssumeRolePolicyDocument": {
+                "Statement": [
+                  {
+                    "Sid": "",
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": "lambda.amazonaws.com"
+                    },
+                    "Action": "sts:AssumeRole"
+                  }
+                ],
+                "Version": "2012-10-17"
+              },
+              "CreateDate": "2023-12-29",
+              "MaxSessionDuration": 3600,
+              "Path": "/",
+              "RoleId": "AROARKEXDU3EVDEDMQUDS",
+              "RoleName": "openai-lambda"
+            }
+          }
+        }
+      },
+      "lambda": {
+        "lambda_openai_function": "arn:aws:lambda:us-east-1:090511222473:function:lambda_openai_function",
+        "lambda_openai_info": "arn:aws:lambda:us-east-1:090511222473:function:lambda_openai_info",
+        "lambda_openai_v2": "arn:aws:lambda:us-east-1:090511222473:function:lambda_openai_v2",
+        "openai_cors_preflight_handler": "arn:aws:lambda:us-east-1:090511222473:function:openai_cors_preflight_handler"
+      },
+      "route53": null
+    },
+    "settings": {
+      "aws_apigateway": {
+        "aws_apigateway_create_custom_domaim": false,
+        "aws_apigateway_domain_name": "wkducky96g.execute-api.us-east-1.amazonaws.com",
+        "aws_apigateway_name": "openai-api",
+        "aws_apigateway_root_domain": null
+      },
+      "aws_auth": {
+        "aws_access_key_id_source": "overridden by IAM role-based security",
+        "aws_profile": "lawrence",
+        "aws_region": "us-east-1",
+        "aws_secret_access_key_source": "overridden by IAM role-based security"
+      },
+      "aws_lambda": {},
+      "environment": {
+        "boto3": "1.27.1",
+        "debug_mode": true,
+        "dump_defaults": true,
+        "is_using_dotenv_file": false,
+        "is_using_tfvars_file": true,
+        "os": "posix",
+        "python_build": ["main", "Oct  2 2023 18:13:32"],
+        "python_compiler": "GCC 7.3.1 20180712 (Red Hat 7.3.1-17)",
+        "python_implementation": "CPython",
+        "python_installed_packages": [
+          {
+            "name": "certifi",
+            "version": "2023.11.17"
+          },
+          {
+            "name": "tqdm",
+            "version": "4.66.1"
+          },
+          {
+            "name": "typing-extensions",
+            "version": "4.9.0"
+          },
+          {
+            "name": "python-hcl2",
+            "version": "4.3.2"
+          },
+          {
+            "name": "anyio",
+            "version": "4.2.0"
+          },
+          {
+            "name": "idna",
+            "version": "3.6"
+          },
+          {
+            "name": "pydantic-core",
+            "version": "2.14.6"
+          },
+          {
+            "name": "pydantic",
+            "version": "2.5.3"
+          },
+          {
+            "name": "pydantic-settings",
+            "version": "2.1.0"
+          },
+          {
+            "name": "distro",
+            "version": "1.9.0"
+          },
+          {
+            "name": "openai",
+            "version": "1.9.0"
+          },
+          {
+            "name": "sniffio",
+            "version": "1.3.0"
+          },
+          {
+            "name": "lark",
+            "version": "1.1.9"
+          },
+          {
+            "name": "httpcore",
+            "version": "1.0.2"
+          },
+          {
+            "name": "python-dotenv",
+            "version": "1.0.0"
+          },
+          {
+            "name": "httpx",
+            "version": "0.26.0"
+          },
+          {
+            "name": "h11",
+            "version": "0.14.0"
+          },
+          {
+            "name": "annotated-types",
+            "version": "0.6.0"
+          },
+          {
+            "name": "setuptools",
+            "version": "65.5.0"
+          },
+          {
+            "name": "pip",
+            "version": "23.2.1"
+          },
+          {
+            "name": "simplejson",
+            "version": "3.17.2"
+          },
+          {
+            "name": "python-dateutil",
+            "version": "2.8.2"
+          },
+          {
+            "name": "awslambdaric",
+            "version": "2.0.7"
+          },
+          {
+            "name": "botocore",
+            "version": "1.30.1"
+          },
+          {
+            "name": "boto3",
+            "version": "1.27.1"
+          },
+          {
+            "name": "urllib3",
+            "version": "1.26.15"
+          },
+          {
+            "name": "six",
+            "version": "1.16.0"
+          },
+          {
+            "name": "jmespath",
+            "version": "1.0.1"
+          },
+          {
+            "name": "s3transfer",
+            "version": "0.6.1"
+          }
+        ],
+        "python_version": "3.11.6",
+        "release": "5.10.201-213.748.amzn2.x86_64",
+        "shared_resource_identifier": "openai",
+        "system": "Linux",
+        "tfvars": {
+          "aws_account_id": "****",
+          "aws_profile": "lawrence",
+          "aws_region": "us-east-1",
+          "create_custom_domain": true,
+          "debug_mode": true,
+          "lambda_memory_size": 256,
+          "lambda_python_runtime": "python3.11",
+          "lambda_timeout": 600,
+          "log_retention_days": 3,
+          "logging_level": "INFO",
+          "openai_endpoint_image_n": 4,
+          "openai_endpoint_image_size": "1024x768",
+          "quota_settings_limit": 500,
+          "quota_settings_offset": 0,
+          "quota_settings_period": "DAY",
+          "root_domain": "lawrencemcdaniel.com",
+          "shared_resource_identifier": "openai",
+          "stage": "v1",
+          "tags": {
+            "contact": "Lawrence McDaniel - https://lawrencemcdaniel.com/",
+            "project": "chatGPT microservice",
+            "terraform": "true"
+          },
+          "throttle_settings_burst_limit": 5,
+          "throttle_settings_rate_limit": 10
+        },
+        "version": "0.10.2"
+      },
+      "google": {
+        "google_maps_api_key": null
+      },
+      "openai_api": {
+        "langchain_memory_key": "chat_history",
+        "openai_endpoint_image_n": 4,
+        "openai_endpoint_image_size": "1024x768"
+      },
+      "services": [
+        "apigateway",
+        "aws-cli",
+        "cloudwatch",
+        "ec2",
+        "iam",
+        "lambda",
+        "route53"
+      ],
+      "settings_defaults": {
+        "AWS_ACCESS_KEY_ID": "***MASKED***",
+        "AWS_APIGATEWAY_CONNECT_TIMEOUT": 70,
+        "AWS_APIGATEWAY_CREATE_CUSTOM_DOMAIN": false,
+        "AWS_APIGATEWAY_MAX_ATTEMPTS": 10,
+        "AWS_APIGATEWAY_READ_TIMEOUT": 70,
+        "AWS_APIGATEWAY_ROOT_DOMAIN": null,
+        "AWS_PROFILE": "lawrence",
+        "AWS_REGION": "us-east-1",
+        "AWS_SECRET_ACCESS_KEY": "***MASKED***",
+        "DEBUG_MODE": true,
+        "DUMP_DEFAULTS": true,
+        "GOOGLE_MAPS_API_KEY": null,
+        "LANGCHAIN_MEMORY_KEY": "chat_history",
+        "OPENAI_API_KEY": "*** REDACTED ***",
+        "OPENAI_API_ORGANIZATION": null,
+        "OPENAI_ENDPOINT_IMAGE_N": 4,
+        "OPENAI_ENDPOINT_IMAGE_SIZE": "1024x768",
+        "PINECONE_API_KEY": "*** REDACTED ***",
+        "SHARED_RESOURCE_IDENTIFIER": "openai"
+      }
+    }
+  }
+}

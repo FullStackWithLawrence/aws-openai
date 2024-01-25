@@ -23,56 +23,34 @@ if PYTHON_ROOT not in sys.path:
 # pylint: disable=no-name-in-module
 from openai_api.lambda_openai_function.function_refers_to import (
     get_additional_info,
-    get_client_list,
     info_tool_factory,
 )
-
-# our stuff
-from openai_api.lambda_openai_function.tests.test_setup import (  # noqa: E402
-    get_test_file,
-)
+from openai_api.lambda_openai_function.refers_to import RefersTo
+from openai_api.lambda_openai_function.tests.test_setup import get_test_file_path
 
 
 class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
     """Test OpenAI Function Calling hook for refers_to."""
 
-    lambda_config: dict = None
-    client_list: list = None
-
     def setUp(self):
         """Set up test fixtures."""
-        self.client_list = get_client_list()
-        with open(PYTHON_ROOT + "/openai_api/lambda_openai_function/lambda_config.yaml", "r", encoding="utf-8") as file:
-            self.lambda_config = yaml.safe_load(file)
+        self.config_path = get_test_file_path("config/everlasting-gobbstopper.yaml")
+        self.config = RefersTo(config_path=self.config_path)
 
     # pylint: disable=broad-exception-caught
     def test_get_additional_info(self):
         """Test default return value of get_additional_info()"""
         try:
             # pylint: disable=no-value-for-parameter
-            retval = get_additional_info()
+            additional_information = get_additional_info(inquiry_type=self.config.additional_information.keys[0])
         except Exception:
             self.fail("get_additional_info() raised ExceptionType")
 
-        self.assertIsInstance(retval, str)
-        try:
-            d = json.loads(retval)
-
-        except Exception:
-            self.fail("get_additional_info() returned invalid JSON")
-
-        self.assertTrue("search_terms" in d)
-        self.assertTrue("search_pairs" in d)
-        self.assertTrue("system_prompt" in d)
-        self.assertTrue("clients" in d)
-        self.assertTrue("contact_information" in d)
-        self.assertTrue("biographical_info" in d)
-        self.assertTrue("marketing_info" in d)
-        self.assertTrue("profile" in d)
+        self.assertTrue(additional_information is not None)
 
     def test_info_tool_factory(self):
         """Test integrity info_tool_factory()"""
-        itf = info_tool_factory()
+        itf = info_tool_factory(config=self.config)
         self.assertIsInstance(itf, list)
 
         d = itf[0]

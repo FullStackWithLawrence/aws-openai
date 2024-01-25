@@ -38,7 +38,8 @@ analyze:
 	cloc . --exclude-ext=svg,json,zip --vcs=git
 
 coverage:
-	coverage run --source=api/terraform/python/openai_api -m unittest discover -s api/terraform/python/openai_api/
+	coverage run --source=api/terraform/python/openai_api \
+				 -m unittest discover -s api/terraform/python/openai_api/
 	coverage report -m
 	coverage html
 

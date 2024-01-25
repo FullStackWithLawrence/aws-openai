@@ -17,7 +17,7 @@
 
 A [React](https://react.dev/) + [AWS Serverless](https://aws.amazon.com/serverless/) full stack implementation of the [30 example applications](https://platform.openai.com/examples) found in the official OpenAI API documentation. This repository is used as an instructional tool for the YouTube channel "[Full Stack With Lawrence](https://youtube.com/@FullStackWithLawrence)" as well as for University of British Columbia course, "[Artificial Intelligence Cloud Technology Implementation](https://extendedlearning.ubc.ca/courses/artificial-intelligence-cloud-technology-implementation/mg202)" taught by Lawrence McDaniel.
 
-_New in version 0.10.x: A new chat app named "OpenAI Function Calling". See [lambda_openai_function](https://github.com/FullStackWithLawrence/aws-openai/tree/main/api/terraform/python/openai_api/lambda_openai_function) for examples including the fully implemented "[get_current_weather()](https://platform.openai.com/docs/guides/function-calling)" from The official OpenAI API documentation, and also a fun example of how get OpenAI to not only recognize you but also say flowery nice things about you!_
+_New in v0.10: A new chat app named "OpenAI Function Calling". See [lambda_openai_function](https://github.com/FullStackWithLawrence/aws-openai/tree/main/api/terraform/python/openai_api/lambda_openai_function) for examples including the fully implemented "[get_current_weather()](https://platform.openai.com/docs/guides/function-calling)" from The official OpenAI API documentation, and also a fun example of how get OpenAI to not only recognize you but also say flowery nice things about you!_
 
 ![Marv](https://cdn.lawrencemcdaniel.com/marv.gif)
 
@@ -34,14 +34,14 @@ Code composition as of Jan-2024:
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
 HCL                             29            346            714           2324
-Markdown                        51            751              6           2277
-Python                          22            514            557           1955
-YAML                            20            114            109           1204
-JavaScript                      39            114            127           1085
+Markdown                        52            765              6           2293
+Python                          26            603            611           2244
+YAML                            20            112            109           1308
+JavaScript                      39            114            127           1088
 JSX                              6             45             47            856
 CSS                              5             32             14            180
-Text                             6             13              0            116
-make                             1             26             30            114
+make                             1             27             30            119
+Text                             6             13              0            117
 INI                              2             15              0             70
 HTML                             2              1              0             65
 Jupyter Notebook                 1              0            186             48
@@ -49,7 +49,7 @@ Bourne Shell                     5             17             55             47
 TOML                             1              1              0             23
 Dockerfile                       1              4              4              5
 -------------------------------------------------------------------------------
-SUM:                           191          1,993          1,849         10,369
+SUM:                           196          2,095          1,903         10,787
 -------------------------------------------------------------------------------
 ```
 

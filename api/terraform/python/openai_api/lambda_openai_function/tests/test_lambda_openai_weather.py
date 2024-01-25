@@ -48,7 +48,7 @@ class TestLambdaOpenaiFunctionWeather(unittest.TestCase):
             self.fail("get_current_weather() returned invalid JSON")
 
     def test_weather_tool_factory(self):
-        """Test integrity info_tool_factory()"""
+        """Test integrity weather_tool_factory()"""
         wtf = weather_tool_factory()
         self.assertIsInstance(wtf, list)
 

@@ -1,32 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-This module contains the RefersTo class, which is used to parse the YAML config file for a given Lambda function.
-
-search_terms:
-  strings:
-    - everlasting gobstopper
-  pairs:
-    - - everlasting
-      - gobstopper
-system_prompt: >
-  You are a helpful marketing agent for the [Everlasting Gobstopper Company](https://everlasting-gobstoppers.com).
-additional_information:
-  contact:
-    - name: Willy Wonka
-    - title: Founder and CEO
-  biographical: >
-    Willy Wonka is a fictional character appearing ...
-  sales_promotions:
-    - name: Everlasting Gobstopper
-      description: >
-        The Everlasting Gobstopper is a candy that, according to Willy Wonka, "Never Gets Smaller Or Ever Gets Eaten". It is the main focus of Charlie and the Chocolate Factory, both the 1971 film and the 2005 film, and Willy Wonka and the Chocolate Factory, the 1971 film adaptation of the novel.
-      price: $1.00
-      image: https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Everlasting_Gobstopper.jpg/220px-Everlasting_Gobstopper.jpg
-  coupon_codes:
-    - name: 10% off
-      code: 10OFF
-      description: >
-        10% off your next purchase
+This module contains the RefersTo class, which is used to parse YAML config files for
+function_refers_to.get_additional_info().
 """
 import json
 import os
@@ -104,7 +79,7 @@ class SearchTerms:
 
     def __str__(self):
         """Return the config file as a string"""
-        return f"{self.config_json}"
+        return f"{self.to_json()}"
 
 
 class AdditionalInformation:
@@ -132,13 +107,14 @@ class AdditionalInformation:
 
     def __str__(self):
         """Return the config file as a string"""
-        return f"{self.config_json}"
+        return f"{self.to_json()}"
 
 
 class RefersTo:
     """Parse the YAML config file for a given Lambda function"""
 
     additional_information: str = None
+    function_description: str = None
     search_terms: SearchTerms = None
     additional_information: AdditionalInformation = None
     system_prompt: SystemPrompt = None
@@ -156,6 +132,7 @@ class RefersTo:
         self.validate()
         self.search_terms = SearchTerms(search_terms=self.config_json["search_terms"])
         self.system_prompt = SystemPrompt(system_prompt=self.config_json["system_prompt"])
+        self.function_description = self.config_json["function_description"]
         self.additional_information = AdditionalInformation(
             additional_information=self.config_json["additional_information"]
         )
@@ -182,7 +159,7 @@ class RefersTo:
 
     def validate(self) -> None:
         """Validate the config file"""
-        required_keys = ["search_terms", "system_prompt", "additional_information"]
+        required_keys = ["search_terms", "system_prompt", "function_description", "additional_information"]
         if not self.config_json:
             raise ValueError(f"Invalid config file: {self.config_path}")
 
@@ -196,6 +173,7 @@ class RefersTo:
             "name": self.name,
             "search_terms": self.search_terms.to_json(),
             "system_prompt": self.system_prompt.system_prompt,
+            "function_description": self.function_description,
             "additional_information": self.additional_information.to_json(),
         }
 

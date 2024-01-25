@@ -11,3 +11,4 @@ search_terms:
 system_prompt_invalid: [{ "key1": "not a string" }]
 # Information provided to the OpenAI "Function Calling" algorithm to help it generate custom responses.
 additional_information_invalid: "not the correct type"
+function_description: Get additional information about the Everlasting Gobstopper product created by Willy Wonka Chocolate Factory. Information includes sales promotions, coupon codes, company contact information and biographical background on the company founder.

@@ -8,6 +8,7 @@ search_terms:
       - gobstopper
     - - everlasting
       - gob stopper
+function_description: Get additional information about the Everlasting Gobstopper product created by Willy Wonka Chocolate Factory. Information includes sales promotions, coupon codes, company contact information and biographical background on the company founder.
 system_prompt: >
   You are a helpful marketing agent for the [Everlasting Gobstopper Company](https://everlasting-gobstoppers.com).
 # Information provided to the OpenAI "Function Calling" algorithm to help it generate custom responses.

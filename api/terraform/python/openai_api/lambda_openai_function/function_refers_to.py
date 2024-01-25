@@ -9,17 +9,12 @@ import requests
 import yaml
 from openai_api.common.const import PYTHON_ROOT
 from openai_api.lambda_openai_function.natural_language_processing import does_refer_to
+from openai_api.lambda_openai_function.refers_to import RefersTo
+from openai_api.lambda_openai_function.refers_to import config as refers_to_config
 
 
 with open(PYTHON_ROOT + "/openai_api/lambda_openai_function/lambda_config.yaml", "r", encoding="utf-8") as file:
     lambda_config = yaml.safe_load(file)
-
-client_list_url = "https://api.lawrencemcdaniel.com/wp-json/wp/v2/posts?categories=46&tags=55&_embed&per_page=100"
-try:
-    client_list_response = requests.get(client_list_url, timeout=60)
-# pylint: disable=broad-except
-except Exception as e:
-    client_list_response = None
 
 
 def search_terms_are_in_messages(messages: list, search_terms: list = None, search_pairs: list = None) -> bool:
@@ -60,53 +55,22 @@ def customized_prompt(messages: list) -> list:
     return messages
 
 
-def get_client_list() -> list:
-    """Return a list of clients"""
-    if not client_list_response:
-        return []
-
-    if client_list_response.status_code == 200:
-        client_list = client_list_response.json()
-        client_list = [
-            client["title"]["rendered"] for client in client_list if "title" in client and "rendered" in client["title"]
-        ]
-        return client_list
-    return []
-
-
 # pylint: disable=too-many-return-statements
-def get_additional_info(inquiry_type: str = "biographical_info") -> str:
+def get_additional_info(inquiry_type: str) -> str:
     """Return select info from lambda_config.yaml"""
-    inquiry_type = inquiry_type or "biographical_info"
-    lambda_config["clients"] = get_client_list()
 
-    if inquiry_type == "client_list":
-        return json.dumps(lambda_config["clients"])
+    for config in refers_to_config:
+        try:
+            additional_information = config.additional_information.to_json()
+            retval = additional_information[inquiry_type]
+            return json.dumps(retval)
+        except KeyError:
+            pass
 
-    if inquiry_type == "contact_info":
-        return json.dumps(lambda_config["contact_information"])
-
-    if inquiry_type == "educational_info":
-        return json.dumps(
-            {
-                "education": lambda_config["professional_profile"]["education"],
-                "certifications": lambda_config["professional_profile"]["certifications"],
-            }
-        )
-
-    if inquiry_type == "teaching":
-        return json.dumps(lambda_config["teaching"])
-
-    if inquiry_type == "biographical_info":
-        return json.dumps(lambda_config)
-
-    if inquiry_type == "marketing_info":
-        return json.dumps(lambda_config["marketing_info"])
-
-    return json.dumps(lambda_config)
+    raise KeyError(f"Invalid inquiry_type: {inquiry_type}")
 
 
-def info_tool_factory():
+def info_tool_factory(config: RefersTo):
     """
     Return a dictionary of chat completion tools.
     """
@@ -115,20 +79,13 @@ def info_tool_factory():
             "type": "function",
             "function": {
                 "name": "get_additional_info",
-                "description": "Get additional information about Lawrence McDaniel, full stack web developer and host of YouTube channel FullStackwithLawrence. returns a personal bio, contact information, marketing information, client list, education background, professional certifications, etc.",
+                "description": config.function_description,
                 "parameters": {
                     "type": "object",
                     "properties": {
                         "inquiry_type": {
                             "type": "string",
-                            "enum": [
-                                "biographical_info",
-                                "marketing_info",
-                                "contact_info",
-                                "educational_info",
-                                "teaching",
-                                "client_list",
-                            ],
+                            "enum": config.additional_information.keys,
                         },
                     },
                     "required": ["inquiry_type"],

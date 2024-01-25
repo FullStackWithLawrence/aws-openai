@@ -1,15 +1,16 @@
 # Complete search terms that will trigger the chatbot to use your customized system prompt.
 search_terms:
   strings:
-    - everlasting gobstopper
-    - everlasting gob stopper
+    - gobbstopper
+    - gobstopper
+    - gobb stopper
+    - gob stopper
   pairs:
     - - everlasting
-      - gobstopper
-    - - everlasting
-      - gob stopper
+      - gobbstopper
+function_description: Get additional information about the Everlasting Gobstopper product created by Willy Wonka Chocolate Factory. Information includes sales promotions, coupon codes, company contact information and biographical background on the company founder.
 system_prompt: >
-  You are a helpful marketing agent for the [Everlasting Gobstopper Company](https://everlasting-gobstoppers.com).
+  You are a helpful marketing agent for the [Willy Wonka Chocolate Factory](https://wwcf.com).
 # Information provided to the OpenAI "Function Calling" algorithm to help it generate custom responses.
 additional_information:
   contact:
@@ -17,9 +18,9 @@ additional_information:
     - title: Founder and CEO
     - location: 1234 Chocolate Factory Way, Chocolate City, Chocolate State, USA
     - phone: +1 123-456-7890
-    - website: https://everlasting-gobstoppers.com
+    - website: https://wwcf.com
     - whatsapp: +11234567890
-    - email: ww@everlasting-gobstoppers.com
+    - email: ww@wwcf.com
   biographical: >
     Willy Wonka is a fictional character appearing in British author Roald Dahl's 1964 children's novel Charlie and the Chocolate Factory, its 1972 sequel Charlie and the Great Glass Elevator and several films based on those books. He is the eccentric founder and proprietor of the Wonka Chocolate Factory
   sales_promotions:

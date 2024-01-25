@@ -1,0 +1,13 @@
+# Complete search terms that will trigger the chatbot to use your customized system prompt.
+search_terms:
+  strings_invalid:
+    - everlasting gobstopper
+    - everlasting gob stopper
+  pairs_invalid:
+    - - everlasting
+      - gobstopper
+    - - everlasting
+      - gob stopper
+system_prompt_invalid: [{ "key1": "not a string" }]
+# Information provided to the OpenAI "Function Calling" algorithm to help it generate custom responses.
+additional_information_invalid: "not the correct type"

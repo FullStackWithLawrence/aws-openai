@@ -89,8 +89,8 @@ def get_additional_info(inquiry_type: str = "biographical_info") -> str:
     if inquiry_type == "educational_info":
         return json.dumps(
             {
-                "education": lambda_config["profile"]["education"],
-                "certifications": lambda_config["profile"]["certifications"],
+                "education": lambda_config["professional_profile"]["education"],
+                "certifications": lambda_config["professional_profile"]["certifications"],
             }
         )
 

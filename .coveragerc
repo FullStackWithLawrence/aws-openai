@@ -1,0 +1,7 @@
+[run]
+omit =
+    api/terraform/python/openai_api/common/tests/*
+    api/terraform/python/openai_api/lambda_info/tests/*
+    api/terraform/python/openai_api/lambda_langchain/tests/*
+    api/terraform/python/openai_api/lambda_openai_function/tests/*
+    api/terraform/python/openai_api/lambda_openai_v2/tests/*

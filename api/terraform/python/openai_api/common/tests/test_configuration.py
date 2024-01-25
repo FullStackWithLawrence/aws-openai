@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=wrong-import-position
-"""Test configuration Settings class."""
+"""Test configuration Settings class.
+
+TODO: Add tests for: 480, 487, 531, 595, 602, 609, 612-617, 623, 626-631, 654, 662-664, 671-673, 686, 702, 710-712, 725, 740-741
+"""
+
+import os
 
 # python stuff
-import os
+import re
 import sys
 import unittest
 from unittest.mock import patch
@@ -16,10 +21,20 @@ from pydantic_core import ValidationError as PydanticValidationError
 PYTHON_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 sys.path.append(PYTHON_ROOT)  # noqa: E402
 
+from openai_api.common.conf import (  # noqa: E402
+    Services,
+    Settings,
+    SettingsDefaults,
+    empty_str_to_bool_default,
+    empty_str_to_int_default,
+    get_semantic_version,
+)
+
 # our stuff
-from openai_api.common.conf import Settings, SettingsDefaults  # noqa: E402
+from openai_api.common.exceptions import OpenAIAPIConfigurationError
 
 
+# pylint: disable=too-many-public-methods
 class TestConfiguration(unittest.TestCase):
     """Test configuration."""
 
@@ -239,3 +254,68 @@ class TestConfiguration(unittest.TestCase):
         # pylint: disable=no-member
         self.assertEqual(mock_settings.pinecone_api_key.get_secret_value(), "TEST_pinecone_api_key")
         self.assertEqual(mock_settings.shared_resource_identifier, "TEST_shared_resource_identifier")
+
+    def test_semantic_version(self):
+        """Test that the semantic version conforms to a valid pattern."""
+        version = get_semantic_version()
+        self.assertIsNotNone(version)
+        pattern = r"^\d+\.\d+\.\d+$"
+        match = re.match(pattern, version)
+        self.assertIsNotNone(match, f"{version} is not a valid semantic version")
+
+    def test_services(self):
+        """Test that the services are valid."""
+        services = Services()
+        self.assertIsNotNone(services)
+        self.assertTrue(services.enabled(services.AWS_CLI))
+        with self.assertRaises(OpenAIAPIConfigurationError):
+            services.raise_error_on_disabled(services.AWS_RDS)
+        self.assertIsInstance(services.to_dict(), dict)
+        self.assertIn(services.AWS_CLI[0], services.enabled_services())
+
+    def test_empty_str_to_bool_default(self):
+        """Test that empty strings are converted to bool defaults."""
+        self.assertFalse(empty_str_to_bool_default("", False))
+        self.assertTrue(empty_str_to_bool_default("true", True))
+
+    def test_empty_str_to_int_default(self):
+        """Test that empty strings are converted to int defaults."""
+        self.assertEqual(empty_str_to_int_default("", 0), 0)
+        self.assertEqual(empty_str_to_int_default("1", 1), 1)
+
+    def test_settings_aws_account_id(self):
+        """Test that the AWS account ID is valid."""
+        mock_settings = Settings(init_info="test_settings_aws_account_id()")
+        self.assertIsNotNone(mock_settings.aws_account_id)
+        self.assertTrue(mock_settings.aws_account_id.isdigit())
+
+    def test_settings_aws_session(self):
+        """Test that the AWS session is valid."""
+        mock_settings = Settings(init_info="test_settings_aws_session()")
+        self.assertIsNotNone(mock_settings.aws_session)
+        self.assertIsNotNone(mock_settings.aws_session.region_name)
+        self.assertIsNotNone(mock_settings.aws_session.profile_name)
+
+    def test_settings_dynamodb(self):
+        """Test that the DynamoDB table is valid."""
+        mock_settings = Settings(init_info="test_settings_dynamodb()")
+        # pylint: disable=pointless-statement
+        with self.assertRaises(OpenAIAPIConfigurationError):
+            mock_settings.aws_dynamodb_client
+
+    def test_settings_aws_s3_bucket_name(self):
+        """Test that the S3 bucket name is valid."""
+        mock_settings = Settings(init_info="test_settings_aws_s3_bucket_name()")
+        self.assertIsNotNone(mock_settings.aws_s3_bucket_name)
+        self.assertTrue(mock_settings.aws_s3_bucket_name.startswith(mock_settings.aws_account_id))
+
+    def test_settings_aws_apigateway_domain_name(self):
+        """Test that the API Gateway domain name is valid."""
+        mock_settings = Settings(init_info="test_settings_aws_apigateway_domain_name()")
+        hostname = mock_settings.aws_apigateway_domain_name
+        self.assertIsNotNone(mock_settings.aws_apigateway_domain_name)
+        # pylint: disable=anomalous-backslash-in-string
+        assert re.match(
+            "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$",
+            hostname,
+        ), "Invalid hostname"

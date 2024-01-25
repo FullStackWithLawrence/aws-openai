@@ -81,7 +81,7 @@ def handler(event, context):
                 messages=messages, search_terms=config.search_terms.strings, search_pairs=config.search_terms.pairs
             ):
                 model = "gpt-3.5-turbo-1106"
-                messages = customized_prompt(messages=messages)
+                messages = customized_prompt(config=config, messages=messages)
                 tools = info_tool_factory(config=config)
                 break
 

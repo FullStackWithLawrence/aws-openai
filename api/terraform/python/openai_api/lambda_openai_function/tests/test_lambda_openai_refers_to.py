@@ -51,9 +51,8 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
     def test_info_tool_factory(self):
         """Test integrity info_tool_factory()"""
         itf = info_tool_factory(config=self.config)
-        self.assertIsInstance(itf, list)
+        self.assertIsInstance(itf, dict)
 
-        d = itf[0]
-        self.assertIsInstance(d, dict)
-        self.assertTrue("type" in d)
-        self.assertTrue("function" in d)
+        self.assertIsInstance(itf, dict)
+        self.assertTrue("type" in itf)
+        self.assertTrue("function" in itf)

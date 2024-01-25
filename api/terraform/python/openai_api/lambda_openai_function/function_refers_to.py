@@ -5,16 +5,10 @@ b.) how to call a function from the model
 """
 import json
 
-import requests
-import yaml
 from openai_api.common.const import PYTHON_ROOT
 from openai_api.lambda_openai_function.natural_language_processing import does_refer_to
 from openai_api.lambda_openai_function.refers_to import RefersTo
 from openai_api.lambda_openai_function.refers_to import config as refers_to_config
-
-
-with open(PYTHON_ROOT + "/openai_api/lambda_openai_function/lambda_config.yaml", "r", encoding="utf-8") as file:
-    lambda_config = yaml.safe_load(file)
 
 
 def search_terms_are_in_messages(messages: list, search_terms: list = None, search_pairs: list = None) -> bool:
@@ -40,11 +34,11 @@ def search_terms_are_in_messages(messages: list, search_terms: list = None, sear
     return False
 
 
-def customized_prompt(messages: list) -> list:
+def customized_prompt(config: RefersTo, messages: list) -> list:
     """Return a prompt for Lawrence McDaniel"""
     custom_prompt = {
         "role": "system",
-        "content": lambda_config["system_prompt"],
+        "content": config.system_prompt,
     }
 
     for i, message in enumerate(messages):
@@ -57,7 +51,7 @@ def customized_prompt(messages: list) -> list:
 
 # pylint: disable=too-many-return-statements
 def get_additional_info(inquiry_type: str) -> str:
-    """Return select info from lambda_config.yaml"""
+    """Return select info from custom config object"""
 
     for config in refers_to_config:
         try:

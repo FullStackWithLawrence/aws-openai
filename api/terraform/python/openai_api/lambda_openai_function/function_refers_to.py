@@ -35,14 +35,15 @@ def search_terms_are_in_messages(messages: list, search_terms: list = None, sear
 
 
 def customized_prompt(config: RefersTo, messages: list) -> list:
-    """Return a prompt for Lawrence McDaniel"""
-    custom_prompt = {
-        "role": "system",
-        "content": config.system_prompt.system_prompt,
-    }
+    """Modify the system prompt based on the custom configuration object"""
 
     for i, message in enumerate(messages):
         if message.get("role") == "system":
+            system_prompt = message.get("content")
+            custom_prompt = {
+                "role": "system",
+                "content": system_prompt + "\n\n and also " + config.system_prompt.system_prompt,
+            }
             messages[i] = custom_prompt
             break
 
@@ -68,23 +69,21 @@ def info_tool_factory(config: RefersTo):
     """
     Return a dictionary of chat completion tools.
     """
-    tools = [
-        {
-            "type": "function",
-            "function": {
-                "name": "get_additional_info",
-                "description": config.function_description,
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        "inquiry_type": {
-                            "type": "string",
-                            "enum": config.additional_information.keys,
-                        },
+    tool = {
+        "type": "function",
+        "function": {
+            "name": "get_additional_info",
+            "description": config.function_description,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "inquiry_type": {
+                        "type": "string",
+                        "enum": config.additional_information.keys,
                     },
-                    "required": ["inquiry_type"],
                 },
+                "required": ["inquiry_type"],
             },
-        }
-    ]
-    return tools
+        },
+    }
+    return tool

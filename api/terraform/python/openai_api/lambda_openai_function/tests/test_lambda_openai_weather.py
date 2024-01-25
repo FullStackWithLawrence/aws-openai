@@ -50,9 +50,8 @@ class TestLambdaOpenaiFunctionWeather(unittest.TestCase):
     def test_weather_tool_factory(self):
         """Test integrity weather_tool_factory()"""
         wtf = weather_tool_factory()
-        self.assertIsInstance(wtf, list)
+        self.assertIsInstance(wtf, dict)
 
-        d = wtf[0]
-        self.assertIsInstance(d, dict)
-        self.assertTrue("type" in d)
-        self.assertTrue("function" in d)
+        self.assertIsInstance(wtf, dict)
+        self.assertTrue("type" in wtf)
+        self.assertTrue("function" in wtf)

@@ -38,7 +38,7 @@ def customized_prompt(config: RefersTo, messages: list) -> list:
     """Return a prompt for Lawrence McDaniel"""
     custom_prompt = {
         "role": "system",
-        "content": config.system_prompt,
+        "content": config.system_prompt.system_prompt,
     }
 
     for i, message in enumerate(messages):

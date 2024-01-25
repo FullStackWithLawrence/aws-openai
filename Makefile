@@ -37,6 +37,11 @@ init:
 analyze:
 	cloc . --exclude-ext=svg,json,zip --vcs=git
 
+coverage:
+	coverage run --source=api/terraform/python/openai_api -m unittest discover -s api/terraform/python/openai_api/
+	coverage report -m
+	coverage html
+
 release:
 	git commit -m "fix: force a new release" --allow-empty && git push
 
@@ -154,6 +159,7 @@ help:
 	@echo 'lint                - run all code linters and formatters'
 	@echo 'init                - create environments for Python, NPM and pre-commit and install dependencies'
 	@echo 'analyze             - generate code analysis report'
+	@echo 'coverage            - generate code coverage analysis report'
 	@echo 'release             - force a new release'
 	@echo '-- AWS API Gateway + Lambda --'
 	@echo 'api-init            - create a Python virtual environment and install dependencies'

@@ -17,7 +17,7 @@
 
 A [React](https://react.dev/) + [AWS Serverless](https://aws.amazon.com/serverless/) full stack implementation of the [30 example applications](https://platform.openai.com/examples) found in the official OpenAI API documentation. This repository is used as an instructional tool for the YouTube channel "[Full Stack With Lawrence](https://youtube.com/@FullStackWithLawrence)" as well as for University of British Columbia course, "[Artificial Intelligence Cloud Technology Implementation](https://extendedlearning.ubc.ca/courses/artificial-intelligence-cloud-technology-implementation/mg202)" taught by Lawrence McDaniel.
 
-_New in version 0.10.x: A new chat app named "OpenAI Function Calling". See [lambda_openai_function](https://github.com/FullStackWithLawrence/aws-openai/tree/main/api/terraform/python/openai_api/lambda_openai_function) for examples including the fully implemented "[get_current_weather()](https://platform.openai.com/docs/guides/function-calling)" from The official OpenAI API documentation, and also a fun example of how get OpenAI to not only recognize you but also say flowery nice things about you!_
+_New in v0.10: A new chat app named "OpenAI Function Calling". See [lambda_openai_function](https://github.com/FullStackWithLawrence/aws-openai/tree/main/api/terraform/python/openai_api/lambda_openai_function) for examples including the fully implemented "[get_current_weather()](https://platform.openai.com/docs/guides/function-calling)" from The official OpenAI API documentation, and also a fun example of how get OpenAI to not only recognize you but also say flowery nice things about you!_
 
 ![Marv](https://cdn.lawrencemcdaniel.com/marv.gif)
 

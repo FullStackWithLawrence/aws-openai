@@ -1,18 +1,16 @@
 ## [0.10.2](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.10.1...v0.10.2) (2024-01-23)
 
-
 ### Bug Fixes
 
-* add more granular info section selections ([ce870f0](https://github.com/FullStackWithLawrence/aws-openai/commit/ce870f0eca1f2519d1de8ee3cecdf26ce1acae1c))
+- add more granular info section selections ([ce870f0](https://github.com/FullStackWithLawrence/aws-openai/commit/ce870f0eca1f2519d1de8ee3cecdf26ce1acae1c))
 
 ## [0.10.1](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.10.0...v0.10.1) (2024-01-23)
 
-
 ### Bug Fixes
 
-* configure google maps api for use in aws lambda. ([37068ee](https://github.com/FullStackWithLawrence/aws-openai/commit/37068ee3d84293b8f4c7e2095d625b1f35937cd1))
-* graceful failure if google geolocation api key is missing. ([f601c64](https://github.com/FullStackWithLawrence/aws-openai/commit/f601c6401d61d8c81e841bc9f3ff05a398de9d96))
-* implement get_current_weather() using google maps api + open-meteo ([453a432](https://github.com/FullStackWithLawrence/aws-openai/commit/453a432bd87be03aff3ec6628ca00555e91eaa34))
+- configure google maps api for use in aws lambda. ([37068ee](https://github.com/FullStackWithLawrence/aws-openai/commit/37068ee3d84293b8f4c7e2095d625b1f35937cd1))
+- graceful failure if google geolocation api key is missing. ([f601c64](https://github.com/FullStackWithLawrence/aws-openai/commit/f601c6401d61d8c81e841bc9f3ff05a398de9d96))
+- implement get_current_weather() using google maps api + open-meteo ([453a432](https://github.com/FullStackWithLawrence/aws-openai/commit/453a432bd87be03aff3ec6628ca00555e91eaa34))
 
 # [0.10.0](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.9.1...v0.10.0) (2024-01-23)
 

@@ -50,12 +50,11 @@ from openai_api.lambda_openai_function.function_weather import (
     get_current_weather,
     weather_tool_factory,
 )
+from openai_api.lambda_openai_function.refers_to import config as refers_to_config
 
 
 openai.organization = settings.openai_api_organization
 openai.api_key = settings.openai_api_key.get_secret_value()
-with open(PYTHON_ROOT + "/openai_api/lambda_openai_function/lambda_config.yaml", "r", encoding="utf-8") as file:
-    lambda_config = yaml.safe_load(file)
 
 
 # pylint: disable=unused-argument
@@ -68,8 +67,6 @@ def handler(event, context):
     OpenAI API endpoint based on the contents of the request.
     """
     cloudwatch_handler(event, settings.dump, debug_mode=settings.debug_mode)
-    SEARCH_TERMS = lambda_config["search_terms"]
-    SEARCH_PAIRS = lambda_config["search_pairs"]
     tools = weather_tool_factory()
 
     try:
@@ -78,11 +75,15 @@ def handler(event, context):
         object_type, model, messages, input_text, temperature, max_tokens = parse_request(request_body)
         request_meta_data = request_meta_data_factory(model, object_type, temperature, max_tokens, input_text)
 
-        # does the prompt have anything to do with the search terms defined in lambda_config.yaml?
-        if search_terms_are_in_messages(messages=messages, search_terms=SEARCH_TERMS, search_pairs=SEARCH_PAIRS):
-            model = "gpt-3.5-turbo-1106"
-            messages = customized_prompt(messages=messages)
-            tools = info_tool_factory()
+        # does the prompt have anything to do with any of the search terms defined in a custom configuration?
+        for config in refers_to_config:
+            if search_terms_are_in_messages(
+                messages=messages, search_terms=config.search_terms.strings, search_pairs=config.search_terms.pairs
+            ):
+                model = "gpt-3.5-turbo-1106"
+                messages = customized_prompt(messages=messages)
+                tools = info_tool_factory(config=config)
+                break
 
         # https://platform.openai.com/docs/guides/gpt/chat-completions-api
         validate_item(

@@ -1,3 +1,4 @@
+---
 # Complete search terms that will trigger the chatbot to use your customized system prompt.
 search_terms:
   strings:

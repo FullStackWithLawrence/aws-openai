@@ -10,8 +10,6 @@ import sys
 import unittest
 from pathlib import Path
 
-import yaml
-
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 PROJECT_ROOT = str(Path(HERE).parent.parent)
@@ -25,26 +23,20 @@ from openai_api.lambda_openai_function.lambda_handler import (  # noqa: E402; ha
     search_terms_are_in_messages,
 )
 from openai_api.lambda_openai_function.natural_language_processing import does_refer_to
-
-# our stuff
-from openai_api.lambda_openai_function.tests.test_setup import (  # noqa: E402
+from openai_api.lambda_openai_function.refers_to import RefersTo
+from openai_api.lambda_openai_function.tests.test_setup import (
     get_test_file,
+    get_test_file_path,
 )
 
 
 class TestLambdaOpenai(unittest.TestCase):
     """Test Index Lambda function."""
 
-    # load a mock lambda_index event
-    SEARCH_TERMS = []
-    SEARCH_PAIRS = []
-
     def setUp(self):
         """Set up test fixtures."""
-        with open(PYTHON_ROOT + "/openai_api/lambda_openai_function/lambda_config.yaml", "r", encoding="utf-8") as file:
-            lambda_config = yaml.safe_load(file)
-        self.SEARCH_TERMS = lambda_config["search_terms"]
-        self.SEARCH_PAIRS = lambda_config["search_pairs"]
+        self.config_path = get_test_file_path("config/everlasting-gobbstopper.yaml")
+        self.config = RefersTo(config_path=self.config_path)
 
     def check_response(self, response):
         """Check response structure from lambda_handler."""
@@ -98,8 +90,8 @@ class TestLambdaOpenai(unittest.TestCase):
             self.assertFalse(
                 search_terms_are_in_messages(
                     messages=list_factory(content),
-                    search_terms=self.SEARCH_TERMS,
-                    search_pairs=self.SEARCH_PAIRS,
+                    search_terms=self.config.search_terms.strings,
+                    search_pairs=self.config.search_terms.pairs,
                 )
             )
 
@@ -107,8 +99,8 @@ class TestLambdaOpenai(unittest.TestCase):
             self.assertTrue(
                 search_terms_are_in_messages(
                     messages=list_factory(content),
-                    search_terms=self.SEARCH_TERMS,
-                    search_pairs=self.SEARCH_PAIRS,
+                    search_terms=self.config.search_terms.strings,
+                    search_pairs=self.config.search_terms.pairs,
                 )
             )
 
@@ -120,23 +112,20 @@ class TestLambdaOpenai(unittest.TestCase):
         false_assertion("Hello world!")
         false_assertion("test test test")
         false_assertion("what is the airport code the airport in Dallas, Texas?")
+        false_assertion("do you spell gobstopper with one b or two?")
 
         # true cases
-        true_assertion("who is lawrence mcdaniel?")
-        true_assertion("is FullStackWithLawrence a youtube channel?")
-        true_assertion("have you ever seen the youtube channel full stack with lawrence?")
-        true_assertion("Is it true that larry mcdaniel has a YouTube channel?")
-        true_assertion("Is it true that Lawrence McDaniel has a YouTube channel?")
-        true_assertion("Is it true that Lawrence P. McDaniel has a YouTube channel?")
-        true_assertion("Is it true that Larry McDaniel has a YouTube channel?")
+        true_assertion("what is an everlasting gobstopper?")
+        true_assertion("do you spell everlasting gobstopper with one b or two?")
+        true_assertion("everlasting gobstopper")
 
-    def test_lambda_handler_lawrence(self):
+    def test_lambda_handler_gobstoppers(self):
         """Test lambda_handler."""
         response = None
-        event_about_lawrence = get_test_file("json/prompt_about_lawrence.json")
+        event_about_gobstoppers = get_test_file("json/prompt_about_everlasting_gobstoppers.json")
 
         try:
-            response = handler(event_about_lawrence, None)
+            response = handler(event_about_gobstoppers, None)
         except Exception as error:
             self.fail(f"handler() raised {error}")
         self.check_response(response)

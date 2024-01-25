@@ -67,8 +67,8 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
         self.assertDictEqual(
             search_terms.to_json(),
             {
-                "strings": ["everlasting gobstopper", "everlasting gob stopper"],
-                "pairs": [["everlasting", "gobstopper"], ["everlasting", "gob stopper"]],
+                "strings": ["everlasting gobstopper", "everlasting gobstoppers", "everlasting gobstopper's"],
+                "pairs": [["everlasting", "gobstopper"], ["everlasting", "gobstoppers"]],
             },
         )
 
@@ -108,8 +108,8 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
         self.assertDictEqual(
             refers_to.search_terms.to_json(),
             {
-                "strings": ["everlasting gobstopper", "everlasting gob stopper"],
-                "pairs": [["everlasting", "gobstopper"], ["everlasting", "gob stopper"]],
+                "strings": ["everlasting gobstopper", "everlasting gobstoppers", "everlasting gobstopper's"],
+                "pairs": [["everlasting", "gobstopper"], ["everlasting", "gobstoppers"]],
             },
         )
         self.assertEqual(

@@ -82,7 +82,9 @@ def handler(event, context):
             ):
                 model = "gpt-3.5-turbo-1106"
                 messages = customized_prompt(config=config, messages=messages)
-                tools = info_tool_factory(config=config)
+                custom_tool = info_tool_factory(config=config)[0]
+                tools.append(custom_tool)
+                print(f"Using custom configuration: {config.name} and adding custom tool: {custom_tool}")
                 break
 
         # https://platform.openai.com/docs/guides/gpt/chat-completions-api
@@ -92,6 +94,10 @@ def handler(event, context):
             item_type="ChatCompletion models",
         )
         validate_completion_request(request_body)
+        print("Calling OpenAI Chat Completion API...")
+        print(
+            f"model: {model}, messages: {messages}, tools: {tools}, temperature: {temperature}, max_tokens: {max_tokens}"
+        )
         openai_results = openai.chat.completions.create(
             model=model,
             messages=messages,

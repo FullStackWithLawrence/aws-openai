@@ -1,0 +1,12 @@
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a helpful chatbot"
+    },
+    {
+      "role": "user",
+      "content": "Should i use AWS Lambda to implement my OpenAI API microservice?"
+    }
+  ]
+}

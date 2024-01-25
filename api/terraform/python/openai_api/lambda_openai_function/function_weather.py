@@ -111,24 +111,22 @@ def get_current_weather(location, unit="METRIC"):
 
 def weather_tool_factory():
     """Return a list of tools that can be called by the OpenAI API"""
-    tools = [
-        {
-            "type": "function",
-            "function": {
-                "name": "get_current_weather",
-                "description": "Get the current weather in a given location",
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        "location": {
-                            "type": "string",
-                            "description": "The city and state, e.g. San Francisco, CA",
-                        },
-                        "unit": {"type": "string", "enum": ["METRIC", "USCS"]},
+    tool = {
+        "type": "function",
+        "function": {
+            "name": "get_current_weather",
+            "description": "Get the current weather in a given location",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "location": {
+                        "type": "string",
+                        "description": "The city and state, e.g. San Francisco, CA",
                     },
-                    "required": ["location"],
+                    "unit": {"type": "string", "enum": ["METRIC", "USCS"]},
                 },
+                "required": ["location"],
             },
-        }
-    ]
-    return tools
+        },
+    }
+    return tool

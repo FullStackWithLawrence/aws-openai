@@ -67,7 +67,8 @@ def handler(event, context):
     OpenAI API endpoint based on the contents of the request.
     """
     cloudwatch_handler(event, settings.dump, debug_mode=settings.debug_mode)
-    tools = weather_tool_factory()
+    weather_tool = weather_tool_factory()
+    tools = [weather_tool]
 
     try:
         openai_results = {}
@@ -82,10 +83,9 @@ def handler(event, context):
             ):
                 model = "gpt-3.5-turbo-1106"
                 messages = customized_prompt(config=config, messages=messages)
-                custom_tool = info_tool_factory(config=config)[0]
+                custom_tool = info_tool_factory(config=config)
                 tools.append(custom_tool)
-                print(f"Using custom configuration: {config.name} and adding custom tool: {custom_tool}")
-                break
+                print(f"Adding custom configuration: {config.name}")
 
         # https://platform.openai.com/docs/guides/gpt/chat-completions-api
         validate_item(
@@ -94,10 +94,6 @@ def handler(event, context):
             item_type="ChatCompletion models",
         )
         validate_completion_request(request_body)
-        print("Calling OpenAI Chat Completion API...")
-        print(
-            f"model: {model}, messages: {messages}, tools: {tools}, temperature: {temperature}, max_tokens: {max_tokens}"
-        )
         openai_results = openai.chat.completions.create(
             model=model,
             messages=messages,

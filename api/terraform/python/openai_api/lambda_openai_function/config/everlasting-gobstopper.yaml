@@ -1,13 +1,11 @@
 # Complete search terms that will trigger the chatbot to use your customized system prompt.
 search_terms:
   strings:
-    - gobbstopper
-    - gobstopper
-    - gobb stopper
-    - gob stopper
+    - Gobstopper
+    - Gobbstopper
   pairs:
     - - everlasting
-      - gobbstopper
+      - gobstopper
 function_description: Get additional information about the Everlasting Gobstopper product created by Willy Wonka Chocolate Factory. Information includes sales promotions, coupon codes, company contact information and biographical background on the company founder.
 system_prompt: >
   You are a helpful marketing agent for the [Willy Wonka Chocolate Factory](https://wwcf.com).

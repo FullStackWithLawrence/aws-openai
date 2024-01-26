@@ -38,6 +38,7 @@ from openai_api.common.validators import (  # validate_embedding_request,
     validate_completion_request,
     validate_item,
 )
+from openai_api.lambda_openai_function.custom_config import config as refers_to_config
 from openai_api.lambda_openai_function.function_refers_to import (
     customized_prompt,
     get_additional_info,
@@ -50,7 +51,6 @@ from openai_api.lambda_openai_function.function_weather import (
     get_current_weather,
     weather_tool_factory,
 )
-from openai_api.lambda_openai_function.refers_to import config as refers_to_config
 
 
 openai.organization = settings.openai_api_organization

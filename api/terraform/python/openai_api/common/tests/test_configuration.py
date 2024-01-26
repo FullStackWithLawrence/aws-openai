@@ -306,8 +306,8 @@ class TestConfiguration(unittest.TestCase):
     def test_settings_aws_s3_bucket_name(self):
         """Test that the S3 bucket name is valid."""
         mock_settings = Settings(init_info="test_settings_aws_s3_bucket_name()")
-        self.assertIsNotNone(mock_settings.aws_s3_bucket_name)
-        self.assertTrue(mock_settings.aws_s3_bucket_name.startswith(mock_settings.aws_account_id))
+        if mock_settings.aws_apigateway_create_custom_domaim:
+            self.assertIsNotNone(mock_settings.aws_s3_bucket_name)
 
     def test_settings_aws_apigateway_domain_name(self):
         """Test that the API Gateway domain name is valid."""

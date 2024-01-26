@@ -7,7 +7,7 @@ import json
 
 from openai_api.common.const import PYTHON_ROOT
 from openai_api.lambda_openai_function.natural_language_processing import does_refer_to
-from openai_api.lambda_openai_function.refers_to import RefersTo
+from openai_api.lambda_openai_function.refers_to import CustomConfig
 from openai_api.lambda_openai_function.refers_to import config as refers_to_config
 
 
@@ -34,7 +34,7 @@ def search_terms_are_in_messages(messages: list, search_terms: list = None, sear
     return False
 
 
-def customized_prompt(config: RefersTo, messages: list) -> list:
+def customized_prompt(config: CustomConfig, messages: list) -> list:
     """Modify the system prompt based on the custom configuration object"""
 
     for i, message in enumerate(messages):
@@ -65,7 +65,7 @@ def get_additional_info(inquiry_type: str) -> str:
     raise KeyError(f"Invalid inquiry_type: {inquiry_type}")
 
 
-def info_tool_factory(config: RefersTo):
+def info_tool_factory(config: CustomConfig):
     """
     Return a dictionary of chat completion tools.
     """

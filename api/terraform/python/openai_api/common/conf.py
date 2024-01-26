@@ -170,6 +170,7 @@ class SettingsDefaults:
     GOOGLE_MAPS_API_KEY: str = TFVARS.get("google_maps_api_key", None)
 
     LANGCHAIN_MEMORY_KEY = "chat_history"
+    SETTINGS_AWS_S3_BUCKET: str = None
     OPENAI_API_ORGANIZATION: str = None
     OPENAI_API_KEY = SecretStr(None)
     OPENAI_ENDPOINT_IMAGE_N = 4
@@ -357,6 +358,7 @@ class Settings(BaseSettings):
         env="GOOGLE_MAPS_API_KEY",
     )
     langchain_memory_key: Optional[str] = Field(SettingsDefaults.LANGCHAIN_MEMORY_KEY, env="LANGCHAIN_MEMORY_KEY")
+    settings_aws_bucket: Optional[str] = Field(SettingsDefaults.SETTINGS_AWS_S3_BUCKET, env="SETTINGS_AWS_S3_BUCKET")
     openai_api_organization: Optional[str] = Field(
         SettingsDefaults.OPENAI_API_ORGANIZATION, env="OPENAI_API_ORGANIZATION"
     )
@@ -564,6 +566,7 @@ class Settings(BaseSettings):
                 "google_maps_api_key": self.google_maps_api_key,
             },
             "openai_api": {
+                "settings_aws_bucket": self.settings_aws_bucket,
                 "langchain_memory_key": self.langchain_memory_key,
                 "openai_endpoint_image_n": self.openai_endpoint_image_n,
                 "openai_endpoint_image_size": self.openai_endpoint_image_size,
@@ -686,6 +689,13 @@ class Settings(BaseSettings):
             return v
         if v in [None, ""]:
             return SettingsDefaults.LANGCHAIN_MEMORY_KEY
+        return v
+
+    @field_validator("settings_aws_bucket")
+    def check_lambda_openai_function_config_url(cls, v) -> str:
+        """Check settings_aws_bucket"""
+        if v in [None, ""]:
+            return SettingsDefaults.SETTINGS_AWS_S3_BUCKET
         return v
 
     @field_validator("openai_api_organization")

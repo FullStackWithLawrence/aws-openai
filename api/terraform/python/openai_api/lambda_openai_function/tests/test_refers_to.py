@@ -23,7 +23,7 @@ if PYTHON_ROOT not in sys.path:
 # pylint: disable=no-name-in-module
 from openai_api.lambda_openai_function.refers_to import (
     AdditionalInformation,
-    RefersTo,
+    CustomConfig,
     SearchTerms,
     SystemPrompt,
 )
@@ -99,7 +99,7 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
 
     def test_refers_to(self):
         """Test refers_to."""
-        refers_to = RefersTo(config_path=get_test_file_path("config/everlasting-gobbstopper.yaml"))
+        refers_to = CustomConfig(config_path=get_test_file_path("config/everlasting-gobbstopper.yaml"))
 
         self.assertEqual(refers_to.name, "EverlastingGobbstopper")
         self.assertEqual(refers_to.file_name, "everlasting-gobbstopper.yaml")

@@ -23,7 +23,7 @@ from openai_api.lambda_openai_function.lambda_handler import (  # noqa: E402; ha
     search_terms_are_in_messages,
 )
 from openai_api.lambda_openai_function.natural_language_processing import does_refer_to
-from openai_api.lambda_openai_function.refers_to import RefersTo
+from openai_api.lambda_openai_function.refers_to import CustomConfig
 from openai_api.lambda_openai_function.tests.test_setup import (
     get_test_file,
     get_test_file_path,
@@ -36,7 +36,7 @@ class TestLambdaOpenai(unittest.TestCase):
     def setUp(self):
         """Set up test fixtures."""
         self.config_path = get_test_file_path("config/everlasting-gobbstopper.yaml")
-        self.config = RefersTo(config_path=self.config_path)
+        self.config = CustomConfig(config_path=self.config_path)
 
     def check_response(self, response):
         """Check response structure from lambda_handler."""

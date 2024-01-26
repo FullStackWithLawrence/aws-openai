@@ -263,7 +263,7 @@ class CustomConfigs:
 
     _custom_configs: list[CustomConfig] = None
     _aws_bucket_name: str = None
-    _aws_bucket_path: str = "/aws_openai/lambda_openai_function/custom_configs/"
+    _aws_bucket_path: str = "aws_openai/lambda_openai_function/custom_configs/"
     _aws_bucket_path_validated: bool = False
 
     def __init__(self, config_path: str = None, aws_s3_bucket_name: str = None):
@@ -285,21 +285,14 @@ class CustomConfigs:
             s3 = settings.aws_session.resource("s3")
             bucket = s3.Bucket(self._aws_bucket_name)
 
-            for obj in bucket.objects.filter(Prefix=self._aws_bucket_path):
-                i += 1
-                file_content = obj.get()["Body"].read().decode("utf-8")
-                config_json = yaml.safe_load(file_content)
-                custom_config = CustomConfig(config_json=config_json, index=i)
-                self._custom_configs.append(custom_config)
-
-    def list_yaml_files(bucket_name):
-        """List all the YAML files in the AWS S3 bucket"""
-        s3 = settings.aws_session.resource("s3")
-        bucket = s3.Bucket(bucket_name)
-
-        for obj in bucket.objects.all():
-            if obj.key.endswith(".yaml") or obj.key.endswith(".yml"):
-                print("Found YAML file:", obj.key)
+            for obj in bucket.objects.filter(Prefix=self.aws_bucket_path):
+                if obj.key.endswith(".yaml") or obj.key.endswith(".yml"):
+                    i += 1
+                    file_content = obj.get()["Body"].read().decode("utf-8")
+                    config_json = yaml.safe_load(file_content)
+                    if config_json:
+                        custom_config = CustomConfig(config_json=config_json, index=i)
+                        self._custom_configs.append(custom_config)
 
     @property
     def valid_configs(self) -> list[CustomConfig]:
@@ -312,37 +305,35 @@ class CustomConfigs:
         return [config for config in self._custom_configs if not config.is_valid]
 
     @property
+    def aws_bucket_path(self) -> str:
+        """Return the remote host"""
+        return self._aws_bucket_path
+
+    @property
     def aws_bucket_path_validated(self) -> bool:
         """Return True if the remote host is valid"""
         return self._aws_bucket_path_validated
 
-    @property
-    def aws_bucket_full_path(self) -> str:
-        """Return the remote host"""
-        if self.aws_bucket_path_validated:
-            return self._aws_bucket_name + self._aws_bucket_path
-        return None
-
     def verify_bucket(self, bucket_name: str):
         """Verify that the remote host is valid"""
+        if not bucket_name:
+            return
+
         s3 = settings.aws_session.resource("s3")
-        bucket = s3.Bucket(bucket_name)
-        folder_path = self._aws_bucket_path
         try:
             # Check if bucket exists
             s3.meta.client.head_bucket(Bucket=bucket_name)
         # pylint: disable=broad-exception-caught
-        except Exception:
+        except Exception as e:
+            log.warning("Bucket %s does not exist: %s", bucket_name, e)
             return
 
-        try:
-            # Create any missing folders
-            if not any(s3_object.key.startswith(folder_path) for s3_object in bucket.objects.all()):
-                s3.Object(bucket_name, folder_path).put()
-            self._aws_bucket_path_validated = True
-        # pylint: disable=broad-exception-caught
-        except Exception:
-            pass
+        # Create any missing folders
+        bucket = s3.Bucket(bucket_name)
+        if not any(s3_object.key.startswith(self.aws_bucket_path) for s3_object in bucket.objects.all()):
+            print(f"Creating folder {self.aws_bucket_path} in bucket {bucket_name}")
+            s3.Object(bucket_name, self.aws_bucket_path).put()
+        self._aws_bucket_path_validated = True
 
     def to_json(self) -> json:
         """Return the _custom_configs list as a JSON object"""
@@ -370,4 +361,9 @@ class SingletonCustomConfigs:
         return self._custom_configs
 
 
-config = SingletonCustomConfigs().custom_configs.valid_configs
+_custom_configs = SingletonCustomConfigs().custom_configs
+config = _custom_configs.valid_configs
+if len(_custom_configs.invalid_configs) > 0:
+    invalid_configurations = list(_custom_configs.invalid_configs.file_name)
+    invalid_configurations = ", ".join(invalid_configurations)
+    log.error("Invalid custom config files: %s", invalid_configurations)

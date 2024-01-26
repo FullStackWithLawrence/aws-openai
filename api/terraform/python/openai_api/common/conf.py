@@ -98,9 +98,9 @@ class Services:
     AWS_IAM = ("iam", True)
     AWS_LAMBDA = ("lambda", True)
     AWS_ROUTE53 = ("route53", True)
+    AWS_S3 = ("s3", True)
 
     # disabled
-    AWS_S3 = ("s3", False)
     AWS_SNS = ("sns", False)
     AWS_SQS = ("sqs", False)
     AWS_SES = ("ses", False)
@@ -161,8 +161,8 @@ class SettingsDefaults:
     AWS_REGION = TFVARS.get("aws_region", "us-east-1")
 
     # aws api gateway defaults
-    AWS_APIGATEWAY_CREATE_CUSTOM_DOMAIN = TFVARS.get("aws_apigateway_create_custom_domaim", False)
-    AWS_APIGATEWAY_ROOT_DOMAIN = TFVARS.get("aws_apigateway_root_domain", None)
+    AWS_APIGATEWAY_CREATE_CUSTOM_DOMAIN = TFVARS.get("create_custom_domain", False)
+    AWS_APIGATEWAY_ROOT_DOMAIN = TFVARS.get("root_domain", None)
     AWS_APIGATEWAY_READ_TIMEOUT: int = TFVARS.get("aws_apigateway_read_timeout", 70)
     AWS_APIGATEWAY_CONNECT_TIMEOUT: int = TFVARS.get("aws_apigateway_connect_timeout", 70)
     AWS_APIGATEWAY_MAX_ATTEMPTS: int = TFVARS.get("aws_apigateway_max_attempts", 10)
@@ -170,7 +170,6 @@ class SettingsDefaults:
     GOOGLE_MAPS_API_KEY: str = TFVARS.get("google_maps_api_key", None)
 
     LANGCHAIN_MEMORY_KEY = "chat_history"
-    SETTINGS_AWS_S3_BUCKET: str = None
     OPENAI_API_ORGANIZATION: str = None
     OPENAI_API_KEY = SecretStr(None)
     OPENAI_ENDPOINT_IMAGE_N = 4
@@ -358,7 +357,6 @@ class Settings(BaseSettings):
         env="GOOGLE_MAPS_API_KEY",
     )
     langchain_memory_key: Optional[str] = Field(SettingsDefaults.LANGCHAIN_MEMORY_KEY, env="LANGCHAIN_MEMORY_KEY")
-    settings_aws_bucket: Optional[str] = Field(SettingsDefaults.SETTINGS_AWS_S3_BUCKET, env="SETTINGS_AWS_S3_BUCKET")
     openai_api_organization: Optional[str] = Field(
         SettingsDefaults.OPENAI_API_ORGANIZATION, env="OPENAI_API_ORGANIZATION"
     )
@@ -466,9 +464,12 @@ class Settings(BaseSettings):
         return self._aws_dynamodb_client
 
     @property
-    def aws_s3_bucket_name(self) -> str:
-        """Return the S3 bucket name."""
-        return self.aws_account_id + "-" + self.shared_resource_identifier
+    def aws_s3_client(self):
+        """S3 client"""
+        Services.raise_error_on_disabled(Services.AWS_S3)
+        if not self._aws_s3_client:
+            self._aws_s3_client = self.aws_session.client("s3")
+        return self._aws_s3_client
 
     @property
     def aws_apigateway_name(self) -> str:
@@ -486,6 +487,13 @@ class Settings(BaseSettings):
             if item["name"] == self.aws_apigateway_name:
                 api_id = item["id"]
                 return f"{api_id}.execute-api.{settings.aws_region}.amazonaws.com"
+        return None
+
+    @property
+    def aws_s3_bucket_name(self) -> str:
+        """Return the S3 bucket name."""
+        if self.shared_resource_identifier and self.aws_apigateway_root_domain:
+            return "api." + self.shared_resource_identifier + "." + self.aws_apigateway_root_domain
         return None
 
     @property
@@ -566,7 +574,7 @@ class Settings(BaseSettings):
                 "google_maps_api_key": self.google_maps_api_key,
             },
             "openai_api": {
-                "settings_aws_bucket": self.settings_aws_bucket,
+                "aws_s3_bucket_name": self.aws_s3_bucket_name,
                 "langchain_memory_key": self.langchain_memory_key,
                 "openai_endpoint_image_n": self.openai_endpoint_image_n,
                 "openai_endpoint_image_size": self.openai_endpoint_image_size,
@@ -689,13 +697,6 @@ class Settings(BaseSettings):
             return v
         if v in [None, ""]:
             return SettingsDefaults.LANGCHAIN_MEMORY_KEY
-        return v
-
-    @field_validator("settings_aws_bucket")
-    def check_lambda_openai_function_config_url(cls, v) -> str:
-        """Check settings_aws_bucket"""
-        if v in [None, ""]:
-            return SettingsDefaults.SETTINGS_AWS_S3_BUCKET
         return v
 
     @field_validator("openai_api_organization")

@@ -21,7 +21,7 @@ if PYTHON_ROOT not in sys.path:
 
 
 # pylint: disable=no-name-in-module
-from openai_api.lambda_openai_function.refers_to import (
+from openai_api.lambda_openai_function.custom_config import (
     AdditionalInformation,
     CustomConfig,
     SearchTerms,

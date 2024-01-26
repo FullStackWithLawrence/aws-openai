@@ -6,9 +6,9 @@ b.) how to call a function from the model
 import json
 
 from openai_api.common.const import PYTHON_ROOT
+from openai_api.lambda_openai_function.custom_config import CustomConfig
+from openai_api.lambda_openai_function.custom_config import config as refers_to_config
 from openai_api.lambda_openai_function.natural_language_processing import does_refer_to
-from openai_api.lambda_openai_function.refers_to import CustomConfig
-from openai_api.lambda_openai_function.refers_to import config as refers_to_config
 
 
 def search_terms_are_in_messages(messages: list, search_terms: list = None, search_pairs: list = None) -> bool:

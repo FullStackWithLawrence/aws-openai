@@ -20,12 +20,13 @@ if PYTHON_ROOT not in sys.path:
     sys.path.append(PYTHON_ROOT)  # noqa: E402
 
 
+from openai_api.lambda_openai_function.custom_config import CustomConfig
+
 # pylint: disable=no-name-in-module
 from openai_api.lambda_openai_function.function_refers_to import (
     get_additional_info,
     info_tool_factory,
 )
-from openai_api.lambda_openai_function.refers_to import CustomConfig
 from openai_api.lambda_openai_function.tests.test_setup import get_test_file_path
 
 

@@ -190,6 +190,10 @@ class CustomConfig(CustomConfigBase):
 
         if config_json:
             self.config_json = config_json
+            meta_data = self.config_json.get("meta_data", {})
+            config_path = next((item for item in meta_data if "config_path" in item))
+            config_path = config_path["config_path"] if config_path else None
+            self.config_path = config_path
 
         self.validate()
         self.search_terms = SearchTerms(search_terms=self.config_json["search_terms"])
@@ -293,6 +297,7 @@ class CustomConfigs:
                     if config_json:
                         custom_config = CustomConfig(config_json=config_json, index=i)
                         self._custom_configs.append(custom_config)
+                        print("Loaded custom config from AWS S3 bucket: ", custom_config.name, obj.key)
 
     @property
     def valid_configs(self) -> list[CustomConfig]:

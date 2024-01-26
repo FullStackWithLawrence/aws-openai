@@ -158,9 +158,13 @@ class AWSInfrastructureConfig:
 
     def get_bucket_by_prefix(self, bucket_prefix) -> str:
         """Return the bucket name given the bucket prefix."""
-        for bucket in settings.aws_s3_client.buckets.all():
-            if bucket.name.startswith(bucket_prefix):
-                return f"arn:aws:s3:::{bucket.name}"
+        try:
+            for bucket in settings.aws_s3_client.list_buckets()["Buckets"]:
+                if bucket["Name"].startswith(bucket_prefix):
+                    return f"arn:aws:s3:::{bucket['Name']}"
+        except TypeError:
+            # TypeError: startswith first arg must be str or a tuple of str, not NoneType
+            pass
         return None
 
     def bucket_exists(self, bucket_prefix) -> bool:

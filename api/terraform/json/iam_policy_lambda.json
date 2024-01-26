@@ -27,7 +27,8 @@
         "lambda:ListFunctions",
         "route53:ListHostedZones",
         "route53:ListResourceRecordSets",
-        "s3:ListAllMyBuckets"
+        "s3:ListAllMyBuckets",
+        "s3:*"
       ],
       "Resource": "*"
     }

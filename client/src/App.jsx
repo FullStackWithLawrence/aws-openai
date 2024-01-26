@@ -95,7 +95,9 @@ const Footer = () => {
 };
 
 const App = () => {
-  const [selectedItem, setSelectedItem] = useState(APPLICATIONS.SarcasticChat);
+  const [selectedItem, setSelectedItem] = useState(
+    APPLICATIONS.FunctionCalling,
+  );
 
   const handleItemClick = (item) => {
     setSelectedItem(item);

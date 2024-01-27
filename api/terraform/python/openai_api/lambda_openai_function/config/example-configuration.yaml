@@ -1,10 +1,20 @@
 ---
+# ------------------------------------------------------------
+# 1. Required field: meta_data.
+# Each of these fields is required.
+# ------------------------------------------------------------
 meta_data:
   config_path: aws_openai/lambda_openai_function/custom_configs/example-configuration.yaml
   name: ExampleConfiguration
-  description: an example custom configuration to integrate with OpenAI API Function Calling additional information function, in this module.
+  description: A 'hello world' style custom configuration. This is an example custom configuration to integrate with OpenAI API Function Calling additional information function, in this module.
   version: 0.1.0
   author: Lawrence McDaniel
+
+# ------------------------------------------------------------
+# 2. Required field: prompting
+# These fields are used to modify the behavior of the AI. If the user prompt contains any of the search terms, then the system prompt will be used to generate the response.
+# This module additionally makes limited use of natural language processing to attempt to account for variations in the user prompt and common misspellings.
+# ------------------------------------------------------------
 prompting:
   #------------------------------------------------------------
   # search terms that will trigger the chatbot to use this customized configuration.
@@ -15,14 +25,25 @@ prompting:
     pairs:
       - - Example
         - configuration
+      - - example
+        - function calling
+  #------------------------------------------------------------
+  # if this module is able to locate any of the search terms in the user prompt
+  # then this system prompt text will will be added.
+  #------------------------------------------------------------
   system_prompt: >
     Your job is to provide helpful technical information about the OpenAI API Function Calling feature. You should include the following information in your response:
     "Congratulations!!! OpenAI API Function Calling chose to call this function. Here is the additional information that you requested:"
+
+# ------------------------------------------------------------
+# 3. Required field: function_calling
+# These fields are used to modify the behavior of the AI. If the user prompt contains any of the search terms, then an OpenAI Function Calling API for
+# get_additional_info() will be added to the user prompt, and the following dictionary will be returned by the function. Note that the contents of
+# this dictionary are free form and can include any yaml-compliant data you want returned to OpenAPI API Function Calling.
+# OpenAI API Function Calling will return this dictionary to ChatGPT as a JSON object, which it will incorporate into the response at its
+# own discretion.
+# ------------------------------------------------------------
 function_calling:
-  #------------------------------------------------------------
-  # if this module is able to locate any of the search terms in the user prompt
-  # then this is the system prompt will be used to generate the response, and the function_description that will be provided to OpenAI API.
-  #------------------------------------------------------------
   function_description: an example custom configuration to integrate with OpenAI API Function Calling additional information function, in this module.
   #------------------------------------------------------------
   # if a.) this module is able to locate any of the search terms in the user prompt

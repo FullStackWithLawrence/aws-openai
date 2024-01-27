@@ -23,8 +23,11 @@ if PYTHON_ROOT not in sys.path:
 from openai_api.lambda_openai_function.custom_config import (
     AdditionalInformation,
     CustomConfig,
+    FunctionCalling,
+    Prompting,
     SearchTerms,
     SystemPrompt,
+    validate_required_keys,
 )
 
 # our stuff
@@ -42,6 +45,19 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
         self.everlasting_gobbstopper = get_test_file_yaml("config/everlasting-gobbstopper.yaml")
         self.everlasting_gobbstopper_invalid = get_test_file_yaml("config/everlasting-gobbstopper-invalid.yaml")
 
+    def test_validate_required_keys(self):
+        """Test validate_required_keys."""
+        required_keys = ["meta_data", "prompting", "function_calling"]
+        validate_required_keys(
+            class_name="CustomConfig", config_json=self.everlasting_gobbstopper, required_keys=required_keys
+        )
+
+        with self.assertRaises(ValueError):
+            required_keys = ["meta_data", "prompting", "some_other_key"]
+            validate_required_keys(
+                class_name="CustomConfig", config_json=self.everlasting_gobbstopper_invalid, required_keys=required_keys
+            )
+
     def test_system_prompt(self):
         """Test system_prompt."""
         prompt = self.everlasting_gobbstopper["prompting"]["system_prompt"]
@@ -53,6 +69,7 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
         )
         self.assertIsInstance(system_prompt, SystemPrompt)
         self.assertIsInstance(system_prompt.system_prompt, str)
+        self.assertTrue(isinstance(system_prompt.to_json(), dict))
 
     def test_system_prompt_invalid(self):
         """Test system_prompt."""
@@ -132,3 +149,21 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
         self.assertListEqual(
             additional_information.keys, ["contact", "biographical", "sales_promotions", "coupon_codes"]
         )
+
+    def test_prompting(self):
+        """Test prompting."""
+        custom_config = CustomConfig(config_json=self.everlasting_gobbstopper)
+        prompting_config_json = custom_config.prompting.to_json()
+        Prompting(config_json=prompting_config_json)
+
+        with self.assertRaises(ValueError):
+            Prompting(config_json={})
+
+    def test_function_calling(self):
+        """Test function_calling."""
+        custom_config = CustomConfig(config_json=self.everlasting_gobbstopper)
+        function_calling_config_json = custom_config.function_calling.to_json()
+        FunctionCalling(config_json=function_calling_config_json)
+
+        with self.assertRaises(ValueError):
+            FunctionCalling(config_json={})

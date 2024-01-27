@@ -1,26 +1,36 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
+
 ## [0.10.4](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.10.3...v0.10.4) (2024-01-27)
 
+OpenAI 'Function Calling' Lambda.
 
-### Bug Fixes
+### Refactor
 
-* force a new release ([ad39079](https://github.com/FullStackWithLawrence/aws-openai/commit/ad39079e2142368d7ab2d19360da2dcd2a034120))
+- Pydantic refactor ([ad39079](https://github.com/FullStackWithLawrence/aws-openai/commit/ad39079e2142368d7ab2d19360da2dcd2a034120)). [custom_config.py](./api/terraform/python/openai_api/lambda_openai_function/custom_config.py) now inherits from Pydantic BaseModel.
+- Incremental development of the yaml file standard for custom configurations. This now has three well-defined for meta_data, prompting, function_calling.
+- Added remote AWS S3 bucket support for custom config yaml file storage.
+- Liam has replaced Marv as the default chatbot.
 
 ## [0.10.3](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.10.2...v0.10.3) (2024-01-27)
 
-### Bug Fixes
+### Refactor
 
-- force a new release ([7c88275](https://github.com/FullStackWithLawrence/aws-openai/commit/7c88275ef2041744f6fbf46e28c73ef803b5e1e5))
-- force a new release ([bf6fa8f](https://github.com/FullStackWithLawrence/aws-openai/commit/bf6fa8f5c72541706023cde47bb378a65e126087))
+- Add "additional information" feature based on a standardized yaml file format ([7c88275](https://github.com/FullStackWithLawrence/aws-openai/commit/7c88275ef2041744f6fbf46e28c73ef803b5e1e5))
+- Add real-time weather forecasts ([bf6fa8f](https://github.com/FullStackWithLawrence/aws-openai/commit/bf6fa8f5c72541706023cde47bb378a65e126087))
 
 ## [0.10.2](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.10.1...v0.10.2) (2024-01-23)
 
-### Bug Fixes
+### Refactor
 
 - add more granular info section selections ([ce870f0](https://github.com/FullStackWithLawrence/aws-openai/commit/ce870f0eca1f2519d1de8ee3cecdf26ce1acae1c))
 
 ## [0.10.1](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.10.0...v0.10.1) (2024-01-23)
 
-### Bug Fixes
+### Refactor
 
 - configure google maps api for use in aws lambda. ([37068ee](https://github.com/FullStackWithLawrence/aws-openai/commit/37068ee3d84293b8f4c7e2095d625b1f35937cd1))
 - graceful failure if google geolocation api key is missing. ([f601c64](https://github.com/FullStackWithLawrence/aws-openai/commit/f601c6401d61d8c81e841bc9f3ff05a398de9d96))
@@ -28,7 +38,7 @@
 
 # [0.10.0](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.9.1...v0.10.0) (2024-01-23)
 
-### Bug Fixes
+### Refactor
 
 - add handling for legacy native openai api responses ([b5de30c](https://github.com/FullStackWithLawrence/aws-openai/commit/b5de30cbbfebed2ca50189063b80f16a92b9b49e))
 
@@ -110,12 +120,6 @@
 - add unit tests for lambda_openai_v2 ([1b1a2c9](https://github.com/FullStackWithLawrence/aws-openai/commit/1b1a2c9d24d834e06d2d747845d1562b826437e5))
 - refactor for OpenAI API v1 ([7fb6809](https://github.com/FullStackWithLawrence/aws-openai/commit/7fb6809a627eb8451af0054f24bd51bf3b52e07f))
 - run Python unit tests on all pushes ([4957f63](https://github.com/FullStackWithLawrence/aws-openai/commit/4957f63028058504c11249b1c01a6ca28dd2bce1))
-
-# Change Log
-
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.7.0]
 

@@ -17,7 +17,7 @@
 
 A [React](https://react.dev/) + [AWS Serverless](https://aws.amazon.com/serverless/) full stack implementation of the [30 example applications](https://platform.openai.com/examples) found in the official OpenAI API documentation. This repository is used as an instructional tool for the YouTube channel "[Full Stack With Lawrence](https://youtube.com/@FullStackWithLawrence)" as well as for University of British Columbia course, "[Artificial Intelligence Cloud Technology Implementation](https://extendedlearning.ubc.ca/courses/artificial-intelligence-cloud-technology-implementation/mg202)" taught by Lawrence McDaniel.
 
-_New in v0.10: A new chat app named "OpenAI Function Calling". See [lambda_openai_function](https://github.com/FullStackWithLawrence/aws-openai/tree/main/api/terraform/python/openai_api/lambda_openai_function) for examples including the fully implemented "[get_current_weather()](https://platform.openai.com/docs/guides/function-calling)" from The official OpenAI API documentation, and also a fun example of how get OpenAI to not only recognize you but also say flowery nice things about you!_
+_New in v0.10: A new chat app named "OpenAI Function Calling". See [lambda_openai_function](./api/terraform/python/openai_api/lambda_openai_function/) for examples including the fully implemented "[get_current_weather()](https://platform.openai.com/docs/guides/function-calling)" from The official OpenAI API documentation, and also check out these example [custom configurations](./api/terraform/python/openai_api/lambda_openai_function/config/) that demonstrate some of the amazing things that you can quickly implement with this new feature!_
 
 ![Marv](https://cdn.lawrencemcdaniel.com/marv.gif)
 
@@ -27,20 +27,20 @@ IMPORTANT DISCLAIMERS:
 
 2. Distribution upload packages for AWS Lambda functions as well as AWS Lambda Layers are limited to 50mb (and 250mb unzipped). Often, this poses serious limitations for Layers, which are intended to store your PyPi / NPM package dependencies. Note that incidentally, these code samples are also pretty code scaffolding for alternative Docker-based deployment strategies using Elastic Container Service and/or Elastic Kubernetes Service.
 
-Code composition as of Jan-2024:
+Code composition as of Feb-2024:
 
 ```console
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
-HCL                             29            346            714           2324
-Markdown                        52            765              6           2293
-Python                          26            603            611           2244
-YAML                            20            112            109           1308
+Python                          29            732            722           2663
+HCL                             30            352            714           2353
+Markdown                        52            779              6           2344
+YAML                            23            112            149           1437
 JavaScript                      39            114            127           1088
-JSX                              6             45             47            856
+JSX                              6             45             47            858
 CSS                              5             32             14            180
-make                             1             27             30            119
+make                             1             27             30            120
 Text                             6             13              0            117
 INI                              2             15              0             70
 HTML                             2              1              0             65
@@ -49,13 +49,13 @@ Bourne Shell                     5             17             55             47
 TOML                             1              1              0             23
 Dockerfile                       1              4              4              5
 -------------------------------------------------------------------------------
-SUM:                           196          2,095          1,903         10,787
+SUM:                           203          2,244          2,054         11,418
 -------------------------------------------------------------------------------
 ```
 
 ## ReactJS chat application
 
-Complete documentation is located [here](./client/).
+Complete source code and documentation is located [here](./client/).
 
 React app that leverages [Vite.js](https://github.com/FullStackWithLawrence/aws-openai), [@chatscope/chat-ui-kit-react](https://www.npmjs.com/package/@chatscope/chat-ui-kit-react), and [react-pro-sidebar](https://www.npmjs.com/package/react-pro-sidebar).
 
@@ -74,6 +74,7 @@ React app that leverages [Vite.js](https://github.com/FullStackWithLawrence/aws-
 ## Custom OpenAI REST API Backend
 
 Complete documentation is located [here](./api/).
+Python code is located [here](./api/terraform/python/openai_api/)
 
 A REST API implementing each of the [30 example applications](https://platform.openai.com/examples) from the official [OpenAI API Documentation](https://platform.openai.com/docs/api-reference/making-requests?lang=python) using a modularized Terraform approach. Leverages OpenAI's suite of AI models, including [GPT-3.5](https://platform.openai.com/docs/models/gpt-3-5), [GPT-4](https://platform.openai.com/docs/models/gpt-4), [DALL·E](https://platform.openai.com/docs/models/dall-e), [Whisper](https://platform.openai.com/docs/models/whisper), [Embeddings](https://platform.openai.com/docs/models/embeddings), and [Moderation](https://platform.openai.com/docs/models/moderation).
 

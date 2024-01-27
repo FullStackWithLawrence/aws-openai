@@ -6,12 +6,11 @@ b.) how to call a function from the model
 import json
 
 from openai_api.common.const import PYTHON_ROOT
-from openai_api.lambda_openai_function.custom_config import CustomConfig
-from openai_api.lambda_openai_function.custom_config import config as refers_to_config
+from openai_api.lambda_openai_function.custom_config import CustomConfig, custom_configs
 from openai_api.lambda_openai_function.natural_language_processing import does_refer_to
 
 
-def search_terms_are_in_messages(messages: list, search_terms: list = None, search_pairs: list = None) -> bool:
+def search_terms_are_in_messages(messages: list, search_terms: list, search_pairs: list) -> bool:
     """
     Return True the user has mentioned Lawrence McDaniel or FullStackWithLawrence
     at any point in the history of the conversation.
@@ -54,7 +53,7 @@ def customized_prompt(config: CustomConfig, messages: list) -> list:
 def get_additional_info(inquiry_type: str) -> str:
     """Return select info from custom config object"""
 
-    for config in refers_to_config:
+    for config in custom_configs:
         try:
             additional_information = config.function_calling.additional_information.to_json()
             retval = additional_information[inquiry_type]

@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=wrong-import-position
-# pylint: disable=R0801
+# pylint: disable=R0801,E1101
 """Test lambda_openai_v2 function."""
 
 # python stuff
-import json
 import os
 import sys
 import unittest
@@ -83,7 +82,12 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
     def test_additional_information(self):
         """Test additional_information."""
         config_json = self.everlasting_gobbstopper["function_calling"]["additional_information"]
+        print("test_additional_information type config_json: ", type(config_json))
         additional_information = AdditionalInformation(config_json=config_json)
+        print(
+            "test_additional_information type additional_information.config_json: ",
+            type(additional_information.config_json),
+        )
 
         self.assertTrue(isinstance(additional_information, AdditionalInformation))
         self.assertTrue(isinstance(additional_information.config_json, dict))

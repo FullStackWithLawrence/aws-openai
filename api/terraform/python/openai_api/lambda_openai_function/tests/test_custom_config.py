@@ -45,11 +45,12 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
 
     def test_system_prompt(self):
         """Test system_prompt."""
-        system_prompt = SystemPrompt(system_prompt=self.everlasting_gobbstopper["system_prompt"])
+        prompt = self.everlasting_gobbstopper["prompting"]["system_prompt"]
+        system_prompt = SystemPrompt(system_prompt=prompt)
 
         self.assertEqual(
             system_prompt.system_prompt,
-            "You are a helpful marketing agent for the [Everlasting Gobstopper Company](https://everlasting-gobstoppers.com).\n",
+            "You are a helpful marketing agent for the [Willy Wonka Chocolate Factory](https://wwcf.com).\n",
         )
         self.assertIsInstance(system_prompt, SystemPrompt)
         self.assertIsInstance(system_prompt.system_prompt, str)
@@ -57,31 +58,32 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
     def test_system_prompt_invalid(self):
         """Test system_prompt."""
         with self.assertRaises(ValueError):
-            SystemPrompt(system_prompt=self.everlasting_gobbstopper_invalid["system_prompt_invalid"])
+            SystemPrompt(system_prompt=self.everlasting_gobbstopper_invalid["prompting"]["system_prompt_invalid"])
 
     def test_search_terms(self):
         """Test search_terms."""
-        search_terms = SearchTerms(search_terms=self.everlasting_gobbstopper["search_terms"])
+        config_json = self.everlasting_gobbstopper["prompting"]["search_terms"]
+        search_terms = SearchTerms(config_json=config_json)
 
         self.assertIsInstance(search_terms, SearchTerms)
         self.assertDictEqual(
             search_terms.to_json(),
             {
-                "strings": ["everlasting gobstopper", "everlasting gobstoppers", "everlasting gobstopper's"],
+                "strings": ["Gobstopper", "Gobstoppers", "Gobbstopper", "Gobbstoppers"],
                 "pairs": [["everlasting", "gobstopper"], ["everlasting", "gobstoppers"]],
             },
         )
 
     def test_search_terms_invalid(self):
         """Test search_terms."""
+        config_json = self.everlasting_gobbstopper_invalid["prompting"]["search_terms"]
         with self.assertRaises(ValueError):
-            SearchTerms(search_terms=self.everlasting_gobbstopper_invalid["search_terms"])
+            SearchTerms(config_json=config_json)
 
     def test_additional_information(self):
         """Test additional_information."""
-        additional_information = AdditionalInformation(
-            additional_information=self.everlasting_gobbstopper["additional_information"]
-        )
+        config_json = self.everlasting_gobbstopper["function_calling"]["additional_information"]
+        additional_information = AdditionalInformation(config_json=config_json)
 
         self.assertTrue(isinstance(additional_information, AdditionalInformation))
         self.assertTrue(isinstance(additional_information.config_json, dict))
@@ -92,32 +94,34 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
 
     def test_additional_information_invalid(self):
         """Test additional_information."""
+        config_json = self.everlasting_gobbstopper_invalid["function_calling"]["additional_information"]
         with self.assertRaises(ValueError):
-            AdditionalInformation(
-                additional_information=self.everlasting_gobbstopper_invalid["additional_information_invalid"]
-            )
+            AdditionalInformation(config_json=config_json)
 
     def test_refers_to(self):
         """Test refers_to."""
-        refers_to = CustomConfig(config_path=get_test_file_path("config/everlasting-gobbstopper.yaml"))
+        config_path = get_test_file_path("config/everlasting-gobbstopper.yaml")
+        with open(config_path, "r", encoding="utf-8") as file:
+            config_json = yaml.safe_load(file)
 
-        self.assertEqual(refers_to.name, "EverlastingGobbstopper")
-        self.assertEqual(refers_to.file_name, "everlasting-gobbstopper.yaml")
-        self.assertEqual(refers_to.parsed_filename, "EverlastingGobbstopper")
+        refers_to = CustomConfig(config_json=config_json)
+
+        self.assertEqual(refers_to.name, "EverlastingGobstopper")
         self.assertEqual(refers_to.index, 0)
+
         self.assertDictEqual(
-            refers_to.search_terms.to_json(),
+            refers_to.prompting.search_terms.to_json(),
             {
-                "strings": ["everlasting gobstopper", "everlasting gobstoppers", "everlasting gobstopper's"],
+                "strings": ["Gobstopper", "Gobstoppers", "Gobbstopper", "Gobbstoppers"],
                 "pairs": [["everlasting", "gobstopper"], ["everlasting", "gobstoppers"]],
             },
         )
         self.assertEqual(
-            refers_to.system_prompt.system_prompt,
-            "You are a helpful marketing agent for the [Everlasting Gobstopper Company](https://everlasting-gobstoppers.com).\n",
+            refers_to.prompting.system_prompt.system_prompt,
+            "You are a helpful marketing agent for the [Willy Wonka Chocolate Factory](https://wwcf.com).\n",
         )
 
-        additional_information = refers_to.additional_information
+        additional_information = refers_to.function_calling.additional_information
         self.assertTrue(isinstance(additional_information, AdditionalInformation))
         self.assertTrue(isinstance(additional_information.config_json, dict))
         self.assertTrue(isinstance(additional_information.keys, list))

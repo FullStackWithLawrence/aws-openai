@@ -38,7 +38,7 @@ from openai_api.common.validators import (  # validate_embedding_request,
     validate_completion_request,
     validate_item,
 )
-from openai_api.lambda_openai_function.custom_config import config as refers_to_config
+from openai_api.lambda_openai_function.custom_config import custom_configs
 from openai_api.lambda_openai_function.function_refers_to import (
     customized_prompt,
     get_additional_info,
@@ -77,7 +77,7 @@ def handler(event, context):
         request_meta_data = request_meta_data_factory(model, object_type, temperature, max_tokens, input_text)
 
         # does the prompt have anything to do with any of the search terms defined in a custom configuration?
-        for config in refers_to_config:
+        for config in custom_configs:
             if search_terms_are_in_messages(
                 messages=messages,
                 search_terms=config.prompting.search_terms.strings,

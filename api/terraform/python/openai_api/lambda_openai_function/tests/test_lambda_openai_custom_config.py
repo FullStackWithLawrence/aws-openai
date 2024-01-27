@@ -35,15 +35,19 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures."""
-        self.config_path = get_test_file_path("config/everlasting-gobbstopper.yaml")
-        self.config = CustomConfig(config_path=self.config_path)
+        config_path = get_test_file_path("config/everlasting-gobbstopper.yaml")
+        with open(config_path, "r", encoding="utf-8") as file:
+            config_json = yaml.safe_load(file)
+        self.config = CustomConfig(config_json=config_json)
 
     # pylint: disable=broad-exception-caught
     def test_get_additional_info(self):
         """Test default return value of get_additional_info()"""
         try:
             # pylint: disable=no-value-for-parameter
-            additional_information = get_additional_info(inquiry_type=self.config.additional_information.keys[0])
+            additional_information = get_additional_info(
+                inquiry_type=self.config.function_calling.additional_information.keys[0]
+            )
         except Exception:
             self.fail("get_additional_info() raised ExceptionType")
 

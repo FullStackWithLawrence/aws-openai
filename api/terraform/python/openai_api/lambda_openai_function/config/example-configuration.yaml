@@ -1,32 +1,40 @@
 ---
-#------------------------------------------------------------
-# search terms that will trigger the chatbot to use this customized configuration.
-#------------------------------------------------------------
-search_terms:
-  strings:
-    - example function calling configuration
-  pairs:
-    - - Example
-      - configuration
-#------------------------------------------------------------
-# if this module is able to locate any of the search terms in the user prompt
-# then this is the system prompt will be used to generate the response, and the function_description that will be provided to OpenAI API.
-#------------------------------------------------------------
-system_prompt: >
-  Your job is to provide helpful technical information about the OpenAI API Function Calling feature. You should include the following information in your response:
-  "Congratulations!!! OpenAI API Function Calling chose to call this function. Here is the additional information that you requested:"
-function_description: an example custom configuration to integrate with OpenAI API Function Calling additional information function, in this module.
-#------------------------------------------------------------
-# if a.) this module is able to locate any of the search terms in the user prompt
-#    b.) OpenAI API Function Calling opts to call this function
-# then this is the data that will be returned by function_refers_to.get_additional_info()
-#------------------------------------------------------------
-additional_information:
-  platform_provider: OpenAI
-  about: >
-    In an API call, you can describe functions and have the model intelligently choose to output a JSON object containing arguments to call one or many functions. The Chat Completions API does not call the function; instead, the model generates JSON that you can use to call the function in your code.
-    The latest models (gpt-3.5-turbo-1106 and gpt-4-1106-preview) have been trained to both detect when a function should to be called (depending on the input) and to respond with JSON that adheres to the function signature more closely than previous models. With this capability also comes potential risks. We strongly recommend building in user confirmation flows before taking actions that impact the world on behalf of users (sending an email, posting something online, making a purchase, etc).
-  links:
-    - documentation: https://platform.openai.com/docs/guides/function-calling
-    - website: https://openai.com/
-    - wikipedia: https://en.wikipedia.org/wiki/OpenAI
+meta_data:
+  config_path: aws_openai/lambda_openai_function/custom_configs/example-configuration.yaml
+  name: ExampleConfiguration
+  description: an example custom configuration to integrate with OpenAI API Function Calling additional information function, in this module.
+  version: 0.1.0
+  author: Lawrence McDaniel
+prompting:
+  #------------------------------------------------------------
+  # search terms that will trigger the chatbot to use this customized configuration.
+  #------------------------------------------------------------
+  search_terms:
+    strings:
+      - example function calling configuration
+    pairs:
+      - - Example
+        - configuration
+  system_prompt: >
+    Your job is to provide helpful technical information about the OpenAI API Function Calling feature. You should include the following information in your response:
+    "Congratulations!!! OpenAI API Function Calling chose to call this function. Here is the additional information that you requested:"
+function_calling:
+  #------------------------------------------------------------
+  # if this module is able to locate any of the search terms in the user prompt
+  # then this is the system prompt will be used to generate the response, and the function_description that will be provided to OpenAI API.
+  #------------------------------------------------------------
+  function_description: an example custom configuration to integrate with OpenAI API Function Calling additional information function, in this module.
+  #------------------------------------------------------------
+  # if a.) this module is able to locate any of the search terms in the user prompt
+  #    b.) OpenAI API Function Calling opts to call this function
+  # then this is the data that will be returned by function_refers_to.get_additional_info()
+  #------------------------------------------------------------
+  additional_information:
+    platform_provider: OpenAI
+    about: >
+      In an API call, you can describe functions and have the model intelligently choose to output a JSON object containing arguments to call one or many functions. The Chat Completions API does not call the function; instead, the model generates JSON that you can use to call the function in your code.
+      The latest models (gpt-3.5-turbo-1106 and gpt-4-1106-preview) have been trained to both detect when a function should to be called (depending on the input) and to respond with JSON that adheres to the function signature more closely than previous models. With this capability also comes potential risks. We strongly recommend building in user confirmation flows before taking actions that impact the world on behalf of users (sending an email, posting something online, making a purchase, etc).
+    links:
+      - documentation: https://platform.openai.com/docs/guides/function-calling
+      - website: https://openai.com/
+      - wikipedia: https://en.wikipedia.org/wiki/OpenAI

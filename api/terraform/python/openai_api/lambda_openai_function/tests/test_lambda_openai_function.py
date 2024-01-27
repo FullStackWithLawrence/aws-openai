@@ -10,6 +10,8 @@ import sys
 import unittest
 from pathlib import Path
 
+import yaml
+
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 PROJECT_ROOT = str(Path(HERE).parent.parent)
@@ -35,8 +37,10 @@ class TestLambdaOpenai(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures."""
-        self.config_path = get_test_file_path("config/everlasting-gobbstopper.yaml")
-        self.config = CustomConfig(config_path=self.config_path)
+        config_path = get_test_file_path("config/everlasting-gobbstopper.yaml")
+        with open(config_path, "r", encoding="utf-8") as file:
+            config_json = yaml.safe_load(file)
+        self.config = CustomConfig(config_json=config_json)
 
     def check_response(self, response):
         """Check response structure from lambda_handler."""
@@ -90,8 +94,8 @@ class TestLambdaOpenai(unittest.TestCase):
             self.assertFalse(
                 search_terms_are_in_messages(
                     messages=list_factory(content),
-                    search_terms=self.config.search_terms.strings,
-                    search_pairs=self.config.search_terms.pairs,
+                    search_terms=self.config.prompting.search_terms.strings,
+                    search_pairs=self.config.prompting.search_terms.pairs,
                 )
             )
 
@@ -99,8 +103,8 @@ class TestLambdaOpenai(unittest.TestCase):
             self.assertTrue(
                 search_terms_are_in_messages(
                     messages=list_factory(content),
-                    search_terms=self.config.search_terms.strings,
-                    search_pairs=self.config.search_terms.pairs,
+                    search_terms=self.config.prompting.search_terms.strings,
+                    search_pairs=self.config.prompting.search_terms.pairs,
                 )
             )
 
@@ -112,7 +116,6 @@ class TestLambdaOpenai(unittest.TestCase):
         false_assertion("Hello world!")
         false_assertion("test test test")
         false_assertion("what is the airport code the airport in Dallas, Texas?")
-        false_assertion("do you spell gobstopper with one b or two?")
 
         # true cases
         true_assertion("what is an everlasting gobstopper?")

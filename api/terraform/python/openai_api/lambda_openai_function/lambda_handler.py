@@ -79,13 +79,17 @@ def handler(event, context):
         # does the prompt have anything to do with any of the search terms defined in a custom configuration?
         for config in refers_to_config:
             if search_terms_are_in_messages(
-                messages=messages, search_terms=config.search_terms.strings, search_pairs=config.search_terms.pairs
+                messages=messages,
+                search_terms=config.prompting.search_terms.strings,
+                search_pairs=config.prompting.search_terms.pairs,
             ):
                 model = "gpt-3.5-turbo-1106"
                 messages = customized_prompt(config=config, messages=messages)
                 custom_tool = info_tool_factory(config=config)
                 tools.append(custom_tool)
-                print(f"Adding custom configuration: {config.name}")
+                print(
+                    f"Adding custom configuration: {config.name} {config.meta_data.version} created by {config.meta_data.author}"
+                )
 
         # https://platform.openai.com/docs/guides/gpt/chat-completions-api
         validate_item(

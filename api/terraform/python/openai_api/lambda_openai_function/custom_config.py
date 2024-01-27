@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-This module contains the CustomConfig class, which is used to parse YAML config files for
+This module contains the CustomConfig class, which is used to parse YAML config objects for
 function_refers_to.get_additional_info().
 """
 import json
 import logging
 import os
-import re
 
 import yaml
 from openai_api.common.conf import settings
@@ -31,6 +30,7 @@ class CustomConfigBase:
 
     def do_error(self, err: str) -> None:
         """Print the error message and raise a ValueError"""
+        err = f"{self.__class__.__name__} - {err}"
         print(err)
         log.error(err)
         raise ValueError(err)
@@ -49,7 +49,7 @@ class SystemPrompt(CustomConfigBase):
 
     @property
     def is_valid(self) -> bool:
-        """Return True if the config file is valid"""
+        """Return True if the config object is valid"""
         try:
             self.validate()
             return True
@@ -57,7 +57,7 @@ class SystemPrompt(CustomConfigBase):
             return False
 
     def validate(self) -> None:
-        """Validate the config file"""
+        """Validate the config object"""
         if not isinstance(self.system_prompt, str):
             self.do_error(f"Expected a string but received {type(self.system_prompt)}")
 
@@ -73,9 +73,9 @@ class SystemPrompt(CustomConfigBase):
 class SearchTerms(CustomConfigBase):
     """Search terms of a CustomConfig object"""
 
-    def __init__(self, search_terms: dict = None):
+    def __init__(self, config_json: dict = None):
         super().__init__()
-        self.config_json = search_terms
+        self.config_json = config_json
         self.validate()
 
     @property
@@ -90,7 +90,7 @@ class SearchTerms(CustomConfigBase):
 
     @property
     def is_valid(self) -> bool:
-        """Return True if the config file is valid"""
+        """Return True if the config object is valid"""
         try:
             self.validate()
             return True
@@ -98,30 +98,30 @@ class SearchTerms(CustomConfigBase):
             return False
 
     def validate(self) -> None:
-        """Validate the config file"""
-        required_keys = ["strings", "pairs"]
-        if not self.config_json:
-            self.do_error("search_terms is empty")
+        """Validate the config object"""
+        if not isinstance(self.config_json, dict):
+            self.do_error(f"Expected a dict but received {type(self.config_json)}")
 
+        required_keys = ["strings", "pairs"]
         for key in required_keys:
             if key not in self.config_json:
                 self.do_error(f"Invalid search_terms: {self.config_json}. Missing key: {key}.")
 
         if not all(isinstance(item, str) for item in self.strings):
-            self.do_error(f"Invalid config file: {self.config_json}. 'strings' should be a list of strings.")
+            self.do_error(f"Invalid config object: {self.config_json}. 'strings' should be a list of strings.")
 
         if not all(
             isinstance(pair, list) and len(pair) == 2 and all(isinstance(item, str) for item in pair)
             for pair in self.pairs
         ):
-            self.do_error(f"Invalid config file: {self.config_json}. 'pairs' should be a list of pairs of strings.")
+            self.do_error(f"Invalid config object: {self.config_json}. 'pairs' should be a list of pairs of strings.")
 
     def to_json(self) -> json:
-        """Return the config file as a JSON object"""
+        """Return the config as a JSON object"""
         return self.config_json
 
     def __str__(self):
-        """Return the config file as a string"""
+        """Return the config object as a string"""
         return f"{self.to_json()}"
 
 
@@ -130,9 +130,9 @@ class AdditionalInformation(CustomConfigBase):
 
     config_json: dict = None
 
-    def __init__(self, additional_information: dict = None):
+    def __init__(self, config_json: dict = None):
         super().__init__()
-        self.config_json = additional_information
+        self.config_json = config_json
         self.validate()
 
     @property
@@ -142,7 +142,7 @@ class AdditionalInformation(CustomConfigBase):
 
     @property
     def is_valid(self) -> bool:
-        """Return True if the config file is valid"""
+        """Return True if the config object is valid"""
         try:
             self.validate()
             return True
@@ -150,112 +150,221 @@ class AdditionalInformation(CustomConfigBase):
             return False
 
     def validate(self) -> None:
-        """Validate the config file"""
+        """Validate the config object"""
         if not isinstance(self.config_json, dict):
             self.do_error(f"Expected a dict but received {type(self.config_json)}")
 
     def to_json(self) -> json:
-        """Return the config file as a JSON object"""
+        """Return the config as a JSON object"""
         return self.config_json
 
     def __str__(self):
-        """Return the config file as a string"""
+        """Return the config object as a string"""
         return f"{self.to_json()}"
 
 
-class CustomConfig(CustomConfigBase):
-    """Parse the YAML config file for a given Lambda function"""
+class Prompting(CustomConfigBase):
+    """Prompting child class of a CustomConfig object"""
 
-    additional_information: str = None
-    function_description: str = None
+    config_json: dict = None
     search_terms: SearchTerms = None
-    additional_information: AdditionalInformation = None
     system_prompt: SystemPrompt = None
 
-    def __init__(self, config_path: str = None, config_json: dict = None, index: int = 0):
+    def __init__(self, config_json: dict = None):
         super().__init__()
-        self.config_path = config_path
-        self.index = index
-        if not config_path and not config_json:
-            raise ValueError("Expected a config_path or config_json")
-        if config_path and config_json:
-            raise ValueError("Expected a config_path or config_json, not both")
-
-        if config_path:
-            if not self.file_name.endswith((".yaml", ".yml")):
-                raise ValueError(f"Invalid file type: {self.file_name}. Expected a YAML file.")
-
-            with open(self.config_path, "r", encoding="utf-8") as file:
-                self.config_json = yaml.safe_load(file)
-
-        if config_json:
-            self.config_json = config_json
-            meta_data = self.config_json.get("meta_data", {})
-            config_path = next((item for item in meta_data if "config_path" in item))
-            config_path = config_path["config_path"] if config_path else None
-            self.config_path = config_path
-
+        self.config_json = config_json
         self.validate()
-        self.search_terms = SearchTerms(search_terms=self.config_json["search_terms"])
+        self.search_terms = SearchTerms(config_json=self.config_json["search_terms"])
         self.system_prompt = SystemPrompt(system_prompt=self.config_json["system_prompt"])
-        self.function_description = self.config_json["function_description"]
-        self.additional_information = AdditionalInformation(
-            additional_information=self.config_json["additional_information"]
-        )
-
-    @property
-    def name(self) -> str:
-        """Return a name in the format: "WillyWonka"""
-        if self.parsed_filename:
-            return self.parsed_filename.replace(" ", "")
-        return None
-
-    @property
-    def file_name(self) -> str:
-        """Return the name of the config file"""
-        if self.config_path:
-            return os.path.basename(self.config_path)
-        return None
-
-    @property
-    def parsed_filename(self) -> str:
-        """Return a name in the format: "Willy Wonka" """
-        if self.file_name:
-            name = os.path.splitext(self.file_name)[0]
-            name = re.sub("-", " ", name)
-            name = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", name)
-            name = name.title()
-            name = "".join(name.split())
-            return name
-        return None
 
     @property
     def is_valid(self) -> bool:
-        """Return True if the config file is valid"""
+        """Return True if the config object is valid"""
         try:
             self.validate()
         except ValueError:
             return False
-        return self.additional_information.is_valid and self.search_terms.is_valid and self.system_prompt.is_valid
+        return True
 
-    def validate(self) -> None:
-        """Validate the config file"""
-        required_keys = ["search_terms", "system_prompt", "function_description", "additional_information"]
-        if not self.config_json:
-            self.do_error(f"Invalid config file: {self.config_path}")
-
+    def validate(self):
+        """Validate the config object"""
+        if not isinstance(self.config_json, dict):
+            self.do_error(f"Expected a dict but received {type(self.config_json)}")
+        required_keys = ["search_terms", "system_prompt"]
         for key in required_keys:
             if key not in self.config_json:
-                self.do_error(f"Invalid config file: {self.config_path}. Missing key: {key}.")
+                self.do_error(f"Invalid config object: {self.config_json}. Missing key: {key}.")
 
     def to_json(self) -> json:
-        """Return the config file as a JSON object"""
+        """Return the config as a JSON object"""
         return {
-            "name": self.name,
             "search_terms": self.search_terms.to_json(),
             "system_prompt": self.system_prompt.system_prompt,
+        }
+
+
+class FunctionCalling(CustomConfigBase):
+    """FunctionCalling child class of a CustomConfig"""
+
+    config_json: dict = None
+    function_description: str = None
+    additional_information: AdditionalInformation = None
+
+    def __init__(self, config_json: dict = None):
+        super().__init__()
+
+        self.config_json = config_json
+        self.validate()
+        self.function_description = self.config_json["function_description"]
+        self.additional_information = AdditionalInformation(config_json=self.config_json["additional_information"])
+
+    @property
+    def is_valid(self) -> bool:
+        """Return True if the config object is valid"""
+        try:
+            self.validate()
+        except ValueError:
+            return False
+        return True
+
+    def validate(self):
+        """Validate the config object"""
+        if not isinstance(self.config_json, dict):
+            self.do_error(f"Expected a dict but received {type(self.config_json)}")
+        required_keys = ["function_description", "additional_information"]
+        for key in required_keys:
+            if key not in self.config_json:
+                self.do_error(f"Invalid config object: {self.config_json}. Missing key: {key}.")
+        if not isinstance(self.config_json["function_description"], str):
+            self.do_error(f"Invalid config object: {self.config_json}. 'function_description' should be a string.")
+        if not isinstance(self.config_json["additional_information"], dict):
+            self.do_error(f"Invalid config object: {self.config_json}. 'additional_information' should be a dict.")
+
+    def to_json(self) -> json:
+        """Return the config as a JSON object"""
+        return {
             "function_description": self.function_description,
             "additional_information": self.additional_information.to_json(),
+        }
+
+
+class MetaData(CustomConfigBase):
+    """Metadata of a CustomConfig object"""
+
+    config_json: dict = None
+
+    def __init__(self, config_json: dict = None):
+        super().__init__()
+        self.config_json = config_json
+        self.validate()
+
+    @property
+    def is_valid(self) -> bool:
+        """Return True if the config object is valid"""
+        try:
+            self.validate()
+            return True
+        except ValueError:
+            return False
+
+    @property
+    def name(self) -> str:
+        """Return the name of the config object"""
+        return self.config_json["name"]
+
+    @property
+    def config_path(self) -> str:
+        """Return the path of the config object"""
+        return self.config_json["config_path"]
+
+    @property
+    def description(self) -> str:
+        """Return the description of the config object"""
+        return self.config_json["description"]
+
+    @property
+    def version(self) -> str:
+        """Return the version of the config object"""
+        return self.config_json["version"]
+
+    @property
+    def author(self) -> str:
+        """Return the author of the config object"""
+        return self.config_json["author"]
+
+    def validate(self) -> None:
+        """Validate the config object"""
+        if not isinstance(self.config_json, dict):
+            self.do_error(f"Expected a dict but received {type(self.config_json)}")
+
+        required_keys = ["config_path", "name", "description", "version", "author"]
+        for key in required_keys:
+            if key not in self.config_json:
+                self.do_error(f"Invalid config object: {self.config_path}. Missing key: {key}.")
+
+    def to_json(self) -> json:
+        """Return the config as a JSON object"""
+        return self.config_json
+
+    def __str__(self):
+        """Return the config object as a string"""
+        return f"{self.to_json()}"
+
+
+class CustomConfig(CustomConfigBase):
+    """Parse the YAML config object for a given Lambda function"""
+
+    config_json: dict = None
+    meta_data: MetaData = None
+    prompting: Prompting = None
+    function_calling: FunctionCalling = None
+
+    def __init__(self, config_json: dict = None, index: int = 0):
+        super().__init__()
+        self.index = index
+        self.config_json = config_json
+        self.validate()
+        self.meta_data = MetaData(config_json=self.config_json["meta_data"])
+        self.prompting = Prompting(config_json=self.config_json["prompting"])
+        self.function_calling = FunctionCalling(config_json=self.config_json["function_calling"])
+
+    @property
+    def name(self) -> str:
+        """Return a name in the format: "WillyWonka"""
+        return self.meta_data.name
+
+    @property
+    def is_valid(self) -> bool:
+        """Return True if the config object is valid"""
+        try:
+            self.validate()
+            return True
+        except ValueError:
+            pass
+        return False
+
+    def validate(self) -> None:
+        """Validate the config object"""
+
+        if not isinstance(self.config_json, dict):
+            self.do_error(f"Expected a dict but received {type(self.config_json)}")
+
+        required_keys = ["meta_data", "prompting", "function_calling"]
+        for key in required_keys:
+            if key not in self.config_json:
+                self.do_error(f"Invalid config object: {self.config_json}. Missing key: {key}.")
+            if not isinstance(self.config_json[key], dict):
+                self.do_error(
+                    f"Expected a dict for {key} but received {type(self.config_json[key])}: {self.config_json[key]}"
+                )
+
+    def to_json(self) -> json:
+        """Return the config as a JSON object"""
+        return {
+            "name": self.name,
+            "meta_data": self.meta_data.to_json(),
+            "prompting": self.prompting.to_json(),
+            "function_calling": self.function_calling.to_json(),
         }
 
     def __str__(self):
@@ -276,15 +385,18 @@ class CustomConfigs:
         self._aws_bucket_name = aws_s3_bucket_name
         self.verify_bucket(bucket_name=aws_s3_bucket_name)
 
-        # Load all the config files in this repo
+        # Load all the config objects in this repo
         for filename in os.listdir(config_path):
             if filename.endswith((".yaml", ".yml")):
                 i += 1
                 full_config_path = os.path.join(config_path, filename)
-                custom_config = CustomConfig(config_path=full_config_path, index=i)
+                with open(full_config_path, "r", encoding="utf-8") as file:
+                    config_json = yaml.safe_load(file)
+
+                custom_config = CustomConfig(config_json=config_json, index=i)
                 self._custom_configs.append(custom_config)
 
-        # Load config files from the AWS S3 bucket
+        # Load config objects from the AWS S3 bucket
         if self.aws_bucket_path_validated:
             s3 = settings.aws_session.resource("s3")
             bucket = s3.Bucket(self._aws_bucket_name)
@@ -297,7 +409,9 @@ class CustomConfigs:
                     if config_json:
                         custom_config = CustomConfig(config_json=config_json, index=i)
                         self._custom_configs.append(custom_config)
-                        print("Loaded custom config from AWS S3 bucket: ", custom_config.name, obj.key)
+                        print(
+                            f"Loaded custom configuration from AWS S3 bucket: {custom_config.name} {custom_config.meta_data.version} created by {custom_config.meta_data.author}"
+                        )
 
     @property
     def valid_configs(self) -> list[CustomConfig]:
@@ -369,6 +483,5 @@ class SingletonCustomConfigs:
 _custom_configs = SingletonCustomConfigs().custom_configs
 config = _custom_configs.valid_configs
 if len(_custom_configs.invalid_configs) > 0:
-    invalid_configurations = list(_custom_configs.invalid_configs.file_name)
-    invalid_configurations = ", ".join(invalid_configurations)
-    log.error("Invalid custom config files: %s", invalid_configurations)
+    invalid_configurations = [config.name for config in _custom_configs.invalid_configs]
+    log.error("Invalid custom config objects: %s", invalid_configurations)

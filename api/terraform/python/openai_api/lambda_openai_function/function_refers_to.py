@@ -42,7 +42,7 @@ def customized_prompt(config: CustomConfig, messages: list) -> list:
             system_prompt = message.get("content")
             custom_prompt = {
                 "role": "system",
-                "content": system_prompt + "\n\n and also " + config.system_prompt.system_prompt,
+                "content": system_prompt + "\n\n and also " + config.prompting.system_prompt.system_prompt,
             }
             messages[i] = custom_prompt
             break
@@ -56,7 +56,7 @@ def get_additional_info(inquiry_type: str) -> str:
 
     for config in refers_to_config:
         try:
-            additional_information = config.additional_information.to_json()
+            additional_information = config.function_calling.additional_information.to_json()
             retval = additional_information[inquiry_type]
             return json.dumps(retval)
         except KeyError:
@@ -73,13 +73,13 @@ def info_tool_factory(config: CustomConfig):
         "type": "function",
         "function": {
             "name": "get_additional_info",
-            "description": config.function_description,
+            "description": config.function_calling.function_description,
             "parameters": {
                 "type": "object",
                 "properties": {
                     "inquiry_type": {
                         "type": "string",
-                        "enum": config.additional_information.keys,
+                        "enum": config.function_calling.additional_information.keys,
                     },
                 },
                 "required": ["inquiry_type"],

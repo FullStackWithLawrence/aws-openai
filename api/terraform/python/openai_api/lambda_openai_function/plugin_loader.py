@@ -363,7 +363,7 @@ class Plugins:
                         plugin = Plugin(config_json=config_json, index=i)
                         self._custom_configs.append(plugin)
                         # print(
-                        #     f"Loaded custom configuration from AWS S3 bucket: {plugin.name} {plugin.meta_data.version} created by {plugin.meta_data.author}"
+                        #     f"Loaded plugin from AWS S3 bucket: {plugin.name} {plugin.meta_data.version} created by {plugin.meta_data.author}"
                         # )
 
     @property

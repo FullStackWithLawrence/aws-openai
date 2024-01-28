@@ -76,7 +76,7 @@ def handler(event, context):
         object_type, model, messages, input_text, temperature, max_tokens = parse_request(request_body)
         request_meta_data = request_meta_data_factory(model, object_type, temperature, max_tokens, input_text)
 
-        # does the prompt have anything to do with any of the search terms defined in a custom configuration?
+        # does the prompt have anything to do with any of the search terms defined in a plugin?
         for config in plugins:
             if search_terms_are_in_messages(
                 messages=messages,
@@ -87,9 +87,7 @@ def handler(event, context):
                 messages = customized_prompt(config=config, messages=messages)
                 custom_tool = plugin_tool_factory(config=config)
                 tools.append(custom_tool)
-                print(
-                    f"Adding custom configuration: {config.name} {config.meta_data.version} created by {config.meta_data.author}"
-                )
+                print(f"Adding plugin: {config.name} {config.meta_data.version} created by {config.meta_data.author}")
 
         # https://platform.openai.com/docs/guides/gpt/chat-completions-api
         validate_item(

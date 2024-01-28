@@ -14,7 +14,7 @@ PIP := $(PYTHON) -m pip
 ifneq ("$(wildcard .env)","")
     include .env
 else
-    $(shell echo -e "OPENAI_API_ORGANIZATION=PLEASE-ADD-ME\nOPENAI_API_KEY=PLEASE-ADD-ME\nPINECONE_API_KEY=PLEASE-ADD-ME\nPINECONE_ENVIRONMENT=gcp-starter\nGOOGLE_MAPS_API_KEY=PLEASE-ADD-ME\nDEBUG_MODE=True\n" >> .env)
+    $(shell cp ./doc/example-dot-env .env)
 endif
 
 .PHONY: analyze pre-commit api-init api-activate api-lint api-clean api-test client-init client-lint client-update client-run client-build client-release

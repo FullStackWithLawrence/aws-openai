@@ -34,6 +34,10 @@ init:
 	make api-init
 	make client-init
 
+build:
+	make api-build
+	make client-build
+
 analyze:
 	cloc . --exclude-ext=svg,json,zip --vcs=git
 
@@ -74,6 +78,11 @@ api-init:
 	$(PYTHON) -m spacy download en_core_web_sm
 	deactivate && \
 	pre-commit install
+
+api-build:
+	cd ./api/terraform
+	terraform init
+	terraform apply
 
 api-test:
 	python -m unittest discover -s api/terraform/python/openai_api/
@@ -159,6 +168,7 @@ help:
 	@echo 'clean               - remove all build, test, coverage and Python artifacts'
 	@echo 'lint                - run all code linters and formatters'
 	@echo 'init                - create environments for Python, NPM and pre-commit and install dependencies'
+	@echo 'build               - create and configure AWS infrastructure resources and build the React app'
 	@echo 'analyze             - generate code analysis report'
 	@echo 'coverage            - generate code coverage analysis report'
 	@echo 'release             - force a new release'

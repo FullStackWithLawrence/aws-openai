@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=E1101
 """
-This module contains the CustomConfig class, which is used to parse YAML config objects for
+This module contains the Plugin class, which is used to parse YAML config objects for
 plugin.function_calling_plugin().
 """
 import json
@@ -34,8 +34,8 @@ def validate_required_keys(class_name: str, required_keys: list, config_json: di
             do_error(class_name, err=f"Invalid search_terms: {config_json}. Missing key: {key}.")
 
 
-class CustomConfigBase(BaseModel):
-    """Base class for CustomConfig and CustomConfigs"""
+class PluginBase(BaseModel):
+    """Base class for Plugin and Plugins"""
 
     class Config:
         """Pydantic config"""
@@ -53,8 +53,8 @@ class CustomConfigBase(BaseModel):
         raise NotImplementedError
 
 
-class SystemPrompt(CustomConfigBase):
-    """System prompt of a CustomConfig object"""
+class SystemPrompt(PluginBase):
+    """System prompt of a Plugin object"""
 
     system_prompt: str = Field(..., description="System prompt")
 
@@ -71,8 +71,8 @@ class SystemPrompt(CustomConfigBase):
         return self.system_prompt
 
 
-class SearchTerms(CustomConfigBase):
-    """Search terms of a CustomConfig object"""
+class SearchTerms(PluginBase):
+    """Search terms of a Plugin object"""
 
     config_json: dict = Field(..., description="Config object")
 
@@ -117,8 +117,8 @@ class SearchTerms(CustomConfigBase):
         return self.config_json
 
 
-class AdditionalInformation(CustomConfigBase):
-    """Additional information of a CustomConfig object"""
+class AdditionalInformation(PluginBase):
+    """Additional information of a Plugin object"""
 
     config_json: dict = Field(..., description="Config object")
 
@@ -140,8 +140,8 @@ class AdditionalInformation(CustomConfigBase):
         return self.config_json
 
 
-class Prompting(CustomConfigBase):
-    """Prompting child class of a CustomConfig object"""
+class Prompting(PluginBase):
+    """Prompting child class of a Plugin object"""
 
     config_json: dict = Field(..., description="Config object")
     search_terms: SearchTerms = Field(None, description="Search terms of the config object")
@@ -173,8 +173,8 @@ class Prompting(CustomConfigBase):
         }
 
 
-class FunctionCalling(CustomConfigBase):
-    """FunctionCalling child class of a CustomConfig"""
+class FunctionCalling(PluginBase):
+    """FunctionCalling child class of a Plugin"""
 
     config_json: dict = Field(..., description="Config object")
     function_description: str = Field(None, description="Description of the function")
@@ -219,8 +219,8 @@ class FunctionCalling(CustomConfigBase):
         }
 
 
-class MetaData(CustomConfigBase):
-    """Metadata of a CustomConfig object"""
+class MetaData(PluginBase):
+    """Metadata of a Plugin object"""
 
     config_json: dict = Field(..., description="Config object")
 
@@ -273,7 +273,7 @@ class MetaData(CustomConfigBase):
         return self.config_json
 
 
-class CustomConfig(CustomConfigBase):
+class Plugin(PluginBase):
     """A json object that contains the config for a plugin.function_calling_plugin() function"""
 
     index: int = Field(0, description="Index of the config object")
@@ -324,12 +324,12 @@ class CustomConfig(CustomConfigBase):
         }
 
 
-class CustomConfigs:
-    """List of CustomConfig objects"""
+class Plugins:
+    """List of Plugin objects"""
 
-    _custom_configs: list[CustomConfig] = None
+    _custom_configs: list[Plugin] = None
     _aws_bucket_name: str = None
-    _aws_bucket_path: str = "aws_openai/lambda_openai_function/custom_configs/"
+    _aws_bucket_path: str = "aws_openai/lambda_openai_function/plugins/"
     _aws_bucket_path_validated: bool = False
 
     def __init__(self, config_path: str = None, aws_s3_bucket_name: str = None):
@@ -346,8 +346,8 @@ class CustomConfigs:
                 with open(full_config_path, "r", encoding="utf-8") as file:
                     config_json = yaml.safe_load(file)
 
-                custom_config = CustomConfig(config_json=config_json, index=i)
-                self._custom_configs.append(custom_config)
+                plugin = Plugin(config_json=config_json, index=i)
+                self._custom_configs.append(plugin)
 
         # Load config objects from the AWS S3 bucket
         if self.aws_bucket_path_validated:
@@ -360,19 +360,19 @@ class CustomConfigs:
                     file_content = obj.get()["Body"].read().decode("utf-8")
                     config_json = yaml.safe_load(file_content)
                     if config_json:
-                        custom_config = CustomConfig(config_json=config_json, index=i)
-                        self._custom_configs.append(custom_config)
+                        plugin = Plugin(config_json=config_json, index=i)
+                        self._custom_configs.append(plugin)
                         # print(
-                        #     f"Loaded custom configuration from AWS S3 bucket: {custom_config.name} {custom_config.meta_data.version} created by {custom_config.meta_data.author}"
+                        #     f"Loaded custom configuration from AWS S3 bucket: {plugin.name} {plugin.meta_data.version} created by {plugin.meta_data.author}"
                         # )
 
     @property
-    def valid_configs(self) -> list[CustomConfig]:
+    def valid_configs(self) -> list[Plugin]:
         """Return a list of valid configs"""
         return self._custom_configs
 
     @property
-    def invalid_configs(self) -> list[CustomConfig]:
+    def invalid_configs(self) -> list[Plugin]:
         """Return a list of invalid configs"""
         return []
 
@@ -412,7 +412,7 @@ class CustomConfigs:
         return self.valid_configs
 
 
-class SingletonCustomConfigs:
+class SingletonPlugins:
     """Singleton for Settings"""
 
     _instance = None
@@ -421,16 +421,16 @@ class SingletonCustomConfigs:
     def __new__(cls):
         """Create a new instance of Settings"""
         if cls._instance is None:
-            cls._instance = super(SingletonCustomConfigs, cls).__new__(cls)
-            cls._instance._custom_configs = CustomConfigs(
+            cls._instance = super(SingletonPlugins, cls).__new__(cls)
+            cls._instance._custom_configs = Plugins(
                 config_path=CONFIG_PATH, aws_s3_bucket_name=settings.aws_s3_bucket_name
             )
         return cls._instance
 
     @property
-    def custom_configs(self) -> CustomConfigs:
+    def plugins(self) -> Plugins:
         """Return the settings"""
         return self._custom_configs
 
 
-custom_configs = SingletonCustomConfigs().custom_configs.valid_configs
+plugins = SingletonPlugins().plugins.valid_configs

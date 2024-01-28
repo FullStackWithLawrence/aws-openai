@@ -6,8 +6,8 @@ b.) how to call a function from the model
 import json
 
 from openai_api.common.const import PYTHON_ROOT
-from openai_api.lambda_openai_function.custom_config import CustomConfig, custom_configs
 from openai_api.lambda_openai_function.natural_language_processing import does_refer_to
+from openai_api.lambda_openai_function.plugin_loader import Plugin, plugins
 
 
 def search_terms_are_in_messages(messages: list, search_terms: list, search_pairs: list) -> bool:
@@ -33,7 +33,7 @@ def search_terms_are_in_messages(messages: list, search_terms: list, search_pair
     return False
 
 
-def customized_prompt(config: CustomConfig, messages: list) -> list:
+def customized_prompt(config: Plugin, messages: list) -> list:
     """Modify the system prompt based on the custom configuration object"""
 
     for i, message in enumerate(messages):
@@ -53,7 +53,7 @@ def customized_prompt(config: CustomConfig, messages: list) -> list:
 def function_calling_plugin(inquiry_type: str) -> str:
     """Return select info from custom config object"""
 
-    for config in custom_configs:
+    for config in plugins:
         try:
             additional_information = config.function_calling.additional_information.to_json()
             retval = additional_information[inquiry_type]
@@ -64,7 +64,7 @@ def function_calling_plugin(inquiry_type: str) -> str:
     raise KeyError(f"Invalid inquiry_type: {inquiry_type}")
 
 
-def plugin_tool_factory(config: CustomConfig):
+def plugin_tool_factory(config: Plugin):
     """
     Return a dictionary of chat completion tools.
     """

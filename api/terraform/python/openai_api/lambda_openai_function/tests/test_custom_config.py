@@ -23,10 +23,10 @@ if PYTHON_ROOT not in sys.path:
 from openai_api.common.conf import settings
 
 # pylint: disable=no-name-in-module
-from openai_api.lambda_openai_function.custom_config import (
+from openai_api.lambda_openai_function.plugin_loader import (
     AdditionalInformation,
-    CustomConfig,
     FunctionCalling,
+    Plugin,
     Prompting,
     SearchTerms,
     SystemPrompt,
@@ -50,13 +50,13 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
         """Test validate_required_keys."""
         required_keys = ["meta_data", "prompting", "function_calling"]
         validate_required_keys(
-            class_name="CustomConfig", config_json=self.everlasting_gobbstopper, required_keys=required_keys
+            class_name="Plugin", config_json=self.everlasting_gobbstopper, required_keys=required_keys
         )
 
         with self.assertRaises(ValueError):
             required_keys = ["meta_data", "prompting", "some_other_key"]
             validate_required_keys(
-                class_name="CustomConfig", config_json=self.everlasting_gobbstopper_invalid, required_keys=required_keys
+                class_name="Plugin", config_json=self.everlasting_gobbstopper_invalid, required_keys=required_keys
             )
 
     def test_system_prompt(self):
@@ -126,7 +126,7 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
         with open(config_path, "r", encoding="utf-8") as file:
             config_json = yaml.safe_load(file)
 
-        refers_to = CustomConfig(config_json=config_json)
+        refers_to = Plugin(config_json=config_json)
 
         self.assertEqual(refers_to.name, "EverlastingGobstopper")
         self.assertEqual(refers_to.index, 0)
@@ -153,8 +153,8 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
 
     def test_prompting(self):
         """Test prompting."""
-        custom_config = CustomConfig(config_json=self.everlasting_gobbstopper)
-        prompting_config_json = custom_config.prompting.to_json()
+        plugin = Plugin(config_json=self.everlasting_gobbstopper)
+        prompting_config_json = plugin.prompting.to_json()
         Prompting(config_json=prompting_config_json)
 
         with self.assertRaises(ValueError):
@@ -162,8 +162,8 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
 
     def test_function_calling(self):
         """Test function_calling."""
-        custom_config = CustomConfig(config_json=self.everlasting_gobbstopper)
-        function_calling_config_json = custom_config.function_calling.to_json()
+        plugin = Plugin(config_json=self.everlasting_gobbstopper)
+        function_calling_config_json = plugin.function_calling.to_json()
         FunctionCalling(config_json=function_calling_config_json)
 
         with self.assertRaises(ValueError):

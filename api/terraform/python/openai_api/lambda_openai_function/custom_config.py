@@ -2,7 +2,7 @@
 # pylint: disable=E1101
 """
 This module contains the CustomConfig class, which is used to parse YAML config objects for
-function_refers_to.get_additional_info().
+plugin.function_calling_plugin().
 """
 import json
 import logging
@@ -274,7 +274,7 @@ class MetaData(CustomConfigBase):
 
 
 class CustomConfig(CustomConfigBase):
-    """A json object that contains the config for a function_refers_to.get_additional_info() function"""
+    """A json object that contains the config for a plugin.function_calling_plugin() function"""
 
     index: int = Field(0, description="Index of the config object")
     config_json: dict = Field(..., description="Config object")

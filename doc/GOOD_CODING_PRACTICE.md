@@ -8,7 +8,7 @@ This project includes an extensive collection of Python unit tests for verifying
 
 ## Pydantic
 
-Originally created in 2017, [Pydantic] has become the most widely used data validation library for Python. It is especially useful for data driven applications like this one, involving frequent integrations with a variety of cloud infrastructure services in a variety of environments, configured by a variety of different possible sources of data including environment variables, .env file, terraform.tfvars and system constants. Pydantic is especially useful for working with complex yaml and JSON objects, as we do in this project for the OpenAI Function Calling custom configurations.
+Originally created in 2017, [Pydantic](https://docs.pydantic.dev/latest/) has become the most widely used data validation library for Python. It is especially useful for data driven applications like this one, involving frequent integrations with a variety of cloud infrastructure services in a variety of environments, configured by a variety of different possible sources of data including environment variables, .env file, terraform.tfvars and system constants. We use it for the [Settings](../api/terraform/python/openai_api/common/conf.py) class in this project, and also for validating yaml [custom configurations](.api/terraform/python/openai_api/lambda_openai_function/custom_config.py) for the OpenAI Function Calling feature. It's an important addition because it enforces strong type and business rule validation checking of all of the configuration parameters for the AWS Lambdas, and it ensures that nothing ever changes these values at run-time once they've been set. And this in turn is important because erroneous automation code could otherwise lead to some wildly disastrous results. 😳
 
 ## Automations
 
@@ -18,7 +18,6 @@ Of note:
 
 - [Automated Pull Requests](https://github.com/FullStackWithLawrence/aws-openai/pulls?q=is%3Apr+is%3Aclosed): Github Actions are triggered on pull requests to run any of several different kinds of technology-specific unit tests depending on the contents of the commits included in the PR.
 - [python-dotenv](https://pypi.org/project/python-dotenv/) for storing sensitive data for local development
-- [Pydantic](https://docs.pydantic.dev/latest/) is the most widely used data validation library for Python. We use it for the [Settings](../api/terraform/python/openai_api/common/conf.py) class in this project. It's an important addition because it enforces strong type and business rule validation checking of all of the configuration parameters for the AWS Lambdas, and it ensures that nothing ever changes these values at run-time once they've been set. And this in turn is important because erroneous automation code could otherwise lead to some wildly disastrous results. 😳
 - [.gitignore](./.gitignore) ensures that no sensitive nor useless data accidentally gets pushed to GitHub.
 - [tox.ini](./tox.ini) file for configuring behaviors of Python testing tools
 - [GitHub Actions](https://github.com/features/actions) automates unit testing, semantic release rule checking, and dependabot actions.

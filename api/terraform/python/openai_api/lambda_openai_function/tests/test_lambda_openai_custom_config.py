@@ -23,9 +23,9 @@ if PYTHON_ROOT not in sys.path:
 from openai_api.lambda_openai_function.custom_config import CustomConfig
 
 # pylint: disable=no-name-in-module
-from openai_api.lambda_openai_function.function_refers_to import (
-    get_additional_info,
-    info_tool_factory,
+from openai_api.lambda_openai_function.plugin import (
+    function_calling_plugin,
+    plugin_tool_factory,
 )
 from openai_api.lambda_openai_function.tests.test_setup import get_test_file_path
 
@@ -42,20 +42,20 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
 
     # pylint: disable=broad-exception-caught
     def test_get_additional_info(self):
-        """Test default return value of get_additional_info()"""
+        """Test default return value of function_calling_plugin()"""
         try:
             # pylint: disable=no-value-for-parameter
-            additional_information = get_additional_info(
+            additional_information = function_calling_plugin(
                 inquiry_type=self.config.function_calling.additional_information.keys[0]
             )
         except Exception:
-            self.fail("get_additional_info() raised ExceptionType")
+            self.fail("function_calling_plugin() raised ExceptionType")
 
         self.assertTrue(additional_information is not None)
 
     def test_info_tool_factory(self):
-        """Test integrity info_tool_factory()"""
-        itf = info_tool_factory(config=self.config)
+        """Test integrity plugin_tool_factory()"""
+        itf = plugin_tool_factory(config=self.config)
         self.assertIsInstance(itf, dict)
 
         self.assertIsInstance(itf, dict)

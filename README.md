@@ -17,7 +17,11 @@
 
 A [React](https://react.dev/) + [AWS Serverless](https://aws.amazon.com/serverless/) full stack implementation of the [30 example applications](https://platform.openai.com/examples) found in the official OpenAI API documentation. This repository is used as an instructional tool for the YouTube channel "[Full Stack With Lawrence](https://youtube.com/@FullStackWithLawrence)" as well as for University of British Columbia course, "[Artificial Intelligence Cloud Technology Implementation](https://extendedlearning.ubc.ca/courses/artificial-intelligence-cloud-technology-implementation/mg202)" taught by Lawrence McDaniel.
 
-_New in v0.10: A new chat app named "OpenAI Function Calling". See [lambda_openai_function](./api/terraform/python/openai_api/lambda_openai_function/) for examples including the fully implemented "[get_current_weather()](https://platform.openai.com/docs/guides/function-calling)" from The official OpenAI API documentation, and also check out these example [custom configurations](./api/terraform/python/openai_api/lambda_openai_function/config/) that demonstrate some of the amazing things that you can quickly implement with this new feature!_
+Features:
+
+- **Prompting**: Uses [Terraform templates](./api/terraform/apigateway_endpoints.tf) to create 30 different ChatBots, each with its own customized UX and api endpoint.
+
+- **Function Calling**: Uses [Yaml template](./api/terraform/python/openai_api/lambda_openai_function/config/) to easily configure highly customized ChatGPT prompting behavior that uses both dynamic prompting as well as [OpenAI Python Function Calling](https://platform.openai.com/docs/guides/function-calling) to integrate your own custom Python functions into chat response processing. Refer to the [Python source code](./api/terraform/python/openai_api/lambda_openai_function/) for examples including the fully implemented "[get_current_weather()](https://platform.openai.com/docs/guides/function-calling)" from The official OpenAI API documentation, and also [get_additional_info()](./api/terraform/python/openai_api/lambda_openai_function/function_refers_to.py) which implements your yaml templates. Additional documentation is available in this [README](./api/terraform/python/openai_api/lambda_openai_function/README.md)
 
 ![Marv](https://cdn.lawrencemcdaniel.com/marv.gif)
 

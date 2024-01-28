@@ -6,7 +6,7 @@
 meta_data:
   config_path: aws_openai/lambda_openai_function/custom_configs/example-configuration.yaml
   name: ExampleConfiguration
-  description: A 'hello world' style custom configuration. This is an example custom configuration to integrate with OpenAI API Function Calling additional information function, in this module.
+  description: A 'hello world' style plugin. This is an example plugin to integrate with OpenAI API Function Calling additional information function, in this module.
   version: 0.1.0
   author: Lawrence McDaniel
 
@@ -44,7 +44,7 @@ prompting:
 # own discretion.
 # ------------------------------------------------------------
 function_calling:
-  function_description: an example custom configuration to integrate with OpenAI API Function Calling additional information function, in this module.
+  function_description: an example plugin to integrate with OpenAI API Function Calling additional information function, in this module.
   #------------------------------------------------------------
   # if a.) this module is able to locate any of the search terms in the user prompt
   #    b.) OpenAI API Function Calling opts to call this function

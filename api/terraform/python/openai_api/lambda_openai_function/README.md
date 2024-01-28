@@ -14,11 +14,11 @@ Fully implements the "[get_current_weather()](https://platform.openai.com/docs/g
 
 ## plugin.py
 
-This module demonstrates an alternative implementation of prompt behavior modification involving both Function Calling, plus, dynamic modifications to the system prompt. The module passes a customized configuration object to `function_calling_plugin()` based on a configurable set of search terms that it looks for in the user prompt. The function works with multiple customized configurations. That is, it maintains a list of custom configurations, and user prompts including search terms associated with multiple custom configurations will result in prompt configuration multiple "Function Calling" apis. The custom configurations are persisted both inside this repository in the [config](./config/) folder as well as via a remote AWS S3 bucket that Terraform creates and configures for you automatically. Custom configurations are data-driven via a standardized yaml format. Use [example-configuration.yaml](./config/example-configuration.yaml) as a template to create your own custom configurations. Storing these in the AWS S3 bucket is preferable to keeping these inside your repo.
+This module demonstrates an alternative implementation of prompt behavior modification involving both Function Calling, plus, dynamic modifications to the system prompt. The module passes a customized configuration object to `function_calling_plugin()` based on a configurable set of search terms that it looks for in the user prompt. The function works with multiple customized configurations. That is, it maintains a list of plugins, and user prompts including search terms associated with multiple plugins will result in prompt configuration multiple "Function Calling" apis. The plugins are persisted both inside this repository in the [config](./config/) folder as well as via a remote AWS S3 bucket that Terraform creates and configures for you automatically. Custom configurations are data-driven via a standardized yaml format. Use [example-configuration.yaml](./config/example-configuration.yaml) as a template to create your own plugins. Storing these in the AWS S3 bucket is preferable to keeping these inside your repo.
 
-### Example custom configurations
+### Example plugins
 
-The following two sample custom configurations are included in this project:
+The following two sample plugins are included in this project:
 
 1. [Everlasting Gobstopper](./config/everlasting-gobstopper.yaml): An example of a consumer product, complete with pricing information and coupon codes.
 2. [Lawrence McDaniel](./config/lawrence-mcdaniel.yaml): Similar in functionality to a personal web site, this configuration demonstrates how you can get ChatGPT to showcase your professional profile, including your job and project history, your project portfolio, skill set and context-sensitive contact information.
@@ -29,7 +29,7 @@ The following two sample custom configurations are included in this project:
 meta_data:
   config_path: aws_openai/lambda_openai_function/custom_configs/example-configuration.yaml
   name: ExampleConfiguration
-  description: an example custom configuration.
+  description: an example plugin.
   version: 0.1.0
   author: Lawrence McDaniel
 prompting:
@@ -45,7 +45,7 @@ prompting:
     Your job is to provide helpful technical information about the OpenAI API Function Calling feature. You should include the following information in your response:
     "Congratulations!!! OpenAI API Function Calling chose to call this function. Here is the additional information that you requested:"
 function_calling:
-  function_description: an example custom configuration to integrate with OpenAI API Function Calling additional information function, in this module.
+  function_description: an example plugin to integrate with OpenAI API Function Calling additional information function, in this module.
   additional_information:
     about: >
       This is some sample text that will be returned ChatGPT if it opts to invoke the function_calling_plugin() function.

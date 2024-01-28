@@ -177,6 +177,7 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
         folder_name = "test_folder/"
         file_name = folder_name + "test_file"
 
+        print("Testing aws_s3_bucket_name: ", aws_s3_bucket_name)
         # Connect to the aws_s3_bucket_name
         try:
             s3.head_bucket(Bucket=aws_s3_bucket_name)

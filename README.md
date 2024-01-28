@@ -21,7 +21,7 @@ Features:
 
 - **Prompting**: Uses [Terraform templates](./api/terraform/apigateway_endpoints.tf) to create 30 different ChatBots, each with its own customized UX and api endpoint.
 
-- **Function Calling**: Uses [Yaml template](./api/terraform/python/openai_api/lambda_openai_function/config/) to easily configure highly customized ChatGPT prompting behavior that uses both dynamic prompting as well as [OpenAI Python Function Calling](https://platform.openai.com/docs/guides/function-calling) to integrate your own custom Python functions into chat response processing. Refer to the [Python source code](./api/terraform/python/openai_api/lambda_openai_function/) for examples including the fully implemented "[get_current_weather()](https://platform.openai.com/docs/guides/function-calling)" from The official OpenAI API documentation, and also [get_additional_info()](./api/terraform/python/openai_api/lambda_openai_function/function_refers_to.py) which implements your yaml templates. Additional documentation is available in this [README](./api/terraform/python/openai_api/lambda_openai_function/README.md)
+- **Function Calling**: Uses [Yaml templates](./api/terraform/python/openai_api/lambda_openai_function/config/) stored locally or in an AWS S3 bucket to easily configure highly customized ChatGPT prompting behavior that uses both dynamic prompting as well as [OpenAI Python Function Calling](https://platform.openai.com/docs/guides/function-calling) to integrate your own custom Python functions into chat response processing. Refer to the [Python source code](./api/terraform/python/openai_api/lambda_openai_function/) for additional documentation and examples including the fully implemented "[get_current_weather()](./api/terraform/python/openai_api/lambda_openai_function/function_weather.py)" from The official [OpenAI API documentation](https://platform.openai.com/docs/guides/function-calling/common-use-cases), and, a much more interesting example, [get_additional_info()](./api/terraform/python/openai_api/lambda_openai_function/function_refers_to.py) which implements yaml template custom configurations.
 
 ![Marv](https://cdn.lawrencemcdaniel.com/marv.gif)
 
@@ -106,6 +106,7 @@ A REST API implementing each of the [30 example applications](https://platform.o
 - [Python 3.11](https://www.python.org/downloads/): for creating virtual environment used for building AWS Lambda Layer, and locally by pre-commit linters and code formatters.
 - [NodeJS](https://nodejs.org/en/download): used with NPM for local ReactJS developer environment, and for configuring/testing Semantic Release.
 - [Docker Compose](https://docs.docker.com/compose/install/): used by an automated Terraform process to create the AWS Lambda Layer for OpenAI and LangChain.
+- [Google Maps API](https://developers.google.com/maps/documentation/geolocation/overview): used by OpenAI Function Calling feature [function_weather.py](./api/terraform/python/openai_api/lambda_openai_function/function_weather.py) to convert text location information into geocodes.
 
 Optional requirements:
 

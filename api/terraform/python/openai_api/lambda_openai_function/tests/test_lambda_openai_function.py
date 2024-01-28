@@ -20,12 +20,12 @@ if PYTHON_ROOT not in sys.path:
     sys.path.append(PYTHON_ROOT)  # noqa: E402
 
 
-from openai_api.lambda_openai_function.custom_config import CustomConfig
 from openai_api.lambda_openai_function.lambda_handler import (  # noqa: E402; handler,
     handler,
     search_terms_are_in_messages,
 )
 from openai_api.lambda_openai_function.natural_language_processing import does_refer_to
+from openai_api.lambda_openai_function.plugin_loader import Plugin
 from openai_api.lambda_openai_function.tests.test_setup import (
     get_test_file,
     get_test_file_path,
@@ -40,7 +40,7 @@ class TestLambdaOpenai(unittest.TestCase):
         config_path = get_test_file_path("config/everlasting-gobbstopper.yaml")
         with open(config_path, "r", encoding="utf-8") as file:
             config_json = yaml.safe_load(file)
-        self.config = CustomConfig(config_json=config_json)
+        self.config = Plugin(config_json=config_json)
 
     def check_response(self, response):
         """Check response structure from lambda_handler."""

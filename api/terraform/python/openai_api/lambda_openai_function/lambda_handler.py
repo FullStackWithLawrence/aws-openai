@@ -38,14 +38,14 @@ from openai_api.common.validators import (  # validate_embedding_request,
     validate_completion_request,
     validate_item,
 )
-from openai_api.lambda_openai_function.custom_config import custom_configs
 
 # OpenAI functions
 from openai_api.lambda_openai_function.function_weather import (
     get_current_weather,
     weather_tool_factory,
 )
-from openai_api.lambda_openai_function.plugin import (
+from openai_api.lambda_openai_function.plugin_loader import plugins
+from openai_api.lambda_openai_function.plugin_manager import (
     customized_prompt,
     function_calling_plugin,
     plugin_tool_factory,
@@ -77,7 +77,7 @@ def handler(event, context):
         request_meta_data = request_meta_data_factory(model, object_type, temperature, max_tokens, input_text)
 
         # does the prompt have anything to do with any of the search terms defined in a custom configuration?
-        for config in custom_configs:
+        for config in plugins:
             if search_terms_are_in_messages(
                 messages=messages,
                 search_terms=config.prompting.search_terms.strings,

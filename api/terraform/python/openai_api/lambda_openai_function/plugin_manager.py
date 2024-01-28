@@ -34,7 +34,7 @@ def search_terms_are_in_messages(messages: list, search_terms: list, search_pair
 
 
 def customized_prompt(config: Plugin, messages: list) -> list:
-    """Modify the system prompt based on the custom configuration object"""
+    """Modify the system prompt based on the plugin object"""
 
     for i, message in enumerate(messages):
         if message.get("role") == "system":

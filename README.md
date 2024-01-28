@@ -106,7 +106,6 @@ A REST API implementing each of the [30 example applications](https://platform.o
 - [Python 3.11](https://www.python.org/downloads/): for creating virtual environment used for building AWS Lambda Layer, and locally by pre-commit linters and code formatters.
 - [NodeJS](https://nodejs.org/en/download): used with NPM for local ReactJS developer environment, and for configuring/testing Semantic Release.
 - [Docker Compose](https://docs.docker.com/compose/install/): used by an automated Terraform process to create the AWS Lambda Layer for OpenAI and LangChain.
-- [Google Maps API](https://developers.google.com/maps/documentation/geolocation/overview): used by OpenAI Function Calling feature [function_weather.py](./api/terraform/python/openai_api/lambda_openai_function/function_weather.py) to convert text location information into geocodes.
 
 Optional requirements:
 

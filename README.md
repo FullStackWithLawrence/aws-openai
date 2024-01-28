@@ -23,7 +23,7 @@ A [React](https://react.dev/) + [AWS Serverless](https://aws.amazon.com/serverle
 
 2. Review and edit the master [Terraform configuration](./api/terraform/terraform.tfvars) file **before** running the commands below.
 
-3. Add your API keys and AWS CLI configuration data to a `.env` file which the `make init` command below will automatically scaffold for you. See [this screen shot](https://github.com/FullStackWithLawrence/aws-openai/blob/main/doc/img/dot-env.png) example.
+3. Add your API keys and AWS CLI configuration data to a `.env` file which the `make init` command below will automatically scaffold for you, or if you prefer, you can use this [example-dot-env](https://github.com/FullStackWithLawrence/aws-openai/blob/main/doc/example-dot-env) template to create the file yourself.
 
 4. Initialize, build and run the application
 

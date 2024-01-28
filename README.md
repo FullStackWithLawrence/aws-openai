@@ -19,7 +19,9 @@ A [React](https://react.dev/) + [AWS Serverless](https://aws.amazon.com/serverle
 
 ## Quickstart
 
-1. Review the requirements section below which at a minimum includes an [AWS Account](https://aws.amazon.com/free/) and [CLI](https://aws.amazon.com/cli/) access, [Terraform](https://www.terraform.io/), [Python 3.11](https://www.python.org/) and [NPM](https://www.npmjs.com/).
+Works with Linux, Windows and macOS environments.
+
+1. Verify project requirements: [AWS Account](https://aws.amazon.com/free/) and [CLI](https://aws.amazon.com/cli/) access, [Terraform](https://www.terraform.io/), [Python 3.11](https://www.python.org/), [NPM](https://www.npmjs.com/) and [Docker Compose](https://docs.docker.com/compose/install/).
 
 2. Review and edit the master [Terraform configuration](./api/terraform/terraform.tfvars) file.
 

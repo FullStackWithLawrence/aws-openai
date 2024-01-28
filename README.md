@@ -19,7 +19,7 @@ A [React](https://react.dev/) + [AWS Serverless](https://aws.amazon.com/serverle
 
 ## Quickstart
 
-1. Review the requirements section below which at a minimum includes an AWS Account and CLI access, Terraform, Python and NPM.
+1. Review the requirements section below which at a minimum includes an [AWS Account](https://aws.amazon.com/free/) and [CLI](https://aws.amazon.com/cli/) access, [Terraform](https://www.terraform.io/), [Python 3.11](https://www.python.org/) and [NPM](https://www.npmjs.com/).
 
 2. Review and edit the master [Terraform configuration](./api/terraform/terraform.tfvars) file **before** running the commands below.
 

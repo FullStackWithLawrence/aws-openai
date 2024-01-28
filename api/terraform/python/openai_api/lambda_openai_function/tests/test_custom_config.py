@@ -69,7 +69,7 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
         )
         self.assertIsInstance(system_prompt, SystemPrompt)
         self.assertIsInstance(system_prompt.system_prompt, str)
-        self.assertTrue(isinstance(system_prompt.to_json(), dict))
+        self.assertTrue(isinstance(system_prompt.to_json(), str))
 
     def test_system_prompt_invalid(self):
         """Test system_prompt."""

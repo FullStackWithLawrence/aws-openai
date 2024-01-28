@@ -21,11 +21,11 @@ A [React](https://react.dev/) + [AWS Serverless](https://aws.amazon.com/serverle
 
 1. Review the requirements section below which at a minimum includes an [AWS Account](https://aws.amazon.com/free/) and [CLI](https://aws.amazon.com/cli/) access, [Terraform](https://www.terraform.io/), [Python 3.11](https://www.python.org/) and [NPM](https://www.npmjs.com/).
 
-2. Review and edit the master [Terraform configuration](./api/terraform/terraform.tfvars) file **before** running the commands below.
+2. Review and edit the master [Terraform configuration](./api/terraform/terraform.tfvars) file.
 
-3. Run `make` and add your API keys and AWS CLI configuration data to the newly created `.env` file in the root of the repo.
+3. Run `make` and add your credentials to the newly created `.env` file in the root of the repo.
 
-4. Initialize, build and run the application
+4. Initialize, build and run the application.
 
 ```console
 git clone https://github.com/FullStackWithLawrence/aws-openai.git

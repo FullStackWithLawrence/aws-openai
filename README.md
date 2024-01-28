@@ -23,8 +23,9 @@ Review the requirements section below which includes among other things, an AWS 
 
 ```console
 git clone https://github.com/FullStackWithLawrence/aws-openai.git
-make init
-make build
+make init   # initialize Terraform, Python virtual environment, Node
+make build  # create AWS infrastructure, build & deploy Python Lambdas & API, build ReactJS web app
+make run    # run the web app locally in your dev environment
 ```
 
 ## Features

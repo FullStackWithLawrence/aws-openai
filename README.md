@@ -23,14 +23,15 @@ A [React](https://react.dev/) + [AWS Serverless](https://aws.amazon.com/serverle
 
 2. Review and edit the master [Terraform configuration](./api/terraform/terraform.tfvars) file **before** running the commands below.
 
-3. Add your API keys and AWS CLI configuration data to a `.env` file which the `make init` command below will automatically scaffold for you, or if you prefer, you can use this [example-dot-env](https://github.com/FullStackWithLawrence/aws-openai/blob/main/doc/example-dot-env) template to create the file yourself.
+3. Run `make` and add your API keys and AWS CLI configuration data to the newly created `.env` file in the root of the repo.
 
 4. Initialize, build and run the application
 
 ```console
 git clone https://github.com/FullStackWithLawrence/aws-openai.git
-make init   # scaffold .env, initialize Terraform, Python virtual environment and NPM
-make build  # create AWS infrastructure, build & deploy Python Lambdas & API, build ReactJS web app
+make        # scaffold a .env file in the root of the repo
+make init   # initialize Terraform, Python virtual environment and NPM
+make build  # deploy AWS cloud infrastructure, build ReactJS web app
 make run    # run the web app locally in your dev environment
 ```
 

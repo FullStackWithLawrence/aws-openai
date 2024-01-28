@@ -1,9 +1,8 @@
 ## [0.10.5](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.10.4...v0.10.5) (2024-01-28)
 
-
 ### Bug Fixes
 
-* force a new release ([5b1ee95](https://github.com/FullStackWithLawrence/aws-openai/commit/5b1ee95dc155b93f04ad79d66ec01f3a6852d60c))
+- force a new release ([5b1ee95](https://github.com/FullStackWithLawrence/aws-openai/commit/5b1ee95dc155b93f04ad79d66ec01f3a6852d60c))
 
 # Change Log
 
@@ -18,7 +17,7 @@ OpenAI 'Function Calling' Lambda.
 ### Refactor
 
 - Pydantic refactor ([ad39079](https://github.com/FullStackWithLawrence/aws-openai/commit/ad39079e2142368d7ab2d19360da2dcd2a034120)). [custom_config.py](./api/terraform/python/openai_api/lambda_openai_function/custom_config.py) now inherits from Pydantic BaseModel.
-- Incremental development of the yaml file standard for custom configurations. This now has three well-defined for meta_data, prompting, function_calling.
+- Incremental development of the yaml file standard for plugins. This now has three well-defined for meta_data, prompting, function_calling.
 - Added remote AWS S3 bucket support for custom config yaml file storage.
 - Liam has replaced Marv as the default chatbot.
 

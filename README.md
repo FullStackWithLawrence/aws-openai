@@ -17,45 +17,23 @@
 
 A [React](https://react.dev/) + [AWS Serverless](https://aws.amazon.com/serverless/) full stack implementation of the [30 example applications](https://platform.openai.com/examples) found in the official OpenAI API documentation. This repository is used as an instructional tool for the YouTube channel "[Full Stack With Lawrence](https://youtube.com/@FullStackWithLawrence)" as well as for University of British Columbia course, "[Artificial Intelligence Cloud Technology Implementation](https://extendedlearning.ubc.ca/courses/artificial-intelligence-cloud-technology-implementation/mg202)" taught by Lawrence McDaniel.
 
-Features:
+## Quickstart
+
+Review the requirements section below which includes among other things, an AWS Account and CLI access, Terraform and Python. You also need to review and edit the master [Terraform configuration](./api/terraform/terraform.tfvars) file **before** running the following commands:
+
+```console
+git clone https://github.com/FullStackWithLawrence/aws-openai.git
+make init
+make build
+```
+
+## Features
 
 - **Prompting**: Uses [Terraform templates](./api/terraform/apigateway_endpoints.tf) to create 30 different ChatBots, each with its own customized UX and api endpoint.
 
 - **Function Calling**: Uses [Yaml templates](./api/terraform/python/openai_api/lambda_openai_function/config/) stored locally or in an AWS S3 bucket to easily configure highly customized ChatGPT prompting behavior that uses both dynamic prompting as well as [OpenAI Python Function Calling](https://platform.openai.com/docs/guides/function-calling) to integrate your own custom Python functions into chat response processing. Refer to the [Python source code](./api/terraform/python/openai_api/lambda_openai_function/) for additional documentation and examples including the fully implemented "[get_current_weather()](./api/terraform/python/openai_api/lambda_openai_function/function_weather.py)" from The official [OpenAI API documentation](https://platform.openai.com/docs/guides/function-calling/common-use-cases), and, a much more interesting example, [get_additional_info()](./api/terraform/python/openai_api/lambda_openai_function/function_refers_to.py) which implements yaml template custom configurations.
 
 ![Marv](https://cdn.lawrencemcdaniel.com/marv.gif)
-
-IMPORTANT DISCLAIMERS:
-
-1. AWS' Lambda service has a hard 29-second timeout. OpenAI API calls often take longer than this, in which case the AWS API Gateway endpoint will return a 504 "Gateway timeout error" response to the React client. This happens frequently with apps created using chatgpt-4. Each of the 30 OpenAI API example applications are nonetheless implemented exactly as they are specified in the official documentation.
-
-2. Distribution upload packages for AWS Lambda functions as well as AWS Lambda Layers are limited to 50mb (and 250mb unzipped). Often, this poses serious limitations for Layers, which are intended to store your PyPi / NPM package dependencies. Note that incidentally, these code samples are also pretty code scaffolding for alternative Docker-based deployment strategies using Elastic Container Service and/or Elastic Kubernetes Service.
-
-Code composition as of Feb-2024:
-
-```console
--------------------------------------------------------------------------------
-Language                     files          blank        comment           code
--------------------------------------------------------------------------------
-Python                          29            732            722           2663
-HCL                             30            352            714           2353
-Markdown                        52            779              6           2344
-YAML                            23            112            149           1437
-JavaScript                      39            114            127           1088
-JSX                              6             45             47            858
-CSS                              5             32             14            180
-make                             1             27             30            120
-Text                             6             13              0            117
-INI                              2             15              0             70
-HTML                             2              1              0             65
-Jupyter Notebook                 1              0            186             48
-Bourne Shell                     5             17             55             47
-TOML                             1              1              0             23
-Dockerfile                       1              4              4              5
--------------------------------------------------------------------------------
-SUM:                           203          2,244          2,054         11,418
--------------------------------------------------------------------------------
-```
 
 ## ReactJS chat application
 
@@ -106,7 +84,6 @@ A REST API implementing each of the [30 example applications](https://platform.o
 - [Python 3.11](https://www.python.org/downloads/): for creating virtual environment used for building AWS Lambda Layer, and locally by pre-commit linters and code formatters.
 - [NodeJS](https://nodejs.org/en/download): used with NPM for local ReactJS developer environment, and for configuring/testing Semantic Release.
 - [Docker Compose](https://docs.docker.com/compose/install/): used by an automated Terraform process to create the AWS Lambda Layer for OpenAI and LangChain.
-- [Google Maps API](https://developers.google.com/maps/documentation/geolocation/overview): used by OpenAI Function Calling feature [function_weather.py](./api/terraform/python/openai_api/lambda_openai_function/function_weather.py) to convert text location information into geocodes.
 
 Optional requirements:
 
@@ -136,4 +113,28 @@ For developers, please see:
 - the [Developer Setup Guide](./doc/CONTRIBUTING.md)
 - and these [commit comment guidelines](./doc/SEMANTIC_VERSIONING.md) 😬😬😬 for managing CI rules for automated semantic releases.
 
-You can also contact [Lawrence McDaniel](https://lawrencemcdaniel.com/contact) directly.
+You can also contact [Lawrence McDaniel](https://lawrencemcdaniel.com/contact) directly. Code composition as of Feb-2024:
+
+```console
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+Python                          29            732            722           2663
+HCL                             30            352            714           2353
+Markdown                        52            779              6           2344
+YAML                            23            112            149           1437
+JavaScript                      39            114            127           1088
+JSX                              6             45             47            858
+CSS                              5             32             14            180
+make                             1             27             30            120
+Text                             6             13              0            117
+INI                              2             15              0             70
+HTML                             2              1              0             65
+Jupyter Notebook                 1              0            186             48
+Bourne Shell                     5             17             55             47
+TOML                             1              1              0             23
+Dockerfile                       1              4              4              5
+-------------------------------------------------------------------------------
+SUM:                           203          2,244          2,054         11,418
+-------------------------------------------------------------------------------
+```

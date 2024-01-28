@@ -38,6 +38,9 @@ build:
 	make api-build
 	make client-build
 
+run:
+	make client-run
+
 analyze:
 	cloc . --exclude-ext=svg,json,zip --vcs=git
 
@@ -169,6 +172,7 @@ help:
 	@echo 'lint                - run all code linters and formatters'
 	@echo 'init                - create environments for Python, NPM and pre-commit and install dependencies'
 	@echo 'build               - create and configure AWS infrastructure resources and build the React app'
+	@echo 'run                 - run the web app in development mode'
 	@echo 'analyze             - generate code analysis report'
 	@echo 'coverage            - generate code coverage analysis report'
 	@echo 'release             - force a new release'

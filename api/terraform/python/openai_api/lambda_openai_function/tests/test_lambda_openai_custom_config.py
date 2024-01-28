@@ -20,10 +20,10 @@ if PYTHON_ROOT not in sys.path:
     sys.path.append(PYTHON_ROOT)  # noqa: E402
 
 
-from openai_api.lambda_openai_function.custom_config import CustomConfig
+from openai_api.lambda_openai_function.plugin_loader import Plugin
 
 # pylint: disable=no-name-in-module
-from openai_api.lambda_openai_function.plugin import (
+from openai_api.lambda_openai_function.plugin_manager import (
     function_calling_plugin,
     plugin_tool_factory,
 )
@@ -38,7 +38,7 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
         config_path = get_test_file_path("config/everlasting-gobbstopper.yaml")
         with open(config_path, "r", encoding="utf-8") as file:
             config_json = yaml.safe_load(file)
-        self.config = CustomConfig(config_json=config_json)
+        self.config = Plugin(config_json=config_json)
 
     # pylint: disable=broad-exception-caught
     def test_get_additional_info(self):

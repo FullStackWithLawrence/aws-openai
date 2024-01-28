@@ -50,7 +50,7 @@ def customized_prompt(config: CustomConfig, messages: list) -> list:
 
 
 # pylint: disable=too-many-return-statements
-def get_additional_info(inquiry_type: str) -> str:
+def function_calling_plugin(inquiry_type: str) -> str:
     """Return select info from custom config object"""
 
     for config in custom_configs:
@@ -64,14 +64,14 @@ def get_additional_info(inquiry_type: str) -> str:
     raise KeyError(f"Invalid inquiry_type: {inquiry_type}")
 
 
-def info_tool_factory(config: CustomConfig):
+def plugin_tool_factory(config: CustomConfig):
     """
     Return a dictionary of chat completion tools.
     """
     tool = {
         "type": "function",
         "function": {
-            "name": "get_additional_info",
+            "name": "function_calling_plugin",
             "description": config.function_calling.function_description,
             "parameters": {
                 "type": "object",

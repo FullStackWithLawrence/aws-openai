@@ -39,17 +39,17 @@ from openai_api.common.validators import (  # validate_embedding_request,
     validate_item,
 )
 from openai_api.lambda_openai_function.custom_config import custom_configs
-from openai_api.lambda_openai_function.function_refers_to import (
-    customized_prompt,
-    get_additional_info,
-    info_tool_factory,
-    search_terms_are_in_messages,
-)
 
 # OpenAI functions
 from openai_api.lambda_openai_function.function_weather import (
     get_current_weather,
     weather_tool_factory,
+)
+from openai_api.lambda_openai_function.plugin import (
+    customized_prompt,
+    function_calling_plugin,
+    plugin_tool_factory,
+    search_terms_are_in_messages,
 )
 
 
@@ -85,7 +85,7 @@ def handler(event, context):
             ):
                 model = "gpt-3.5-turbo-1106"
                 messages = customized_prompt(config=config, messages=messages)
-                custom_tool = info_tool_factory(config=config)
+                custom_tool = plugin_tool_factory(config=config)
                 tools.append(custom_tool)
                 print(
                     f"Adding custom configuration: {config.name} {config.meta_data.version} created by {config.meta_data.author}"
@@ -113,7 +113,7 @@ def handler(event, context):
             # Note: the JSON response may not always be valid; be sure to handle errors
             available_functions = {
                 "get_current_weather": get_current_weather,
-                "get_additional_info": get_additional_info,
+                "function_calling_plugin": function_calling_plugin,
             }  # only one function in this example, but you can have multiple
             messages.append(response_message)  # extend conversation with assistant's reply
             # Step 4: send the info for each function call and function response to the model
@@ -127,7 +127,7 @@ def handler(event, context):
                         location=function_args.get("location"),
                         unit=function_args.get("unit"),
                     )
-                elif function_name == "get_additional_info":
+                elif function_name == "function_calling_plugin":
                     function_response = function_to_call(inquiry_type=function_args.get("inquiry_type"))
                 messages.append(
                     {

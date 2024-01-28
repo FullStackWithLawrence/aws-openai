@@ -12,9 +12,9 @@ The following screenshots demonstrate the two Function Calling Python functions 
 
 Fully implements the "[get_current_weather()](https://platform.openai.com/docs/guides/function-calling)" from The official OpenAI API documentation. OpenAI's documentation provides scaffolding for this feature, but falls short of actually providing code that retrieves location-based current weather forecasts.
 
-## function_refers_to.py
+## plugin.py
 
-This module demonstrates an alternative implementation of prompt behavior modification involving both Function Calling, plus, dynamic modifications to the system prompt. The module passes a customized configuration object to `get_additional_info()` based on a configurable set of search terms that it looks for in the user prompt. The function works with multiple customized configurations. That is, it maintains a list of custom configurations, and user prompts including search terms associated with multiple custom configurations will result in prompt configuration multiple "Function Calling" apis. The custom configurations are persisted both inside this repository in the [config](./config/) folder as well as via a remote AWS S3 bucket that Terraform creates and configures for you automatically. Custom configurations are data-driven via a standardized yaml format. Use [example-configuration.yaml](./config/example-configuration.yaml) as a template to create your own custom configurations. Storing these in the AWS S3 bucket is preferable to keeping these inside your repo.
+This module demonstrates an alternative implementation of prompt behavior modification involving both Function Calling, plus, dynamic modifications to the system prompt. The module passes a customized configuration object to `function_calling_plugin()` based on a configurable set of search terms that it looks for in the user prompt. The function works with multiple customized configurations. That is, it maintains a list of custom configurations, and user prompts including search terms associated with multiple custom configurations will result in prompt configuration multiple "Function Calling" apis. The custom configurations are persisted both inside this repository in the [config](./config/) folder as well as via a remote AWS S3 bucket that Terraform creates and configures for you automatically. Custom configurations are data-driven via a standardized yaml format. Use [example-configuration.yaml](./config/example-configuration.yaml) as a template to create your own custom configurations. Storing these in the AWS S3 bucket is preferable to keeping these inside your repo.
 
 ### Example custom configurations
 
@@ -48,7 +48,7 @@ function_calling:
   function_description: an example custom configuration to integrate with OpenAI API Function Calling additional information function, in this module.
   additional_information:
     about: >
-      This is some sample text that will be returned ChatGPT if it opts to invoke the get_additional_info() function.
+      This is some sample text that will be returned ChatGPT if it opts to invoke the function_calling_plugin() function.
       In an API call, you can describe functions and have the model intelligently choose to output a JSON object containing arguments to call one or many functions. The Chat Completions API does not call the function; instead, the model generates JSON that you can use to call the function in your code.
       The latest models (gpt-3.5-turbo-1106 and gpt-4-1106-preview) have been trained to both detect when a function should to be called (depending on the input) and to respond with JSON that adheres to the function signature more closely than previous models. With this capability also comes potential risks. We strongly recommend building in user confirmation flows before taking actions that impact the world on behalf of users (sending an email, posting something online, making a purchase, etc).
     links:

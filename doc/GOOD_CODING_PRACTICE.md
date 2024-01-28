@@ -2,6 +2,14 @@
 
 This microservice fully conforms to [12-Factor methodology](./Twelve_Factor_Methodology.md). Moreover, this repo is used as an instrutional tool for university courses as well as by multiple videos in my [YouTube Channel](https://youtube.com/@FullStackWithLawrence), including various tutorials about good coding practices and good code management. Of note:
 
+## Unit Testing
+
+This project includes an extensive collection of Python unit tests for verifying both the cloud infrastructure, its configuration, and of course, the Python code itself. As of Feb-2024 there are nearly 70 unit tests incorporated into the automated CI-CD processes (see below). In accordance with Python best practice, this project uses [coverage](https://pypi.org/project/coverage/) to gauge the overall effectiveness of these tests.
+
+## Pydantic
+
+Originally created in 2017, [Pydantic] has become the most widely used data validation library for Python. It is especially useful for data driven applications like this one, involving frequent integrations with a variety of cloud infrastructure services in a variety of environments, configured by a variety of different possible sources of data including environment variables, .env file, terraform.tfvars and system constants. Pydantic is especially useful for working with complex yaml and JSON objects, as we do in this project for the OpenAI Function Calling custom configurations.
+
 ## Automations
 
 We leverage automations using Github Actions, third party services, make, bash and anything else that might become freely available to the project in future. As a community-supported code project, automations are important for minimizing the effort required by our committers to keep this code shippable. But it's also an important component of our strategy for maintaining high quality standards. Automations give us the ability to do more work, more consistently, and with less effort.

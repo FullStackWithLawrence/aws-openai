@@ -10,6 +10,7 @@ import unittest
 from pathlib import Path
 
 import yaml
+from botocore.exceptions import ClientError
 
 
 HERE = os.path.abspath(os.path.dirname(__file__))
@@ -18,6 +19,8 @@ PYTHON_ROOT = str(Path(PROJECT_ROOT).parent)
 if PYTHON_ROOT not in sys.path:
     sys.path.append(PYTHON_ROOT)  # noqa: E402
 
+
+from openai_api.common.conf import settings
 
 # pylint: disable=no-name-in-module
 from openai_api.lambda_openai_function.custom_config import (
@@ -29,8 +32,6 @@ from openai_api.lambda_openai_function.custom_config import (
     SystemPrompt,
     validate_required_keys,
 )
-
-# our stuff
 from openai_api.lambda_openai_function.tests.test_setup import (  # noqa: E402
     get_test_file_path,
     get_test_file_yaml,
@@ -167,3 +168,26 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             FunctionCalling(config_json={})
+
+    def test_aws_s3_bucket(self):
+        """Test aws_s3_bucket."""
+        aws_s3_bucket_name = settings.aws_s3_bucket_name
+        s3 = settings.aws_s3_client
+
+        folder_name = "test_folder/"
+        file_name = folder_name + "test_file"
+
+        # Connect to the aws_s3_bucket_name
+        try:
+            s3.head_bucket(Bucket=aws_s3_bucket_name)
+        except ClientError:
+            self.fail("Couldn't connect to the aws_s3_bucket_name.")
+
+        # Create a folder
+        s3.put_object(Bucket=aws_s3_bucket_name, Key=folder_name)
+
+        # Write a file to the folder
+        s3.put_object(Bucket=aws_s3_bucket_name, Key=file_name, Body=b"Test data")
+
+        # Delete the file and the folder
+        s3.delete_objects(Bucket=aws_s3_bucket_name, Delete={"Objects": [{"Key": file_name}, {"Key": folder_name}]})

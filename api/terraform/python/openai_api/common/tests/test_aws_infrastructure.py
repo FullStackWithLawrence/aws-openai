@@ -4,7 +4,6 @@
 """Test configuration Settings class."""
 
 # python stuff
-import json
 import os
 import sys
 import unittest
@@ -22,6 +21,7 @@ if PYTHON_ROOT not in sys.path:
     sys.path.append(PYTHON_ROOT)  # noqa: E402
 
 from openai_api.common.aws import aws_infrastructure_config  # noqa: E402
+from openai_api.common.conf import settings
 
 
 class TestAWSInfrastructure(unittest.TestCase):
@@ -36,6 +36,10 @@ class TestAWSInfrastructure(unittest.TestCase):
 
     def test_domain_exists(self):
         """Test that domain name exists in API Gateway."""
+        # skip this test if we are using the default domain name
+        if settings.aws_apigateway_root_domain == "example.com":
+            return
+
         self.assertTrue(
             aws_infrastructure_config.domain_exists, f"Domain {aws_infrastructure_config.domain} does not exist."
         )

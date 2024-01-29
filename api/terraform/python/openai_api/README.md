@@ -20,7 +20,7 @@ A general purpose handler for the OpenAI API via Langchain. This is the primary 
 
 ## lambda_openai_function
 
-An adaptive ChatGPT interface that uses a combination of dynamic prompting and [Function Calling](https://platform.openai.com/docs/guides/function-calling) to create highly customized ChatGPT responses to user prompts. See these [example plugins](../openai_api/lambda_openai_function/config/) demonstrating some of the exciting things you can implement with this feature. This module leverages [Pydantic](https://docs.pydantic.dev/latest/) to validate the yaml plugin files that drive the behavior of this function.
+An adaptive ChatGPT interface that uses a combination of dynamic prompting and [Function Calling](https://platform.openai.com/docs/guides/function-calling) to create highly customized ChatGPT responses to user prompts. See these [example plugins](../openai_api/lambda_openai_function/plugins/) demonstrating some of the exciting things you can implement with this feature. This module leverages [Pydantic](https://docs.pydantic.dev/latest/) to validate the yaml plugin files that drive the behavior of this function.
 
 ## lambda_openai_v2
 

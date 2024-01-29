@@ -77,17 +77,17 @@ def handler(event, context):
         request_meta_data = request_meta_data_factory(model, object_type, temperature, max_tokens, input_text)
 
         # does the prompt have anything to do with any of the search terms defined in a plugin?
-        for config in plugins:
+        for plugin in plugins:
             if search_terms_are_in_messages(
                 messages=messages,
-                search_terms=config.prompting.search_terms.strings,
-                search_pairs=config.prompting.search_terms.pairs,
+                search_terms=plugin.prompting.search_terms.strings,
+                search_pairs=plugin.prompting.search_terms.pairs,
             ):
                 model = "gpt-3.5-turbo-1106"
-                messages = customized_prompt(config=config, messages=messages)
-                custom_tool = plugin_tool_factory(config=config)
+                messages = customized_prompt(plugin=plugin, messages=messages)
+                custom_tool = plugin_tool_factory(plugin=plugin)
                 tools.append(custom_tool)
-                print(f"Adding plugin: {config.name} {config.meta_data.version} created by {config.meta_data.author}")
+                print(f"Adding plugin: {plugin.name} {plugin.meta_data.version} created by {plugin.meta_data.author}")
 
         # https://platform.openai.com/docs/guides/gpt/chat-completions-api
         validate_item(

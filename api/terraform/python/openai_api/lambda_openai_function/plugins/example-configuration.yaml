@@ -4,7 +4,7 @@
 # Each of these fields is required.
 # ------------------------------------------------------------
 meta_data:
-  config_path: aws_openai/lambda_openai_function/custom_configs/example-configuration.yaml
+  plugin_path: aws_openai/lambda_openai_function/custom_configs/example-configuration.yaml
   name: ExampleConfiguration
   description: A 'hello world' style plugin. This is an example plugin to integrate with OpenAI API Function Calling additional information function, in this module.
   version: 0.1.0

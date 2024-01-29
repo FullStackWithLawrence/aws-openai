@@ -43,20 +43,20 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures."""
-        self.everlasting_gobbstopper = get_test_file_yaml("config/everlasting-gobbstopper.yaml")
-        self.everlasting_gobbstopper_invalid = get_test_file_yaml("config/everlasting-gobbstopper-invalid.yaml")
+        self.everlasting_gobbstopper = get_test_file_yaml("plugins/everlasting-gobbstopper.yaml")
+        self.everlasting_gobbstopper_invalid = get_test_file_yaml("plugins/everlasting-gobbstopper-invalid.yaml")
 
     def test_validate_required_keys(self):
         """Test validate_required_keys."""
         required_keys = ["meta_data", "prompting", "function_calling"]
         validate_required_keys(
-            class_name="Plugin", config_json=self.everlasting_gobbstopper, required_keys=required_keys
+            class_name="Plugin", plugin_json=self.everlasting_gobbstopper, required_keys=required_keys
         )
 
         with self.assertRaises(ValueError):
             required_keys = ["meta_data", "prompting", "some_other_key"]
             validate_required_keys(
-                class_name="Plugin", config_json=self.everlasting_gobbstopper_invalid, required_keys=required_keys
+                class_name="Plugin", plugin_json=self.everlasting_gobbstopper_invalid, required_keys=required_keys
             )
 
     def test_system_prompt(self):
@@ -79,8 +79,8 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
 
     def test_search_terms(self):
         """Test search_terms."""
-        config_json = self.everlasting_gobbstopper["prompting"]["search_terms"]
-        search_terms = SearchTerms(config_json=config_json)
+        plugin_json = self.everlasting_gobbstopper["prompting"]["search_terms"]
+        search_terms = SearchTerms(plugin_json=plugin_json)
 
         self.assertIsInstance(search_terms, SearchTerms)
         self.assertDictEqual(
@@ -93,22 +93,22 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
 
     def test_search_terms_invalid(self):
         """Test search_terms."""
-        config_json = self.everlasting_gobbstopper_invalid["prompting"]["search_terms"]
+        plugin_json = self.everlasting_gobbstopper_invalid["prompting"]["search_terms"]
         with self.assertRaises(ValueError):
-            SearchTerms(config_json=config_json)
+            SearchTerms(plugin_json=plugin_json)
 
     def test_additional_information(self):
         """Test additional_information."""
-        config_json = self.everlasting_gobbstopper["function_calling"]["additional_information"]
-        print("test_additional_information type config_json: ", type(config_json))
-        additional_information = AdditionalInformation(config_json=config_json)
+        plugin_json = self.everlasting_gobbstopper["function_calling"]["additional_information"]
+        print("test_additional_information type plugin_json: ", type(plugin_json))
+        additional_information = AdditionalInformation(plugin_json=plugin_json)
         print(
-            "test_additional_information type additional_information.config_json: ",
-            type(additional_information.config_json),
+            "test_additional_information type additional_information.plugin_json: ",
+            type(additional_information.plugin_json),
         )
 
         self.assertTrue(isinstance(additional_information, AdditionalInformation))
-        self.assertTrue(isinstance(additional_information.config_json, dict))
+        self.assertTrue(isinstance(additional_information.plugin_json, dict))
         self.assertTrue(isinstance(additional_information.keys, list))
         self.assertListEqual(
             additional_information.keys, ["contact", "biographical", "sales_promotions", "coupon_codes"]
@@ -116,17 +116,17 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
 
     def test_additional_information_invalid(self):
         """Test additional_information."""
-        config_json = self.everlasting_gobbstopper_invalid["function_calling"]["additional_information"]
+        plugin_json = self.everlasting_gobbstopper_invalid["function_calling"]["additional_information"]
         with self.assertRaises(ValueError):
-            AdditionalInformation(config_json=config_json)
+            AdditionalInformation(plugin_json=plugin_json)
 
     def test_refers_to(self):
         """Test refers_to."""
-        config_path = get_test_file_path("config/everlasting-gobbstopper.yaml")
+        config_path = get_test_file_path("plugins/everlasting-gobbstopper.yaml")
         with open(config_path, "r", encoding="utf-8") as file:
-            config_json = yaml.safe_load(file)
+            plugin_json = yaml.safe_load(file)
 
-        refers_to = Plugin(config_json=config_json)
+        refers_to = Plugin(plugin_json=plugin_json)
 
         self.assertEqual(refers_to.name, "EverlastingGobstopper")
         self.assertEqual(refers_to.index, 0)
@@ -145,7 +145,7 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
 
         additional_information = refers_to.function_calling.additional_information
         self.assertTrue(isinstance(additional_information, AdditionalInformation))
-        self.assertTrue(isinstance(additional_information.config_json, dict))
+        self.assertTrue(isinstance(additional_information.plugin_json, dict))
         self.assertTrue(isinstance(additional_information.keys, list))
         self.assertListEqual(
             additional_information.keys, ["contact", "biographical", "sales_promotions", "coupon_codes"]
@@ -153,21 +153,21 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
 
     def test_prompting(self):
         """Test prompting."""
-        plugin = Plugin(config_json=self.everlasting_gobbstopper)
+        plugin = Plugin(plugin_json=self.everlasting_gobbstopper)
         prompting_config_json = plugin.prompting.to_json()
-        Prompting(config_json=prompting_config_json)
+        Prompting(plugin_json=prompting_config_json)
 
         with self.assertRaises(ValueError):
-            Prompting(config_json={})
+            Prompting(plugin_json={})
 
     def test_function_calling(self):
         """Test function_calling."""
-        plugin = Plugin(config_json=self.everlasting_gobbstopper)
+        plugin = Plugin(plugin_json=self.everlasting_gobbstopper)
         function_calling_config_json = plugin.function_calling.to_json()
-        FunctionCalling(config_json=function_calling_config_json)
+        FunctionCalling(plugin_json=function_calling_config_json)
 
         with self.assertRaises(ValueError):
-            FunctionCalling(config_json={})
+            FunctionCalling(plugin_json={})
 
     def test_aws_s3_bucket(self):
         """Test aws_s3_bucket."""

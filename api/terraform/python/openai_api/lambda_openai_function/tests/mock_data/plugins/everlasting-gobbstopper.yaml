@@ -1,6 +1,6 @@
 ---
 meta_data:
-  config_path: aws_openai/lambda_openai_function/custom_configs/everlasting-gobstopper.yaml
+  plugin_path: aws_openai/lambda_openai_function/custom_configs/everlasting-gobstopper.yaml
   # The name of your chatbot.
   name: EverlastingGobstopper
   # The description of your chatbot.

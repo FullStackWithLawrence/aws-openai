@@ -1,6 +1,6 @@
 ---
 meta_data:
-  config_path: aws_openai/lambda_openai_function/custom_configs/lawrence-mcdaniel.yaml
+  plugin_path: aws_openai/lambda_openai_function/custom_configs/lawrence-mcdaniel.yaml
   # The name of your chatbot.
   name: LawrenceMcDaniel
   # The description of your chatbot.

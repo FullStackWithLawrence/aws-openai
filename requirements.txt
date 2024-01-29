@@ -33,7 +33,7 @@ coverage==7.4.0
 
 # Lambda layer: openai
 # ------------
-openai==1.9.0
+openai==1.10.0
 
 # Lambda layer: common
 # ------------

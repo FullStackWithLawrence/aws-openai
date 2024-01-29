@@ -29,6 +29,7 @@ from openai_api.lambda_openai_function.plugin_loader import (
     Plugin,
     Prompting,
     SearchTerms,
+    Selector,
     SystemPrompt,
     validate_required_keys,
 )
@@ -79,7 +80,7 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
 
     def test_search_terms(self):
         """Test search_terms."""
-        plugin_json = self.everlasting_gobbstopper["prompting"]["search_terms"]
+        plugin_json = self.everlasting_gobbstopper["selector"]["search_terms"]
         search_terms = SearchTerms(plugin_json=plugin_json)
 
         self.assertIsInstance(search_terms, SearchTerms)
@@ -93,7 +94,7 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
 
     def test_search_terms_invalid(self):
         """Test search_terms."""
-        plugin_json = self.everlasting_gobbstopper_invalid["prompting"]["search_terms"]
+        plugin_json = self.everlasting_gobbstopper_invalid["selector"]["search_terms"]
         with self.assertRaises(ValueError):
             SearchTerms(plugin_json=plugin_json)
 
@@ -132,7 +133,7 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
         self.assertEqual(refers_to.index, 0)
 
         self.assertDictEqual(
-            refers_to.prompting.search_terms.to_json(),
+            refers_to.selector.search_terms.to_json(),
             {
                 "strings": ["Gobstopper", "Gobstoppers", "Gobbstopper", "Gobbstoppers"],
                 "pairs": [["everlasting", "gobstopper"], ["everlasting", "gobstoppers"]],
@@ -159,6 +160,15 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             Prompting(plugin_json={})
+
+    def test_selector(self):
+        """Test selector."""
+        plugin = Plugin(plugin_json=self.everlasting_gobbstopper)
+        selector_config_json = plugin.selector.to_json()
+        Selector(plugin_json=selector_config_json)
+
+        with self.assertRaises(ValueError):
+            Selector(plugin_json={})
 
     def test_function_calling(self):
         """Test function_calling."""

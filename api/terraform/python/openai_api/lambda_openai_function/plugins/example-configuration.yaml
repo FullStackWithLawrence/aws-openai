@@ -4,18 +4,18 @@
 # Each of these fields is required.
 # ------------------------------------------------------------
 meta_data:
-  plugin_path: aws_openai/lambda_openai_function/custom_configs/example-configuration.yaml
-  name: ExampleConfiguration
-  description: A 'hello world' style plugin. This is an example plugin to integrate with OpenAI API Function Calling additional information function, in this module.
-  version: 0.1.0
-  author: Lawrence McDaniel
+  plugin_name: ExampleConfiguration
+  plugin_description: A 'hello world' style plugin. This is an example plugin to integrate with OpenAI API Function Calling additional information function, in this module.
+  plugin_version: 0.1.0
+  plugin_author: Lawrence McDaniel
 
 # ------------------------------------------------------------
 # 2. Required field: prompting
 # These fields are used to modify the behavior of the AI. If the user prompt contains any of the search terms, then the system prompt will be used to generate the response.
 # This module additionally makes limited use of natural language processing to attempt to account for variations in the user prompt and common misspellings.
 # ------------------------------------------------------------
-prompting:
+selector:
+  directive: search_terms
   #------------------------------------------------------------
   # search terms that will trigger the chatbot to use this customized configuration.
   #------------------------------------------------------------
@@ -27,6 +27,7 @@ prompting:
         - configuration
       - - example
         - function calling
+prompting:
   #------------------------------------------------------------
   # if this module is able to locate any of the search terms in the user prompt
   # then this system prompt text will will be added.

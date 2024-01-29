@@ -41,7 +41,7 @@ def customized_prompt(plugin: Plugin, messages: list) -> list:
             system_prompt = message.get("content")
             custom_prompt = {
                 "role": "system",
-                "content": system_prompt + "\n\n and also " + plugin.prompting.system_prompt.system_prompt,
+                "content": system_prompt + "\n\n and also " + plugin.prompting.system_prompt,
             }
             messages[i] = custom_prompt
             break

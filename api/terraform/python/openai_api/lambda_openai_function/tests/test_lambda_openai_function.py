@@ -37,10 +37,10 @@ class TestLambdaOpenai(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures."""
-        config_path = get_test_file_path("config/everlasting-gobbstopper.yaml")
+        config_path = get_test_file_path("plugins/everlasting-gobbstopper.yaml")
         with open(config_path, "r", encoding="utf-8") as file:
-            config_json = yaml.safe_load(file)
-        self.config = Plugin(config_json=config_json)
+            plugin_json = yaml.safe_load(file)
+        self.plugin = Plugin(plugin_json=plugin_json)
 
     def check_response(self, response):
         """Check response structure from lambda_handler."""
@@ -94,8 +94,8 @@ class TestLambdaOpenai(unittest.TestCase):
             self.assertFalse(
                 search_terms_are_in_messages(
                     messages=list_factory(content),
-                    search_terms=self.config.prompting.search_terms.strings,
-                    search_pairs=self.config.prompting.search_terms.pairs,
+                    search_terms=self.plugin.prompting.search_terms.strings,
+                    search_pairs=self.plugin.prompting.search_terms.pairs,
                 )
             )
 
@@ -103,8 +103,8 @@ class TestLambdaOpenai(unittest.TestCase):
             self.assertTrue(
                 search_terms_are_in_messages(
                     messages=list_factory(content),
-                    search_terms=self.config.prompting.search_terms.strings,
-                    search_pairs=self.config.prompting.search_terms.pairs,
+                    search_terms=self.plugin.prompting.search_terms.strings,
+                    search_pairs=self.plugin.prompting.search_terms.pairs,
                 )
             )
 

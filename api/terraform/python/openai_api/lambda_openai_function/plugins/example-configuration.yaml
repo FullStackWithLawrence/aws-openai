@@ -35,6 +35,9 @@ prompting:
   system_prompt: >
     Your job is to provide helpful technical information about the OpenAI API Function Calling feature. You should include the following information in your response:
     "Congratulations!!! OpenAI API Function Calling chose to call this function. Here is the additional information that you requested:"
+  model: gpt-3.5-turbo-1106
+  temperature: 0.0
+  max_tokens: 256
 
 # ------------------------------------------------------------
 # 3. Required field: function_calling

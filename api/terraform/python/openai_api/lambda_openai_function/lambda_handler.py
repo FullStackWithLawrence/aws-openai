@@ -77,13 +77,16 @@ def handler(event, context):
         request_meta_data = request_meta_data_factory(model, object_type, temperature, max_tokens, input_text)
 
         # does the prompt have anything to do with any of the search terms defined in a plugin?
+        # FIX NOTE: need to decide on how to resolve which of many plugin values sets to use for model, temperature, max_tokens
         for plugin in plugins:
             if search_terms_are_in_messages(
                 messages=messages,
                 search_terms=plugin.selector.search_terms.strings,
                 search_pairs=plugin.selector.search_terms.pairs,
             ):
-                model = "gpt-3.5-turbo-1106"
+                model = plugin.prompting.model
+                temperature = plugin.prompting.temperature
+                max_tokens = plugin.prompting.max_tokens
                 messages = customized_prompt(plugin=plugin, messages=messages)
                 custom_tool = plugin_tool_factory(plugin=plugin)
                 tools.append(custom_tool)

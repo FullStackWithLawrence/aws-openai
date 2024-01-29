@@ -33,7 +33,7 @@ def search_terms_are_in_messages(messages: list, search_terms: list, search_pair
     return False
 
 
-def customized_prompt(config: Plugin, messages: list) -> list:
+def customized_prompt(plugin: Plugin, messages: list) -> list:
     """Modify the system prompt based on the plugin object"""
 
     for i, message in enumerate(messages):
@@ -41,7 +41,7 @@ def customized_prompt(config: Plugin, messages: list) -> list:
             system_prompt = message.get("content")
             custom_prompt = {
                 "role": "system",
-                "content": system_prompt + "\n\n and also " + config.prompting.system_prompt.system_prompt,
+                "content": system_prompt + "\n\n and also " + plugin.prompting.system_prompt.system_prompt,
             }
             messages[i] = custom_prompt
             break
@@ -51,11 +51,11 @@ def customized_prompt(config: Plugin, messages: list) -> list:
 
 # pylint: disable=too-many-return-statements
 def function_calling_plugin(inquiry_type: str) -> str:
-    """Return select info from custom config object"""
+    """Return select info from custom plugin object"""
 
-    for config in plugins:
+    for plugin in plugins:
         try:
-            additional_information = config.function_calling.additional_information.to_json()
+            additional_information = plugin.function_calling.additional_information.to_json()
             retval = additional_information[inquiry_type]
             return json.dumps(retval)
         except KeyError:
@@ -64,7 +64,7 @@ def function_calling_plugin(inquiry_type: str) -> str:
     raise KeyError(f"Invalid inquiry_type: {inquiry_type}")
 
 
-def plugin_tool_factory(config: Plugin):
+def plugin_tool_factory(plugin: Plugin):
     """
     Return a dictionary of chat completion tools.
     """
@@ -72,13 +72,13 @@ def plugin_tool_factory(config: Plugin):
         "type": "function",
         "function": {
             "name": "function_calling_plugin",
-            "description": config.function_calling.function_description,
+            "description": plugin.function_calling.function_description,
             "parameters": {
                 "type": "object",
                 "properties": {
                     "inquiry_type": {
                         "type": "string",
-                        "enum": config.function_calling.additional_information.keys,
+                        "enum": plugin.function_calling.additional_information.keys,
                     },
                 },
                 "required": ["inquiry_type"],

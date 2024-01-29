@@ -80,14 +80,16 @@ def handler(event, context):
         for plugin in plugins:
             if search_terms_are_in_messages(
                 messages=messages,
-                search_terms=plugin.prompting.search_terms.strings,
-                search_pairs=plugin.prompting.search_terms.pairs,
+                search_terms=plugin.selector.search_terms.strings,
+                search_pairs=plugin.selector.search_terms.pairs,
             ):
                 model = "gpt-3.5-turbo-1106"
                 messages = customized_prompt(plugin=plugin, messages=messages)
                 custom_tool = plugin_tool_factory(plugin=plugin)
                 tools.append(custom_tool)
-                print(f"Adding plugin: {plugin.name} {plugin.meta_data.version} created by {plugin.meta_data.author}")
+                print(
+                    f"Adding plugin: {plugin.name} {plugin.meta_data.plugin_version} created by {plugin.meta_data.plugin_author}"
+                )
 
         # https://platform.openai.com/docs/guides/gpt/chat-completions-api
         validate_item(

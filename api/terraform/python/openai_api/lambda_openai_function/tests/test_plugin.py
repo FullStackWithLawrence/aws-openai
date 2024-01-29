@@ -30,7 +30,6 @@ from openai_api.lambda_openai_function.plugin_loader import (
     Prompting,
     SearchTerms,
     Selector,
-    SystemPrompt,
     validate_required_keys,
 )
 from openai_api.lambda_openai_function.tests.test_setup import (  # noqa: E402
@@ -59,24 +58,6 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
             validate_required_keys(
                 class_name="Plugin", plugin_json=self.everlasting_gobbstopper_invalid, required_keys=required_keys
             )
-
-    def test_system_prompt(self):
-        """Test system_prompt."""
-        prompt = self.everlasting_gobbstopper["prompting"]["system_prompt"]
-        system_prompt = SystemPrompt(system_prompt=prompt)
-
-        self.assertEqual(
-            system_prompt.system_prompt,
-            "You are a helpful marketing agent for the [Willy Wonka Chocolate Factory](https://wwcf.com).\n",
-        )
-        self.assertIsInstance(system_prompt, SystemPrompt)
-        self.assertIsInstance(system_prompt.system_prompt, str)
-        self.assertTrue(isinstance(system_prompt.to_json(), str))
-
-    def test_system_prompt_invalid(self):
-        """Test system_prompt."""
-        with self.assertRaises(ValueError):
-            SystemPrompt(system_prompt=self.everlasting_gobbstopper_invalid["prompting"]["system_prompt_invalid"])
 
     def test_search_terms(self):
         """Test search_terms."""
@@ -140,7 +121,7 @@ class TestLambdaOpenaiFunctionRefersTo(unittest.TestCase):
             },
         )
         self.assertEqual(
-            refers_to.prompting.system_prompt.system_prompt,
+            refers_to.prompting.system_prompt,
             "You are a helpful marketing agent for the [Willy Wonka Chocolate Factory](https://wwcf.com).\n",
         )
 

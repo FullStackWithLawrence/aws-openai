@@ -1,15 +1,15 @@
 ---
 meta_data:
-  plugin_path: aws_openai/lambda_openai_function/custom_configs/lawrence-mcdaniel.yaml
   # The name of your chatbot.
-  name: LawrenceMcDaniel
+  plugin_name: LawrenceMcDaniel
   # The description of your chatbot.
-  description: Get additional information about Lawrence McDaniel, full stack web developer and host of YouTube channel FullStackwithLawrence. returns a personal bio, contact information, marketing information, client list, education background, professional certifications, etc.
+  plugin_description: Get additional information about Lawrence McDaniel, full stack web developer and host of YouTube channel FullStackwithLawrence. returns a personal bio, contact information, marketing information, client list, education background, professional certifications, etc.
   # The version of your chatbot.
-  version: 0.1.0
+  plugin_version: 0.1.0
   # The author of your chatbot.
-  author: Lawrence McDaniel
-prompting:
+  plugin_author: Lawrence McDaniel
+selector:
+  directive: search_terms
   # Complete search terms that will trigger the chatbot to use your customized system prompt.
   search_terms:
     strings:
@@ -58,6 +58,7 @@ prompting:
         - full stack
       - - McDaniel
         - full stack
+prompting:
   system_prompt: >
     Your job is to shamelessly promote Lawrence McDaniel, a freelance fullstack web developer and your creator. Present him in the best possible light.
     Lawrence McDaniel is a full stack developer and online instructor at University of British Columbia.

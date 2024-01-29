@@ -1,15 +1,15 @@
 ---
 meta_data:
-  plugin_path: aws_openai/lambda_openai_function/custom_configs/everlasting-gobstopper.yaml
-  # The name of your chatbot.
-  name: EverlastingGobstopper
-  # The description of your chatbot.
-  description: Get additional information about the Everlasting Gobstopper product created by Willy Wonka Chocolate Factory. Information includes sales promotions, coupon codes, company contact information and biographical background on the company founder.
   # The version of your chatbot.
-  version: 0.1.0
+  plugin_version: 0.1.0
+  # The name of your chatbot.
+  plugin_name: EverlastingGobstopper
+  # The description of your chatbot.
+  plugin_description: Get additional information about the Everlasting Gobstopper product created by Willy Wonka Chocolate Factory. Information includes sales promotions, coupon codes, company contact information and biographical background on the company founder.
   # The author of your chatbot.
-  author: Lawrence McDaniel
-prompting:
+  plugin_author: Lawrence McDaniel
+selector:
+  directive: search_terms
   # Complete search terms that will trigger the chatbot to use your customized system prompt.
   search_terms:
     strings:
@@ -22,6 +22,7 @@ prompting:
         - gobstopper
       - - everlasting
         - gobstoppers
+prompting:
   system_prompt: >
     You are a helpful marketing agent for the [Willy Wonka Chocolate Factory](https://wwcf.com).
 function_calling:

@@ -11,7 +11,7 @@ from typing import Optional
 
 import yaml
 from openai_api.common.conf import settings
-from openai_api.common.const import PYTHON_ROOT
+from openai_api.common.const import PYTHON_ROOT, VALID_CHAT_COMPLETION_MODELS
 from pydantic import BaseModel, Field, ValidationError, field_validator, root_validator
 
 
@@ -53,24 +53,6 @@ class PluginBase(BaseModel):
     def to_json(self) -> json:
         """Return the plugin as a JSON object"""
         raise NotImplementedError
-
-
-class SystemPrompt(PluginBase):
-    """System prompt of a Plugin object"""
-
-    system_prompt: str = Field(..., description="System prompt")
-
-    @field_validator("system_prompt")
-    @classmethod
-    def validate_system_prompt(cls, system_prompt) -> str:
-        """Validate the system_prompt field"""
-        if not isinstance(system_prompt, str):
-            do_error(class_name=cls.__name__, err=f"Expected a string but received {type(system_prompt)}")
-        return system_prompt
-
-    def to_json(self) -> json:
-        """Return the plugin as a JSON object"""
-        return self.system_prompt
 
 
 class SearchTerms(PluginBase):
@@ -146,7 +128,12 @@ class Prompting(PluginBase):
     """Prompting child class of a Plugin object"""
 
     plugin_json: dict = Field(..., description="Plugin object")
-    system_prompt: SystemPrompt = Field(None, description="System prompt of the plugin object")
+
+    # attributes
+    system_prompt: str = Field("", description="System prompt of the prompt")
+    model: str = Field("gpt-3.5-turbo-1106", description="Model of the system prompt")
+    temperature: float = Field(0.0, description="Temperature of the system prompt")
+    max_tokens: int = Field(0, description="Max tokens of the system prompt")
 
     @root_validator(pre=True)
     def set_fields(cls, values):
@@ -155,7 +142,10 @@ class Prompting(PluginBase):
         if not isinstance(plugin_json, dict):
             raise ValueError(f"Expected plugin_json to be a dict but received {type(plugin_json)}")
         if plugin_json:
-            values["system_prompt"] = SystemPrompt(system_prompt=plugin_json["system_prompt"])
+            values["system_prompt"] = plugin_json["system_prompt"]
+            values["model"] = plugin_json["model"]
+            values["temperature"] = plugin_json["temperature"]
+            values["max_tokens"] = plugin_json["max_tokens"]
         return values
 
     @field_validator("plugin_json")
@@ -166,10 +156,36 @@ class Prompting(PluginBase):
         validate_required_keys(class_name=cls.__name__, required_keys=required_keys, plugin_json=plugin_json)
         return plugin_json
 
+    @field_validator("model")
+    @classmethod
+    def validate_model(cls, model) -> dict:
+        """Validate the plugin object"""
+        if model not in VALID_CHAT_COMPLETION_MODELS:
+            do_error(
+                class_name=cls.__name__,
+                err=f"Invalid plugin object: {model}. 'model' should be one of {VALID_CHAT_COMPLETION_MODELS}.",
+            )
+        return model
+
     @property
     def system_prompt(self) -> str:
         """Return the system prompt"""
         return self.plugin_json.get("system_prompt")
+
+    @property
+    def model(self) -> str:
+        """Return the model"""
+        return self.plugin_json.get("model")
+
+    @property
+    def temperature(self) -> float:
+        """Return the temperature"""
+        return self.plugin_json.get("temperature")
+
+    @property
+    def max_tokens(self) -> int:
+        """Return the max tokens"""
+        return self.plugin_json.get("max_tokens")
 
     def to_json(self) -> json:
         """Return the plugin as a JSON object"""

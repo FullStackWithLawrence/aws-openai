@@ -44,6 +44,9 @@ class TestLambdaOpenai(unittest.TestCase):
 
     def check_response(self, response):
         """Check response structure from lambda_handler."""
+        if response["statusCode"] != 200:
+            print(f"response: {response}")
+
         self.assertEqual(response["statusCode"], 200)
         self.assertTrue("body" in response)
         self.assertTrue("isBase64Encoded" in response)
@@ -94,8 +97,8 @@ class TestLambdaOpenai(unittest.TestCase):
             self.assertFalse(
                 search_terms_are_in_messages(
                     messages=list_factory(content),
-                    search_terms=self.plugin.prompting.search_terms.strings,
-                    search_pairs=self.plugin.prompting.search_terms.pairs,
+                    search_terms=self.plugin.selector.search_terms.strings,
+                    search_pairs=self.plugin.selector.search_terms.pairs,
                 )
             )
 
@@ -103,8 +106,8 @@ class TestLambdaOpenai(unittest.TestCase):
             self.assertTrue(
                 search_terms_are_in_messages(
                     messages=list_factory(content),
-                    search_terms=self.plugin.prompting.search_terms.strings,
-                    search_pairs=self.plugin.prompting.search_terms.pairs,
+                    search_terms=self.plugin.selector.search_terms.strings,
+                    search_pairs=self.plugin.selector.search_terms.pairs,
                 )
             )
 

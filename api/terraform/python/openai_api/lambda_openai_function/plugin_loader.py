@@ -17,6 +17,8 @@ from pydantic import BaseModel, Field, ValidationError, field_validator, root_va
 
 log = logging.getLogger(__name__)
 CONFIG_PATH = PYTHON_ROOT + "/openai_api/lambda_openai_function/plugins/"
+VALID_PLUGIN_VERSIONS = ["0.1.0"]
+VALID_DIRECTIVES = ["search_terms", "always_load"]
 
 
 def do_error(class_name: str, err: str) -> None:
@@ -31,7 +33,7 @@ def validate_required_keys(class_name: str, required_keys: list, plugin_json: di
     """Validate the required keys"""
     for key in required_keys:
         if key not in plugin_json:
-            do_error(class_name, err=f"Invalid search_terms: {plugin_json}. Missing key: {key}.")
+            do_error(class_name, err=f"Invalid {class_name}: {plugin_json}. Missing key: {key}.")
 
 
 class PluginBase(BaseModel):
@@ -74,7 +76,7 @@ class SystemPrompt(PluginBase):
 class SearchTerms(PluginBase):
     """Search terms of a Plugin object"""
 
-    plugin_json: dict = Field(..., description="Config object")
+    plugin_json: dict = Field(..., description="Plugin object")
 
     @field_validator("plugin_json")
     @classmethod
@@ -120,7 +122,7 @@ class SearchTerms(PluginBase):
 class AdditionalInformation(PluginBase):
     """Additional information of a Plugin object"""
 
-    plugin_json: dict = Field(..., description="Config object")
+    plugin_json: dict = Field(..., description="Plugin object")
 
     @field_validator("plugin_json")
     @classmethod
@@ -143,8 +145,7 @@ class AdditionalInformation(PluginBase):
 class Prompting(PluginBase):
     """Prompting child class of a Plugin object"""
 
-    plugin_json: dict = Field(..., description="Config object")
-    search_terms: SearchTerms = Field(None, description="Search terms of the plugin object")
+    plugin_json: dict = Field(..., description="Plugin object")
     system_prompt: SystemPrompt = Field(None, description="System prompt of the plugin object")
 
     @root_validator(pre=True)
@@ -154,7 +155,6 @@ class Prompting(PluginBase):
         if not isinstance(plugin_json, dict):
             raise ValueError(f"Expected plugin_json to be a dict but received {type(plugin_json)}")
         if plugin_json:
-            values["search_terms"] = SearchTerms(plugin_json=plugin_json["search_terms"])
             values["system_prompt"] = SystemPrompt(system_prompt=plugin_json["system_prompt"])
         return values
 
@@ -162,21 +162,24 @@ class Prompting(PluginBase):
     @classmethod
     def validate_plugin_json(cls, plugin_json) -> dict:
         """Validate the plugin object"""
-        required_keys = ["search_terms", "system_prompt"]
+        required_keys = ["system_prompt"]
         validate_required_keys(class_name=cls.__name__, required_keys=required_keys, plugin_json=plugin_json)
+        return plugin_json
+
+    @property
+    def system_prompt(self) -> str:
+        """Return the system prompt"""
+        return self.plugin_json.get("system_prompt")
 
     def to_json(self) -> json:
         """Return the plugin as a JSON object"""
-        return {
-            "search_terms": self.search_terms.to_json(),
-            "system_prompt": self.system_prompt.system_prompt,
-        }
+        return self.plugin_json
 
 
 class FunctionCalling(PluginBase):
     """FunctionCalling child class of a Plugin"""
 
-    plugin_json: dict = Field(..., description="Config object")
+    plugin_json: dict = Field(..., description="Plugin object")
     function_description: str = Field(None, description="Description of the function")
     additional_information: AdditionalInformation = Field(None, description="Additional information of the function")
 
@@ -222,7 +225,7 @@ class FunctionCalling(PluginBase):
 class MetaData(PluginBase):
     """Metadata of a Plugin object"""
 
-    plugin_json: dict = Field(..., description="Config object")
+    plugin_json: dict = Field(..., description="Plugin object")
 
     @root_validator(pre=True)
     def set_fields(cls, values):
@@ -239,53 +242,106 @@ class MetaData(PluginBase):
         if not isinstance(plugin_json, dict):
             do_error(class_name=cls.__name__, err=f"Expected a dict but received {type(plugin_json)}")
 
-        required_keys = ["plugin_path", "name", "description", "version", "author"]
+        required_keys = ["plugin_name", "plugin_description", "plugin_version", "plugin_author"]
         validate_required_keys(class_name=cls.__name__, required_keys=required_keys, plugin_json=plugin_json)
+        if str(plugin_json["plugin_version"]) not in VALID_PLUGIN_VERSIONS:
+            do_error(
+                class_name=cls.__name__,
+                err=f"Invalid plugin object: {plugin_json}. 'plugin_version' should be one of {VALID_PLUGIN_VERSIONS}.",
+            )
         return plugin_json
 
     @property
-    def name(self) -> str:
+    def plugin_name(self) -> str:
         """Return the name of the plugin object"""
-        return self.plugin_json.get("name") if self.plugin_json else None
+        return self.plugin_json.get("plugin_name") if self.plugin_json else None
 
     @property
-    def plugin_path(self) -> str:
-        """Return the path of the plugin object"""
-        return self.plugin_json.get("plugin_path") if self.plugin_json else None
-
-    @property
-    def description(self) -> str:
+    def plugin_description(self) -> str:
         """Return the description of the plugin object"""
-        return self.plugin_json.get("description") if self.plugin_json else None
+        return self.plugin_json.get("plugin_description") if self.plugin_json else None
 
     @property
-    def version(self) -> str:
+    def plugin_version(self) -> str:
         """Return the version of the plugin object"""
-        return self.plugin_json.get("version") if self.plugin_json else None
+        return self.plugin_json.get("plugin_version") if self.plugin_json else None
 
     @property
-    def author(self) -> str:
+    def plugin_author(self) -> str:
         """Return the author of the plugin object"""
-        return self.plugin_json.get("author") if self.plugin_json else None
+        return self.plugin_json.get("plugin_author") if self.plugin_json else None
 
     def to_json(self) -> json:
         """Return the plugin as a JSON object"""
         return self.plugin_json
 
 
+class Selector(PluginBase):
+    """Selector of a Plugin object"""
+
+    plugin_json: dict = Field(..., description="Plugin object")
+    directive: str = Field(None, description="Directive of the Selector object")
+    search_terms: SearchTerms = Field(None, description="Search terms of the Selector object")
+
+    @root_validator(pre=True)
+    def set_fields(cls, values):
+        """proxy for __init__() - Set the fields"""
+        plugin_json = values.get("plugin_json")
+
+        if not isinstance(plugin_json, dict):
+            raise ValueError(f"Expected plugin_json to be a dict but received {type(plugin_json)}")
+        if plugin_json:
+            values["directive"] = plugin_json["directive"]
+            values["search_terms"] = SearchTerms(plugin_json=plugin_json["search_terms"])
+        return values
+
+    @field_validator("plugin_json")
+    @classmethod
+    def validate_plugin_json(cls, plugin_json) -> dict:
+        """Validate the plugin object"""
+        required_keys = ["directive", "search_terms"]
+        validate_required_keys(class_name=cls.__name__, required_keys=required_keys, plugin_json=plugin_json)
+        if not isinstance(plugin_json["directive"], str):
+            do_error(
+                class_name=cls.__name__,
+                err=f"Invalid plugin object: {plugin_json}. 'directive' should be a string.",
+            )
+
+    @field_validator("directive")
+    @classmethod
+    def validate_directive(cls, directive) -> dict:
+        """Validate the plugin object"""
+        if directive not in VALID_DIRECTIVES:
+            do_error(
+                class_name=cls.__name__,
+                err=f"Invalid plugin object: {directive}. 'directive' should be one of {VALID_DIRECTIVES}.",
+            )
+        return directive
+
+    def to_json(self) -> json:
+        """Return the plugin as a JSON object"""
+        return {
+            "directive": self.directive,
+            "search_terms": self.search_terms.to_json(),
+        }
+
+
 class Plugin(PluginBase):
     """A json object that contains the plugin for a plugin.function_calling_plugin() function"""
 
     index: int = Field(0, description="Index of the plugin object")
-    plugin_json: dict = Field(..., description="Config object")
+    plugin_json: dict = Field(..., description="Plugin object")
+
+    # Child classes
     meta_data: Optional[MetaData] = Field(None, description="Metadata of the plugin object")
+    selector: Optional[Selector] = Field(None, description="Selector of the plugin object")
     prompting: Optional[Prompting] = Field(None, description="Prompting of the plugin object")
     function_calling: Optional[FunctionCalling] = Field(None, description="FunctionCalling of the plugin object")
 
     @property
     def name(self) -> str:
         """Return a name in the format: "WillyWonka"""
-        return self.meta_data.name
+        return self.meta_data.plugin_name
 
     @root_validator(pre=True)
     def set_fields(cls, values):
@@ -295,6 +351,7 @@ class Plugin(PluginBase):
             raise ValueError(f"Expected plugin_json to be a dict but received {type(plugin_json)}")
         if plugin_json:
             values["meta_data"] = MetaData(plugin_json=plugin_json.get("meta_data"))
+            values["selector"] = Selector(plugin_json=plugin_json.get("selector"))
             values["prompting"] = Prompting(plugin_json=plugin_json.get("prompting"))
             values["function_calling"] = FunctionCalling(plugin_json=plugin_json.get("function_calling"))
         return values
@@ -304,7 +361,7 @@ class Plugin(PluginBase):
     def validate_plugin_json(cls, plugin_json) -> None:
         """Validate the plugin object"""
 
-        required_keys = ["meta_data", "prompting", "function_calling"]
+        required_keys = ["meta_data", "selector", "prompting", "function_calling"]
         for key in required_keys:
             if key not in plugin_json:
                 cls.do_error(f"Invalid plugin object: {plugin_json}. Missing key: {key}.")
@@ -319,6 +376,7 @@ class Plugin(PluginBase):
         return {
             "name": self.name,
             "meta_data": self.meta_data.to_json(),
+            "selector": self.selector.to_json(),
             "prompting": self.prompting.to_json(),
             "function_calling": self.function_calling.to_json(),
         }
@@ -363,7 +421,7 @@ class Plugins:
                         plugin = Plugin(plugin_json=plugin_json, index=i)
                         self._custom_plugins.append(plugin)
                         print(
-                            f"Loaded plugin from AWS S3 bucket: {plugin.name} {plugin.meta_data.version} created by {plugin.meta_data.author}"
+                            f"Loaded plugin from AWS S3 bucket: {plugin.name} {plugin.meta_data.plugin_version} created by {plugin.meta_data.plugin_author}"
                         )
 
     @property

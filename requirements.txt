@@ -50,7 +50,7 @@ langchain-openai==0.0.5
 
 # Lambda layer: nlp
 # ------------
-python-Levenshtein==0.23.0
+python-Levenshtein==0.24.0
 pyyaml
 
 # weather function

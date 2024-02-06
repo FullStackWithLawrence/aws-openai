@@ -1,0 +1,44 @@
+# -----------------------------------------------------------------------------
+# written by: Lawrence McDaniel
+#             https://lawrencemcdaniel.com
+#
+# usage:      Python requirements for AWS Lambda functions. Create a virtual
+#             environment in the root of this repository named `venv`. Terraform
+#             modules will look for and include these requirements in the zip
+#             packages for each Python-based Lambda function.
+# -----------------------------------------------------------------------------
+
+# misc
+# ------------
+boto3==1.34.25
+botocore==1.34.29
+requests==2.31.0
+
+# Lambda layer: openai
+# ------------
+openai==1.10.0
+pyyaml==6.0.1
+
+# Lambda layer: common
+# ------------
+python-dotenv==1.0.1
+pydantic==2.5.3
+pydantic-settings==2.1.0
+python-hcl2==4.3.2
+
+# Lambda layer: langchain
+# ------------
+langchain==0.1.1
+langchain-openai==0.0.5
+
+# Lambda layer: nlp
+# ------------
+python-Levenshtein==0.23.0
+nltk==3.8.1
+textblob==0.17.1
+
+# weather function
+googlemaps==4.10.0
+openmeteo-requests==1.1.0
+requests-cache==1.1.1
+retry-requests==2.0.0

@@ -10,7 +10,7 @@
 
 # NLP requirements
 # --------------------------
-python-Levenshtein==0.24.0
+python-Levenshtein==0.25.0
 pyyaml
 
 # weather function

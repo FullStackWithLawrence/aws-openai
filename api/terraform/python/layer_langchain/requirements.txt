@@ -10,5 +10,6 @@
 
 # generative AI requirements
 # --------------------------
-langchain==0.1.1
-langchain-openai==0.0.5
+langchain
+#langchain-experimental
+langchain-openai==0.0.6

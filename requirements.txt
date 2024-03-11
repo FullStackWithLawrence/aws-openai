@@ -27,7 +27,7 @@ mypy==1.8.0
 pylint==3.1.0
 bandit==1.7.8
 pydocstringformatter==0.7.3
-tox==4.13.0
+tox==4.14.1
 codespell==2.2.6
 coverage==7.4.3
 
@@ -45,7 +45,7 @@ python-hcl2==4.3.2
 # Lambda layer: langchain
 # ------------
 langchain
-langchain-openai==0.0.7
+langchain-openai==0.0.8
 #langchain-experimental
 
 # Lambda layer: nlp

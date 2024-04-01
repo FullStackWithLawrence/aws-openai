@@ -33,14 +33,14 @@ coverage==7.4.4
 
 # Lambda layer: openai
 # ------------
-openai==1.14.1
+openai==1.14.3
 
 # Lambda layer: common
 # ------------
 python-dotenv==1.0.1
 pydantic==2.6.4
 pydantic-settings==2.2.1
-python-hcl2==4.3.2
+python-hcl2==4.3.3
 
 # Lambda layer: langchain
 # ------------

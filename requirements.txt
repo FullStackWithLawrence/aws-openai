@@ -10,7 +10,7 @@
 
 # dev and test
 # ------------
-boto3==1.34.74
+boto3==1.34.79
 botocore==1.34.69
 pytest==8.1.1
 pytest_mock==3.14.0
@@ -33,7 +33,7 @@ coverage==7.4.4
 
 # Lambda layer: openai
 # ------------
-openai==1.14.3
+openai==1.16.2
 
 # Lambda layer: common
 # ------------
@@ -50,7 +50,7 @@ langchain-openai==0.1.1
 
 # Lambda layer: nlp
 # ------------
-python-Levenshtein==0.25.0
+python-Levenshtein==0.25.1
 pyyaml
 
 # weather function

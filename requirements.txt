@@ -33,7 +33,7 @@ coverage==7.5.1
 
 # Lambda layer: openai
 # ------------
-openai==1.28.1
+openai==1.30.3
 
 # Lambda layer: common
 # ------------
@@ -45,7 +45,7 @@ python-hcl2==4.3.3
 # Lambda layer: langchain
 # ------------
 langchain
-langchain-openai==0.1.6
+langchain-openai==0.1.7
 #langchain-experimental
 
 # Lambda layer: nlp

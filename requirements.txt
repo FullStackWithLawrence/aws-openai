@@ -38,7 +38,7 @@ openai==1.30.3
 # Lambda layer: common
 # ------------
 python-dotenv==1.0.1
-pydantic==2.7.1
+pydantic==2.7.2
 pydantic-settings==2.2.1
 python-hcl2==4.3.3
 

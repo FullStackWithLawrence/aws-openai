@@ -25,7 +25,7 @@ repos:
     hooks:
       - id: black
   - repo: https://github.com/PyCQA/flake8
-    rev: 7.0.0
+    rev: 7.1.0
     hooks:
       - id: flake8
   - repo: https://github.com/PyCQA/isort
@@ -41,7 +41,7 @@ repos:
         language: script
         types: [python]
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.8
+    rev: 1.7.9
     hooks:
       - id: bandit
         args: ["-ll"]

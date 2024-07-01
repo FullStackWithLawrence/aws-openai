@@ -10,7 +10,7 @@
 
 # generative AI requirements
 # --------------------------
-openai==1.35.3
+openai==1.35.7
 
 # general requirements
 # --------------------------

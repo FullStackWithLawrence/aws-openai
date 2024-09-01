@@ -45,7 +45,7 @@ python-hcl2==4.3.4
 # Lambda layer: langchain
 # ------------
 langchain
-langchain-openai==0.1.13
+langchain-openai==0.1.23
 #langchain-experimental
 
 # Lambda layer: nlp

@@ -17,4 +17,4 @@ openai==1.50.2
 pydantic==2.9.2
 pydantic-settings==2.5.2
 python-dotenv==1.0.1
-python-hcl2==4.3.5
+python-hcl2==5.1.1

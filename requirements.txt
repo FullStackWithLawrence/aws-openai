@@ -40,7 +40,7 @@ openai==1.43.0
 python-dotenv==1.0.1
 pydantic==2.8.2
 pydantic-settings==2.6.0
-python-hcl2==4.3.4
+python-hcl2==5.1.1
 
 # Lambda layer: langchain
 # ------------

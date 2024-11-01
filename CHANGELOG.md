@@ -1,3 +1,10 @@
+## [0.10.7](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.10.6...v0.10.7) (2024-11-01)
+
+
+### Bug Fixes
+
+* force a new release ([95401cb](https://github.com/FullStackWithLawrence/aws-openai/commit/95401cb87fbf941eb3237981f48fc535fcf1a7a4))
+
 ## [0.10.6](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.10.5...v0.10.6) (2024-01-29)
 
 

@@ -69,14 +69,14 @@ repos:
       - id: check-merge-conflict
       - id: debug-statements
   - repo: https://github.com/gruntwork-io/pre-commit
-    rev: v0.1.24 # Get the latest from: https://github.com/gruntwork-io/pre-commit/releases
+    rev: v0.1.25 # Get the latest from: https://github.com/gruntwork-io/pre-commit/releases
     hooks:
       - id: terraform-fmt
       - id: helmlint
       - id: terraform-validate
       - id: tflint
   - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
-    rev: v9.19.0
+    rev: v9.20.0
     hooks:
       - id: commitlint
         stages: [commit-msg]

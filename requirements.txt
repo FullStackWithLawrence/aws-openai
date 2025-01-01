@@ -25,7 +25,7 @@ pre-commit==4.0.1
 isort==5.13.2
 mypy==1.14.1
 pylint==3.3.3
-bandit==1.7.10
+bandit==1.8.0
 pydocstringformatter==0.7.3
 tox==4.23.2
 codespell==2.3.0

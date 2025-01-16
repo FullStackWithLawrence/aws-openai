@@ -4,7 +4,7 @@
 #
 # A valid request body:
 #   {
-#    "model": "gpt-3.5-turbo",
+#    "model": "gpt-4-turbo",
 #    "temperature": 0.9,
 #    "max_tokens": 1024,
 #    "messages": [

@@ -160,8 +160,8 @@ def parse_request(request_body: dict):
         object_type = OpenAIObjectTypes.ChatCompletion
 
     if not model:
-        logging.warning("model key not found in request body. defaulting to gpt-3.5-turbo")
-        model = "gpt-3.5-turbo"
+        logging.warning("model key not found in request body. defaulting to gpt-4-turbo")
+        model = "gpt-4-turbo"
 
     if temperature < 0:
         logging.warning("temperature key not found in request body. defaulting to 0.5")

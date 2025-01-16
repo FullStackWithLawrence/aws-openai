@@ -5,7 +5,7 @@
     "id": "chatcmpl-8B4RwgebWS8ZdTQ1ppHgElsru0BVW",
     "object_type": "chat.completion",
     "created": 1697649404,
-    "model": "gpt-3.5-turbo-0613",
+    "model": "gpt-4-turbo-0613",
     "choices": [
       {
         "index": 0,

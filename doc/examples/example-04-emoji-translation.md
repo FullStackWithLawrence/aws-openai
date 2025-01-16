@@ -27,7 +27,7 @@ curl --location --request PUT 'https://api.openai.lawrencemcdaniel.com/examples/
     "id": "chatcmpl-7yTuWCwvgecRstWKGGv13q4bLvXyA",
     "object": "chat.completion",
     "created": 1694649012,
-    "model": "gpt-3.5-turbo-0613",
+    "model": "gpt-4-turbo-0613",
     "choices": [
       {
         "index": 0,

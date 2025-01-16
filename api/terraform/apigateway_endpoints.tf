@@ -22,7 +22,7 @@ module "default_grammar" {
 
   # OpenAI application definition
   mapping_object_type         = "chat.completion"
-  mapping_model               = "gpt-3.5-turbo"
+  mapping_model               = "gpt-4-turbo"
   mapping_role_system_content = "You will be provided with statements, and your task is to convert them to standard English."
 
   # integrate this endpoint to the AWS Gateway API.
@@ -44,7 +44,7 @@ module "default_summarize" {
 
   # OpenAI application definition
   mapping_object_type         = "chat.completion"
-  mapping_model               = "gpt-3.5-turbo"
+  mapping_model               = "gpt-4-turbo"
   mapping_role_system_content = "Summarize content you are provided with for a second-grade student."
   mapping_temperature         = 0
   mapping_max_tokens          = 1024
@@ -68,7 +68,7 @@ module "default_parse_data" {
 
   # OpenAI application definition
   mapping_object_type         = "chat.completion"
-  mapping_model               = "gpt-3.5-turbo"
+  mapping_model               = "gpt-4-turbo"
   mapping_role_system_content = "You will be provided with unstructured data, and your task is to parse it into CSV format."
   mapping_temperature         = 0
   mapping_max_tokens          = 256
@@ -93,7 +93,7 @@ module "default_emoji_translation" {
 
   # OpenAI application definition
   mapping_object_type         = "chat.completion"
-  mapping_model               = "gpt-3.5-turbo"
+  mapping_model               = "gpt-4-turbo"
   mapping_role_system_content = "You will be provided with text, and your task is to translate it into emojis. Do not use any regular text. Do your best with emojis only."
   mapping_temperature         = 0.8
   mapping_max_tokens          = 256
@@ -117,7 +117,7 @@ module "default_time_complexity" {
 
   # OpenAI application definition
   mapping_object_type         = "chat.completion"
-  mapping_model               = "gpt-3.5-turbo"
+  mapping_model               = "gpt-4-turbo"
   mapping_role_system_content = "You will be provided with Python code, and your task is to calculate its time complexity."
   mapping_temperature         = 0
   mapping_max_tokens          = 256
@@ -165,7 +165,7 @@ module "default_keywords" {
 
   # OpenAI application definition
   mapping_object_type         = "chat.completion"
-  mapping_model               = "gpt-3.5-turbo"
+  mapping_model               = "gpt-4-turbo"
   mapping_role_system_content = "You will be provided with a block of text, and your task is to extract a list of keywords from it."
   mapping_temperature         = 0.5
   mapping_max_tokens          = 256
@@ -189,7 +189,7 @@ module "default_product_name_gen" {
 
   # OpenAI application definition
   mapping_object_type         = "chat.completion"
-  mapping_model               = "gpt-3.5-turbo"
+  mapping_model               = "gpt-4-turbo"
   mapping_role_system_content = "You will be provided with a product description and seed words, and your task is to generate product names."
   mapping_temperature         = 0.8
   mapping_max_tokens          = 256
@@ -237,7 +237,7 @@ module "default_spreadsheet_gen" {
 
   # OpenAI application definition
   mapping_object_type         = "chat.completion"
-  mapping_model               = "gpt-3.5-turbo"
+  mapping_model               = "gpt-4-turbo"
   mapping_role_system_content = "Your task is to create spreadsheets from various kinds of data"
   mapping_temperature         = 0.5
   mapping_max_tokens          = 256
@@ -261,7 +261,7 @@ module "default_tweet_classifier" {
 
   # OpenAI application definition
   mapping_object_type         = "chat.completion"
-  mapping_model               = "gpt-3.5-turbo"
+  mapping_model               = "gpt-4-turbo"
   mapping_role_system_content = "You will be provided with a tweet, and your task is to classify its sentiment as positive, neutral, or negative."
   mapping_temperature         = 0
   mapping_max_tokens          = 256
@@ -285,7 +285,7 @@ module "default_airport_codes" {
 
   # OpenAI application definition
   mapping_object_type         = "chat.completion"
-  mapping_model               = "gpt-3.5-turbo"
+  mapping_model               = "gpt-4-turbo"
   mapping_role_system_content = "You will be provided with a text, and your task is to extract the airport codes from it."
   mapping_temperature         = 0
   mapping_max_tokens          = 256
@@ -309,7 +309,7 @@ module "default_mood_color" {
 
   # OpenAI application definition
   mapping_object_type         = "chat.completion"
-  mapping_model               = "gpt-3.5-turbo"
+  mapping_model               = "gpt-4-turbo"
   mapping_role_system_content = "You will be provided with a description of a mood, and your task is to generate the CSS code for a color that matches it. Write your output in json with a single key called 'css_code'."
   mapping_temperature         = 0
   mapping_max_tokens          = 256
@@ -333,7 +333,7 @@ module "default_vr_fitness" {
 
   # OpenAI application definition
   mapping_object_type         = "chat.completion"
-  mapping_model               = "gpt-3.5-turbo"
+  mapping_model               = "gpt-4-turbo"
   mapping_role_system_content = "You are a helpful assistant. Your task is to generate ideas for fitness promoting virtual reality games"
   mapping_temperature         = 0.6
   mapping_max_tokens          = 256
@@ -359,7 +359,7 @@ module "default_marv_sarcastic_chat" {
 
   # OpenAI application definition
   mapping_object_type         = "chat.completion"
-  mapping_model               = "gpt-3.5-turbo"
+  mapping_model               = "gpt-4-turbo"
   mapping_role_system_content = "You are Marv, a chatbot that reluctantly answers questions with sarcastic responses."
   mapping_temperature         = 0.5
   mapping_max_tokens          = 256
@@ -383,7 +383,7 @@ module "default_turn_by_turn_directions" {
 
   # OpenAI application definition
   mapping_object_type         = "chat.completion"
-  mapping_model               = "gpt-3.5-turbo"
+  mapping_model               = "gpt-4-turbo"
   mapping_role_system_content = "You will be provided with a text, and your task is to create a numbered list of turn-by-turn directions from it."
   mapping_temperature         = 0.3
   mapping_max_tokens          = 256
@@ -407,7 +407,7 @@ module "default_interview_questions" {
 
   # OpenAI application definition
   mapping_object_type         = "chat.completion"
-  mapping_model               = "gpt-3.5-turbo"
+  mapping_model               = "gpt-4-turbo"
   mapping_role_system_content = "Your are a helpful assistant. Your task is to create job interview questions."
   mapping_temperature         = 0.5
   mapping_max_tokens          = 1024
@@ -744,7 +744,7 @@ module "openai_function_calling" {
 
   # OpenAI application definition
   mapping_object_type         = "chat.completion"
-  mapping_model               = "gpt-3.5-turbo"
+  mapping_model               = "gpt-4-turbo"
   mapping_role_system_content = "You are a helpful assistant. You were created by Lawrence McDaniel (or just Lawrence) in January, 2024."
   mapping_max_tokens          = 2048
 

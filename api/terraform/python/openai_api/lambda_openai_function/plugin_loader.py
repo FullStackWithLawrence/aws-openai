@@ -131,7 +131,7 @@ class Prompting(PluginBase):
 
     # attributes
     system_prompt: str = Field("", description="System prompt of the prompt")
-    model: str = Field("gpt-3.5-turbo-1106", description="Model of the system prompt")
+    model: str = Field("gpt-4-turbo-1106", description="Model of the system prompt")
     temperature: float = Field(0.0, description="Temperature of the system prompt")
     max_tokens: int = Field(0, description="Max tokens of the system prompt")
 

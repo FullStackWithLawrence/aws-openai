@@ -3,7 +3,7 @@ default_language_version:
   python: python3.11
 repos:
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.2.6
+    rev: v2.3.0
     hooks:
       - id: codespell
         args: ["--ignore-words=codespell.txt"]
@@ -21,11 +21,11 @@ repos:
     hooks:
       - id: prettier
   - repo: https://github.com/psf/black
-    rev: 23.12.1
+    rev: 24.10.0
     hooks:
       - id: black
   - repo: https://github.com/PyCQA/flake8
-    rev: 7.0.0
+    rev: 7.1.1
     hooks:
       - id: flake8
   - repo: https://github.com/PyCQA/isort
@@ -41,12 +41,12 @@ repos:
         language: script
         types: [python]
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.7
+    rev: 1.7.10
     hooks:
       - id: bandit
         args: ["-ll"]
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v5.0.0
     hooks:
       # See https://pre-commit.com/hooks.html for more hooks
       #- id: check-added-large-files
@@ -69,14 +69,14 @@ repos:
       - id: check-merge-conflict
       - id: debug-statements
   - repo: https://github.com/gruntwork-io/pre-commit
-    rev: v0.1.23 # Get the latest from: https://github.com/gruntwork-io/pre-commit/releases
+    rev: v0.1.24 # Get the latest from: https://github.com/gruntwork-io/pre-commit/releases
     hooks:
       - id: terraform-fmt
       - id: helmlint
       - id: terraform-validate
       - id: tflint
   - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
-    rev: v9.11.0
+    rev: v9.18.0
     hooks:
       - id: commitlint
         stages: [commit-msg]

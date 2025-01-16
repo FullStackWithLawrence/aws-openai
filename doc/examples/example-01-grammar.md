@@ -21,7 +21,7 @@ curl --location --request PUT 'https://YOUR-API-GATEWAY-URL.amazonaws.com/v1/exa
   "id": "chatcmpl-7y5TvSLe4m1oU1cxPC5qX7fI4HCL9",
   "object": "chat.completion",
   "created": 1694555107,
-  "model": "gpt-3.5-turbo-0613",
+  "model": "gpt-4-turbo-0613",
   "choices": [
     {
       "index": 0,

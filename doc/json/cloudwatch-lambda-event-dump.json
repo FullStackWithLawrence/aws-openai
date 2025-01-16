@@ -1,6 +1,6 @@
 {
   "event": {
-    "model": "gpt-3.5-turbo",
+    "model": "gpt-4-turbo",
     "end_point": "ChatCompletion",
     "temperature": 1,
     "max_tokens": 4096,

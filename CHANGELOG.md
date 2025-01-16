@@ -1,16 +1,14 @@
 ## [0.10.7](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.10.6...v0.10.7) (2024-11-01)
 
-
 ### Bug Fixes
 
-* force a new release ([95401cb](https://github.com/FullStackWithLawrence/aws-openai/commit/95401cb87fbf941eb3237981f48fc535fcf1a7a4))
+- force a new release ([95401cb](https://github.com/FullStackWithLawrence/aws-openai/commit/95401cb87fbf941eb3237981f48fc535fcf1a7a4))
 
 ## [0.10.6](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.10.5...v0.10.6) (2024-01-29)
 
-
 ### Bug Fixes
 
-* force a new release ([d411e41](https://github.com/FullStackWithLawrence/aws-openai/commit/d411e415f2657e1b2b9475c6434de55b677d8262))
+- force a new release ([d411e41](https://github.com/FullStackWithLawrence/aws-openai/commit/d411e415f2657e1b2b9475c6434de55b677d8262))
 
 ## [0.10.5](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.10.4...v0.10.5) (2024-01-28)
 
@@ -257,7 +255,7 @@ OpenAI 'Function Calling' Lambda.
 
 ## [0.3.0] (2023-11-01)
 
-The YouTube video for this release: [AWS Lamba Layers: When and How to use them](https://youtu.be/5Jf34t_UlZA)
+The YouTube video for this release: [AWS Lambda Layers: When and How to use them](https://youtu.be/5Jf34t_UlZA)
 
 - add lambda_langchain
 - add lambda_openai_v2

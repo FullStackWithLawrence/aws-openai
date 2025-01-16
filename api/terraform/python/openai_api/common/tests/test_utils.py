@@ -63,7 +63,7 @@ class TestUtils(unittest.TestCase):
         """Test get_request_body"""
         request_body = get_request_body(self.request)
         self.assertEqual(request_body, self.request)
-        self.assertEqual(request_body["model"], "gpt-3.5-turbo")
+        self.assertEqual(request_body["model"], "gpt-4-turbo")
         self.assertEqual(request_body["object_type"], "chat.completion")
         self.assertIn("temperature", request_body)
         self.assertIn("max_tokens", request_body)
@@ -74,7 +74,7 @@ class TestUtils(unittest.TestCase):
         request_body = get_request_body(self.request)
         object_type, model, messages, input_text, temperature, max_tokens = parse_request(request_body)
         self.assertEqual(object_type, "chat.completion")
-        self.assertEqual(model, "gpt-3.5-turbo")
+        self.assertEqual(model, "gpt-4-turbo")
         self.assertEqual(input_text, None)
         self.assertEqual(temperature, 0)
         self.assertEqual(max_tokens, 256)

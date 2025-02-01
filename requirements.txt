@@ -10,7 +10,7 @@
 
 # dev and test
 # ------------
-boto3==1.35.90
+boto3==1.36.11
 botocore>=1.35.10
 pytest==8.3.4
 pytest_mock==3.14.0
@@ -29,11 +29,11 @@ bandit==1.8.0
 pydocstringformatter==0.7.3
 tox==4.23.2
 codespell==2.3.0
-coverage==7.5.4
+coverage==7.6.10
 
 # Lambda layer: openai
 # ------------
-openai==1.55.3
+openai==1.61.0
 
 # Lambda layer: common
 # ------------
@@ -45,7 +45,7 @@ python-hcl2==5.1.1
 # Lambda layer: langchain
 # ------------
 langchain
-langchain-openai==0.1.23
+langchain-openai==0.3.3
 #langchain-experimental
 
 # Lambda layer: nlp

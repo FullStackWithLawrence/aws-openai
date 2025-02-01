@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openai-api
+  labels:
+    app: openai-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openai-api
+  template:
+    metadata:
+      labels:
+        app: openai-api
+    spec:
+      containers:
+        - name: openai-api
+          image: "${var.aws_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com/${var.ecr_repo_name}:${var.ecr_repo_tag}"
+          env:
+            - name: ENV_VAR1
+              value: "value1"
+            - name: ENV_VAR2
+              value: "value2"
+          ports:
+            - containerPort: 8080

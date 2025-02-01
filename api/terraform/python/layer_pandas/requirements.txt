@@ -5,4 +5,4 @@
 # usage:      Shared Python requirements for anything requiring Pandas or NumPy
 # -----------------------------------------------------------------------------
 
-pandas
+pandas==0.0.1

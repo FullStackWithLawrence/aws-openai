@@ -1,3 +1,10 @@
+# [0.11.0](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.10.8...v0.11.0) (2025-02-01)
+
+
+### Features
+
+* containerize openai_api and push to AWS ECR ([e18651b](https://github.com/FullStackWithLawrence/aws-openai/commit/e18651b8f0b6bf59f9e40d0acdce49560baadb0f))
+
 ## [0.10.7](https://github.com/FullStackWithLawrence/aws-openai/compare/v0.10.6...v0.10.7) (2024-11-01)
 
 ### Bug Fixes

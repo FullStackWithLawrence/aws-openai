@@ -1,0 +1,55 @@
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  creationTimestamp: "2023-08-22T03:08:10Z"
+  generation: 117309
+  name: vpa-recommender-wordpress
+  namespace: lawrencemcdaniel-api
+  resourceVersion: "171470577"
+  uid: 08c46fcd-c2a4-4c32-9393-60ee7d35bf5b
+spec:
+  resourcePolicy:
+    containerPolicies:
+      - containerName: wordpress
+        maxAllowed:
+          cpu: 1000m
+          memory: 1000Mi
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: wordpress
+  updatePolicy:
+    updateMode: Auto
+status:
+  conditions:
+    - lastTransitionTime: "2023-08-22T03:10:22Z"
+      status: "True"
+      type: RecommendationProvided
+  recommendation:
+    containerRecommendations:
+      - containerName: metrics
+        lowerBound:
+          cpu: 12m
+          memory: 131072k
+        target:
+          cpu: 12m
+          memory: 131072k
+        uncappedTarget:
+          cpu: 12m
+          memory: 131072k
+        upperBound:
+          cpu: 15m
+          memory: 131072k
+      - containerName: wordpress
+        lowerBound:
+          cpu: 22m
+          memory: "865925832"
+        target:
+          cpu: 23m
+          memory: 1000Mi
+        uncappedTarget:
+          cpu: 23m
+          memory: "1389197403"
+        upperBound:
+          cpu: 23m
+          memory: 1000Mi

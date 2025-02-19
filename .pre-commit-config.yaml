@@ -25,7 +25,7 @@ repos:
     hooks:
       - id: black
   - repo: https://github.com/PyCQA/flake8
-    rev: 7.1.1
+    rev: 7.1.2
     hooks:
       - id: flake8
   - repo: https://github.com/PyCQA/isort
@@ -41,7 +41,7 @@ repos:
         language: script
         types: [python]
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.8.2
+    rev: 1.8.3
     hooks:
       - id: bandit
         args: ["-ll"]
@@ -76,7 +76,7 @@ repos:
       - id: terraform-validate
       - id: tflint
   - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
-    rev: v9.20.0
+    rev: v9.21.0
     hooks:
       - id: commitlint
         stages: [commit-msg]

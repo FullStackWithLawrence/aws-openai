@@ -27,7 +27,7 @@ mypy==1.14.1
 pylint==3.3.3
 bandit==1.8.2
 pydocstringformatter==0.7.3
-tox==4.23.2
+tox==4.24.1
 codespell==2.3.0
 coverage==7.6.12
 

@@ -14,7 +14,7 @@ openai==1.76.2
 
 # general requirements
 # --------------------------
-pydantic==2.11.4
+pydantic==2.11.5
 pydantic-settings==2.9.1
 python-dotenv==1.1.0
 python-hcl2==7.2.0

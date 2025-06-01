@@ -13,7 +13,7 @@
 boto3==1.36.11
 botocore>=1.35.10
 pytest==8.3.5
-pytest_mock==3.14.0
+pytest_mock==3.14.1
 requests==2.32.3
 
 # Code linters, formatters, and security scanners
@@ -27,7 +27,7 @@ mypy==1.14.1
 pylint==3.3.6
 bandit==1.8.3
 pydocstringformatter==0.7.3
-tox==4.25.0
+tox==4.26.0
 codespell==2.3.0
 coverage==7.8.2
 

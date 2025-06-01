@@ -12,4 +12,4 @@
 # --------------------------
 langchain
 #langchain-experimental
-langchain-openai==0.3.14
+langchain-openai==0.3.18

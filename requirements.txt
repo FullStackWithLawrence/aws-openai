@@ -19,7 +19,7 @@ requests==2.32.3
 # Code linters, formatters, and security scanners
 # ------------
 black==25.1.0
-flake8==7.2.0
+flake8==7.3.0
 flake8-coding==1.3.2
 pre-commit==4.2.0
 isort==6.0.1
@@ -29,7 +29,7 @@ bandit==1.8.3
 pydocstringformatter==0.7.3
 tox==4.26.0
 codespell==2.3.0
-coverage==7.8.2
+coverage==7.9.1
 
 # Lambda layer: openai
 # ------------
@@ -38,7 +38,7 @@ openai==1.70.0
 # Lambda layer: common
 # ------------
 python-dotenv==1.1.0
-pydantic==2.11.5
+pydantic==2.11.7
 pydantic-settings==2.9.1
 python-hcl2==5.1.1
 

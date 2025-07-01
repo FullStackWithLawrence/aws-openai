@@ -10,11 +10,11 @@
 
 # generative AI requirements
 # --------------------------
-openai==1.82.1
+openai==1.93.0
 
 # general requirements
 # --------------------------
-pydantic==2.11.5
-pydantic-settings==2.9.1
-python-dotenv==1.1.0
+pydantic==2.11.7
+pydantic-settings==2.10.1
+python-dotenv==1.1.1
 python-hcl2==7.2.1

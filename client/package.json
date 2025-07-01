@@ -10,7 +10,7 @@
     "preview": "vite preview --port 8080"
   },
   "dependencies": {
-    "dotenv": "^16.3.1",
+    "dotenv": "^17.0.0",
     "i": "^0.3.7",
     "npm": "^11.0.0",
     "react": "^19.0.0",
@@ -31,6 +31,6 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.5",
-    "vite": "^6.0.1"
+    "vite": "^7.0.0"
   }
 }

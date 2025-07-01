@@ -29,7 +29,7 @@ bandit==1.8.3
 pydocstringformatter==0.7.3
 tox==4.26.0
 codespell==2.3.0
-coverage==7.8.2
+coverage==7.9.1
 
 # Lambda layer: openai
 # ------------

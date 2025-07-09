@@ -41,7 +41,7 @@ repos:
         language: script
         types: [python]
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.8.5
+    rev: 1.8.6
     hooks:
       - id: bandit
         args: ["-ll"]
@@ -69,7 +69,7 @@ repos:
       - id: check-merge-conflict
       - id: debug-statements
   - repo: https://github.com/gruntwork-io/pre-commit
-    rev: v0.1.29 # Get the latest from: https://github.com/gruntwork-io/pre-commit/releases
+    rev: v0.1.30 # Get the latest from: https://github.com/gruntwork-io/pre-commit/releases
     hooks:
       - id: terraform-fmt
       - id: helmlint

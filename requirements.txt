@@ -55,6 +55,6 @@ pyyaml
 
 # weather function
 googlemaps==4.10.0
-openmeteo-requests==1.7.2
+openmeteo-requests==1.7.3
 requests-cache==1.2.1
 retry-requests==2.0.0

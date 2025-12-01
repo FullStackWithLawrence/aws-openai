@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Checkout code
         id: checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Merge main into next
         uses: ./.github/actions/merge-branch
@@ -56,13 +56,13 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.PAT }}
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         id: checkout
         with:
           persist-credentials: false
 
       - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v5
+        uses: cycjimmy/semantic-release-action@v6
         id: semantic
         with:
           branches: |

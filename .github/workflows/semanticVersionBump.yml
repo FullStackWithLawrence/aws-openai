@@ -27,7 +27,7 @@ jobs:
       PACKAGE_PATH: ${{ github.workspace }}/api/terraform/python/openai_api/
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           persist-credentials: false
 

@@ -19,5 +19,5 @@ pyyaml
 # --------------------------
 googlemaps==4.10.0
 openmeteo-requests==1.7.5
-requests-cache==1.2.1
+requests-cache==1.3.0
 retry-requests==2.0.0

@@ -10,7 +10,6 @@
 
 # dev and test
 # ------------
-<<<<<<< HEAD
 boto3==1.42.80
 botocore>=1.35.10
 pytest==9.0.2
@@ -42,39 +41,6 @@ python-dotenv==1.2.2
 pydantic==2.12.5
 pydantic-settings==2.13.1
 python-hcl2==7.3.1
-=======
-boto3
-botocore
-pytest
-pytest_mock
-requests
-
-# Code linters, formatters, and security scanners
-# ------------
-black
-flake8
-flake8-coding
-pre-commit
-isort
-pylint
-mypy
-bandit
-pydocstringformatter
-tox
-codespell
-coverage
-
-# Lambda layer: openai
-# ------------
-openai
-
-# Lambda layer: common
-# ------------
-python-dotenv
-pydantic
-pydantic-settings
-python-hcl2
->>>>>>> f6bd99d (refactor: upgrade to python3.13, remove layers and replace with common AWS ECR repo)
 
 # Lambda layer: langchain
 # ------------
@@ -84,7 +50,6 @@ langchain-openai
 
 # Lambda layer: nlp
 # ------------
-<<<<<<< HEAD
 python-Levenshtein==0.27.3
 pyyaml
 
@@ -93,13 +58,3 @@ googlemaps==4.10.0
 openmeteo-requests==1.7.5
 requests-cache==1.2.1
 retry-requests==2.0.0
-=======
-python-Levenshtein
-pyyaml
-
-# weather function
-googlemaps
-openmeteo-requests
-requests-cache
-retry-requests
->>>>>>> f6bd99d (refactor: upgrade to python3.13, remove layers and replace with common AWS ECR repo)

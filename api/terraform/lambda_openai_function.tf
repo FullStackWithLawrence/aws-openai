@@ -69,7 +69,7 @@ resource "aws_lambda_function" "lambda_openai_function" {
   # see https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function.html
   # see https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
   function_name    = local.openai_functionfunction_name
-  description      = "LangChain request handler"
+  description      = "LangChain OpenAI request handler"
   role             = aws_iam_role.lambda.arn
   publish          = true
   runtime          = var.lambda_python_runtime
@@ -79,11 +79,6 @@ resource "aws_lambda_function" "lambda_openai_function" {
   architectures    = var.compatible_architectures
   filename         = data.archive_file.lambda_openai_function.output_path
   source_code_hash = data.archive_file.lambda_openai_function.output_base64sha256
-  layers = [
-    aws_lambda_layer_version.openai.arn,
-    aws_lambda_layer_version.nlp.arn,
-    aws_lambda_layer_version.pandas.arn
-  ]
   tags = var.tags
 
   environment {

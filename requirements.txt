@@ -10,51 +10,53 @@
 
 # dev and test
 # ------------
-boto3==1.42.80
-botocore>=1.35.10
-pytest==9.0.2
-pytest_mock==3.15.1
-requests==2.32.5
+boto3
+botocore
+pytest
+pytest_mock
+requests
 
 # Code linters, formatters, and security scanners
 # ------------
-black==26.3.1
-flake8==7.3.0
-flake8-coding==1.3.2
-pre-commit==4.5.1
-isort==7.0.0
-pylint==4.0.5
-mypy==1.20.0
-bandit==1.9.3
-pydocstringformatter==0.7.5
-tox==4.46.3
-codespell==2.4.1
-coverage==7.13.5
+black
+flake8
+flake8-coding
+pre-commit
+isort
+pylint
+mypy
+bandit
+pydocstringformatter
+tox
+codespell
+coverage
 
-# Lambda layer: openai
-# ------------
-openai==2.24.0
+# general requirements
+# --------------------------
+pydantic
+pydantic-settings
+pydantic_core
+python-dotenv
+python-hcl2
+pandas
 
-# Lambda layer: common
-# ------------
-python-dotenv==1.2.2
-pydantic==2.12.5
-pydantic-settings==2.13.1
-python-hcl2==7.3.1
 
-# Lambda layer: langchain
-# ------------
+# generative AI requirements
+# --------------------------
+openai
 langchain
 langchain-openai
-#langchain-experimental
+langchain_community
+pyyaml
 
-# Lambda layer: nlp
-# ------------
-python-Levenshtein==0.27.3
+# NLP requirements
+# --------------------------
+python-Levenshtein
 pyyaml
 
 # weather function
-googlemaps==4.10.0
-openmeteo-requests==1.7.5
-requests-cache==1.2.1
-retry-requests==2.0.0
+# --------------------------
+googlemaps
+openmeteo-requests
+requests-cache
+retry-requests

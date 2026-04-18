@@ -154,6 +154,8 @@ def parse_request(request_body: dict):
     temperature = request_body.get("temperature", -1)
     max_tokens = request_body.get("max_tokens")
     chat_history = request_body.get("chat_history")
+    tools = request_body.get("tools")
+    tool_choice = request_body.get("tool_choice")
 
     if not object_type:
         logging.warning("object_type key not found in request body. defaulting to ChatCompletion")
@@ -170,6 +172,12 @@ def parse_request(request_body: dict):
     if not max_tokens:
         logging.warning("max_tokens key not found in request body. defaulting to 150")
         max_tokens = 150
+
+    if tools is None:
+        tools = []
+
+    if tool_choice is None:
+        tool_choice = "auto"
 
     validate_item(
         item=object_type,
@@ -188,7 +196,7 @@ def parse_request(request_body: dict):
             messages.append({"role": chat["sender"], "content": chat["message"]})
         messages.append({"role": "user", "content": input_text})
 
-    return object_type, model, messages, input_text, temperature, max_tokens
+    return object_type, model, messages, input_text, temperature, max_tokens, tools, tool_choice
 
 
 def get_content_for_role(messages: list, role: str) -> str:

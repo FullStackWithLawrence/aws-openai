@@ -112,7 +112,7 @@ variable "quota_settings_period" {
 
 variable "lambda_python_runtime" {
   type    = string
-  default = "python3.11"
+  default = "python3.13"
 }
 variable "lambda_nodejs_runtime" {
   type    = string

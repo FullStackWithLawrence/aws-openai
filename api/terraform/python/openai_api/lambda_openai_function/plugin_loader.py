@@ -11,7 +11,7 @@ from typing import Optional
 
 import yaml
 from openai_api.common.conf import settings
-from openai_api.common.const import PYTHON_ROOT, VALID_CHAT_COMPLETION_MODELS
+from openai_api.common.const import PYTHON_ROOT
 from pydantic import BaseModel, Field, ValidationError, field_validator, root_validator
 
 
@@ -50,7 +50,7 @@ class PluginBase(BaseModel):
     def __str__(self):
         return f"{self.to_json()}"
 
-    def to_json(self) -> json:
+    def to_json(self) -> dict:
         """Return the plugin as a JSON object"""
         raise NotImplementedError
 
@@ -96,7 +96,7 @@ class SearchTerms(PluginBase):
         """Return a list of search terms"""
         return self.plugin_json.get("pairs")
 
-    def to_json(self) -> json:
+    def to_json(self) -> dict:
         """Return the plugin as a JSON object"""
         return self.plugin_json
 
@@ -119,7 +119,7 @@ class AdditionalInformation(PluginBase):
         """Return a list of keys for additional information"""
         return list(self.plugin_json.keys())
 
-    def to_json(self) -> json:
+    def to_json(self) -> dict:
         """Return the plugin as a JSON object"""
         return self.plugin_json
 
@@ -128,12 +128,6 @@ class Prompting(PluginBase):
     """Prompting child class of a Plugin object"""
 
     plugin_json: dict = Field(..., description="Plugin object")
-
-    # attributes
-    system_prompt: str = Field("", description="System prompt of the prompt")
-    model: str = Field("gpt-4-turbo-1106", description="Model of the system prompt")
-    temperature: float = Field(0.0, description="Temperature of the system prompt")
-    max_tokens: int = Field(0, description="Max tokens of the system prompt")
 
     @root_validator(pre=True)
     def set_fields(cls, values):
@@ -156,38 +150,27 @@ class Prompting(PluginBase):
         validate_required_keys(class_name=cls.__name__, required_keys=required_keys, plugin_json=plugin_json)
         return plugin_json
 
-    @field_validator("model")
-    @classmethod
-    def validate_model(cls, model) -> dict:
-        """Validate the plugin object"""
-        if model not in VALID_CHAT_COMPLETION_MODELS:
-            do_error(
-                class_name=cls.__name__,
-                err=f"Invalid plugin object: {model}. 'model' should be one of {VALID_CHAT_COMPLETION_MODELS}.",
-            )
-        return model
-
     @property
-    def system_prompt(self) -> str:
+    def system_prompt(self) -> Optional[str]:
         """Return the system prompt"""
         return self.plugin_json.get("system_prompt")
 
     @property
-    def model(self) -> str:
+    def model(self) -> Optional[str]:
         """Return the model"""
         return self.plugin_json.get("model")
 
     @property
-    def temperature(self) -> float:
+    def temperature(self) -> Optional[float]:
         """Return the temperature"""
         return self.plugin_json.get("temperature")
 
     @property
-    def max_tokens(self) -> int:
+    def max_tokens(self) -> Optional[int]:
         """Return the max tokens"""
         return self.plugin_json.get("max_tokens")
 
-    def to_json(self) -> json:
+    def to_json(self) -> dict:
         """Return the plugin as a JSON object"""
         return self.plugin_json
 
@@ -196,8 +179,8 @@ class FunctionCalling(PluginBase):
     """FunctionCalling child class of a Plugin"""
 
     plugin_json: dict = Field(..., description="Plugin object")
-    function_description: str = Field(None, description="Description of the function")
-    additional_information: AdditionalInformation = Field(None, description="Additional information of the function")
+    function_description: str = Field(..., description="Description of the function")
+    additional_information: AdditionalInformation = Field(..., description="Additional information of the function")
 
     @root_validator(pre=True)
     def set_fields(cls, values):
@@ -230,7 +213,7 @@ class FunctionCalling(PluginBase):
             )
         return plugin_json
 
-    def to_json(self) -> json:
+    def to_json(self) -> dict:
         """Return the plugin as a JSON object"""
         return {
             "function_description": self.function_description,
@@ -287,7 +270,7 @@ class MetaData(PluginBase):
         """Return the author of the plugin object"""
         return self.plugin_json.get("plugin_author") if self.plugin_json else None
 
-    def to_json(self) -> json:
+    def to_json(self) -> dict:
         """Return the plugin as a JSON object"""
         return self.plugin_json
 
@@ -334,7 +317,7 @@ class Selector(PluginBase):
             )
         return directive
 
-    def to_json(self) -> json:
+    def to_json(self) -> dict:
         """Return the plugin as a JSON object"""
         return {
             "directive": self.directive,
@@ -387,7 +370,7 @@ class Plugin(PluginBase):
                     err=f"Expected a dict for {key} but received {type(plugin_json[key])}: {plugin_json[key]}",
                 )
 
-    def to_json(self) -> json:
+    def to_json(self) -> dict:
         """Return the plugin as a JSON object"""
         return {
             "name": self.name,
@@ -485,7 +468,7 @@ class Plugins:
             s3.Object(bucket_name, self.aws_bucket_path).put()
         self._aws_bucket_path_validated = True
 
-    def to_json(self) -> json:
+    def to_json(self) -> Optional[list]:
         """Return the _custom_plugins list as a JSON object"""
         return self.valid_plugins
 
@@ -506,7 +489,7 @@ class SingletonPlugins:
         return cls._instance
 
     @property
-    def plugins(self) -> Plugins:
+    def plugins(self) -> Optional[Plugins]:
         """Return the settings"""
         return self._custom_plugins
 

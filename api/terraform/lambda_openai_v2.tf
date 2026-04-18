@@ -14,41 +14,10 @@
 #------------------------------------------------------------------------------
 locals {
   openai_v2_function_name     = "lambda_openai_v2"
-  openai_v2_build_path        = "${path.module}/build/distribution_package"
   openai_v2_source_directory  = "${path.module}/python/openai_api"
-  openai_v2_packaging_script  = "${local.openai_v2_source_directory}/create_pkg.sh"
-  openai_v2_dist_package_name = "${local.openai_v2_function_name}_dist_pkg.zip"
 }
 
-###############################################################################
-# Python package
-# https://alek-cora-glez.medium.com/deploying-aws-lambda-function-with-terraform-custom-dependencies-7874407cd4fc
-###############################################################################
-resource "null_resource" "package_lambda_openai_v2" {
-  triggers = {
-    always_redeploy = timestamp()
-  }
 
-  provisioner "local-exec" {
-    interpreter = ["/bin/bash"]
-    command     = local.openai_v2_packaging_script
-
-    environment = {
-      TERRAFORM_ROOT   = path.module
-      SOURCE_CODE_PATH = local.openai_v2_source_directory
-      BUILD_PATH       = local.openai_v2_build_path
-      PACKAGE_FOLDER   = local.openai_v2_function_name
-    }
-  }
-}
-
-data "archive_file" "lambda_openai_v2" {
-  # see https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file
-  source_dir  = local.openai_v2_build_path
-  output_path = "${path.module}/build/${local.openai_v2_dist_package_name}"
-  type        = "zip"
-  depends_on  = [null_resource.package_lambda_openai_v2]
-}
 
 ###############################################################################
 # OpenAI API key and organization
@@ -62,25 +31,31 @@ data "external" "env_lambda_openai_v2" {
   #program = ["${path.module}/scripts/env.ps1"]
 }
 
+
+
+data "aws_ecr_image" "lambda_image" {
+  repository_name = aws_ecr_repository.lambda_repo.name
+
+  most_recent = true
+
+  depends_on = [null_resource.build_and_push]
+}
+
 ###############################################################################
 # AWS Lambda function
 ###############################################################################
 resource "aws_lambda_function" "lambda_openai_v2" {
-  # see https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function.html
-  # see https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
-  function_name    = local.openai_v2_function_name
-  description      = "LangChain request handler"
-  role             = aws_iam_role.lambda.arn
-  publish          = true
-  runtime          = var.lambda_python_runtime
-  memory_size      = var.lambda_memory_size
-  timeout          = var.lambda_timeout
-  handler          = "openai_api.lambda_openai_v2.lambda_handler.handler"
-  architectures    = var.compatible_architectures
-  filename         = data.archive_file.lambda_openai_v2.output_path
-  source_code_hash = data.archive_file.lambda_openai_v2.output_base64sha256
-  layers           = [aws_lambda_layer_version.openai.arn]
-  tags             = var.tags
+  function_name = local.openai_v2_function_name
+  role          = aws_iam_role.lambda.arn
+
+  package_type = "Image"
+  image_uri = "${aws_ecr_repository.lambda_repo.repository_url}@${data.aws_ecr_image.lambda_image.image_digest}"
+
+  memory_size = var.lambda_memory_size
+  timeout     = var.lambda_timeout
+
+  architectures = var.compatible_architectures
+  publish       = true
 
   environment {
     variables = {
@@ -92,6 +67,8 @@ resource "aws_lambda_function" "lambda_openai_v2" {
       AWS_DEPLOYED               = true
     }
   }
+
+  depends_on = [null_resource.build_and_push]
 }
 
 ###############################################################################

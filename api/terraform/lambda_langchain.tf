@@ -79,7 +79,6 @@ resource "aws_lambda_function" "lambda_langchain" {
   architectures    = var.compatible_architectures
   filename         = data.archive_file.lambda_langchain.output_path
   source_code_hash = data.archive_file.lambda_langchain.output_base64sha256
-  layers           = [aws_lambda_layer_version.openai.arn, aws_lambda_layer_version.langchain.arn]
   tags             = var.tags
 
   environment {

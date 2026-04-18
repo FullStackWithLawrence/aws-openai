@@ -6,7 +6,7 @@ ifeq ($(OS),Windows_NT)
     PYTHON := python.exe
     ACTIVATE_VENV := venv\Scripts\activate
 else
-    PYTHON := python3.11
+    PYTHON := python3.13
     ACTIVATE_VENV := source venv/bin/activate
 endif
 PIP := $(PYTHON) -m pip

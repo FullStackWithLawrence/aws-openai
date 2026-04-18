@@ -21,8 +21,6 @@ import openai
 import yaml
 from openai_api.common.conf import settings
 from openai_api.common.const import (
-    PYTHON_ROOT,
-    VALID_CHAT_COMPLETION_MODELS,
     OpenAIResponseCodes,
 )
 from openai_api.common.exceptions import EXCEPTION_MAP
@@ -54,7 +52,7 @@ from openai_api.lambda_openai_function.plugin_manager import (
 
 
 openai.organization = settings.openai_api_organization
-openai.api_key = settings.openai_api_key.get_secret_value()
+openai.api_key = settings.openai_api_key.get_secret_value()  # type: ignore
 
 
 # pylint: disable=unused-argument
@@ -66,7 +64,7 @@ def handler(event, context):
     Responsible for processing incoming requests and invoking the appropriate
     OpenAI API endpoint based on the contents of the request.
     """
-    cloudwatch_handler(event, settings.dump, debug_mode=settings.debug_mode)
+    cloudwatch_handler(event, settings.dump, debug_mode=settings.debug_mode)  # type: ignore
     weather_tool = weather_tool_factory()
     tools = [weather_tool]
 
@@ -79,32 +77,37 @@ def handler(event, context):
         # does the prompt have anything to do with any of the search terms defined in a plugin?
         # FIX NOTE: need to decide on how to resolve which of many plugin values sets to use for model, temperature, max_tokens
         for plugin in plugins:
+            if not messages:
+                raise ValueError("Messages must be included in the request body for plugin functionality.")
+            if not plugin.selector:
+                raise ValueError(f"Plugin {plugin.name} does not have a selector defined.")
             if search_terms_are_in_messages(
                 messages=messages,
                 search_terms=plugin.selector.search_terms.strings,
                 search_pairs=plugin.selector.search_terms.pairs,
             ):
+                if not plugin.prompting:
+                    raise ValueError(f"Plugin {plugin.name} does not have prompting information defined.")
                 model = plugin.prompting.model
                 temperature = plugin.prompting.temperature
                 max_tokens = plugin.prompting.max_tokens
                 messages = customized_prompt(plugin=plugin, messages=messages)
                 custom_tool = plugin_tool_factory(plugin=plugin)
                 tools.append(custom_tool)
+                if not plugin.meta_data:
+                    raise ValueError(f"Plugin {plugin.name} does not have meta_data defined.")
                 print(
                     f"Adding plugin: {plugin.name} {plugin.meta_data.plugin_version} created by {plugin.meta_data.plugin_author}"
                 )
 
         # https://platform.openai.com/docs/guides/gpt/chat-completions-api
-        validate_item(
-            item=model,
-            valid_items=VALID_CHAT_COMPLETION_MODELS,
-            item_type="ChatCompletion models",
-        )
         validate_completion_request(request_body)
+        if not messages:
+            raise ValueError("Messages must be included in the request body for chat completions.")
         openai_results = openai.chat.completions.create(
             model=model,
             messages=messages,
-            tools=tools,
+            tools=tools,  # type: ignore
             temperature=temperature,
             max_tokens=max_tokens,
         )
@@ -121,10 +124,11 @@ def handler(event, context):
             messages.append(response_message)  # extend conversation with assistant's reply
             # Step 4: send the info for each function call and function response to the model
             for tool_call in tool_calls:
-                function_name = tool_call.function.name
+                function_name = tool_call.function.name  # type: ignore
                 function_to_call = available_functions[function_name]
-                function_args = json.loads(tool_call.function.arguments)
+                function_args = json.loads(tool_call.function.arguments)  # type: ignore
 
+                function_response = None
                 if function_name == "get_current_weather":
                     function_response = function_to_call(
                         location=function_args.get("location"),
@@ -155,5 +159,5 @@ def handler(event, context):
     # success!! return the results
     return http_response_factory(
         status_code=OpenAIResponseCodes.HTTP_RESPONSE_OK,
-        body={**openai_results, **request_meta_data},
+        body={**openai_results, **request_meta_data},  # type: ignore
     )

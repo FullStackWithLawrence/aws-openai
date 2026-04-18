@@ -54,7 +54,6 @@ class OpenAIObjectTypes:
     all_object_types = [Embedding, ChatCompletion, Moderation, Image, Audio, Models]
 
 
-# pylint: disable=too-few-public-methods
 class OpenAIEndPoint:
     """
     A class representing an endpoint for the OpenAI API.
@@ -64,12 +63,12 @@ class OpenAIEndPoint:
         endpoint (str): The URL of the OpenAI API endpoint.
     """
 
-    Embedding = openai.Embedding.__name__
+    Embedding = "Embedding"
     ChatCompletion = "chat/completions"
-    Moderation = openai.Moderation.__name__
-    Image = openai.Image.__name__
-    Audio = openai.Audio.__name__
-    Models = openai.Model.__name__
+    Moderation = "Moderation"
+    Image = "Image"
+    Audio = "Audio"
+    Models = "Model"
     all_endpoints = [Embedding, ChatCompletion, Moderation, Image, Audio, Models]
 
 
@@ -80,28 +79,15 @@ class OpenAIMessageKeys:
     OPENAI_USER_MESSAGE_KEY = "user"
     OPENAI_ASSISTANT_MESSAGE_KEY = "assistant"
     OPENAI_SYSTEM_MESSAGE_KEY = "system"
+    OPENAI_TOOL_KEY = "tool"
     all = [
         OPENAI_SYSTEM_MESSAGE_KEY,
         OPENAI_USER_MESSAGE_KEY,
         OPENAI_ASSISTANT_MESSAGE_KEY,
+        OPENAI_TOOL_KEY,
     ]
 
 
-VALID_CHAT_COMPLETION_MODELS = [
-    "gpt-4",
-    "gpt-4-turbo",
-    "gpt-4-32k",
-    "gpt-4-1106-preview",
-    "gpt-4-0613",
-    "gpt-4-32k",
-    "gpt-4-32k-0613",
-    "gpt-4-turbo",
-    "gpt-4-turbo-0613",
-    "gpt-4-turbo-16k",
-    "gpt-4-turbo-16k-0613",
-    "gpt-4-turbo-1106",
-    "gpt-4-turbo-instruct",
-]
 VALID_EMBEDDING_MODELS = [
     "text-embedding-ada-002",
     "text-similarity-*-001",

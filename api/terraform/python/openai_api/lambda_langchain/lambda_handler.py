@@ -20,18 +20,17 @@ usage:      Use langchain to process requests to the OpenAI API.
 """
 import json
 
-from langchain.chains import LLMChain
-from langchain.memory import ConversationBufferMemory
-from langchain.prompts import (
+from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain_core.prompts import (
     ChatPromptTemplate,
     HumanMessagePromptTemplate,
     MessagesPlaceholder,
     SystemMessagePromptTemplate,
 )
+from langchain_core.runnables import Runnable
 from langchain_openai import ChatOpenAI
 from openai_api.common.conf import settings
 from openai_api.common.const import (  # VALID_EMBEDDING_MODELS,
-    VALID_CHAT_COMPLETION_MODELS,
     OpenAIMessageKeys,
     OpenAIObjectTypes,
     OpenAIResponseCodes,
@@ -92,11 +91,6 @@ def handler(event, context):
                 """
                 # 1. extract and validate the source data from the http request
                 # -------------------------------------------------------------
-                validate_item(
-                    item=model,
-                    valid_items=VALID_CHAT_COMPLETION_MODELS,
-                    item_type="ChatCompletion models",
-                )
                 validate_completion_request(request_body)
                 system_message = get_content_for_role(messages, OpenAIMessageKeys.OPENAI_SYSTEM_MESSAGE_KEY)
                 user_message = get_content_for_role(messages, OpenAIMessageKeys.OPENAI_USER_MESSAGE_KEY)
@@ -119,10 +113,7 @@ def handler(event, context):
 
                 # 3. extract message history and initialize memory
                 # -------------------------------------------------------------
-                memory = ConversationBufferMemory(
-                    memory_key=settings.langchain_memory_key,
-                    return_messages=True,
-                )
+                memory = ChatMessageHistory()
                 message_history = get_message_history(messages)
                 user_messages = get_messages_for_role(message_history, OpenAIMessageKeys.OPENAI_USER_MESSAGE_KEY)
                 assistant_messages = get_messages_for_role(
@@ -134,13 +125,11 @@ def handler(event, context):
 
                 # 4. run the conversation
                 # -------------------------------------------------------------
-                conversation = LLMChain(
-                    llm=llm,
-                    prompt=prompt,
-                    verbose=True,
-                    memory=memory,
+                # LLMChain is deprecated; use Runnable for chat chains
+                conversation = prompt | llm | Runnable.map_output(lambda x: {"result": x})
+                result = conversation.invoke(
+                    {"question": user_message, memory.memory_key: memory.load_memory_variables({})[memory.memory_key]}
                 )
-                conversation({"question": user_message})
 
                 # 5. extract and return the results
                 # -------------------------------------------------------------

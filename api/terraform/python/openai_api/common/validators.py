@@ -74,7 +74,7 @@ def validate_messages(request_body):
                 f"invalid role {message['role']} found in message {json.dumps(message, indent=4)}. "
                 f"Should be one of {OpenAIMessageKeys.all}"
             )
-        if "content" not in message:
+        if "content" not in message and "tool_calls" not in message:
             raise OpenAIAPIValueError(f"dict key 'content' not found in message {json.dumps(message, indent=4)}")
 
 

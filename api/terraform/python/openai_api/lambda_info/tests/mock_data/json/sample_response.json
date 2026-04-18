@@ -256,7 +256,7 @@
           "create_custom_domain": true,
           "debug_mode": true,
           "lambda_memory_size": 256,
-          "lambda_python_runtime": "python3.11",
+          "lambda_python_runtime": "python3.13",
           "lambda_timeout": 600,
           "log_retention_days": 3,
           "logging_level": "INFO",

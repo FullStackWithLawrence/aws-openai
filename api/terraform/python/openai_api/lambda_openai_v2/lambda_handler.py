@@ -30,7 +30,6 @@ usage:
 import openai
 from openai_api.common.conf import settings
 from openai_api.common.const import (  # VALID_EMBEDDING_MODELS,
-    VALID_CHAT_COMPLETION_MODELS,
     OpenAIObjectTypes,
     OpenAIResponseCodes,
 )
@@ -47,10 +46,12 @@ from openai_api.common.validators import (  # validate_embedding_request,
     validate_completion_request,
     validate_item,
 )
+from pydantic import SecretStr
 
 
 openai.organization = settings.openai_api_organization
-openai.api_key = settings.openai_api_key.get_secret_value()
+if isinstance(settings.openai_api_key, SecretStr):
+    openai.api_key = settings.openai_api_key.get_secret_value()
 
 
 # pylint: disable=unused-argument
@@ -62,25 +63,27 @@ def handler(event, context):
     Responsible for processing incoming requests and invoking the appropriate
     OpenAI API endpoint based on the contents of the request.
     """
-    cloudwatch_handler(event, settings.dump, debug_mode=settings.debug_mode)
+    cloudwatch_handler(event, settings.dump, debug_mode=settings.debug_mode or False)
     try:
         openai_results = {}
         request_body = get_request_body(event=event)
-        object_type, model, messages, input_text, temperature, max_tokens = parse_request(request_body)
+        object_type, model, messages, input_text, temperature, max_tokens, tools, tool_choice = parse_request(
+            request_body
+        )
         request_meta_data = request_meta_data_factory(model, object_type, temperature, max_tokens, input_text)
+
+        if not isinstance(messages, list) and not isinstance(input_text, str):
+            raise ValueError("Request must include either 'messages' or 'input_text'.")
 
         match object_type:
             case OpenAIObjectTypes.ChatCompletion:
                 # https://platform.openai.com/docs/guides/gpt/chat-completions-api
-                validate_item(
-                    item=model,
-                    valid_items=VALID_CHAT_COMPLETION_MODELS,
-                    item_type="ChatCompletion models",
-                )
                 validate_completion_request(request_body)
                 openai_results = openai.chat.completions.create(
                     model=model,
-                    messages=messages,
+                    messages=messages,  # type: ignore
+                    tools=tools,
+                    tool_choice=tool_choice,
                     temperature=temperature,
                     max_tokens=max_tokens,
                 )
@@ -125,5 +128,5 @@ def handler(event, context):
     # success!! return the results
     return http_response_factory(
         status_code=OpenAIResponseCodes.HTTP_RESPONSE_OK,
-        body={**openai_results, **request_meta_data},
+        body={**openai_results, **request_meta_data},  # type: ignore
     )

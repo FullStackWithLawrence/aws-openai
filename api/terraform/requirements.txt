@@ -1,0 +1,50 @@
+# -----------------------------------------------------------------------------
+# written by: Lawrence McDaniel
+#             https://lawrencemcdaniel.com
+#
+# usage:      Python requirements for AWS Lambda functions. Create a virtual
+#             environment in the root of this repository named `venv`. Terraform
+#             modules will look for and include these requirements in the zip
+#             packages for each Python-based Lambda function.
+# -----------------------------------------------------------------------------
+
+# Platform requirements
+# --------------------------
+
+# <python-input-1>:1: UserWarning: pkg_resources is deprecated as an API.
+# See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources
+# package is slated for removal as early as 2025-11-30. Refrain from using this
+# package or pin to Setuptools<81.
+setuptools<81.0.0
+certifi
+requests
+
+# general requirements
+# --------------------------
+pydantic
+pydantic-settings
+pydantic_core
+python-dotenv
+python-hcl2
+pandas
+
+
+# generative AI requirements
+# --------------------------
+openai
+langchain
+langchain-openai
+langchain_community
+pyyaml
+
+# NLP requirements
+# --------------------------
+python-Levenshtein
+pyyaml
+
+# weather function
+# --------------------------
+googlemaps
+openmeteo-requests
+requests-cache
+retry-requests

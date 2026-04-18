@@ -29,7 +29,7 @@ openai_endpoint_image_size = "1024x768"
 ###############################################################################
 # Lambda parameters
 ###############################################################################
-lambda_python_runtime = "python3.11"
+lambda_python_runtime = "python3.13"
 debug_mode            = true
 lambda_memory_size    = 256
 lambda_timeout        = 600

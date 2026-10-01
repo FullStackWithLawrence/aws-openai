@@ -10,7 +10,7 @@
     "preview": "vite preview --port 8080"
   },
   "dependencies": {
-    "dotenv": "^17.0.0",
+    "dotenv": "^18.0.4",
     "i": "^0.3.7",
     "npm": "^12.0.1",
     "react": "^19.0.0",

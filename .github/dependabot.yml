@@ -8,10 +8,6 @@ updates:
     labels:
       - "dependencies"
       - "automated pr"
-    assignees:
-      - "lpm0073"
-    reviewers:
-      - "lpm0073"
   - package-ecosystem: "pip"
     directory: "/api/terraform/python/layer_openai/"
     schedule:
@@ -20,10 +16,6 @@ updates:
       - "dependencies"
       - "python"
       - "automated pr"
-    assignees:
-      - "lpm0073"
-    reviewers:
-      - "lpm0073"
   - package-ecosystem: "pip"
     directory: "/api/terraform/python/layer_langchain/"
     schedule:
@@ -32,10 +24,6 @@ updates:
       - "dependencies"
       - "python"
       - "automated pr"
-    assignees:
-      - "lpm0073"
-    reviewers:
-      - "lpm0073"
   - package-ecosystem: "pip"
     directory: "/api/terraform/python/layer_nlp/"
     schedule:
@@ -44,10 +32,6 @@ updates:
       - "dependencies"
       - "python"
       - "automated pr"
-    assignees:
-      - "lpm0073"
-    reviewers:
-      - "lpm0073"
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
@@ -56,10 +40,6 @@ updates:
       - "dependencies"
       - "python"
       - "automated pr"
-    assignees:
-      - "lpm0073"
-    reviewers:
-      - "lpm0073"
   - package-ecosystem: "npm"
     directory: "/client"
     labels:
@@ -68,10 +48,6 @@ updates:
       - "automated pr"
     schedule:
       interval: "monthly"
-    assignees:
-      - "lpm0073"
-    reviewers:
-      - "lpm0073"
   - package-ecosystem: "npm"
     directory: "/"
     labels:
@@ -80,10 +56,6 @@ updates:
       - "automated pr"
     schedule:
       interval: "monthly"
-    assignees:
-      - "lpm0073"
-    reviewers:
-      - "lpm0073"
   - package-ecosystem: "github-actions"
     directory: "/"
     labels:
@@ -91,7 +63,3 @@ updates:
       - "automated pr"
     schedule:
       interval: "monthly"
-    assignees:
-      - "lpm0073"
-    reviewers:
-      - "lpm0073"
